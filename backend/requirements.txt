@@ -4,4 +4,5 @@ sqlalchemy
 psycopg[binary]
 python-dotenv
 openai
-passlib[bcrypt]
+passlib
+bcrypt==4.0.1
