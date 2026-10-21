@@ -394,16 +394,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 9. FOOTER - EXACT MATCH TO SOURCE CODE */}
+      {/* 9. FOOTER */}
       <footer className="bg-[#009CA6] text-white pt-16 pb-8 px-8 border-t-8 border-[#D1007B]">
         <div className="max-w-[1400px] mx-auto grid grid-cols-2 gap-12 mb-12">
           
           {/* Left Side: Brand & CTA */}
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-teal-200 mb-2 block">Think Digital Academy</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-teal-200 mb-2 block">THINK EduNova Academy</span>
             <h1 className="text-3xl font-bold tracking-tight mb-4">The future is digital</h1>
             <p className="text-sm text-teal-100 leading-relaxed mb-6 max-w-md">
-              Think Digital Academy is the first international virtual school providing a state of the art e-learning environment. We provide the United States GED, British International and South African CAPS curricula in an integrated, engaging and effective way.
+              THINK EduNova Academy is the first international virtual school providing a state of the art e-learning environment. We provide the United States GED, British International and South African CAPS curricula in an integrated, engaging and effective way.
             </p>
             <div className="flex gap-3 mb-8">
               <Link href="/trial" className="bg-[#E67E22] hover:bg-[#D35400] px-6 py-2 rounded-md text-sm font-bold transition-colors">Free trial</Link>
@@ -487,7 +487,7 @@ export default function HomePage() {
         </div>
 
         <div className="max-w-[1400px] mx-auto pt-8 border-t border-teal-500 flex flex-wrap justify-between items-center text-[11px] text-teal-100 gap-4">
-          <p>© Copyright – Think Digital Academy. All rights reserved.</p>
+          <p>© Copyright – THINK EduNova Academy. All rights reserved.</p>
           <div className="flex flex-wrap gap-4 uppercase font-bold tracking-wider">
             <Link href="#" className="hover:text-white">Terms and conditions</Link>
             <Link href="#" className="hover:text-white">Privacy policy</Link>
