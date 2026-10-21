@@ -2,21 +2,31 @@
 import { useState } from "react";
 import StudentSidebar from "@/components/sidebars/StudentSidebar";
 import TopNav from "@/components/TopNav";
-import { Send, Bot, User, Paperclip, Globe, Sparkles } from "lucide-react";
+import { Send, Bot, User, Paperclip, Globe } from "lucide-react";
 
 export default function StudentTutorPage() {
   const [messages, setMessages] = useState([{ id: "1", sender: "ai", text: "Hello! I am your AI Research Tutor. How can I assist with your university modules today?" }]);
   const [input, setInput] = useState("");
 
-  const handleSend = (e: React.FormEvent) => {
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
     setMessages([...messages, { id: Date.now().toString(), sender: "user", text: input }]);
+    const currentInput = input;
     setInput("");
-    // Simulate AI Response
-    setTimeout(() => {
-      setMessages(prev => [...prev, { id: Date.now().toString(), sender: "ai", text: "That is a great research question. When we connect the API, I will provide a full academic breakdown." }]);
-    }, 1000);
+
+    try {
+      // UPDATED TO LIVE RENDER URL
+      const response = await fetch("https://edunova-academy-qkk5.onrender.com/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: currentInput, language: "English", grade_level: "University" }),
+      });
+      const data = await response.json();
+      setMessages(prev => [...prev, { id: Date.now().toString(), sender: "ai", text: data.reply }]);
+    } catch (error) {
+      setMessages(prev => [...prev, { id: Date.now().toString(), sender: "ai", text: "Error: Could not connect to the AI backend." }]);
+    }
   };
 
   return (
