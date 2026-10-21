@@ -53,25 +53,25 @@ export default function HomePage() {
             <div className="absolute top-full left-1/2 -translate-x-1/2 w-[600px] bg-white rounded-xl shadow-2xl border border-gray-100 p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
               <div className="grid grid-cols-3 gap-6 text-left">
                 <div>
-                  <h4 className="text-[#333] font-bold border-b border-gray-100 pb-2 mb-3">School (CAPS & IEB)</h4>
+                  <h4 className="text-[#333] font-bold border-b border-gray-100 pb-2 mb-3">South African CAPS</h4>
                   <ul className="space-y-2">
-                    {["Foundation (R-3)", "Intermediate (4-6)", "Senior (7-9)", "FET / Matric (10-12)", "NCV Options", "FAQs"].map((item, i) => (
+                    {["Overview", "Foundation (R-3)", "Intermediate (4-6)", "Senior (7-9)", "FET / Matric (10-12)", "Adult Matric", "FAQs"].map((item, i) => (
                       <li key={i}><Link href="#" className="text-sm text-gray-500 hover:text-[#D1007B] flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
                     ))}
                   </ul>
                 </div>
                 <div>
-                  <h4 className="text-[#333] font-bold border-b border-gray-100 pb-2 mb-3">TVET & Colleges</h4>
+                  <h4 className="text-[#333] font-bold border-b border-gray-100 pb-2 mb-3">British International</h4>
                   <ul className="space-y-2">
-                    {["NCV Programmes", "NATED / Report 191", "NQF Level 5 & 6", "Engineering Studies", "Business Studies", "FAQs"].map((item, i) => (
+                    {["Overview", "Early Years - Stage R", "Lower Primary (Stages 1-3)", "Upper Primary (Stages 4-6)", "Lower Secondary (Stages 7-8)", "IGCSE", "AS Level", "FAQs"].map((item, i) => (
                       <li key={i}><Link href="#" className="text-sm text-gray-500 hover:text-[#D1007B] flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
                     ))}
                   </ul>
                 </div>
                 <div>
-                  <h4 className="text-[#333] font-bold border-b border-gray-100 pb-2 mb-3">Universities</h4>
+                  <h4 className="text-[#333] font-bold border-b border-gray-100 pb-2 mb-3">United States GED</h4>
                   <ul className="space-y-2">
-                    {["Bachelor's (NQF 7)", "Honours (NQF 8)", "Master's (NQF 9)", "Doctoral (NQF 10)", "APS & NBT Prep", "FAQs"].map((item, i) => (
+                    {["Overview", "Mathematical Reasoning", "Reasoning Through Language Arts", "Science", "Social Studies", "FAQs"].map((item, i) => (
                       <li key={i}><Link href="#" className="text-sm text-gray-500 hover:text-[#D1007B] flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
                     ))}
                   </ul>
@@ -183,10 +183,10 @@ export default function HomePage() {
               🏆 VIRTUAL SCHOOL OF THE YEAR
             </div>
             <h1 className="text-4xl font-bold leading-tight mb-6">
-              Award-winning online education from Grade R to PhD
+              Award-winning online education for Schools, Colleges & Universities
             </h1>
             <p className="text-sm text-pink-100 mb-8 leading-relaxed">
-              EduNova Academy is South Africa's leading AI-powered virtual school. We provide the <strong>CAPS</strong>, <strong>NCV</strong>, <strong>NATED</strong>, and <strong>University</strong> curricula in an integrated, engaging way.
+              EduNova Academy is South Africa's leading AI-powered virtual school. We provide the <strong>CAPS</strong>, <strong>British International</strong>, <strong>GED</strong>, and <strong>University</strong> curricula in an integrated, engaging way.
             </p>
             <div className="space-y-3">
               <Link href="/login" className="w-full bg-[#009CA6] hover:bg-[#00828A] text-white py-3 rounded-full font-bold text-sm flex justify-center items-center gap-2 transition-colors">More info <ArrowRight size={16}/></Link>
@@ -227,47 +227,85 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* 6. CURRICULUM SECTION - UPDATED SA STRUCTURE */}
+      {/* 6. CURRICULUM SECTION - RESTORED WITH UPDATED TEXT */}
       <section className="py-24 bg-white">
         <div className="max-w-[1200px] mx-auto px-8 text-center">
           <p className="text-[#009CA6] font-bold tracking-widest text-[10px] uppercase mb-2">OUR CURRICULA</p>
-          <h2 className="text-3xl font-medium text-[#333333] mb-4">South African pathways for every stage</h2>
+          <h2 className="text-3xl font-medium text-[#333333] mb-4">World-class curricula for every stage</h2>
           <p className="text-gray-500 text-sm max-w-2xl mx-auto mb-16">
-            From CAPS foundation phase to NQF Level 10 Doctoral degrees, EduNova provides the curriculum, AI support, and administrative structure for South African learners and students.
+            Whether you are in primary school or completing a postgraduate degree, EduNova Academy provides the curriculum and AI support you need.
           </p>
 
           <div className="grid grid-cols-3 gap-6 text-left">
-            {/* School Streams */}
+            {/* CAPS Card */}
             <div className="bg-[#009CA6] rounded-xl overflow-hidden shadow-lg flex flex-col">
               <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=600" alt="CAPS" className="h-48 w-full object-cover" />
               <div className="p-6 text-white flex-grow flex flex-col">
-                <h3 className="text-xl font-medium mb-3">School (CAPS & IEB)</h3>
+                <h3 className="text-xl font-medium mb-3">South African CAPS</h3>
                 <p className="text-xs text-teal-100 mb-6 flex-grow">
-                  Foundation Phase (R-3), Intermediate (4-6), Senior (7-9), and FET (10-12). Includes CAPS, IEB, and NCV options. We support SA-SAMS reporting for public school compliance.
+                  The Curriculum and Assessment Policy Statement (CAPS) from Grades R – 12. Complete this standard South African curriculum from anywhere.
                 </p>
                 <Link href="#" className="inline-block bg-white text-[#009CA6] px-6 py-2 rounded-full font-bold text-xs w-max hover:bg-gray-100 transition-colors">Curriculum info →</Link>
               </div>
             </div>
 
-            {/* TVET Streams */}
+            {/* British Card */}
             <div className="bg-[#009CA6] rounded-xl overflow-hidden shadow-lg flex flex-col">
-              <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=600" alt="TVET" className="h-48 w-full object-cover" />
+              <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=600" alt="British" className="h-48 w-full object-cover" />
               <div className="p-6 text-white flex-grow flex flex-col">
-                <h3 className="text-xl font-medium mb-3">TVET & NATED</h3>
+                <h3 className="text-xl font-medium mb-3">British International</h3>
                 <p className="text-xs text-teal-100 mb-6 flex-grow">
-                  NCV (National Certificate Vocational) and NATED/Report 191 programmes. Engineering, Business, and Utility Studies. NQF Levels 5-6 (Higher Certificate & Advanced Certificate).
+                  A highly structured international curriculum designed to meet the needs of all students. Recognised globally.
                 </p>
                 <Link href="#" className="inline-block bg-white text-[#009CA6] px-6 py-2 rounded-full font-bold text-xs w-max hover:bg-gray-100 transition-colors">Curriculum info →</Link>
               </div>
             </div>
 
-            {/* University Streams */}
+            {/* GED Card */}
+            <div className="bg-[#009CA6] rounded-xl overflow-hidden shadow-lg flex flex-col">
+              <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=600" alt="GED" className="h-48 w-full object-cover" />
+              <div className="p-6 text-white flex-grow flex flex-col">
+                <h3 className="text-xl font-medium mb-3">United States GED</h3>
+                <p className="text-xs text-teal-100 mb-6 flex-grow">
+                  The GED® is the internationally recognised higher secondary certificate, accepted by almost all universities globally.
+                </p>
+                <Link href="#" className="inline-block bg-white text-[#009CA6] px-6 py-2 rounded-full font-bold text-xs w-max hover:bg-gray-100 transition-colors">Curriculum info →</Link>
+              </div>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-3 gap-6 text-left mt-6">
+            {/* Colleges & TVET */}
+            <div className="bg-[#009CA6] rounded-xl overflow-hidden shadow-lg flex flex-col">
+              <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=600" alt="College" className="h-48 w-full object-cover" />
+              <div className="p-6 text-white flex-grow flex flex-col">
+                <h3 className="text-xl font-medium mb-3">Colleges & TVET</h3>
+                <p className="text-xs text-teal-100 mb-6 flex-grow">
+                  N-Levels, Diplomas, and vocational skills for the modern workforce. Gain practical skills and step-by-step guidance.
+                </p>
+                <Link href="#" className="inline-block bg-white text-[#009CA6] px-6 py-2 rounded-full font-bold text-xs w-max hover:bg-gray-100 transition-colors">Curriculum info →</Link>
+              </div>
+            </div>
+
+            {/* University */}
             <div className="bg-[#009CA6] rounded-xl overflow-hidden shadow-lg flex flex-col">
               <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&q=80&w=600" alt="University" className="h-48 w-full object-cover" />
               <div className="p-6 text-white flex-grow flex flex-col">
-                <h3 className="text-xl font-medium mb-3">University (NQF 7-10)</h3>
+                <h3 className="text-xl font-medium mb-3">University</h3>
                 <p className="text-xs text-teal-100 mb-6 flex-grow">
-                  Bachelor's (NQF 7), Honours (NQF 8), Master's (NQF 9), and Doctoral (NQF 10). We support APS tracking and NBT preparation for university entrance.
+                  Undergraduate and Postgraduate modules. Access advanced research support, academic resources, and AI tutors.
+                </p>
+                <Link href="#" className="inline-block bg-white text-[#009CA6] px-6 py-2 rounded-full font-bold text-xs w-max hover:bg-gray-100 transition-colors">Curriculum info →</Link>
+              </div>
+            </div>
+            
+            {/* Short Courses */}
+            <div className="bg-[#009CA6] rounded-xl overflow-hidden shadow-lg flex flex-col">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=600" alt="Short Courses" className="h-48 w-full object-cover" />
+              <div className="p-6 text-white flex-grow flex flex-col">
+                <h3 className="text-xl font-medium mb-3">Short Courses</h3>
+                <p className="text-xs text-teal-100 mb-6 flex-grow">
+                  Focused skills and programmes designed to upskill you quickly for the job market. Learn at your own pace.
                 </p>
                 <Link href="#" className="inline-block bg-white text-[#009CA6] px-6 py-2 rounded-full font-bold text-xs w-max hover:bg-gray-100 transition-colors">Curriculum info →</Link>
               </div>
@@ -345,7 +383,7 @@ export default function HomePage() {
         <div className="max-w-[1400px] mx-auto grid grid-cols-2 gap-12 mb-12">
           <div>
             <h1 className="text-2xl font-bold tracking-tight mb-4">The future is digital</h1>
-            <p className="text-sm text-teal-100 leading-relaxed mb-6 max-w-md">EduNova Academy is the first international virtual school providing a state of the art e-learning environment. We provide CAPS, NCV, NATED, and University curricula in an integrated, engaging and effective way.</p>
+            <p className="text-sm text-teal-100 leading-relaxed mb-6 max-w-md">EduNova Academy is the first international virtual school providing a state of the art e-learning environment. We provide the United States GED, British International, South African CAPS and University curricula in an integrated, engaging and effective way.</p>
             <div className="flex gap-3">
               <Link href="/trial" className="bg-[#E67E22] hover:bg-[#D35400] px-6 py-2 rounded-full text-sm font-bold transition-colors">Free Trial</Link>
               <Link href="/enrol" className="bg-[#D1007B] hover:bg-[#A3005F] px-6 py-2 rounded-full text-sm font-bold transition-colors">Enrol now</Link>
