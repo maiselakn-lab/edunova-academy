@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { 
-  Search, ArrowRight, CheckCircle2, MessageCircle, ChevronDown, BookOpen
+  Search, ArrowRight, CheckCircle2, MessageCircle, ChevronDown, BookOpen, Phone, Globe
 } from "lucide-react";
 
 export default function HomePage() {
@@ -12,7 +12,7 @@ export default function HomePage() {
       {/* 1. TOP BAR */}
       <div className="bg-[#009CA6] text-white text-xs py-2 px-8 flex justify-between items-center relative z-50">
         <p className="flex items-center gap-2 font-medium">
-          <span className="w-2 h-2 rounded-full bg-[#A2E8E6]"></span>
+          <span className="w-2 h-2 rounded-full bg-[#A2E8E6] animate-pulse"></span>
           International online school - study from anywhere in the world
         </p>
         <div className="flex items-center gap-3">
@@ -22,7 +22,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 2. NAVBAR WITH DROPDOWNS */}
+      {/* 2. NAVBAR WITH MEGA MENU */}
       <nav className="bg-[#333333] border-b-4 border-[#009CA6] px-8 py-4 flex justify-between items-center relative z-40 shadow-md">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-3">
@@ -48,34 +48,42 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* Curricula MEGA MENU (Exact match to source code) */}
           <div className="relative group py-2">
             <button className="bg-[#D1007B] text-white px-4 py-1.5 rounded-full flex items-center gap-1">Curricula <ChevronDown size={12}/></button>
-            <div className="absolute top-full left-1/2 -translate-x-1/2 w-[600px] bg-white rounded-xl shadow-2xl border border-gray-100 p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
-              <div className="grid grid-cols-3 gap-6 text-left">
+            <div className="absolute top-full left-1/2 -translate-x-1/2 w-[700px] bg-white rounded-xl shadow-2xl border border-gray-100 p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
+              <div className="grid grid-cols-3 gap-8 text-left">
+                
+                {/* Column 1: South African CAPS */}
                 <div>
-                  <h4 className="text-[#333] font-bold border-b border-gray-100 pb-2 mb-3">South African CAPS</h4>
+                  <h4 className="text-[#333] font-bold border-b border-gray-100 pb-2 mb-3 text-sm">South African CAPS</h4>
                   <ul className="space-y-2">
-                    {["Overview", "Foundation (R-3)", "Intermediate (4-6)", "Senior (7-9)", "FET / Matric (10-12)", "Adult Matric", "FAQs"].map((item, i) => (
+                    {["Overview", "Primary (Grades R – 7)", "High (Grades 8 – 12)", "Adult Matric", "FAQs"].map((item, i) => (
                       <li key={i}><Link href="#" className="text-sm text-gray-500 hover:text-[#D1007B] flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
                     ))}
                   </ul>
                 </div>
+
+                {/* Column 2: British International */}
                 <div>
-                  <h4 className="text-[#333] font-bold border-b border-gray-100 pb-2 mb-3">British International</h4>
+                  <h4 className="text-[#333] font-bold border-b border-gray-100 pb-2 mb-3 text-sm">British International</h4>
                   <ul className="space-y-2">
-                    {["Overview", "Early Years - Stage R", "Lower Primary (Stages 1-3)", "Upper Primary (Stages 4-6)", "Lower Secondary (Stages 7-8)", "IGCSE", "AS Level", "FAQs"].map((item, i) => (
+                    {["Overview", "Early Years – Stage R", "Lower Primary (Stages 1 – 3)", "Upper Primary (Stages 4 – 6)", "Lower Secondary (Stages 7 – 8)", "IGCSE", "AS Level", "FAQs"].map((item, i) => (
                       <li key={i}><Link href="#" className="text-sm text-gray-500 hover:text-[#D1007B] flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
                     ))}
                   </ul>
                 </div>
+
+                {/* Column 3: United States GED */}
                 <div>
-                  <h4 className="text-[#333] font-bold border-b border-gray-100 pb-2 mb-3">United States GED</h4>
+                  <h4 className="text-[#333] font-bold border-b border-gray-100 pb-2 mb-3 text-sm">United States GED</h4>
                   <ul className="space-y-2">
                     {["Overview", "Mathematical Reasoning", "Reasoning Through Language Arts", "Science", "Social Studies", "FAQs"].map((item, i) => (
                       <li key={i}><Link href="#" className="text-sm text-gray-500 hover:text-[#D1007B] flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
                     ))}
                   </ul>
                 </div>
+
               </div>
             </div>
           </div>
@@ -84,79 +92,20 @@ export default function HomePage() {
             <button className="hover:text-[#009CA6] flex items-center gap-1">Courses <ChevronDown size={12}/></button>
             <div className="absolute top-full left-0 w-64 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
               <ul className="space-y-3">
-                {["Winter School - Maths and Science for matric", "Coding and Robotics", "Mind Power for Kids", "Mind Power for Teens", "Social Media for Kids", "Social Media for Teens"].map((item, i) => (
+                {["Winter School – Maths and Science for matrics", "Coding and Robotics", "Mind Power for Kids", "Mind Power for Teens", "Social Media for Kids", "Social Media for Teens"].map((item, i) => (
                   <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
                 ))}
               </ul>
             </div>
           </div>
 
-          <div className="relative group py-2">
-            <button className="hover:text-[#009CA6] flex items-center gap-1">Fees <ChevronDown size={12}/></button>
-            <div className="absolute top-full left-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
-              <ul className="space-y-3">
-                {["Annual tuition fees", "Fee calculator", "Short course and winter school fees", "Special offers"].map((item, i) => (
-                  <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="relative group py-2">
-            <button className="hover:text-[#009CA6] flex items-center gap-1">Info <ChevronDown size={12}/></button>
-            <div className="absolute top-full left-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
-              <ul className="space-y-3">
-                {["How to get started", "Stationery and equipment", "Suggested school terms", "Glossary of terms used"].map((item, i) => (
-                  <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="relative group py-2">
-            <button className="hover:text-[#009CA6] flex items-center gap-1">FAQs <ChevronDown size={12}/></button>
-            <div className="absolute top-full left-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
-              <ul className="space-y-3">
-                {["General", "Fees and payment", "CAPS & IEB", "TVET & NATED", "University"].map((item, i) => (
-                  <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="relative group py-2">
-            <button className="hover:text-[#009CA6] flex items-center gap-1">Read <ChevronDown size={12}/></button>
-            <div className="absolute top-full right-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
-              <ul className="space-y-3">
-                {["Think Tank blog", "Reading Room", "Think Digital News"].map((item, i) => (
-                  <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="relative group py-2">
-            <button className="hover:text-[#009CA6] flex items-center gap-1">Social <ChevronDown size={12}/></button>
-            <div className="absolute top-full right-0 w-64 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
-              <ul className="space-y-3">
-                {["About our clubs", "Art Club", "Cartoon and Anime Club", "Dance Club", "Drama Stars Club", "Jewels and Jems Club", "Mathletes Club", "Movement Society", "Pilates Club", "Science Club", "The Zen Club", "Time Travellers Club", "Yoga Club"].map((item, i) => (
-                  <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="relative group py-2">
-            <button className="hover:text-[#009CA6] flex items-center gap-1">Hubs <ChevronDown size={12}/></button>
-            <div className="absolute top-full right-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
-              <ul className="space-y-3">
-                {["Find a coaching hub", "Register a coaching hub"].map((item, i) => (
-                  <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
+          <Link href="#" className="hover:text-[#009CA6] flex items-center gap-1">Fees <ChevronDown size={12}/></Link>
+          <Link href="#" className="hover:text-[#009CA6] flex items-center gap-1">Info <ChevronDown size={12}/></Link>
+          <Link href="#" className="hover:text-[#009CA6]">FAQs</Link>
+          <Link href="#" className="hover:text-[#009CA6] flex items-center gap-1">Read <ChevronDown size={12}/></Link>
+          <Link href="#" className="hover:text-[#009CA6] flex items-center gap-1">Social <ChevronDown size={12}/></Link>
+          <Link href="#" className="hover:text-[#009CA6] flex items-center gap-1">Hubs <ChevronDown size={12}/></Link>
+          
           <button className="text-white hover:text-[#009CA6]"><Search size={16}/></button>
         </div>
       </nav>
@@ -227,7 +176,7 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* 6. CURRICULUM SECTION - RESTORED WITH UPDATED TEXT */}
+      {/* 6. CURRICULUM SECTION */}
       <section className="py-24 bg-white">
         <div className="max-w-[1200px] mx-auto px-8 text-center">
           <p className="text-[#009CA6] font-bold tracking-widest text-[10px] uppercase mb-2">OUR CURRICULA</p>
@@ -378,28 +327,107 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 9. FOOTER */}
+      {/* 9. FOOTER - EXACT MATCH TO SOURCE CODE */}
       <footer className="bg-[#009CA6] text-white pt-16 pb-8 px-8 border-t-8 border-[#D1007B]">
         <div className="max-w-[1400px] mx-auto grid grid-cols-2 gap-12 mb-12">
+          
+          {/* Left Side: Brand & CTA */}
           <div>
-            <h1 className="text-2xl font-bold tracking-tight mb-4">The future is digital</h1>
-            <p className="text-sm text-teal-100 leading-relaxed mb-6 max-w-md">EduNova Academy is the first international virtual school providing a state of the art e-learning environment. We provide the United States GED, British International, South African CAPS and University curricula in an integrated, engaging and effective way.</p>
-            <div className="flex gap-3">
-              <Link href="/trial" className="bg-[#E67E22] hover:bg-[#D35400] px-6 py-2 rounded-full text-sm font-bold transition-colors">Free Trial</Link>
-              <Link href="/enrol" className="bg-[#D1007B] hover:bg-[#A3005F] px-6 py-2 rounded-full text-sm font-bold transition-colors">Enrol now</Link>
-              <Link href="#" className="bg-white text-[#009CA6] hover:bg-gray-100 px-6 py-2 rounded-full text-sm font-bold transition-colors">Subscribe</Link>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-teal-200 mb-2 block">Think Digital Academy</span>
+            <h1 className="text-3xl font-bold tracking-tight mb-4">The future is digital</h1>
+            <p className="text-sm text-teal-100 leading-relaxed mb-6 max-w-md">
+              Think Digital Academy is the first international virtual school providing a state of the art e-learning environment. We provide the United States GED, British International and South African CAPS curricula in an integrated, engaging and effective way.
+            </p>
+            <div className="flex gap-3 mb-8">
+              <Link href="/trial" className="bg-[#E67E22] hover:bg-[#D35400] px-6 py-2 rounded-md text-sm font-bold transition-colors">Free trial</Link>
+              <Link href="/enrol" className="bg-[#D1007B] hover:bg-[#A3005F] px-6 py-2 rounded-md text-sm font-bold transition-colors">Continue enrolment</Link>
+              <Link href="/login" className="bg-transparent border border-white hover:bg-white hover:text-[#009CA6] px-6 py-2 rounded-md text-sm font-bold transition-colors">Login</Link>
+              <button className="bg-white text-[#009CA6] hover:bg-gray-100 px-6 py-2 rounded-md text-sm font-bold transition-colors">Subscribe</button>
+            </div>
+            <div className="flex gap-2">
+              <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 cursor-pointer">f</span>
+              <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 cursor-pointer">X</span>
+              <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 cursor-pointer">▶</span>
+              <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 cursor-pointer">📷</span>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-             <div className="bg-white/10 p-4 rounded-xl border border-white/20 flex items-center gap-4"><div className="bg-white p-2 rounded-full text-[#D1007B]"><MessageCircle size={20}/></div><div><p className="text-[10px] font-bold uppercase tracking-wider text-teal-200">Email</p><p className="text-sm font-bold">hello@edunovaacademy.org</p></div></div>
-             <div className="bg-white/10 p-4 rounded-xl border border-white/20 flex items-center gap-4"><div className="bg-white p-2 rounded-full text-[#E67E22]"><MessageCircle size={20}/></div><div><p className="text-[10px] font-bold uppercase tracking-wider text-teal-200">WhatsApp</p><p className="text-sm font-bold">+27 71 408 4677</p></div></div>
-             <div className="bg-white/10 p-4 rounded-xl border border-white/20 flex items-center gap-4 col-span-2"><div className="bg-white p-2 rounded-full text-[#009CA6]"><MessageCircle size={20}/></div><div><p className="text-[10px] font-bold uppercase tracking-wider text-teal-200">Regional Office Numbers</p><p className="text-sm font-bold">South Africa: +27 12 998 1472</p></div></div>
+
+          {/* Right Side: "We are a message away" Cards */}
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-teal-200 mb-2 block">Connect with us</span>
+            <h2 className="text-3xl font-bold tracking-tight mb-6">We are a message away</h2>
+            
+            <div className="grid grid-cols-2 gap-4">
+              {/* Email Card */}
+              <div className="bg-white/10 p-4 rounded-xl border border-white/20 flex items-center gap-4">
+                <div className="bg-white p-2 rounded-full text-[#D1007B]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="w-5 h-5"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-teal-200">Email</p>
+                  <p className="text-sm font-bold">hello@edunovaacademy.org</p>
+                </div>
+              </div>
+
+              {/* Call Back Card */}
+              <div className="bg-white/10 p-4 rounded-xl border border-white/20 flex items-center gap-4">
+                <div className="bg-white p-2 rounded-full text-[#E67E22]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="w-5 h-5"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-teal-200">Request a call back</p>
+                  <p className="text-sm font-bold">We will phone you</p>
+                </div>
+              </div>
+
+              {/* Regional Numbers Card */}
+              <div className="col-span-2 bg-white/10 p-4 rounded-xl border border-white/20 flex items-start gap-4">
+                <div className="bg-white p-2 rounded-full text-[#009CA6] mt-1">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="w-5 h-5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+                </div>
+                <div className="flex-grow">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-teal-200 mb-2">Regional office phone numbers</p>
+                  <div className="flex justify-between items-center border-b border-white/10 pb-1 mb-1">
+                    <span className="text-xs text-teal-100">United States</span>
+                    <span className="text-sm font-bold">+1 239 238 4411</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-teal-100">South Africa</span>
+                    <span className="text-sm font-bold">+27 12 998 1472</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* WhatsApp Card */}
+              <div className="col-span-2 bg-white/10 p-4 rounded-xl border border-white/20 flex items-start gap-4 mt-2">
+                <div className="bg-green-500 p-2 rounded-full text-white mt-1">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.2 14c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.8-1c.2-.2.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.8-.1 1.4Z"/></svg>
+                </div>
+                <div className="flex-grow">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-teal-200 mb-2">WhatsApp</p>
+                  <div className="flex justify-between items-center border-b border-white/10 pb-1 mb-1">
+                    <span className="text-xs text-teal-100">English</span>
+                    <span className="text-sm font-bold">+27 71 408 4677</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-teal-100">Afrikaans</span>
+                    <span className="text-sm font-bold">+27 67 912 7838</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="max-w-[1400px] mx-auto pt-8 border-t border-teal-500 flex flex-wrap justify-between items-center text-[10px] text-teal-100 gap-4">
-          <p>© Copyright - EduNova Academy. All rights reserved.</p>
+
+        <div className="max-w-[1400px] mx-auto pt-8 border-t border-teal-500 flex flex-wrap justify-between items-center text-[11px] text-teal-100 gap-4">
+          <p>© Copyright – Think Digital Academy. All rights reserved.</p>
           <div className="flex flex-wrap gap-4 uppercase font-bold tracking-wider">
-            <Link href="#" className="hover:text-white">Terms and conditions</Link><Link href="#" className="hover:text-white">Privacy policy</Link><Link href="#" className="hover:text-white">Cookie policy</Link><Link href="#" className="hover:text-white">PAIA</Link><Link href="#" className="hover:text-white">Anti-spam policy</Link><Link href="#" className="hover:text-white">Search</Link>
+            <Link href="#" className="hover:text-white">Terms and conditions</Link>
+            <Link href="#" className="hover:text-white">Privacy policy</Link>
+            <Link href="#" className="hover:text-white">Cookie policy</Link>
+            <Link href="#" className="hover:text-white">PAIA</Link>
+            <Link href="#" className="hover:text-white">Anti-spam policy</Link>
+            <Link href="#" className="hover:text-white">Search</Link>
           </div>
         </div>
       </footer>
