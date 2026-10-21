@@ -8,23 +8,23 @@ from openai import OpenAI
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 
-# Import our database setup and models
+# 1. Load environment variables FIRST
+load_dotenv()
+
+# 2. Import database setup and models
 import models
 from database import engine, SessionLocal
 
-# Load environment variables (Must be before we use os.getenv)
-load_dotenv()
-
-# Create the database tables on startup
+# 3. Create the database tables on startup (AFTER models are loaded)
 models.Base.metadata.create_all(bind=engine)
 
-# Initialize FastAPI app
+# 4. Initialize FastAPI app
 app = FastAPI(title="EduNova AI Backend")
 
 # Allow Next.js to talk to Python
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Temporarily allow all for testing. You can lock this down to your Vercel URL later.
+    allow_origins=["*"], # Temporarily allow all for testing.
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -74,7 +74,6 @@ class TutorApplicationCreate(BaseModel):
 
 # --- API ROUTES ---
 
-# THIS ROUTE FIXES THE "LOADING" BLANK PAGE
 @app.get("/")
 def read_root():
     return {"status": "Online", "message": "Welcome to the EduNova API. Go to /docs to test endpoints."}
