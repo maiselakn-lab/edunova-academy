@@ -22,7 +22,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 2. NAVBAR WITH MEGA MENU */}
+      {/* 2. NAVBAR WITH MEGA MENU & FIXED DROPDOWNS */}
       <nav className="bg-[#333333] border-b-4 border-[#009CA6] px-8 py-4 flex justify-between items-center relative z-40 shadow-md">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-3">
@@ -37,6 +37,7 @@ export default function HomePage() {
         <div className="hidden lg:flex items-center gap-6 text-xs font-bold text-white uppercase tracking-wider">
           <Link href="#" className="hover:text-[#009CA6]">Home</Link>
           
+          {/* About Dropdown */}
           <div className="relative group py-2">
             <button className="hover:text-[#009CA6] flex items-center gap-1">About <ChevronDown size={12}/></button>
             <div className="absolute top-full left-0 w-64 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
@@ -48,7 +49,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Curricula MEGA MENU (Exact match to source code) */}
+          {/* Curricula MEGA MENU */}
           <div className="relative group py-2">
             <button className="bg-[#D1007B] text-white px-4 py-1.5 rounded-full flex items-center gap-1">Curricula <ChevronDown size={12}/></button>
             <div className="absolute top-full left-1/2 -translate-x-1/2 w-[700px] bg-white rounded-xl shadow-2xl border border-gray-100 p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
@@ -88,6 +89,7 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* Courses Dropdown */}
           <div className="relative group py-2">
             <button className="hover:text-[#009CA6] flex items-center gap-1">Courses <ChevronDown size={12}/></button>
             <div className="absolute top-full left-0 w-64 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
@@ -99,13 +101,78 @@ export default function HomePage() {
             </div>
           </div>
 
-          <Link href="#" className="hover:text-[#009CA6] flex items-center gap-1">Fees <ChevronDown size={12}/></Link>
-          <Link href="#" className="hover:text-[#009CA6] flex items-center gap-1">Info <ChevronDown size={12}/></Link>
-          <Link href="#" className="hover:text-[#009CA6]">FAQs</Link>
-          <Link href="#" className="hover:text-[#009CA6] flex items-center gap-1">Read <ChevronDown size={12}/></Link>
-          <Link href="#" className="hover:text-[#009CA6] flex items-center gap-1">Social <ChevronDown size={12}/></Link>
-          <Link href="#" className="hover:text-[#009CA6] flex items-center gap-1">Hubs <ChevronDown size={12}/></Link>
-          
+          {/* Fees Dropdown */}
+          <div className="relative group py-2">
+            <button className="hover:text-[#009CA6] flex items-center gap-1">Fees <ChevronDown size={12}/></button>
+            <div className="absolute top-full left-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
+              <ul className="space-y-3">
+                {["Annual tuition fees", "Fee calculator", "Short course and winter school fees", "Special offers"].map((item, i) => (
+                  <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Info Dropdown */}
+          <div className="relative group py-2">
+            <button className="hover:text-[#009CA6] flex items-center gap-1">Info <ChevronDown size={12}/></button>
+            <div className="absolute top-full left-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
+              <ul className="space-y-3">
+                {["How to get started", "Stationery and equipment", "Suggested school terms", "Glossary of terms used"].map((item, i) => (
+                  <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* FAQs Dropdown */}
+          <div className="relative group py-2">
+            <button className="hover:text-[#009CA6] flex items-center gap-1">FAQs <ChevronDown size={12}/></button>
+            <div className="absolute top-full left-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
+              <ul className="space-y-3">
+                {["General", "Fees and payment", "Cambridge International", "South African CAPS", "United States GED"].map((item, i) => (
+                  <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Read Dropdown */}
+          <div className="relative group py-2">
+            <button className="hover:text-[#009CA6] flex items-center gap-1">Read <ChevronDown size={12}/></button>
+            <div className="absolute top-full right-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
+              <ul className="space-y-3">
+                {["Think Tank blog", "Reading Room", "Think Digital News"].map((item, i) => (
+                  <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Social Dropdown */}
+          <div className="relative group py-2">
+            <button className="hover:text-[#009CA6] flex items-center gap-1">Social <ChevronDown size={12}/></button>
+            <div className="absolute top-full right-0 w-64 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
+              <ul className="space-y-3">
+                {["About our clubs", "Art Club", "Cartoon and Anime Club", "Dance Club", "Drama Stars Club", "Jewels and Jems Club", "Mathletes Club", "Movement Society", "Pilates Club", "Science Club", "The Zen Club", "Time Travellers Club", "Yoga Club"].map((item, i) => (
+                  <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Hubs Dropdown */}
+          <div className="relative group py-2">
+            <button className="hover:text-[#009CA6] flex items-center gap-1">Hubs <ChevronDown size={12}/></button>
+            <div className="absolute top-full right-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-2">
+              <ul className="space-y-3">
+                {["Find a coaching hub", "Register a coaching hub"].map((item, i) => (
+                  <li key={i}><Link href="#" className="flex items-center gap-2 text-[#333] hover:text-[#D1007B]"><span className="w-1.5 h-1.5 rounded-full bg-[#D1007B]"></span> {item}</Link></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
           <button className="text-white hover:text-[#009CA6]"><Search size={16}/></button>
         </div>
       </nav>
