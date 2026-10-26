@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from typing import List
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -15,7 +16,7 @@ load_dotenv()
 import models
 from database import engine, SessionLocal
 
-# 3. Create the database tables on startup (AFTER models are loaded)
+# 3. Create the database tables on startup
 models.Base.metadata.create_all(bind=engine)
 
 # 4. Initialize FastAPI app
@@ -24,7 +25,7 @@ app = FastAPI(title="EduNova AI Backend")
 # Allow Next.js to talk to Python
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Temporarily allow all for testing.
+    allow_origins=["*"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -47,7 +48,8 @@ def get_db():
     finally:
         db.close()
 
-# --- Pydantic Models ---
+# --- PYDANTIC MODELS (Data Validation) ---
+
 class ChatRequest(BaseModel):
     message: str
     language: str = "English"
@@ -72,12 +74,17 @@ class TutorApplicationCreate(BaseModel):
     subjects: str
     qualifications: str
 
+class TestSubmission(BaseModel):
+    question_id: int
+    selected_answer: str
+
 # --- API ROUTES ---
 
 @app.get("/")
 def read_root():
     return {"status": "Online", "message": "Welcome to the EduNova API. Go to /docs to test endpoints."}
 
+# --- AI TUTOR ---
 @app.post("/api/chat")
 async def chat_with_tutor(request: ChatRequest):
     try:
@@ -107,6 +114,7 @@ async def chat_with_tutor(request: ChatRequest):
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate AI response.")
 
+# --- AUTHENTICATION ---
 @app.post("/api/signup")
 def signup(user: UserCreate, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
@@ -149,6 +157,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         }
     }
 
+# --- TUTOR APPLICATIONS ---
 @app.post("/api/apply-tutor")
 def apply_tutor(application: TutorApplicationCreate, db: Session = Depends(get_db)):
     existing = db.query(models.TutorApplication).filter(models.TutorApplication.email == application.email).first()
@@ -193,3 +202,68 @@ def reject_tutor(app_id: int, db: Session = Depends(get_db)):
     app_record.status = "Rejected"
     db.commit()
     return {"message": "Tutor rejected"}
+
+# --- NEW ACADEMIC ENDPOINTS ---
+
+# 1. Create a Course
+@app.post("/api/courses")
+def create_course(title: str, description: str, grade_level: str, curriculum: str, db: Session = Depends(get_db)):
+    new_course = models.Course(title=title, description=description, grade_level=grade_level, curriculum=curriculum)
+    db.add(new_course)
+    db.commit()
+    db.refresh(new_course)
+    return new_course
+
+# 2. Get all courses
+@app.get("/api/courses")
+def get_courses(db: Session = Depends(get_db)):
+    return db.query(models.Course).all()
+
+# 3. Create a Lesson
+@app.post("/api/courses/{course_id}/lessons")
+def create_lesson(course_id: int, title: str, content: str, video_url: str, order: int, db: Session = Depends(get_db)):
+    new_lesson = models.Lesson(course_id=course_id, title=title, content=content, video_url=video_url, order=order)
+    db.add(new_lesson)
+    db.commit()
+    db.refresh(new_lesson)
+    return new_lesson
+
+# 4. Get lessons for a specific course
+@app.get("/api/courses/{course_id}/lessons")
+def get_lessons(course_id: int, db: Session = Depends(get_db)):
+    return db.query(models.Lesson).filter(models.Lesson.course_id == course_id).order_by(models.Lesson.order).all()
+
+# 5. Get a specific lesson details (including questions)
+@app.get("/api/lessons/{lesson_id}")
+def get_lesson(lesson_id: int, db: Session = Depends(get_db)):
+    lesson = db.query(models.Lesson).filter(models.Lesson.id == lesson_id).first()
+    if not lesson:
+        raise HTTPException(status_code=404, detail="Lesson not found")
+    
+    questions = db.query(models.Question).filter(models.Question.lesson_id == lesson_id).all()
+    
+    return {
+        "lesson": lesson,
+        "questions": questions
+    }
+
+# 6. Submit a test and get a score
+@app.post("/api/lessons/{lesson_id}/submit")
+def submit_test(lesson_id: int, submissions: List[TestSubmission], db: Session = Depends(get_db)):
+    questions = db.query(models.Question).filter(models.Question.lesson_id == lesson_id).all()
+    
+    score = 0
+    total_questions = len(questions)
+    
+    for sub in submissions:
+        question = next((q for q in questions if q.id == sub.question_id), None)
+        if question and question.correct_answer == sub.selected_answer:
+            score += 1
+            
+    percentage = (score / total_questions) * 100 if total_questions > 0 else 0
+    
+    return {
+        "score": score,
+        "total": total_questions,
+        "percentage": round(percentage, 2)
+    }
