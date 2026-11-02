@@ -163,3 +163,11 @@ async def chat_with_tutor(request: ChatRequest):
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate AI response.")
+
+# --- TEMPORARY ADMIN ENDPOINT ---
+@app.post("/api/admin/reset-db")
+def reset_database():
+    # WARNING: This deletes all data. Only use in development.
+    models.Base.metadata.drop_all(bind=engine)
+    models.Base.metadata.create_all(bind=engine)
+    return {"message": "Database reset successfully. All tables recreated."}
