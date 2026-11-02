@@ -30,6 +30,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Initialize Groq Client
+client = OpenAI(
+    api_key=os.getenv("GROQ_API_KEY"),
+    base_url="https://api.groq.com/openai/v1"
+)
+
 # Password Hashing setup
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -42,6 +48,12 @@ def get_db():
         db.close()
 
 # --- PYDANTIC MODELS ---
+
+class ChatRequest(BaseModel):
+    message: str
+    language: str = "English"
+    grade_level: str = "Grade 10"
+
 class UserCreate(BaseModel):
     first_name: str
     last_name: str
@@ -64,7 +76,7 @@ class SchoolCreate(BaseModel):
 def read_root():
     return {"status": "Online", "message": "Welcome to the THINK EduNova API."}
 
-# 1. Create a School
+# 1. Create a School (Tenant)
 @app.post("/api/schools")
 def create_school(school: SchoolCreate, db: Session = Depends(get_db)):
     new_school = models.School(name=school.name, address=school.address)
@@ -78,7 +90,7 @@ def create_school(school: SchoolCreate, db: Session = Depends(get_db)):
 def get_schools(db: Session = Depends(get_db)):
     return db.query(models.School).all()
 
-# 3. User Signup (Now requires a school_id for non-platform users)
+# 3. User Signup (Linked to School)
 @app.post("/api/signup")
 def signup(user: UserCreate, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
@@ -92,12 +104,17 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
         email=user.email,
         hashed_password=hashed_pw,
         role=user.role,
-        school_id=user.school_id
+        school_id=user.school_id 
     )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return {"message": "User created successfully", "user": new_user.email, "role": new_user.role}
+    return {
+        "message": "User created successfully", 
+        "user": new_user.email, 
+        "role": new_user.role,
+        "school_id": new_user.school_id
+    }
 
 # 4. User Login
 @app.post("/api/login")
@@ -116,3 +133,33 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
             "school_id": db_user.school_id
         }
     }
+
+# 5. AI Tutor (Keep for the course side of the platform)
+@app.post("/api/chat")
+async def chat_with_tutor(request: ChatRequest):
+    try:
+        system_prompt = f"""
+        You are EduNova, an expert AI tutor for South African students.
+        You are currently helping a {request.grade_level} student.
+        Explain concepts clearly, step-by-step.
+        
+        CRITICAL INSTRUCTION:
+        The student has requested the teaching language to be: {request.language}.
+        You must explain the academic concepts in {request.language}. 
+        If the subject uses technical English terminology, provide the English term in brackets.
+        """
+        
+        response = client.chat.completions.create(
+            model="openai/gpt-oss-120b", 
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": request.message}
+            ],
+            temperature=0.7,
+            max_tokens=500
+        )
+        
+        return {"reply": response.choices[0].message.content}
+    except Exception as e:
+        print(f"Error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate AI response.")
