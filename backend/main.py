@@ -134,7 +134,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         }
     }
 
-# 5. AI Tutor (Keep for the course side of the platform)
+# 5. AI Tutor
 @app.post("/api/chat")
 async def chat_with_tutor(request: ChatRequest):
     try:
@@ -164,7 +164,7 @@ async def chat_with_tutor(request: ChatRequest):
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate AI response.")
 
-# --- TEMPORARY ADMIN ENDPOINT ---
+# --- TEMPORARY DATABASE RESET ENDPOINT ---
 @app.post("/api/admin/reset-db")
 def reset_database():
     # WARNING: This deletes all data. Only use in development.
