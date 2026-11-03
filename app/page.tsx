@@ -13,16 +13,15 @@ import { CORE_MODULES } from "@/lib/coreModules";
 export default function Home() {
   return (
     <PublicLayout>
-      {/* 2. HERO SECTION */}
+      {/* 1. HERO SECTION */}
       <section className="py-20 lg:py-28 px-6 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
-          {/* Left Side */}
           <div>
             <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 px-3 py-1.5 rounded-full text-xs font-medium mb-6 border border-orange-500/20">
               <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span> The Intelligent Operating System for Modern Schools
             </div>
-            <h1 className="text-5xl lg:text-7xl font-bold text-white leading-[1.1] mb-6 tracking-tight">
+            <h1 className="text-5xl lg:text-[4.5rem] font-bold text-white leading-[1.05] mb-6 tracking-tight">
               The Intelligent OS <br /> for <span className="text-orange-500">Modern Schools</span>
             </h1>
             <p className="text-lg text-slate-400 mb-8 leading-relaxed max-w-xl">
@@ -52,7 +51,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Side (Mockup) */}
+          {/* Mockup */}
           <div className="relative">
             <div className="bg-[#0F1926] border border-white/10 rounded-2xl p-4 shadow-2xl relative z-10">
               <div className="flex items-center justify-between mb-4 px-2">
@@ -105,13 +104,12 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            {/* Glow effect */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-orange-500/10 blur-[100px] -z-10 rounded-full"></div>
           </div>
         </div>
       </section>
 
-      {/* 3. BUILT FOR AFRICAN SCHOOLS */}
+      {/* 2. BUILT FOR AFRICAN SCHOOLS */}
       <section className="py-24 px-6 border-t border-white/5 bg-[#0A1420]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
@@ -122,40 +120,24 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
-              <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 mb-6">
-                <Layers size={20} />
-              </div>
+              <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 mb-6"><Layers size={20} /></div>
               <h3 className="text-xl font-bold text-white mb-3">All-in-One School Platform</h3>
-              <p className="text-slate-400 leading-relaxed">
-                Manage academics, administration, communication, finance, admissions, attendance, examinations, reports, and more from a unified workspace.
-              </p>
+              <p className="text-slate-400 leading-relaxed">Manage academics, administration, communication, finance, admissions, attendance, examinations, reports, and more from a unified workspace.</p>
             </div>
             <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
-              <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 mb-6">
-                <Building2 size={20} />
-              </div>
+              <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 mb-6"><Building2 size={20} /></div>
               <h3 className="text-xl font-bold text-white mb-3">Designed for Schools of Every Size</h3>
-              <p className="text-slate-400 leading-relaxed">
-                Whether managing a small private school or a multi-campus institution, AcadCoreOS scales alongside your organisation.
-              </p>
+              <p className="text-slate-400 leading-relaxed">Whether managing a small private school or a multi-campus institution, AcadCoreOS scales alongside your organisation.</p>
             </div>
             <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
-              <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 mb-6">
-                <ShieldCheck size={20} />
-              </div>
+              <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 mb-6"><ShieldCheck size={20} /></div>
               <h3 className="text-xl font-bold text-white mb-3">Secure by Design</h3>
-              <p className="text-slate-400 leading-relaxed">
-                Protect student, parent, teacher, and institutional data through modern security practices, role-based permissions, encrypted storage, audit logs, and regular backups.
-              </p>
+              <p className="text-slate-400 leading-relaxed">Protect student, parent, teacher, and institutional data through modern security practices, role-based permissions, encrypted storage, audit logs, and regular backups.</p>
             </div>
             <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
-              <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 mb-6">
-                <Zap size={20} />
-              </div>
+              <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 mb-6"><Zap size={20} /></div>
               <h3 className="text-xl font-bold text-white mb-3">Future-Ready Platform</h3>
-              <p className="text-slate-400 leading-relaxed">
-                Continuous innovation, AI-powered productivity tools, automation, integrations, analytics, and cloud infrastructure prepare schools for the future of education.
-              </p>
+              <p className="text-slate-400 leading-relaxed">Continuous innovation, AI-powered productivity tools, automation, integrations, analytics, and cloud infrastructure prepare schools for the future of education.</p>
             </div>
           </div>
           <div className="text-center mt-10">
@@ -166,9 +148,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. 19 CORE MODULES */}
+      {/* 3. 19 CORE MODULES */}
       <section id="features" className="py-24 px-6 border-t border-white/5">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-xs font-medium mb-4">
               <Layers size={14} /> 19 Core Modules
@@ -212,9 +194,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. PLATFORM SHOWCASE */}
+      {/* 4. PLATFORM SHOWCASE */}
       <section className="py-24 px-6 border-t border-white/5 bg-[#0A1420]">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-xs font-medium mb-4">
               <Sparkles size={14} /> Platform Showcase
@@ -236,9 +218,7 @@ export default function Home() {
                   <div className="h-40 overflow-hidden"><img src={item.realImage} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /></div>
                 ) : (
                   <div className="h-40 bg-[#162233] flex items-center justify-center border-b border-white/5">
-                    <div className="w-12 h-12 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500">
-                      <ArrowRight size={24} />
-                    </div>
+                    <div className="w-12 h-12 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500"><ArrowRight size={24} /></div>
                   </div>
                 )}
                 <div className="p-5 flex flex-col flex-1">
@@ -255,7 +235,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. DEMO CENTRE */}
+      {/* 5. DEMO CENTRE */}
       <section id="demo" className="py-24 px-6 border-t border-white/5">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
@@ -263,9 +243,7 @@ export default function Home() {
               <MonitorPlay size={14} /> Demo Centre
             </div>
             <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">Experience the Platform Firsthand</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
-              Explore AcadCoreOS through videos, screenshots, interactive demos, and personalised demonstrations.
-            </p>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">Explore AcadCoreOS through videos, screenshots, interactive demos, and personalised demonstrations.</p>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
@@ -314,24 +292,15 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <button className="flex items-center gap-3 bg-[#162233] border border-white/5 p-4 rounded-lg hover:border-orange-500/50 transition-colors text-left">
                 <MonitorPlay size={20} className="text-blue-500" />
-                <div>
-                  <p className="text-sm font-medium text-white">Administrator Demo</p>
-                  <p className="text-xs text-slate-500">Full admin access</p>
-                </div>
+                <div><p className="text-sm font-medium text-white">Administrator Demo</p><p className="text-xs text-slate-500">Full admin access</p></div>
               </button>
               <button className="flex items-center gap-3 bg-[#162233] border border-white/5 p-4 rounded-lg hover:border-orange-500/50 transition-colors text-left">
                 <MonitorPlay size={20} className="text-emerald-500" />
-                <div>
-                  <p className="text-sm font-medium text-white">Teacher Demo</p>
-                  <p className="text-xs text-slate-500">Classroom tools</p>
-                </div>
+                <div><p className="text-sm font-medium text-white">Teacher Demo</p><p className="text-xs text-slate-500">Classroom tools</p></div>
               </button>
               <button className="flex items-center gap-3 bg-[#162233] border border-white/5 p-4 rounded-lg hover:border-orange-500/50 transition-colors text-left">
                 <MonitorPlay size={20} className="text-yellow-500" />
-                <div>
-                  <p className="text-sm font-medium text-white">Parent Demo</p>
-                  <p className="text-xs text-slate-500">Parent portal view</p>
-                </div>
+                <div><p className="text-sm font-medium text-white">Parent Demo</p><p className="text-xs text-slate-500">Parent portal view</p></div>
               </button>
             </div>
           </div>
@@ -343,7 +312,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. TESTIMONIALS */}
+      {/* 6. TESTIMONIALS */}
       <section className="py-24 px-6 border-t border-white/5 bg-[#0A1420]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
@@ -355,50 +324,36 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
-              <div className="flex text-orange-500 mb-4">
-                {[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}
-              </div>
+              <div className="flex text-orange-500 mb-4">{[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}</div>
               <p className="text-slate-300 italic mb-6">"AcadCoreOS has transformed how we manage our school. From admissions to results, everything is in one place. The parent portal has improved our communication significantly."</p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-orange-500/20 text-orange-500 flex items-center justify-center font-bold">M</div>
-                <div>
-                  <p className="text-sm font-bold text-white">Mrs. Adunni Okoye</p>
-                  <p className="text-xs text-slate-500">Principal, Bright Future Academy</p>
-                </div>
+                <div><p className="text-sm font-bold text-white">Mrs. Adunni Okoye</p><p className="text-xs text-slate-500">Principal, Bright Future Academy</p></div>
                 <span className="ml-auto text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded">Verified</span>
               </div>
             </div>
             <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
-              <div className="flex text-orange-500 mb-4">
-                {[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}
-              </div>
+              <div className="flex text-orange-500 mb-4">{[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}</div>
               <p className="text-slate-300 italic mb-6">"The attendance tracking and automated parent notifications have saved us hours of work. We can now focus on what matters most — teaching and learning."</p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-yellow-500/20 text-yellow-500 flex items-center justify-center font-bold">M</div>
-                <div>
-                  <p className="text-sm font-bold text-white">Mr. Tunde Bello</p>
-                  <p className="text-xs text-slate-500">School Administrator, Grace Land College</p>
-                </div>
+                <div><p className="text-sm font-bold text-white">Mr. Tunde Bello</p><p className="text-xs text-slate-500">School Administrator, Grace Land College</p></div>
                 <span className="ml-auto text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded">Verified</span>
               </div>
             </div>
           </div>
           <div className="text-center mt-10">
-            <Link href="#testimonials" className="text-orange-500 font-medium hover:underline flex items-center justify-center gap-2">
-              View All Testimonials <ArrowRight size={16} />
-            </Link>
+            <Link href="#testimonials" className="text-orange-500 font-medium hover:underline flex items-center justify-center gap-2">View All Testimonials <ArrowRight size={16} /></Link>
           </div>
         </div>
       </section>
 
-      {/* 8. PRICING */}
+      {/* 7. PRICING */}
       <section id="pricing" className="py-24 px-6 border-t border-white/5">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">Simple, Transparent Pricing</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
-              AcadCoreOS uses capacity-based pricing, allowing schools to pay primarily according to their expected student population while choosing optional premium services that suit their operational needs.
-            </p>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">AcadCoreOS uses capacity-based pricing, allowing schools to pay primarily according to their expected student population while choosing optional premium services that suit their operational needs.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {[
@@ -413,8 +368,7 @@ export default function Home() {
                 <h3 className="text-lg font-bold text-white mb-1">{plan.name}</h3>
                 <p className="text-xs text-slate-400 mb-6">{plan.capacity}</p>
                 <div className="mb-6">
-                  <span className="text-2xl font-bold text-white">{plan.price}</span>
-                  <span className="text-sm text-slate-400">{plan.per}</span>
+                  <span className="text-2xl font-bold text-white">{plan.price}</span><span className="text-sm text-slate-400">{plan.per}</span>
                   <p className="text-[10px] text-slate-500 mt-1">{plan.yearly}</p>
                 </div>
                 <button className={`w-full py-2 rounded-lg text-sm font-medium transition-colors mt-auto ${plan.popular ? 'bg-orange-500 text-white hover:bg-orange-600' : 'bg-white/5 text-white hover:bg-white/10'}`}>Get Started</button>
@@ -422,32 +376,24 @@ export default function Home() {
             ))}
           </div>
           <div className="text-center mt-10">
-            <Link href="#pricing" className="bg-white/5 hover:bg-white/10 text-white border border-white/10 px-6 py-2 rounded-lg font-medium inline-flex items-center gap-2 transition-colors">
-              View Full Pricing <ArrowRight size={16} />
-            </Link>
+            <Link href="#pricing" className="bg-white/5 hover:bg-white/10 text-white border border-white/10 px-6 py-2 rounded-lg font-medium inline-flex items-center gap-2 transition-colors">View Full Pricing <ArrowRight size={16} /></Link>
           </div>
         </div>
       </section>
 
-      {/* 9. EDUCATION NEWS */}
+      {/* 8. EDUCATION NEWS */}
       <section id="news" className="py-24 px-6 border-t border-white/5 bg-[#0A1420]">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-xs font-medium mb-4">
-              <BookOpen size={14} /> Stay Informed
-            </div>
+            <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-xs font-medium mb-4"><BookOpen size={14} /> Stay Informed</div>
             <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">Education News & Updates</h2>
             <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">Latest headlines, trending education news, policy updates, and platform releases from trusted sources.</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 bg-[#0F1926] border border-white/5 rounded-xl overflow-hidden flex flex-col">
-              <div className="h-64 bg-slate-800 relative">
-                <div className="absolute top-4 left-4 bg-orange-500 text-white text-[10px] font-bold px-2 py-1 rounded">Product Update</div>
-              </div>
+              <div className="h-64 bg-slate-800 relative"><div className="absolute top-4 left-4 bg-orange-500 text-white text-[10px] font-bold px-2 py-1 rounded">Product Update</div></div>
               <div className="p-6">
-                <div className="flex items-center gap-3 text-xs text-orange-500 mb-3">
-                  <span className="font-medium">AcadCoreOS Product Updates</span> <span className="text-slate-500">7/7/2026</span>
-                </div>
+                <div className="flex items-center gap-3 text-xs text-orange-500 mb-3"><span className="font-medium">AcadCoreOS Product Updates</span> <span className="text-slate-500">7/7/2026</span></div>
                 <h3 className="text-2xl font-bold text-white mb-2">AcadCoreOS Launches AI-Powered CBT Module</h3>
                 <p className="text-slate-400 text-sm mb-4">AcadCoreOS has released a new AI-powered Computer-Based Testing module with adaptive question generation, real-time analytics, and anti-cheating safeguards for schools.</p>
                 <button className="text-orange-500 flex items-center gap-1 hover:underline text-sm font-medium">Read More <ArrowRight size={14} /></button>
@@ -457,32 +403,16 @@ export default function Home() {
               <div className="bg-[#0F1926] border border-white/5 rounded-xl p-6">
                 <h4 className="text-sm font-bold text-white mb-4 flex items-center gap-2"><BookOpen size={16} className="text-orange-500" /> Latest Headlines</h4>
                 <ul className="space-y-4">
-                  {[
-                    "New STEM Competition for Senior Secondary Students Launches",
-                    "Lagos State Government Announces Free WAEC Registration for Public School Students",
-                    "AcadCoreOS Introduces Parent Portal Mobile App",
-                    "Federal Ministry of Education Launches Digital Literacy Initiative"
-                  ].map((title, i) => (
-                    <li key={i} className="group cursor-pointer">
-                      <p className="text-sm font-medium text-slate-300 group-hover:text-orange-400 transition-colors leading-tight mb-1">{title}</p>
-                      <p className="text-[10px] text-slate-500">7/3/2026</p>
-                    </li>
+                  {["New STEM Competition for Senior Secondary Students Launches", "Lagos State Government Announces Free WAEC Registration for Public School Students", "AcadCoreOS Introduces Parent Portal Mobile App", "Federal Ministry of Education Launches Digital Literacy Initiative"].map((title, i) => (
+                    <li key={i} className="group cursor-pointer"><p className="text-sm font-medium text-slate-300 group-hover:text-orange-400 transition-colors leading-tight mb-1">{title}</p><p className="text-[10px] text-slate-500">7/3/2026</p></li>
                   ))}
                 </ul>
               </div>
               <div className="bg-[#0F1926] border border-white/5 rounded-xl p-6">
                 <h4 className="text-sm font-bold text-white mb-4 flex items-center gap-2"><Zap size={16} className="text-orange-500" /> Trending</h4>
                 <ul className="space-y-3">
-                  {[
-                    "AcadCoreOS Launches AI-Powered CBT Module",
-                    "WAEC Releases 2026 May/June WASSCE Timetable",
-                    "JAMB Announces New UTME Registration Guidelines for 2026",
-                    "Full Scholarship Available: Chevening Scholarship 2026/27 Now Open"
-                  ].map((title, i) => (
-                    <li key={i} className="flex gap-3 group cursor-pointer">
-                      <span className="text-orange-500 font-bold text-xs">{i+1}</span>
-                      <p className="text-xs text-slate-400 group-hover:text-white transition-colors leading-tight">{title}</p>
-                    </li>
+                  {["AcadCoreOS Launches AI-Powered CBT Module", "WAEC Releases 2026 May/June WASSCE Timetable", "JAMB Announces New UTME Registration Guidelines for 2026", "Full Scholarship Available: Chevening Scholarship 2026/27 Now Open"].map((title, i) => (
+                    <li key={i} className="flex gap-3 group cursor-pointer"><span className="text-orange-500 font-bold text-xs">{i+1}</span><p className="text-xs text-slate-400 group-hover:text-white transition-colors leading-tight">{title}</p></li>
                   ))}
                 </ul>
               </div>
@@ -491,23 +421,18 @@ export default function Home() {
           <div className="mt-8 bg-[#0F1926] border border-white/5 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500"><Zap size={20} /></div>
-              <div>
-                <h4 className="text-sm font-bold text-white">Latest AcadCoreOS Releases</h4>
-                <p className="text-xs text-slate-400">AcadCoreOS Launches AI-Powered CBT Module</p>
-              </div>
+              <div><h4 className="text-sm font-bold text-white">Latest AcadCoreOS Releases</h4><p className="text-xs text-slate-400">AcadCoreOS Launches AI-Powered CBT Module</p></div>
             </div>
             <button className="text-orange-500 text-sm font-medium hover:underline flex items-center gap-1">View All News <ArrowRight size={14} /></button>
           </div>
         </div>
       </section>
 
-      {/* 10. RESOURCES / BLOG */}
+      {/* 9. RESOURCES / BLOG */}
       <section id="resources" className="py-24 px-6 border-t border-white/5">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-xs font-medium mb-4">
-              <FileText size={14} /> Resources
-            </div>
+            <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-xs font-medium mb-4"><FileText size={14} /> Resources</div>
             <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">Latest Blog Articles & Resources</h2>
             <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">Featured guides, popular resources, recent documentation, and latest product updates.</p>
           </div>
@@ -521,18 +446,9 @@ export default function Home() {
               { type: "JAMB", title: "JAMB Announces New UTME Registration Guidelines for 2026", desc: "The Joint Admissions and Matriculation Board has introduced updated registration guidelines for the...", date: "6/25/2026" },
             ].map((article, i) => (
               <div key={i} className="bg-[#0F1926] border border-white/5 rounded-xl overflow-hidden group hover:border-white/10 transition-colors flex flex-col">
-                {article.image ? (
-                  <div className="h-40 overflow-hidden"><img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /></div>
-                ) : (
-                  <div className="h-40 bg-[#162233] border-b border-white/5 flex items-center justify-center">
-                    <BookOpen size={32} className="text-slate-600" />
-                  </div>
-                )}
+                {article.image ? <div className="h-40 overflow-hidden"><img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /></div> : <div className="h-40 bg-[#162233] border-b border-white/5 flex items-center justify-center"><BookOpen size={32} className="text-slate-600" /></div>}
                 <div className="p-6 flex flex-col flex-1">
-                  <div className="flex items-center gap-2 text-xs mb-3">
-                    <span className="text-orange-500 font-medium">{article.type}</span>
-                    <span className="text-slate-500">• {article.date}</span>
-                  </div>
+                  <div className="flex items-center gap-2 text-xs mb-3"><span className="text-orange-500 font-medium">{article.type}</span><span className="text-slate-500">• {article.date}</span></div>
                   <h3 className="text-lg font-bold text-white mb-2 leading-tight group-hover:text-orange-400 transition-colors">{article.title}</h3>
                   <p className="text-sm text-slate-400 mb-4 flex-1 line-clamp-2">{article.desc}</p>
                   <button className="text-orange-500 flex items-center gap-1 hover:underline text-sm font-medium mt-auto">Read More <ArrowRight size={14} /></button>
@@ -548,50 +464,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 11. COMMUNITY */}
+      {/* 10. COMMUNITY */}
       <section id="community" className="py-24 px-6 border-t border-white/5 bg-[#0A1420]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-xs font-medium mb-4">
-              <MessageSquare size={14} /> Join the Community
-            </div>
+            <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-xs font-medium mb-4"><MessageSquare size={14} /> Join the Community</div>
             <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">Connect with Educators Worldwide</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
-              Join the AcadCoreOS Community — a collaborative space for teachers, school leaders, and edtech enthusiasts to share knowledge, ask questions, and grow together.
-            </p>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">Join the AcadCoreOS Community — a collaborative space for teachers, school leaders, and edtech enthusiasts to share knowledge, ask questions, and grow together.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl text-center">
-              <div className="w-12 h-12 rounded-full bg-orange-500/10 text-orange-500 flex items-center justify-center mx-auto mb-4">
-                <Users size={24} />
-              </div>
+              <div className="w-12 h-12 rounded-full bg-orange-500/10 text-orange-500 flex items-center justify-center mx-auto mb-4"><Users size={24} /></div>
               <h3 className="text-lg font-bold text-white mb-2">Network</h3>
               <p className="text-sm text-slate-400">Build professional connections with educators and leaders.</p>
             </div>
             <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl text-center">
-              <div className="w-12 h-12 rounded-full bg-orange-500/10 text-orange-500 flex items-center justify-center mx-auto mb-4">
-                <MessageSquare size={24} />
-              </div>
+              <div className="w-12 h-12 rounded-full bg-orange-500/10 text-orange-500 flex items-center justify-center mx-auto mb-4"><MessageSquare size={24} /></div>
               <h3 className="text-lg font-bold text-white mb-2">Ask & Answer</h3>
               <p className="text-sm text-slate-400">Get expert answers and share your knowledge with the community.</p>
             </div>
             <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl text-center">
-              <div className="w-12 h-12 rounded-full bg-orange-500/10 text-orange-500 flex items-center justify-center mx-auto mb-4">
-                <FileText size={24} />
-              </div>
+              <div className="w-12 h-12 rounded-full bg-orange-500/10 text-orange-500 flex items-center justify-center mx-auto mb-4"><FileText size={24} /></div>
               <h3 className="text-lg font-bold text-white mb-2">Publish</h3>
               <p className="text-sm text-slate-400">Submit articles to the AcadCoreOS Blog and build your reputation.</p>
             </div>
           </div>
           <div className="text-center">
-            <Link href="#community" className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium inline-flex items-center gap-2 transition-colors">
-              Join the Community <ArrowRight size={18} />
-            </Link>
+            <Link href="#community" className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium inline-flex items-center gap-2 transition-colors">Join the Community <ArrowRight size={18} /></Link>
           </div>
         </div>
       </section>
 
-      {/* 12. FAQ */}
+      {/* 11. FAQ */}
       <section id="faq" className="py-24 px-6 border-t border-white/5">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
@@ -599,17 +503,7 @@ export default function Home() {
             <p className="text-slate-400 text-lg">Everything you need to know about AcadCoreOS.</p>
           </div>
           <div className="space-y-3">
-            {[
-              "How does pricing work?",
-              "Can I manage multiple campuses?",
-              "Is my school data secure?",
-              "Can parents and students access the platform?",
-              "Do you support Nigerian school systems?",
-              "Can I cancel anytime?",
-              "Do you offer training and onboarding?",
-              "What are add-ons?",
-              "What happens to my data if I cancel?"
-            ].map((faq, i) => (
+            {["How does pricing work?", "Can I manage multiple campuses?", "Is my school data secure?", "Can parents and students access the platform?", "Do you support Nigerian school systems?", "Can I cancel anytime?", "Do you offer training and onboarding?", "What are add-ons?", "What happens to my data if I cancel?"].map((faq, i) => (
               <div key={i} className="bg-[#0F1926] border border-white/5 rounded-xl overflow-hidden group cursor-pointer">
                 <div className="px-6 py-4 flex justify-between items-center">
                   <h4 className="text-sm font-medium text-white group-hover:text-orange-400 transition-colors">{faq}</h4>
@@ -621,17 +515,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 13. PARTNERS */}
+      {/* 12. PARTNERS */}
       <section id="partners" className="py-24 px-6 border-t border-white/5 bg-[#0A1420]">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">Partners & Affiliations</h2>
             <p className="text-slate-400 text-lg mb-10">Working with education bodies and organizations across the region.</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                "Nigeria Education Board", "Lagos State Ministry of Education", "EdTech Nigeria", "School Administrators Forum",
-                "West African Examinations Council", "Association of Private Schools", "Tech for Education Africa", "Nigerian Teachers Association"
-              ].map((partner, i) => (
+              {["Nigeria Education Board", "Lagos State Ministry of Education", "EdTech Nigeria", "School Administrators Forum", "West African Examinations Council", "Association of Private Schools", "Tech for Education Africa", "Nigerian Teachers Association"].map((partner, i) => (
                 <div key={i} className="bg-[#0F1926] border border-white/5 rounded-lg py-4 px-2 flex items-center justify-center text-center">
                   <span className="text-sm font-medium text-slate-400">{partner}</span>
                 </div>
@@ -640,13 +531,9 @@ export default function Home() {
           </div>
 
           <div className="text-center mb-12 mt-20">
-            <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-xs font-medium mb-4">
-              <Target size={14} /> Roadmap Concept
-            </div>
+            <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-xs font-medium mb-4"><Target size={14} /> Roadmap Concept</div>
             <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">The AcadCoreOS Partner Network</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
-              A future-facing ecosystem of partners extending AcadCoreOS across regions, industries, and technologies. We're building the framework — expressions of interest are welcome.
-            </p>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">A future-facing ecosystem of partners extending AcadCoreOS across regions, industries, and technologies. We're building the framework — expressions of interest are welcome.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -658,9 +545,7 @@ export default function Home() {
               { icon: <Monitor size={20} />, title: "ICT & Hardware Partners", desc: "Bundle AcadCoreOS with devices, servers, and connectivity for schools. For hardware vendors and ISPs." },
             ].map((partner, i) => (
               <div key={i} className="bg-[#0F1926] border border-white/5 p-6 rounded-xl">
-                <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
-                  {partner.icon}
-                </div>
+                <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">{partner.icon}</div>
                 <h3 className="text-lg font-bold text-white mb-2">{partner.title}</h3>
                 <p className="text-sm text-slate-400 leading-relaxed">{partner.desc}</p>
               </div>
@@ -673,7 +558,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 14. CONTACT & FOOTER */}
+      {/* 13. CONTACT */}
       <section id="contact" className="py-24 px-6 border-t border-white/5">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
@@ -681,58 +566,31 @@ export default function Home() {
             <p className="text-slate-400 mb-8">Have questions? Want a demo? We're here to help.</p>
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0">
-                  <Mail size={20} />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-white mb-1">Email</p>
-                  <p className="text-sm text-slate-400">acadcoreos@gmail.com</p>
-                </div>
+                <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0"><Mail size={20} /></div>
+                <div><p className="text-sm font-bold text-white mb-1">Email</p><p className="text-sm text-slate-400">acadcoreos@gmail.com</p></div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0">
-                  <Phone size={20} />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-white mb-1">Phone</p>
-                  <p className="text-sm text-slate-400">+234 811 781 3456</p>
-                </div>
+                <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0"><Phone size={20} /></div>
+                <div><p className="text-sm font-bold text-white mb-1">Phone</p><p className="text-sm text-slate-400">+234 811 781 3456</p></div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0">
-                  <MessageSquare size={20} />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-white mb-1">WhatsApp</p>
-                  <p className="text-sm text-slate-400">+234 816 995 9980</p>
-                </div>
+                <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0"><MessageSquare size={20} /></div>
+                <div><p className="text-sm font-bold text-white mb-1">WhatsApp</p><p className="text-sm text-slate-400">+234 816 995 9980</p></div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0">
-                  <MapPin size={20} />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-white mb-1">Office Address</p>
-                  <p className="text-sm text-slate-400">1, Col. Akporokah's Close, Mosogar, Delta State, Nigeria</p>
-                </div>
+                <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0"><MapPin size={20} /></div>
+                <div><p className="text-sm font-bold text-white mb-1">Office Address</p><p className="text-sm text-slate-400">1, Col. Akporokah's Close, Mosogar, Delta State, Nigeria</p></div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0">
-                  <Clock size={20} />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-white mb-1">Support Hours</p>
-                  <p className="text-sm text-slate-400">Mondays - Fridays (8am - 5pm)</p>
-                </div>
+                <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0"><Clock size={20} /></div>
+                <div><p className="text-sm font-bold text-white mb-1">Support Hours</p><p className="text-sm text-slate-400">Mondays - Fridays (8am - 5pm)</p></div>
               </div>
             </div>
             <div className="mt-8">
               <p className="text-sm font-bold text-white mb-3">Follow Us</p>
               <div className="flex gap-2">
                 {[1,2,3,4,5].map((_, i) => (
-                  <div key={i} className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-orange-500 hover:border-orange-500/50 cursor-pointer transition-colors">
-                    <Globe size={14} />
-                  </div>
+                  <div key={i} className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-orange-500 hover:border-orange-500/50 cursor-pointer transition-colors"><Globe size={14} /></div>
                 ))}
               </div>
             </div>
@@ -740,37 +598,22 @@ export default function Home() {
           
           <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
             <form className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-white mb-1">Name</label>
-                <input type="text" placeholder="Your name" className="w-full bg-[#0A1420] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-orange-500" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-white mb-1">Email</label>
-                <input type="email" placeholder="you@example.com" className="w-full bg-[#0A1420] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-orange-500" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-white mb-1">Message</label>
-                <textarea rows={4} placeholder="How can we help?" className="w-full bg-[#0A1420] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-orange-500"></textarea>
-              </div>
-              <button type="button" className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors">
-                <MessageSquare size={16} /> Send Message
-              </button>
+              <div><label className="block text-sm font-medium text-white mb-1">Name</label><input type="text" placeholder="Your name" className="w-full bg-[#0A1420] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-orange-500" /></div>
+              <div><label className="block text-sm font-medium text-white mb-1">Email</label><input type="email" placeholder="you@example.com" className="w-full bg-[#0A1420] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-orange-500" /></div>
+              <div><label className="block text-sm font-medium text-white mb-1">Message</label><textarea rows={4} placeholder="How can we help?" className="w-full bg-[#0A1420] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-orange-500"></textarea></div>
+              <button type="button" className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"><MessageSquare size={16} /> Send Message</button>
             </form>
           </div>
         </div>
       </section>
 
-      {/* 15. CTA BANNER */}
+      {/* 14. CTA BANNER */}
       <section className="bg-orange-500 py-16 px-6 text-center">
         <h2 className="text-3xl font-bold text-white mb-4 tracking-tight">Ready to transform your school?</h2>
         <p className="text-orange-100 mb-8 text-lg">Start your 14-day free trial today. No credit card required.</p>
         <div className="flex justify-center gap-4">
-          <Link href="/get-started" className="bg-[#08101A] text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 hover:bg-black transition-colors">
-            Get Started Free <ArrowRight size={18} />
-          </Link>
-          <Link href="#pricing" className="bg-transparent border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">
-            View Pricing
-          </Link>
+          <Link href="/get-started" className="bg-[#08101A] text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 hover:bg-black transition-colors">Get Started Free <ArrowRight size={18} /></Link>
+          <Link href="#pricing" className="bg-transparent border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">View Pricing</Link>
         </div>
       </section>
     </PublicLayout>

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Sun, Moon, Target, Layers, ChevronDown } from "lucide-react";
+import { Menu, X, Target, Layers, ChevronDown, Monitor } from "lucide-react";
 import { usePublicTheme } from "@/lib/PublicThemeContext";
 
 export default function PublicNavbar() {
@@ -25,21 +25,21 @@ export default function PublicNavbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#08101A]/90 backdrop-blur-md border-b border-white/5">
-      <div className="max-w-7xl mx-auto px-6">
+    <header className="sticky top-0 z-50 bg-[#08101A]/95 backdrop-blur-md border-b border-white/5">
+      <div className="max-w-[1400px] mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <div className="w-8 h-8 bg-orange-500 rounded flex items-center justify-center text-white">
+            <div className="w-8 h-8 bg-[#1E293B] rounded flex items-center justify-center text-white">
               <Layers size={18} />
             </div>
             <span className="font-bold text-lg text-white tracking-tight hidden sm:block">AcadCoreOS</span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-5">
-            {navLinks.slice(0, 8).map((link) => (
+          <nav className="hidden xl:flex items-center gap-6">
+            {navLinks.slice(0, 9).map((link) => (
               <Link key={link.label} href={link.href} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
                 {link.label}
               </Link>
@@ -49,7 +49,7 @@ export default function PublicNavbar() {
                 More <ChevronDown size={14} />
               </button>
               <div className="absolute top-full left-0 mt-2 w-48 bg-[#0F1926] border border-white/10 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                {navLinks.slice(8).map((link) => (
+                {navLinks.slice(9).map((link) => (
                   <Link key={link.label} href={link.href} className="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5">
                     {link.label}
                   </Link>
@@ -68,7 +68,7 @@ export default function PublicNavbar() {
               <Target size={18} />
             </button>
             <button className="p-2 text-slate-400 hover:text-white transition-colors border border-white/10 rounded-lg">
-              <Sun size={18} />
+              <Monitor size={18} />
             </button>
             <Link href="/login" className="text-sm font-medium text-white hover:text-orange-400 px-3">
               Login
