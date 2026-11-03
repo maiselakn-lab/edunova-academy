@@ -4,7 +4,8 @@ import {
   CheckCircle2, LayoutDashboard, Monitor, Users, Brain, Building2, 
   ShieldCheck, Globe, BookOpen, PlayCircle, ArrowRight, Star, 
   Sparkles, Target, Calendar, Shield, Zap, ChevronDown, Mail, Phone, 
-  MessageSquare, MapPin, Clock, Layers, Video, MonitorPlay, Lightbulb
+  MessageSquare, MapPin, Clock, Layers, Video, MonitorPlay, Lightbulb,
+  FileText
 } from "lucide-react";
 import { CORE_MODULES } from "@/lib/coreModules";
 
