@@ -44,11 +44,13 @@ export default function AppSidebar() {
             <div className="space-y-0.5">
               {section.items.map((item) => {
                 const Icon = item.icon;
-                const isActive = pathname === item.path;
+                const fullPath = `/dashboard${item.path}`;
+                const isActive = pathname === fullPath || (item.path === "/dashboard" && pathname === "/dashboard");
+                
                 return (
                   <Link
                     key={item.path}
-                    href={item.path}
+                    href={fullPath}
                     onClick={() => setMobileOpen(false)}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
                       isActive

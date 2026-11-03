@@ -1,3 +1,25 @@
+import {
+  LayoutDashboard, LayoutGrid, BookOpen, Calendar, ClipboardCheck, Award,
+  UserPlus, GraduationCap, Users, UserCog, Wallet, CreditCard, Store, Receipt,
+  Briefcase, MonitorPlay, Package, Library, Building2, Bus, DoorOpen,
+  MessageSquare, FileText, ShieldCheck, BarChart3, Sparkles, Bot, Newspaper,
+  Clock, Database, School, Settings, Palette, Rocket, QrCode, Network, Cpu,
+  TrendingUp, Trash2, MailPlus,
+} from 'lucide-react';
+import type { LucideIcon } from "lucide-react";
+
+export type CoreModule = {
+  key: string; name: string; title: string; icon: LucideIcon;
+  status: "live" | "beta" | "roadmap"; tagline: string; description: string;
+  capabilities: string[]; navItems: { label: string; icon: LucideIcon; path: string }[];
+  related: string[]; aiFeatures?: string[]; portalLink?: boolean;
+};
+
+export type SidebarSection = {
+  title: string;
+  items: { label: string; icon: LucideIcon; path: string; platformOnly?: boolean; adminOnly?: boolean }[];
+};
+
 export const CORE_MODULES: CoreModule[] = [
   {
     key: 'academic',
@@ -263,3 +285,89 @@ export const CORE_MODULES: CoreModule[] = [
     related: ['assessment', 'report', 'insight', 'academic'],
   },
 ];
+
+export const SIDEBAR_SECTIONS: SidebarSection[] = [
+  {
+    title: 'Overview',
+    items: [
+      { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
+      { label: 'Core Modules', icon: LayoutGrid, path: '/modules' },
+      { label: 'AcadAI Hub', icon: Sparkles, path: '/acad-ai' },
+      { label: 'News & Updates', icon: Newspaper, path: '/news-updates' },
+      { label: 'Smart Insights', icon: BarChart3, path: '/smart-insights' },
+      { label: 'Notifications', icon: MessageSquare, path: '/notifications' },
+    ],
+  },
+  {
+    title: 'AcademicCore',
+    items: [
+      { label: 'Classes', icon: BookOpen, path: '/classes' },
+      { label: 'Academics', icon: Calendar, path: '/academics' },
+      { label: 'Attendance', icon: ClipboardCheck, path: '/attendance' },
+      { label: 'Results', icon: Award, path: '/results' },
+      { label: 'Events', icon: Calendar, path: '/event-manager' },
+    ],
+  },
+  {
+    title: 'PeopleCore',
+    items: [
+      { label: 'Students', icon: GraduationCap, path: '/students' },
+      { label: 'Staff', icon: Users, path: '/staff' },
+      { label: 'Parents', icon: UserCog, path: '/parents' },
+      { label: 'Invitations', icon: MailPlus, path: '/invitations' },
+      { label: 'Enrollment', icon: UserPlus, path: '/enrollment' },
+      { label: 'Employment', icon: Briefcase, path: '/employment' },
+    ],
+  },
+  {
+    title: 'FinanceCore',
+    items: [
+      { label: 'Finance', icon: Wallet, path: '/finance' },
+      { label: 'Subscription', icon: CreditCard, path: '/subscription' },
+      { label: 'Add-ons', icon: Store, path: '/add-ons' },
+      { label: 'Billing History', icon: Receipt, path: '/billing' },
+      { label: 'Verification', icon: ShieldCheck, path: '/verification' },
+    ],
+  },
+  {
+    title: 'Operations',
+    items: [
+      { label: 'Schools', icon: School, path: '/schools', platformOnly: true },
+      { label: 'Campuses', icon: Building2, path: '/campuses' },
+      { label: 'Setup Center', icon: Rocket, path: '/onboarding', adminOnly: true },
+      { label: 'Reminders', icon: Clock, path: '/reminders' },
+      { label: 'Data Migration', icon: Database, path: '/data-migration' },
+      { label: 'Recycle Bin', icon: Trash2, path: '/recycle-bin' },
+    ],
+  },
+  {
+    title: 'System',
+    items: [
+      { label: 'Settings', icon: Settings, path: '/settings' },
+      { label: 'Branding', icon: Palette, path: '/branding' },
+      { label: 'Notification Settings', icon: Settings, path: '/notification-settings' },
+    ],
+  },
+];
+
+export function getModuleByKey(key: string) {
+  return CORE_MODULES.find((m) => m.key === key);
+}
+
+export function getLiveModules() {
+  return CORE_MODULES.filter((m) => m.status === 'live');
+}
+
+export function getRoadmapModules() {
+  return CORE_MODULES.filter((m) => m.status === 'roadmap');
+}
+
+export function getBetaModules() {
+  return CORE_MODULES.filter((m) => m.status === 'beta');
+}
+
+export const STATUS_META = {
+  live: { label: 'Live', color: 'emerald', badge: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800' },
+  beta: { label: 'Beta', color: 'blue', badge: 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400 border-blue-200 dark:border-blue-800' },
+  roadmap: { label: 'Roadmap', color: 'slate', badge: 'bg-slate-100 text-slate-600 dark:bg-slate-800/60 dark:text-slate-400 border-slate-200 dark:border-slate-700' },
+};
