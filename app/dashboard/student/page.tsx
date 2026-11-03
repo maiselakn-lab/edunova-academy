@@ -1,99 +1,156 @@
 "use client";
-import StudentSidebar from "@/components/sidebars/StudentSidebar";
-import TopNav from "@/components/TopNav";
-import { BookOpen, GraduationCap, Video, FileText, CheckCircle2, TrendingUp, Calendar, Users, ArrowRight, Library, Clock } from "lucide-react";
-import Link from "next/link";
+import { useState, useEffect } from "react";
+import { Plus, Search, User, Loader2 } from "lucide-react";
+import { fetchApi } from "@/lib/api";
 
-export default function StudentDashboard() {
+export default function StudentsPage() {
+  const [students, setStudents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // Form State
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const loadStudents = async () => {
+    try {
+      const data = await fetchApi("/students");
+      setStudents(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadStudents();
+  }, []);
+
+  const handleAddStudent = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      await fetchApi("/students", {
+        method: "POST",
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+        }),
+      });
+      // Reset and close
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setIsModalOpen(false);
+      loadStudents(); // Refresh list
+    } catch (err) {
+      alert("Failed to add student. Check if you are logged in.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <div className="h-screen overflow-hidden bg-[#F8FAFC] flex flex-col">
-      <StudentSidebar /> 
-      <TopNav />
-      
-      <main className="ml-[260px] pt-[72px] pb-[70px] flex-grow overflow-y-auto">
-        <div className="p-6 max-w-[1600px] mx-auto space-y-6">
-          
-          <div className="bg-[#1E1B4B] rounded-2xl p-8 text-white relative overflow-hidden flex flex-col justify-center min-h-[180px]">
-             <div className="z-10 max-w-lg relative">
-                <h2 className="text-3xl font-bold leading-tight mb-2">Welcome back, <span className="text-[#818CF8]">Student!</span></h2>
-                <p className="text-gray-300 text-sm mb-6">Your academic modules and research resources are ready.</p>
-                <div className="flex gap-3">
-                   <span className="bg-white/10 px-4 py-1.5 rounded-full text-xs font-bold border border-white/20">University of Cape Town</span>
-                   <span className="bg-white/10 px-4 py-1.5 rounded-full text-xs font-bold border border-white/20">BSc Computer Science</span>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">Students</h1>
+          <p className="text-sm text-muted-foreground">Manage student records and enrollment.</p>
+        </div>
+        <button 
+          onClick={() => setIsModalOpen(true)}
+          className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
+        >
+          <Plus size={16} /> Add Student
+        </button>
+      </div>
+
+      {/* Search Bar */}
+      <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2 max-w-md">
+        <Search size={18} className="text-muted-foreground" />
+        <input 
+          type="text" 
+          placeholder="Search students..." 
+          className="bg-transparent border-none outline-none text-sm w-full placeholder:text-muted-foreground text-foreground"
+        />
+      </div>
+
+      {/* Table */}
+      <div className="bg-card border border-border rounded-xl overflow-hidden">
+        {loading ? (
+          <div className="p-12 flex justify-center text-muted-foreground"><Loader2 className="animate-spin" /></div>
+        ) : students.length === 0 ? (
+          <div className="p-12 text-center text-muted-foreground">
+            No students found. Click "Add Student" to create one.
+          </div>
+        ) : (
+          <table className="w-full text-sm text-left">
+            <thead className="bg-muted/50 border-b border-border text-muted-foreground">
+              <tr>
+                <th className="px-6 py-3 font-medium">Name</th>
+                <th className="px-6 py-3 font-medium">Email</th>
+                <th className="px-6 py-3 font-medium">Status</th>
+                <th className="px-6 py-3 font-medium text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border text-foreground">
+              {students.map((student) => (
+                <tr key={student.id} className="hover:bg-muted/30">
+                  <td className="px-6 py-4 font-medium flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                      <User size={14} />
+                    </div>
+                    {student.first_name} {student.last_name}
+                  </td>
+                  <td className="px-6 py-4 text-muted-foreground">{student.email || "No email"}</td>
+                  <td className="px-6 py-4">
+                    <span className="bg-emerald-500/10 text-emerald-500 px-2 py-1 rounded-full text-xs font-medium">Active</span>
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <button className="text-primary hover:underline text-sm font-medium">Edit</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+
+      {/* Add Student Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-card border border-border rounded-xl shadow-2xl w-full max-w-md p-6">
+            <h2 className="text-xl font-bold text-foreground mb-4">Add New Student</h2>
+            <form onSubmit={handleAddStudent} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">First Name</label>
+                  <input required value={firstName} onChange={e => setFirstName(e.target.value)} className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary outline-none" />
                 </div>
-             </div>
-          </div>
-
-          <div className="grid grid-cols-4 gap-4">
-            <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
-              <div className="bg-indigo-100 p-3 rounded-lg text-indigo-600"><BookOpen size={24}/></div>
-              <div><p className="text-2xl font-bold text-gray-800">5</p><p className="text-xs text-gray-500 font-medium">Active Modules</p></div>
-            </div>
-            <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
-              <div className="bg-emerald-100 p-3 rounded-lg text-emerald-600"><TrendingUp size={24}/></div>
-              <div><p className="text-2xl font-bold text-gray-800">72%</p><p className="text-xs text-gray-500 font-medium">Average Grade</p></div>
-            </div>
-            <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
-              <div className="bg-purple-100 p-3 rounded-lg text-purple-600"><Clock size={24}/></div>
-              <div><p className="text-2xl font-bold text-gray-800">3</p><p className="text-xs text-gray-500 font-medium">Assignments Due</p></div>
-            </div>
-            <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
-              <div className="bg-orange-100 p-3 rounded-lg text-orange-600"><Library size={24}/></div>
-              <div><p className="text-2xl font-bold text-gray-800">12</p><p className="text-xs text-gray-500 font-medium">Research Papers</p></div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-6">
-            <div className="col-span-2 bg-white rounded-xl border border-gray-200 shadow-sm">
-              <div className="p-5 border-b border-gray-200 flex justify-between items-center">
-                <h2 className="font-bold text-gray-800 text-lg">My Modules</h2>
-                <Link href="/dashboard/student/modules" className="text-sm text-indigo-600 font-bold hover:underline">View All</Link>
+                <div>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">Last Name</label>
+                  <input required value={lastName} onChange={e => setLastName(e.target.value)} className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary outline-none" />
+                </div>
               </div>
-              <div className="divide-y divide-gray-100">
-                {[
-                  { title: "Advanced Algorithms", code: "CSC3001", progress: 80, next: "Lecture: Graph Theory", time: "Today, 10:00" },
-                  { title: "Database Systems", code: "CSC2002", progress: 45, next: "Assignment 2 Due", time: "Friday, 23:59" },
-                  { title: "Artificial Intelligence", code: "CSC4001", progress: 60, next: "Lab Session: Neural Networks", time: "Tomorrow, 14:00" },
-                ].map((mod, i) => (
-                  <div key={i} className="p-5 flex items-center justify-between hover:bg-gray-50">
-                    <div className="flex gap-4 items-center">
-                      <div className="w-12 h-12 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm">{mod.code.substring(3)}</div>
-                      <div>
-                        <p className="font-bold text-gray-800 text-base">{mod.title}</p>
-                        <p className="text-xs text-gray-500 mt-0.5">{mod.code} • Next: {mod.next}</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs font-bold text-gray-800 mb-1">{mod.time}</p>
-                      <div className="flex items-center justify-end gap-2">
-                        <div className="w-24 bg-gray-100 rounded-full h-1.5"><div className="bg-indigo-500 h-1.5 rounded-full" style={{width: `${mod.progress}%`}}></div></div>
-                        <span className="text-[10px] font-bold text-gray-600">{mod.progress}%</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              <div>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">Email (Optional)</label>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary outline-none" />
               </div>
-            </div>
-
-            <div className="space-y-4">
-               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
-                  <h3 className="font-bold text-gray-800 text-sm mb-4">University Tools</h3>
-                  <div className="space-y-2">
-                    <Link href="/dashboard/student/assignments" className="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-gray-50 border border-gray-100 text-sm text-gray-700 font-medium"><span className="flex items-center gap-2"><FileText size={16} className="text-indigo-500"/> Submit Assignment</span> <ArrowRight size={14} className="text-gray-400"/></Link>
-                    <Link href="/dashboard/student/sessions" className="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-gray-50 border border-gray-100 text-sm text-gray-700 font-medium"><span className="flex items-center gap-2"><Users size={16} className="text-emerald-500"/> Join Study Group</span> <ArrowRight size={14} className="text-gray-400"/></Link>
-                    <Link href="/dashboard/student/live" className="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-gray-50 border border-gray-100 text-sm text-gray-700 font-medium"><span className="flex items-center gap-2"><Video size={16} className="text-purple-500"/> Watch Lecture</span> <ArrowRight size={14} className="text-gray-400"/></Link>
-                  </div>
-               </div>
-
-               <div className="bg-indigo-50 rounded-xl border border-indigo-100 p-5">
-                 <h3 className="font-bold text-indigo-700 text-sm mb-1">Need Help?</h3>
-                 <p className="text-[11px] text-indigo-900 mb-3">Book a 1-on-1 session with a specialized University Tutor.</p>
-                 <Link href="/dashboard/student/tutors" className="w-full bg-indigo-600 text-white py-2 rounded-lg text-xs font-bold hover:bg-indigo-700 flex items-center justify-center">Request a Tutor</Link>
-               </div>
-            </div>
+              <div className="flex justify-end gap-2 pt-4">
+                <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:bg-muted">Cancel</button>
+                <button type="submit" disabled={isSubmitting} className="bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 flex items-center gap-2">
+                  {isSubmitting && <Loader2 size={14} className="animate-spin" />} Save Student
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-      </main>
+      )}
     </div>
   );
 }
