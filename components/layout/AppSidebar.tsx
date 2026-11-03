@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronLeft, ChevronRight, Menu, LogOut, Building2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Menu, LogOut, Building2, Layers } from "lucide-react";
 import { SIDEBAR_SECTIONS } from "@/lib/coreModules";
 import ThemeToggle from "./ThemeToggle";
 
@@ -12,36 +12,41 @@ export default function AppSidebar() {
   const pathname = usePathname();
 
   const sidebarContent = (
-    <div className={`flex flex-col h-full bg-sidebar text-white transition-all duration-300 ${collapsed ? 'w-[68px]' : 'w-[260px]'}`}>
+    <div className={`flex flex-col h-full bg-[#0A1420] border-r border-white/5 text-white transition-all duration-300 ${collapsed ? 'w-[68px]' : 'w-[260px]'}`}>
       {/* Logo */}
-      <Link href="/dashboard" className="flex items-center gap-3 px-4 py-5 border-b border-sidebar-border hover:bg-sidebar-accent transition-colors">
-        <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold flex-shrink-0">
-          A
+      <Link href="/dashboard" className="flex items-center gap-3 px-4 py-5 border-b border-white/5 hover:bg-white/5 transition-colors">
+        <div className="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center text-white flex-shrink-0">
+          <Layers size={18} />
         </div>
         {!collapsed && (
           <div className="min-w-0">
-            <h1 className="text-sm font-bold tracking-wide text-white truncate">AcadCoreOS</h1>
-            <p className="text-[10px] text-sidebar-foreground/70 truncate">The Intelligent OS</p>
+            <h1 className="text-sm font-bold tracking-wide text-white truncate">THINK Academy</h1>
+            <p className="text-[10px] text-slate-400 truncate">AcadCoreOS</p>
           </div>
         )}
       </Link>
 
-      {/* School selector placeholder */}
+      {/* School / Campus Selector */}
       {!collapsed && (
-        <div className="px-3 py-3 border-b border-sidebar-border">
-          <p className="text-[10px] uppercase tracking-widest text-sidebar-foreground/50 mb-1.5">School</p>
-          <p className="text-xs font-medium text-sidebar-foreground truncate flex items-center gap-2">
-            <Building2 size={12} /> THINK Academy
-          </p>
+        <div className="px-4 py-4 border-b border-white/5">
+          <p className="text-[10px] uppercase tracking-widest text-slate-500 mb-2">Current School</p>
+          <div className="flex items-center gap-2 text-sm text-slate-200 bg-white/5 px-3 py-2 rounded-lg border border-white/5">
+            <Building2 size={14} className="text-orange-500" />
+            <span className="truncate">THINK Academy</span>
+          </div>
+          <p className="text-[10px] uppercase tracking-widest text-slate-500 mt-4 mb-2">Viewing As</p>
+          <div className="flex items-center gap-2 text-sm text-slate-200 bg-white/5 px-3 py-2 rounded-lg border border-white/5">
+            <span className="truncate">School Administrator</span>
+          </div>
         </div>
       )}
 
       {/* Navigation */}
-      <nav className="flex-1 py-3 px-2 space-y-4 overflow-y-auto">
+      <nav className="flex-1 py-4 px-3 space-y-6 overflow-y-auto custom-scrollbar">
         {SIDEBAR_SECTIONS.map((section) => (
           <div key={section.title}>
-            {!collapsed && <p className="text-[10px] uppercase tracking-widest text-sidebar-foreground/50 px-3 mb-1">{section.title}</p>}
-            <div className="space-y-0.5">
+            {!collapsed && <p className="text-[10px] uppercase tracking-widest text-slate-500 px-3 mb-2">{section.title}</p>}
+            <div className="space-y-1">
               {section.items.map((item) => {
                 const Icon = item.icon;
                 const fullPath = `/dashboard${item.path}`;
@@ -54,8 +59,8 @@ export default function AppSidebar() {
                     onClick={() => setMobileOpen(false)}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
                       isActive
-                        ? "bg-sidebar-primary text-sidebar-primary-foreground font-medium"
-                        : "text-sidebar-foreground hover:text-white hover:bg-sidebar-accent"
+                        ? "bg-orange-500/10 text-orange-500 font-medium border border-orange-500/20"
+                        : "text-slate-400 hover:text-white hover:bg-white/5"
                     }`}
                   >
                     <Icon size={18} className="flex-shrink-0" />
@@ -68,25 +73,21 @@ export default function AppSidebar() {
         ))}
       </nav>
 
-      {/* Theme Toggle & Collapse */}
-      <div className="border-t border-sidebar-border px-3 py-2">
-        <ThemeToggle collapsed={collapsed} />
-      </div>
-
-      <div className="border-t border-sidebar-border px-2 py-3 space-y-1">
+      {/* Bottom Actions */}
+      <div className="border-t border-white/5 px-3 py-3 space-y-1">
         <Link
           href="/login"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-sidebar-foreground hover:text-white hover:bg-sidebar-accent w-full"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 w-full transition-colors"
         >
           <LogOut size={18} className="flex-shrink-0" />
           {!collapsed && <span>Logout</span>}
         </Link>
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="hidden lg:flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-sidebar-foreground/70 hover:text-white hover:bg-sidebar-accent w-full"
+          className="hidden lg:flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-500 hover:text-white hover:bg-white/5 w-full transition-colors"
         >
           {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-          {!collapsed && <span>Collapse</span>}
+          {!collapsed && <span>Collapse Menu</span>}
         </button>
       </div>
     </div>
@@ -97,7 +98,7 @@ export default function AppSidebar() {
       {/* Mobile toggle */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="lg:hidden fixed top-3 left-3 z-50 p-2 bg-sidebar text-white rounded-lg shadow-lg"
+        className="lg:hidden fixed top-3 left-3 z-50 p-2 bg-[#0A1420] text-white rounded-lg shadow-lg border border-white/10"
       >
         <Menu size={20} />
       </button>
@@ -105,8 +106,8 @@ export default function AppSidebar() {
       {/* Mobile overlay */}
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-40 flex">
-          <div className="fixed inset-0 bg-black/50" onClick={() => setMobileOpen(false)} />
-          <div className="relative z-50 h-full bg-sidebar">
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
+          <div className="relative z-50 h-full bg-[#0A1420]">
             {sidebarContent}
           </div>
         </div>

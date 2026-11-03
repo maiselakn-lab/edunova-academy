@@ -1,76 +1,111 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Users, CreditCard, BookOpen, TrendingUp, Plus, Loader2 } from "lucide-react";
-import { fetchApi } from "@/lib/api";
+import { Users, CreditCard, BookOpen, TrendingUp, Plus, ArrowUpRight, Clock, CheckCircle2 } from "lucide-react";
 
 export default function DashboardHome() {
-  const [stats, setStats] = useState({ students: 0, fees: "R 0.00", classes: 0, attendance: "0%" });
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Fetch real stats from FastAPI
-    async function loadStats() {
-      try {
-        // Replace these with your actual backend endpoints if they differ
-        const data = await fetchApi("/dashboard/stats");
-        setStats({
-          students: data.total_students || 0,
-          fees: data.fees_collected || "R 0.00",
-          classes: data.active_classes || 0,
-          attendance: data.attendance_rate || "0%",
-        });
-      } catch (err) {
-        console.error("Failed to load stats", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadStats();
-  }, []);
-
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
-          <p className="text-sm text-muted-foreground">Welcome back to THINK Academy</p>
+          <h1 className="text-2xl font-bold text-white tracking-tight">Dashboard Overview</h1>
+          <p className="text-sm text-slate-400 mt-1">Welcome back to THINK Academy. Here is what's happening today.</p>
         </div>
-        <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
-          <Plus size={16} /> Add Student
+        <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
+          <Plus size={16} /> Enroll New Student
         </button>
       </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard icon={<Users size={20} />} label="Total Students" val={loading ? "..." : stats.students.toString()} color="text-blue-500" bg="bg-blue-500/10" />
-        <StatCard icon={<CreditCard size={20} />} label="Fees Collected" val={loading ? "..." : stats.fees} color="text-emerald-500" bg="bg-emerald-500/10" />
-        <StatCard icon={<BookOpen size={20} />} label="Active Classes" val={loading ? "..." : stats.classes.toString()} color="text-purple-500" bg="bg-purple-500/10" />
-        <StatCard icon={<TrendingUp size={20} />} label="Attendance Rate" val={loading ? "..." : stats.attendance} color="text-orange-500" bg="bg-orange-500/10" />
+        <StatCard icon={<Users size={20} />} label="Total Students" val="1,248" trend="+12%" color="text-blue-500" bg="bg-blue-500/10" />
+        <StatCard icon={<CreditCard size={20} />} label="Fees Collected" val="R 450,000" trend="+8%" color="text-emerald-500" bg="bg-emerald-500/10" />
+        <StatCard icon={<BookOpen size={20} />} label="Active Classes" val="42" trend="+2" color="text-purple-500" bg="bg-purple-500/10" />
+        <StatCard icon={<TrendingUp size={20} />} label="Attendance Rate" val="94%" trend="+1.5%" color="text-orange-500" bg="bg-orange-500/10" />
       </div>
 
-      {/* Empty State or Table */}
-      <div className="bg-card rounded-xl border border-border p-12 text-center mt-8">
-        <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-          <Users size={24} className="text-muted-foreground" />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Main Chart Area (Placeholder) */}
+        <div className="lg:col-span-2 bg-[#0F1926] border border-white/5 rounded-xl p-6">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-lg font-bold text-white">Revenue Overview</h2>
+            <select className="bg-[#162233] border border-white/5 text-sm text-slate-300 rounded-lg px-3 py-1.5 focus:outline-none">
+              <option>This Term</option>
+              <option>Last Term</option>
+            </select>
+          </div>
+          <div className="h-64 flex items-end justify-between gap-2">
+            {[40, 70, 45, 90, 65, 85, 100, 60, 75, 50, 80, 95].map((height, i) => (
+              <div key={i} className="w-full bg-orange-500/20 rounded-t-sm relative group hover:bg-orange-500/40 transition-colors" style={{ height: `${height}%` }}>
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-white text-black text-xs font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                  R {height * 1000}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-between text-xs text-slate-500 mt-4 px-2">
+            <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+            <span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+          </div>
         </div>
-        <h2 className="text-lg font-bold text-foreground mb-2">No Students Yet</h2>
-        <p className="text-sm text-muted-foreground max-w-md mx-auto mb-6">Your school is set up on AcadCoreOS. Start by adding your first student to see the dashboard come alive.</p>
-        <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2.5 rounded-lg text-sm font-bold transition-colors">
-          Add First Student
-        </button>
+
+        {/* Recent Activity */}
+        <div className="bg-[#0F1926] border border-white/5 rounded-xl p-6">
+          <h2 className="text-lg font-bold text-white mb-6">Recent Activity</h2>
+          <div className="space-y-6">
+            <div className="flex gap-4">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
+                <CheckCircle2 size={16} />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-white">Fees payment received</p>
+                <p className="text-xs text-slate-400">John Doe paid R 5,000.00</p>
+                <p className="text-[10px] text-slate-500 mt-1">2 hours ago</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <div className="w-8 h-8 rounded-full bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0">
+                <Users size={16} />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-white">New student enrolled</p>
+                <p className="text-xs text-slate-400">Sarah Smith joined Grade 10A</p>
+                <p className="text-[10px] text-slate-500 mt-1">5 hours ago</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <div className="w-8 h-8 rounded-full bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0">
+                <Clock size={16} />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-white">Results published</p>
+                <p className="text-xs text-slate-400">Term 1 results are now live</p>
+                <p className="text-[10px] text-slate-500 mt-1">1 day ago</p>
+              </div>
+            </div>
+          </div>
+          <button className="w-full mt-6 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-sm font-medium transition-colors">
+            View All Activity
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-function StatCard({ icon, label, val, color, bg }: { icon: React.ReactNode, label: string, val: string, color: string, bg: string }) {
+function StatCard({ icon, label, val, trend, color, bg }: { icon: React.ReactNode, label: string, val: string, trend: string, color: string, bg: string }) {
   return (
-    <div className="bg-card p-6 rounded-xl border border-border">
-      <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 ${bg} ${color}`}>
-        {icon}
+    <div className="bg-[#0F1926] p-6 rounded-xl border border-white/5 relative overflow-hidden group">
+      <div className="flex justify-between items-start mb-4">
+        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${bg} ${color}`}>
+          {icon}
+        </div>
+        <span className="flex items-center gap-1 text-xs font-medium text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded-full">
+          <ArrowUpRight size={12} /> {trend}
+        </span>
       </div>
-      <p className="text-2xl font-bold text-foreground mb-1">{val}</p>
-      <p className="text-xs text-muted-foreground">{label}</p>
+      <p className="text-2xl font-bold text-white mb-1">{val}</p>
+      <p className="text-xs text-slate-400">{label}</p>
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent to-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
     </div>
   );
 }
