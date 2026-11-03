@@ -2,93 +2,57 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Mail, Lock, Loader2, BookOpen } from "lucide-react";
+import { Layers, ArrowRight, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    setError(""); 
-    setIsLoading(true);
-    
-    try {
-      // UPDATED TO LIVE RENDER URL
-      const res = await fetch("https://edunova-academy-qkk5.onrender.com/api/login", {
-        method: "POST", 
-        headers: { "Content-Type": "application/json" }, 
-        body: JSON.stringify({ email, password }),
-      });
-      
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.detail || "Invalid email or password");
-      
-      localStorage.setItem("edunova_role", data.user.role);
-      
-      if (data.user.role === "admin") router.push("/dashboard/admin");
-      else if (data.user.role === "tutor") router.push("/dashboard/tutor");
-      else if (data.user.role === "student") router.push("/dashboard/student");
-      else router.push("/dashboard/learner");
-      
-    } catch (err: any) { 
-      setError(err.message); 
-    } finally { 
-      setIsLoading(false); 
-    }
+    setLoading(true);
+    // Simulate backend login
+    setTimeout(() => {
+      router.push("/dashboard");
+    }, 1500);
   };
 
   return (
-    <div className="min-h-screen bg-[#009CA6] flex flex-col items-center justify-center p-4 relative overflow-hidden">
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#007A82] rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#00B8C4] rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
-
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm p-8 relative z-10">
-        
+    <div className="min-h-screen bg-[#08101A] flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-[#0F1926] border border-white/10 rounded-2xl p-8 shadow-2xl">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex flex-col items-center mb-6">
-             <BookOpen size={48} className="text-[#D1007B] mb-1" strokeWidth={2.5} />
-             <div className="text-[#D1007B] text-3xl font-black italic tracking-tighter leading-none">THINK</div>
-             <p className="text-gray-400 text-[9px] tracking-[0.3em] font-bold uppercase mt-1">EduNova Academy</p>
-          </Link>
-          <h1 className="text-xl font-bold text-[#333]">Login</h1>
+          <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <Layers size={24} className="text-white" />
+          </div>
+          <h1 className="text-2xl font-bold text-white mb-2">Welcome Back</h1>
+          <p className="text-sm text-slate-400">Sign in to your AcadCoreOS workspace</p>
         </div>
 
-        {error && <div className="p-3 bg-red-50 text-red-600 text-xs rounded-lg border border-red-100 mb-4 text-center">{error}</div>}
-
-        <form onSubmit={handleLogin} className="space-y-5">
-          <div className="relative border-b border-gray-300 pb-2">
-            <div className="absolute top-1 left-0 text-gray-400"><Mail size={16}/></div>
-            <input type="text" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full pl-8 bg-transparent outline-none text-sm text-gray-700 placeholder-gray-400" placeholder="User Name / Email" />
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div>
+            <label className="block text-xs font-medium text-slate-400 mb-1">Email Address</label>
+            <input required type="email" placeholder="admin@thinkacademy.edu" className="w-full bg-[#08101A] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-orange-500" />
           </div>
-          
-          <div className="relative border-b border-gray-300 pb-2">
-            <div className="absolute top-1 left-0 text-gray-400"><Lock size={16}/></div>
-            <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full pl-8 bg-transparent outline-none text-sm text-gray-700 placeholder-gray-400" placeholder="Password" />
+          <div>
+            <label className="block text-xs font-medium text-slate-400 mb-1">Password</label>
+            <input required type="password" placeholder="••••••••" className="w-full bg-[#08101A] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-orange-500" />
           </div>
-          
-          <div className="flex items-center gap-2">
-            <input type="checkbox" id="remember" className="accent-[#009CA6] w-4 h-4" />
-            <label htmlFor="remember" className="text-xs text-gray-500">Remember me</label>
+          <div className="flex items-center justify-between text-xs">
+            <label className="flex items-center gap-2 text-slate-400 cursor-pointer">
+              <input type="checkbox" className="rounded bg-[#08101A] border-white/10 text-orange-500 focus:ring-orange-500" />
+              Remember me
+            </label>
+            <a href="#" className="text-orange-500 hover:underline">Forgot password?</a>
           </div>
-          
-          <button type="submit" disabled={isLoading} className="w-full bg-[#009CA6] hover:bg-[#00828A] text-white py-3 rounded-md font-bold text-sm mt-4 transition-colors flex justify-center items-center">
-            {isLoading ? <Loader2 size={18} className="animate-spin" /> : "LOGIN"}
+          <button disabled={loading} type="submit" className="w-full bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors mt-6">
+            {loading ? <Loader2 size={18} className="animate-spin" /> : "Sign In"}
+            {!loading && <ArrowRight size={18} />}
           </button>
         </form>
 
-        <div className="mt-8 flex justify-between text-xs text-[#009CA6] font-medium">
-          <Link href="/enrol" className="hover:underline">Register With Us</Link>
-          <Link href="#" className="hover:underline">Privacy Policy</Link>
-        </div>
-      </div>
-
-      <div className="mt-8 text-center text-xs text-white relative z-10 w-full max-w-sm flex justify-between">
-        <span>THINK DIGITAL ACADEMY</span>
-        <span>© 2026, Made By THINK Digital Academy</span>
+        <p className="text-center text-xs text-slate-500 mt-8">
+          Don't have a school account? <Link href="/trial" className="text-orange-500 hover:underline">Start a free trial</Link>
+        </p>
       </div>
     </div>
   );
