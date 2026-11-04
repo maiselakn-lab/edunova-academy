@@ -4,7 +4,7 @@ import PublicLayout from "@/components/layout/PublicLayout";
 import { 
   GraduationCap, ArrowRight, Users, BookOpen, 
   Laptop, LayoutDashboard, CheckCircle2, Star,
-  MonitorPlay, ShieldCheck, Microscope, Library
+  MonitorPlay, ShieldCheck, Microscope, Library, School
 } from "lucide-react";
 
 export default function Home() {
@@ -64,7 +64,6 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Primary */}
             <div className="group cursor-pointer">
               <div className="overflow-hidden rounded-2xl mb-4">
                 <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=800" alt="Primary Academy" className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -73,7 +72,6 @@ export default function Home() {
               <p className="text-slate-500 font-medium">Foundational learning</p>
             </div>
             
-            {/* Secondary */}
             <div className="group cursor-pointer">
               <div className="overflow-hidden rounded-2xl mb-4">
                 <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800" alt="Secondary Academy" className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -82,7 +80,6 @@ export default function Home() {
               <p className="text-slate-500 font-medium">School subject support</p>
             </div>
 
-            {/* College */}
             <div className="group cursor-pointer">
               <div className="overflow-hidden rounded-2xl mb-4">
                 <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&q=80&w=800" alt="College Academy" className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -91,7 +88,6 @@ export default function Home() {
               <p className="text-slate-500 font-medium">Technical and vocational learning</p>
             </div>
 
-            {/* University */}
             <div className="group cursor-pointer">
               <div className="overflow-hidden rounded-2xl mb-4">
                 <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=800" alt="University Academy" className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -107,7 +103,6 @@ export default function Home() {
       <section className="py-24 px-6 bg-[#F8FAFC] border-t border-slate-100">
         <div className="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
           
-          {/* Become a Tutor */}
           <div className="flex gap-6 items-start bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
             <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200" alt="Tutor" className="w-24 h-24 rounded-xl object-cover" />
             <div>
@@ -117,7 +112,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Research Support */}
           <div className="flex gap-6 items-start bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
             <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=200" alt="Research" className="w-24 h-24 rounded-xl object-cover" />
             <div>

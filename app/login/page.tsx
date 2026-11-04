@@ -1,10 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { GraduationCap, ArrowRight, Loader2, Users, BookOpen, MonitorPlay, ShieldCheck } from "lucide-react";
+import { GraduationCap, ArrowRight, Loader2, Users, MonitorPlay, ShieldCheck } from "lucide-react";
 
-export default function LoginPortalPage() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialRole = searchParams.get("role") || "learner";
@@ -100,5 +100,17 @@ export default function LoginPortalPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function LoginPortalPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
+        <Loader2 size={32} className="animate-spin text-blue-600" />
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }
