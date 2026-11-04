@@ -1,6 +1,6 @@
 import PublicLayout from "@/components/layout/PublicLayout";
 import Link from "next/link";
-import { ArrowLeft, ShieldCheck, Zap, Heart, Users, Globe, CheckCircle2, LayoutDashboard, Cpu, Rocket } from "lucide-react";
+import { ArrowLeft, ShieldCheck, Zap, Heart, Users, Globe, CheckCircle2, LayoutDashboard, Rocket, Target, Award, ArrowRight } from "lucide-react";
 
 export default function AboutAcadCoreOS() {
   return (
@@ -136,6 +136,3 @@ export default function AboutAcadCoreOS() {
     </PublicLayout>
   );
 }
-
-// Adding missing icons
-import { Target, Award, ArrowRight } from "lucide-react";

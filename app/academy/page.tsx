@@ -1,6 +1,6 @@
 import PublicLayout from "@/components/layout/PublicLayout";
 import Link from "next/link";
-import { ArrowLeft, Globe, BookOpen, GraduationCap, Laptop, Users, CheckCircle2, Award } from "lucide-react";
+import { ArrowLeft, Globe, BookOpen, GraduationCap, Laptop, Users, CheckCircle2, Award, ArrowRight } from "lucide-react";
 
 export default function AcademyAboutPage() {
   return (
