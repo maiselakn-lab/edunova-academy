@@ -1,15 +1,15 @@
 import Link from "next/link";
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, LayoutDashboard } from "lucide-react";
 
 export default function PublicFooter() {
   const sections = [
     {
       title: "The Academy",
       links: [
-        { label: "About Think EduNova", href: "#about" },
+        { label: "About Think EduNova", href: "/academy" },
         { label: "Our Curriculums", href: "#curriculum" },
         { label: "Admissions", href: "#admissions" },
-        { label: "Tutor Application", href: "#tutor-apply" },
+        { label: "Tutor Application", href: "/login" },
         { label: "Contact Us", href: "#contact" },
       ],
     },
@@ -25,7 +25,7 @@ export default function PublicFooter() {
     {
       title: "AcadCoreOS (Platform)",
       links: [
-        { label: "About AcadCoreOS", href: "/about" }, // Links to the page you just sent
+        { label: "About AcadCoreOS", href: "/about" },
         { label: "19 Core Modules", href: "#features" },
         { label: "Security & Trust", href: "/security" },
         { label: "Pricing", href: "/pricing" },
