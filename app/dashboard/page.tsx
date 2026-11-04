@@ -4,6 +4,7 @@ import Link from "next/link";
 import { 
   Users, CreditCard, BookOpen, TrendingUp, Plus, ArrowUpRight, Clock, CheckCircle2, X 
 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function DashboardHome() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,11 +66,19 @@ export default function DashboardHome() {
         <div className="lg:col-span-2 bg-[#0F1926] border border-white/5 rounded-xl p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-lg font-bold text-white">Revenue Overview</h2>
-            <select className="bg-[#162233] border border-white/5 text-sm text-slate-300 rounded-lg px-3 py-1.5 focus:outline-none">
-              <option>This Term</option>
-              <option>Last Term</option>
-            </select>
+            
+            {/* Base44 Select Component */}
+            <Select defaultValue="this_term">
+              <SelectTrigger className="w-[140px] h-8 text-xs bg-[#162233] border-white/5 text-slate-300 focus:ring-0">
+                <SelectValue placeholder="Select term" />
+              </SelectTrigger>
+              <SelectContent className="bg-[#0F1926] border-white/10 text-slate-200">
+                <SelectItem value="this_term">This Term</SelectItem>
+                <SelectItem value="last_term">Last Term</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
+          
           <div className="h-64 flex items-end justify-between gap-2">
             {[40, 70, 45, 90, 65, 85, 100, 60, 75, 50, 80, 95].map((height, i) => (
               <div 
