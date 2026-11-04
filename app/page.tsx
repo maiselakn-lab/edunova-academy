@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import PublicLayout from "@/components/layout/PublicLayout";
 import { 
@@ -17,9 +18,9 @@ export default function Home() {
       <section className="py-20 lg:py-28 px-6 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
-          <div>
+          <div className="animate-fade-in-up">
             <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 px-3 py-1.5 rounded-full text-xs font-medium mb-6 border border-orange-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span> The Intelligent Operating System for Modern Schools
+              <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></span> The Intelligent Operating System for Modern Schools
             </div>
             <h1 className="text-5xl lg:text-[4.5rem] font-bold text-white leading-[1.05] mb-6 tracking-tight">
               The Intelligent OS <br /> for <span className="text-orange-500">Modern Schools</span>
@@ -28,10 +29,10 @@ export default function Home() {
               AcadCoreOS unifies 19 Core modules — academics, assessment, admissions, people, attendance, finance, HR, scheduling, CBT, communication, reports, verification, and the AcadAI intelligence layer — in a single, scalable, multi-tenant workspace.
             </p>
             <div className="flex flex-wrap items-center gap-4 mb-8">
-              <Link href="/get-started" className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 transition-colors">
+              <Link href="/get-started" className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 transition-all shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40">
                 <PlayCircle size={18} /> Explore AcadCoreOS
               </Link>
-              <Link href="/get-started" className="bg-white/5 hover:bg-white/10 text-white border border-white/10 px-6 py-3 rounded-lg font-medium flex items-center gap-2 transition-colors">
+              <Link href="/get-started" className="bg-white/5 hover:bg-white/10 text-white border border-white/10 px-6 py-3 rounded-lg font-medium flex items-center gap-2 transition-all">
                 Get Started Free <ArrowRight size={18} />
               </Link>
             </div>
@@ -39,21 +40,21 @@ export default function Home() {
               See how AcadCoreOS works for school administrators, teachers, parents, and students — no registration required.
             </p>
             <div className="flex flex-wrap gap-3">
-              <button className="flex items-center gap-2 bg-[#0F1926] border border-white/10 text-slate-300 px-4 py-2 rounded-lg text-sm hover:border-orange-500/50 transition-colors">
+              <button className="flex items-center gap-2 bg-[#0F1926] border border-white/10 text-slate-300 px-4 py-2 rounded-lg text-sm hover:border-orange-500/50 hover:bg-[#162233] transition-all">
                 <MonitorPlay size={16} className="text-orange-500" /> Explore as Administrator
               </button>
-              <button className="flex items-center gap-2 bg-[#0F1926] border border-white/10 text-slate-300 px-4 py-2 rounded-lg text-sm hover:border-orange-500/50 transition-colors">
+              <button className="flex items-center gap-2 bg-[#0F1926] border border-white/10 text-slate-300 px-4 py-2 rounded-lg text-sm hover:border-orange-500/50 hover:bg-[#162233] transition-all">
                 <MonitorPlay size={16} className="text-emerald-500" /> Explore as Teacher
               </button>
-              <button className="flex items-center gap-2 bg-[#0F1926] border border-white/10 text-slate-300 px-4 py-2 rounded-lg text-sm hover:border-orange-500/50 transition-colors">
+              <button className="flex items-center gap-2 bg-[#0F1926] border border-white/10 text-slate-300 px-4 py-2 rounded-lg text-sm hover:border-orange-500/50 hover:bg-[#162233] transition-all">
                 <MonitorPlay size={16} className="text-yellow-500" /> Explore as Parent
               </button>
             </div>
           </div>
 
-          {/* Mockup */}
-          <div className="relative">
-            <div className="bg-[#0F1926] border border-white/10 rounded-2xl p-4 shadow-2xl relative z-10">
+          {/* Mockup with hover effects */}
+          <div className="relative animate-fade-in-up delay-200">
+            <div className="bg-[#0F1926] border border-white/10 rounded-2xl p-4 shadow-2xl relative z-10 group hover:border-orange-500/30 transition-colors duration-500">
               <div className="flex items-center justify-between mb-4 px-2">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
@@ -63,7 +64,7 @@ export default function Home() {
                 <div className="text-xs text-slate-500 font-mono">acadcoreos.com/dashboard</div>
               </div>
               <div className="space-y-4">
-                <div className="bg-[#162233] rounded-xl p-4 flex items-center gap-4 border border-white/5">
+                <div className="bg-[#162233] rounded-xl p-4 flex items-center gap-4 border border-white/5 group-hover:border-white/10 transition-colors">
                   <div className="w-10 h-10 rounded-lg bg-orange-500/20 text-orange-500 flex items-center justify-center">
                     <LayoutDashboard size={20} />
                   </div>
@@ -73,28 +74,28 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-[#162233] rounded-xl p-4 border border-white/5">
+                  <div className="bg-[#162233] rounded-xl p-4 border border-white/5 group-hover:border-white/10 transition-colors">
                     <div className="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-500 flex items-center justify-center mb-3">
                       <Monitor size={16} />
                     </div>
                     <h4 className="text-white font-medium text-sm">CBT Platform</h4>
                     <p className="text-xs text-slate-400">Computer-based tests</p>
                   </div>
-                  <div className="bg-[#162233] rounded-xl p-4 border border-white/5">
+                  <div className="bg-[#162233] rounded-xl p-4 border border-white/5 group-hover:border-white/10 transition-colors">
                     <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-500 flex items-center justify-center mb-3">
                       <Users size={16} />
                     </div>
                     <h4 className="text-white font-medium text-sm">Parent Portal</h4>
                     <p className="text-xs text-slate-400">Real-time access</p>
                   </div>
-                  <div className="bg-[#162233] rounded-xl p-4 border border-white/5">
+                  <div className="bg-[#162233] rounded-xl p-4 border border-white/5 group-hover:border-white/10 transition-colors">
                     <div className="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-500 flex items-center justify-center mb-3">
                       <Brain size={16} />
                     </div>
                     <h4 className="text-white font-medium text-sm">AI Assistant</h4>
                     <p className="text-xs text-slate-400">Smart insights</p>
                   </div>
-                  <div className="bg-[#162233] rounded-xl p-4 border border-white/5">
+                  <div className="bg-[#162233] rounded-xl p-4 border border-white/5 group-hover:border-white/10 transition-colors">
                     <div className="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-500 flex items-center justify-center mb-3">
                       <Building2 size={16} />
                     </div>
@@ -104,7 +105,8 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-orange-500/10 blur-[100px] -z-10 rounded-full"></div>
+            {/* Animated Glow Effect */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-orange-500/10 blur-[100px] -z-10 rounded-full animate-pulse duration-1000"></div>
           </div>
         </div>
       </section>
@@ -119,22 +121,22 @@ export default function Home() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
+            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl hover:border-white/10 transition-colors">
               <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 mb-6"><Layers size={20} /></div>
               <h3 className="text-xl font-bold text-white mb-3">All-in-One School Platform</h3>
               <p className="text-slate-400 leading-relaxed">Manage academics, administration, communication, finance, admissions, attendance, examinations, reports, and more from a unified workspace.</p>
             </div>
-            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
+            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl hover:border-white/10 transition-colors">
               <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 mb-6"><Building2 size={20} /></div>
               <h3 className="text-xl font-bold text-white mb-3">Designed for Schools of Every Size</h3>
               <p className="text-slate-400 leading-relaxed">Whether managing a small private school or a multi-campus institution, AcadCoreOS scales alongside your organisation.</p>
             </div>
-            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
+            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl hover:border-white/10 transition-colors">
               <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 mb-6"><ShieldCheck size={20} /></div>
               <h3 className="text-xl font-bold text-white mb-3">Secure by Design</h3>
               <p className="text-slate-400 leading-relaxed">Protect student, parent, teacher, and institutional data through modern security practices, role-based permissions, encrypted storage, audit logs, and regular backups.</p>
             </div>
-            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
+            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl hover:border-white/10 transition-colors">
               <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 mb-6"><Zap size={20} /></div>
               <h3 className="text-xl font-bold text-white mb-3">Future-Ready Platform</h3>
               <p className="text-slate-400 leading-relaxed">Continuous innovation, AI-powered productivity tools, automation, integrations, analytics, and cloud infrastructure prepare schools for the future of education.</p>
@@ -162,7 +164,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {CORE_MODULES.slice(0, 9).map((mod) => (
-              <div key={mod.key} className="bg-[#0F1926] border border-white/5 p-6 rounded-xl hover:border-white/10 transition-colors">
+              <div key={mod.key} className="bg-[#0F1926] border border-white/5 p-6 rounded-xl hover:border-white/10 hover:shadow-lg transition-all duration-300">
                 <div className="flex justify-between items-start mb-4">
                   <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center">
                     <mod.icon size={20} />
@@ -213,12 +215,12 @@ export default function Home() {
               { title: "Generate Results", desc: "Compute CA scores, exam scores, and generate professional report cards...", image: false },
               { title: "Parent Portal", desc: "Give parents real-time access to their children's attendance, results,...", image: false, realImage: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=400" },
             ].map((item, i) => (
-              <div key={i} className="bg-[#0F1926] border border-white/5 rounded-xl overflow-hidden group flex flex-col">
+              <div key={i} className="bg-[#0F1926] border border-white/5 rounded-xl overflow-hidden group flex flex-col hover:border-white/10 transition-colors">
                 {item.realImage ? (
                   <div className="h-40 overflow-hidden"><img src={item.realImage} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /></div>
                 ) : (
                   <div className="h-40 bg-[#162233] flex items-center justify-center border-b border-white/5">
-                    <div className="w-12 h-12 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500"><ArrowRight size={24} /></div>
+                    <div className="w-12 h-12 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500 group-hover:scale-110 transition-transform"><ArrowRight size={24} /></div>
                   </div>
                 )}
                 <div className="p-5 flex flex-col flex-1">
@@ -247,22 +249,22 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-            <div className="bg-[#0F1926] border border-white/5 p-5 rounded-xl">
+            <div className="bg-[#0F1926] border border-white/5 p-5 rounded-xl hover:border-white/10 transition-colors cursor-pointer">
               <Video size={20} className="text-blue-500 mb-3" />
               <h4 className="text-sm font-bold text-white mb-1">Watch Demo Videos</h4>
               <p className="text-xs text-slate-400">Watch guided videos showcasing platform features.</p>
             </div>
-            <div className="bg-[#0F1926] border border-white/5 p-5 rounded-xl">
+            <div className="bg-[#0F1926] border border-white/5 p-5 rounded-xl hover:border-white/10 transition-colors cursor-pointer">
               <Monitor size={20} className="text-emerald-500 mb-3" />
               <h4 className="text-sm font-bold text-white mb-1">Explore Screenshots</h4>
               <p className="text-xs text-slate-400">Browse screenshots of key modules and dashboards.</p>
             </div>
-            <div className="bg-[#0F1926] border border-white/5 p-5 rounded-xl">
+            <div className="bg-[#0F1926] border border-white/5 p-5 rounded-xl hover:border-white/10 transition-colors cursor-pointer">
               <Lightbulb size={20} className="text-yellow-500 mb-3" />
               <h4 className="text-sm font-bold text-white mb-1">Read Feature Highlights</h4>
               <p className="text-xs text-slate-400">Quick summaries of every major platform module.</p>
             </div>
-            <div className="bg-[#0F1926] border border-white/5 p-5 rounded-xl">
+            <div className="bg-[#0F1926] border border-white/5 p-5 rounded-xl hover:border-white/10 transition-colors cursor-pointer">
               <Calendar size={20} className="text-purple-500 mb-3" />
               <h4 className="text-sm font-bold text-white mb-1">Request Live Demonstration</h4>
               <p className="text-xs text-slate-400">Book a personalised walkthrough with our team.</p>
@@ -271,7 +273,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             {[1, 2, 3].map((_, i) => (
-              <div key={i} className="relative bg-[#0F1926] border border-white/5 rounded-xl overflow-hidden group cursor-pointer">
+              <div key={i} className="relative bg-[#0F1926] border border-white/5 rounded-xl overflow-hidden group cursor-pointer hover:border-white/10 transition-colors">
                 {i === 0 && <div className="absolute top-3 right-3 bg-orange-500 text-white text-[10px] font-bold px-2 py-1 rounded z-10">Featured</div>}
                 <div className="h-32 flex items-center justify-center bg-[#162233]">
                   <div className="w-12 h-12 rounded-full border-2 border-orange-500 flex items-center justify-center text-orange-500 group-hover:scale-110 transition-transform">
@@ -290,22 +292,22 @@ export default function Home() {
             <h3 className="text-lg font-bold text-white mb-2">Start Interactive Demo</h3>
             <p className="text-sm text-slate-400 mb-6">Choose a role and explore a fully populated demo school with realistic sample data. No registration required.</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <button className="flex items-center gap-3 bg-[#162233] border border-white/5 p-4 rounded-lg hover:border-orange-500/50 transition-colors text-left">
+              <button className="flex items-center gap-3 bg-[#162233] border border-white/5 p-4 rounded-lg hover:border-orange-500/50 hover:bg-[#1A283D] transition-all text-left">
                 <MonitorPlay size={20} className="text-blue-500" />
                 <div><p className="text-sm font-medium text-white">Administrator Demo</p><p className="text-xs text-slate-500">Full admin access</p></div>
               </button>
-              <button className="flex items-center gap-3 bg-[#162233] border border-white/5 p-4 rounded-lg hover:border-orange-500/50 transition-colors text-left">
+              <button className="flex items-center gap-3 bg-[#162233] border border-white/5 p-4 rounded-lg hover:border-orange-500/50 hover:bg-[#1A283D] transition-all text-left">
                 <MonitorPlay size={20} className="text-emerald-500" />
                 <div><p className="text-sm font-medium text-white">Teacher Demo</p><p className="text-xs text-slate-500">Classroom tools</p></div>
               </button>
-              <button className="flex items-center gap-3 bg-[#162233] border border-white/5 p-4 rounded-lg hover:border-orange-500/50 transition-colors text-left">
+              <button className="flex items-center gap-3 bg-[#162233] border border-white/5 p-4 rounded-lg hover:border-orange-500/50 hover:bg-[#1A283D] transition-all text-left">
                 <MonitorPlay size={20} className="text-yellow-500" />
                 <div><p className="text-sm font-medium text-white">Parent Demo</p><p className="text-xs text-slate-500">Parent portal view</p></div>
               </button>
             </div>
           </div>
           <div className="text-center mt-8">
-            <Link href="#demo" className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium inline-flex items-center gap-2 transition-colors">
+            <Link href="#demo" className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium inline-flex items-center gap-2 transition-colors shadow-lg shadow-orange-500/20">
               Explore Full Demo Centre <ArrowRight size={18} />
             </Link>
           </div>
@@ -323,7 +325,7 @@ export default function Home() {
             <p className="text-slate-400 text-lg">Verified testimonials from educators using AcadCoreOS across Africa.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
+            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl hover:border-white/10 transition-colors">
               <div className="flex text-orange-500 mb-4">{[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}</div>
               <p className="text-slate-300 italic mb-6">"AcadCoreOS has transformed how we manage our school. From admissions to results, everything is in one place. The parent portal has improved our communication significantly."</p>
               <div className="flex items-center gap-3">
@@ -332,7 +334,7 @@ export default function Home() {
                 <span className="ml-auto text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded">Verified</span>
               </div>
             </div>
-            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
+            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl hover:border-white/10 transition-colors">
               <div className="flex text-orange-500 mb-4">{[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}</div>
               <p className="text-slate-300 italic mb-6">"The attendance tracking and automated parent notifications have saved us hours of work. We can now focus on what matters most — teaching and learning."</p>
               <div className="flex items-center gap-3">
@@ -363,7 +365,7 @@ export default function Home() {
               { name: "Enterprise", capacity: "601–1000 Students", price: "₦350,000", per: "/mo", yearly: "or ₦3,500,000/yr", popular: false },
               { name: "Enterprise Plus", capacity: "Custom Capacity", price: "Custom", per: "", yearly: "Contact Sales", popular: false },
             ].map((plan, i) => (
-              <div key={i} className={`relative bg-[#0F1926] p-6 rounded-xl border flex flex-col ${plan.popular ? 'border-orange-500' : 'border-white/5'}`}>
+              <div key={i} className={`relative bg-[#0F1926] p-6 rounded-xl border flex flex-col hover:-translate-y-1 transition-transform duration-300 ${plan.popular ? 'border-orange-500 shadow-lg shadow-orange-500/10' : 'border-white/5'}`}>
                 {plan.popular && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full">Most Popular</div>}
                 <h3 className="text-lg font-bold text-white mb-1">{plan.name}</h3>
                 <p className="text-xs text-slate-400 mb-6">{plan.capacity}</p>
@@ -390,11 +392,14 @@ export default function Home() {
             <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">Latest headlines, trending education news, policy updates, and platform releases from trusted sources.</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 bg-[#0F1926] border border-white/5 rounded-xl overflow-hidden flex flex-col">
-              <div className="h-64 bg-slate-800 relative"><div className="absolute top-4 left-4 bg-orange-500 text-white text-[10px] font-bold px-2 py-1 rounded">Product Update</div></div>
-              <div className="p-6">
+            <div className="lg:col-span-2 bg-[#0F1926] border border-white/5 rounded-xl overflow-hidden flex flex-col group hover:border-white/10 transition-colors">
+              <div className="h-64 bg-slate-800 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0F1926] to-transparent z-10"></div>
+                <div className="absolute top-4 left-4 bg-orange-500 text-white text-[10px] font-bold px-2 py-1 rounded z-20">Product Update</div>
+              </div>
+              <div className="p-6 relative z-20 -mt-10">
                 <div className="flex items-center gap-3 text-xs text-orange-500 mb-3"><span className="font-medium">AcadCoreOS Product Updates</span> <span className="text-slate-500">7/7/2026</span></div>
-                <h3 className="text-2xl font-bold text-white mb-2">AcadCoreOS Launches AI-Powered CBT Module</h3>
+                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">AcadCoreOS Launches AI-Powered CBT Module</h3>
                 <p className="text-slate-400 text-sm mb-4">AcadCoreOS has released a new AI-powered Computer-Based Testing module with adaptive question generation, real-time analytics, and anti-cheating safeguards for schools.</p>
                 <button className="text-orange-500 flex items-center gap-1 hover:underline text-sm font-medium">Read More <ArrowRight size={14} /></button>
               </div>
@@ -418,7 +423,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="mt-8 bg-[#0F1926] border border-white/5 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="mt-8 bg-[#0F1926] border border-white/5 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 hover:border-white/10 transition-colors">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500"><Zap size={20} /></div>
               <div><h4 className="text-sm font-bold text-white">Latest AcadCoreOS Releases</h4><p className="text-xs text-slate-400">AcadCoreOS Launches AI-Powered CBT Module</p></div>
@@ -473,24 +478,24 @@ export default function Home() {
             <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">Join the AcadCoreOS Community — a collaborative space for teachers, school leaders, and edtech enthusiasts to share knowledge, ask questions, and grow together.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl text-center">
+            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl text-center hover:border-white/10 transition-colors">
               <div className="w-12 h-12 rounded-full bg-orange-500/10 text-orange-500 flex items-center justify-center mx-auto mb-4"><Users size={24} /></div>
               <h3 className="text-lg font-bold text-white mb-2">Network</h3>
               <p className="text-sm text-slate-400">Build professional connections with educators and leaders.</p>
             </div>
-            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl text-center">
+            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl text-center hover:border-white/10 transition-colors">
               <div className="w-12 h-12 rounded-full bg-orange-500/10 text-orange-500 flex items-center justify-center mx-auto mb-4"><MessageSquare size={24} /></div>
               <h3 className="text-lg font-bold text-white mb-2">Ask & Answer</h3>
               <p className="text-sm text-slate-400">Get expert answers and share your knowledge with the community.</p>
             </div>
-            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl text-center">
+            <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl text-center hover:border-white/10 transition-colors">
               <div className="w-12 h-12 rounded-full bg-orange-500/10 text-orange-500 flex items-center justify-center mx-auto mb-4"><FileText size={24} /></div>
               <h3 className="text-lg font-bold text-white mb-2">Publish</h3>
               <p className="text-sm text-slate-400">Submit articles to the AcadCoreOS Blog and build your reputation.</p>
             </div>
           </div>
           <div className="text-center">
-            <Link href="#community" className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium inline-flex items-center gap-2 transition-colors">Join the Community <ArrowRight size={18} /></Link>
+            <Link href="#community" className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium inline-flex items-center gap-2 transition-colors shadow-lg shadow-orange-500/20">Join the Community <ArrowRight size={18} /></Link>
           </div>
         </div>
       </section>
@@ -503,13 +508,18 @@ export default function Home() {
             <p className="text-slate-400 text-lg">Everything you need to know about AcadCoreOS.</p>
           </div>
           <div className="space-y-3">
-            {["How does pricing work?", "Can I manage multiple campuses?", "Is my school data secure?", "Can parents and students access the platform?", "Do you support Nigerian school systems?", "Can I cancel anytime?", "Do you offer training and onboarding?", "What are add-ons?", "What happens to my data if I cancel?"].map((faq, i) => (
-              <div key={i} className="bg-[#0F1926] border border-white/5 rounded-xl overflow-hidden group cursor-pointer">
-                <div className="px-6 py-4 flex justify-between items-center">
-                  <h4 className="text-sm font-medium text-white group-hover:text-orange-400 transition-colors">{faq}</h4>
-                  <ChevronDown size={18} className="text-slate-500 group-hover:text-orange-400 transition-colors" />
-                </div>
-              </div>
+            {[
+              { q: "How does pricing work?", a: "Pricing is capacity-based. You pay according to your expected student population (e.g., 1-100 students = Starter plan)." },
+              { q: "Can I manage multiple campuses?", a: "Yes. AcadCoreOS is built for multi-campus institutions. You can switch between campuses from the sidebar." },
+              { q: "Is my school data secure?", a: "Absolutely. We use role-based permissions, encrypted storage, audit logs, and regular backups." },
+              { q: "Can parents and students access the platform?", a: "Yes, we have dedicated portals for parents and students with real-time access to attendance, results, and fees." },
+              { q: "Do you support Nigerian school systems?", a: "Yes, AcadCoreOS is built for African schools, fully supporting the Nigerian curriculum and WAEC/NECO grading systems." },
+              { q: "Can I cancel anytime?", a: "Yes, you can cancel your subscription at any time from the billing dashboard." },
+              { q: "Do you offer training and onboarding?", a: "Yes, we provide onboarding sessions and documentation to help your staff get up to speed quickly." },
+              { q: "What are add-ons?", a: "Add-ons are optional premium modules (like CBT or advanced analytics) you can add to your base plan." },
+              { q: "What happens to my data if I cancel?", a: "Your data is kept for 30 days after cancellation, allowing you to export it before it is permanently deleted." }
+            ].map((faq, i) => (
+              <FaqItem key={i} question={faq.q} answer={faq.a} />
             ))}
           </div>
         </div>
@@ -523,7 +533,7 @@ export default function Home() {
             <p className="text-slate-400 text-lg mb-10">Working with education bodies and organizations across the region.</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {["Nigeria Education Board", "Lagos State Ministry of Education", "EdTech Nigeria", "School Administrators Forum", "West African Examinations Council", "Association of Private Schools", "Tech for Education Africa", "Nigerian Teachers Association"].map((partner, i) => (
-                <div key={i} className="bg-[#0F1926] border border-white/5 rounded-lg py-4 px-2 flex items-center justify-center text-center">
+                <div key={i} className="bg-[#0F1926] border border-white/5 rounded-lg py-4 px-2 flex items-center justify-center text-center hover:border-white/10 transition-colors">
                   <span className="text-sm font-medium text-slate-400">{partner}</span>
                 </div>
               ))}
@@ -544,7 +554,7 @@ export default function Home() {
               { icon: <Globe />, title: "Regional Partners", desc: "Represent AcadCoreOS in specific regions and countries. For local education businesses and distributors." },
               { icon: <Monitor size={20} />, title: "ICT & Hardware Partners", desc: "Bundle AcadCoreOS with devices, servers, and connectivity for schools. For hardware vendors and ISPs." },
             ].map((partner, i) => (
-              <div key={i} className="bg-[#0F1926] border border-white/5 p-6 rounded-xl">
+              <div key={i} className="bg-[#0F1926] border border-white/5 p-6 rounded-xl hover:border-white/10 transition-colors">
                 <div className="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">{partner.icon}</div>
                 <h3 className="text-lg font-bold text-white mb-2">{partner.title}</h3>
                 <p className="text-sm text-slate-400 leading-relaxed">{partner.desc}</p>
@@ -590,7 +600,7 @@ export default function Home() {
               <p className="text-sm font-bold text-white mb-3">Follow Us</p>
               <div className="flex gap-2">
                 {[1,2,3,4,5].map((_, i) => (
-                  <div key={i} className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-orange-500 hover:border-orange-500/50 cursor-pointer transition-colors"><Globe size={14} /></div>
+                  <div key={i} className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-orange-500 hover:border-orange-500/50 cursor-pointer transition-all"><Globe size={14} /></div>
                 ))}
               </div>
             </div>
@@ -598,10 +608,10 @@ export default function Home() {
           
           <div className="bg-[#0F1926] border border-white/5 p-8 rounded-xl">
             <form className="space-y-4">
-              <div><label className="block text-sm font-medium text-white mb-1">Name</label><input type="text" placeholder="Your name" className="w-full bg-[#0A1420] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-orange-500" /></div>
-              <div><label className="block text-sm font-medium text-white mb-1">Email</label><input type="email" placeholder="you@example.com" className="w-full bg-[#0A1420] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-orange-500" /></div>
-              <div><label className="block text-sm font-medium text-white mb-1">Message</label><textarea rows={4} placeholder="How can we help?" className="w-full bg-[#0A1420] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-orange-500"></textarea></div>
-              <button type="button" className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"><MessageSquare size={16} /> Send Message</button>
+              <div><label className="block text-sm font-medium text-white mb-1">Name</label><input type="text" placeholder="Your name" className="w-full bg-[#0A1420] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition-colors" /></div>
+              <div><label className="block text-sm font-medium text-white mb-1">Email</label><input type="email" placeholder="you@example.com" className="w-full bg-[#0A1420] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition-colors" /></div>
+              <div><label className="block text-sm font-medium text-white mb-1">Message</label><textarea rows={4} placeholder="How can we help?" className="w-full bg-[#0A1420] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition-colors"></textarea></div>
+              <button type="button" className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors shadow-lg shadow-orange-500/20"><MessageSquare size={16} /> Send Message</button>
             </form>
           </div>
         </div>
@@ -612,10 +622,31 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-white mb-4 tracking-tight">Ready to transform your school?</h2>
         <p className="text-orange-100 mb-8 text-lg">Start your 14-day free trial today. No credit card required.</p>
         <div className="flex justify-center gap-4">
-          <Link href="/get-started" className="bg-[#08101A] text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 hover:bg-black transition-colors">Get Started Free <ArrowRight size={18} /></Link>
+          <Link href="/get-started" className="bg-[#08101A] text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 hover:bg-black transition-colors shadow-xl">Get Started Free <ArrowRight size={18} /></Link>
           <Link href="#pricing" className="bg-transparent border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">View Pricing</Link>
         </div>
       </section>
     </PublicLayout>
+  );
+}
+
+// --- FAQ Interactive Component ---
+function FaqItem({ question, answer }: { question: string, answer: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="bg-[#0F1926] border border-white/5 rounded-xl overflow-hidden transition-all duration-300 hover:border-white/10">
+      <button 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="w-full px-6 py-4 flex justify-between items-center text-left hover:bg-white/[0.02] transition-colors"
+      >
+        <h4 className="text-sm font-medium text-white">{question}</h4>
+        <ChevronDown size={18} className={`text-slate-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="px-6 pb-4 text-sm text-slate-400 border-t border-white/5 pt-4">
+          {answer}
+        </div>
+      </div>
+    </div>
   );
 }
