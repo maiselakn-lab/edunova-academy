@@ -1,84 +1,76 @@
 import Link from "next/link";
-import { Layers } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 
 export default function PublicFooter() {
   const sections = [
     {
-      title: "Product",
+      title: "Quick Links",
       links: [
-        { label: "Products", href: "/products" },
-        { label: "Features", href: "/products/features" },
-        { label: "Pricing", href: "/pricing" },
-        { label: "Releases", href: "/products/releases" },
-        { label: "Security", href: "/security" },
-        { label: "Demo Centre", href: "/demo" },
+        { label: "Home", href: "/" },
+        { label: "About Us", href: "#about" },
+        { label: "Academics", href: "#features" },
+        { label: "Admissions", href: "#admissions" },
+        { label: "Contact Us", href: "#contact" },
       ],
     },
     {
-      title: "Company",
+      title: "Portals",
       links: [
-        { label: "About", href: "/about" },
-        { label: "Company", href: "/company" },
-        { label: "Company Policy", href: "/company/policy" },
-        { label: "Workplace Policy", href: "/company/workplace" },
-        { label: "Careers", href: "/company/careers" },
+        { label: "Parent Portal", href: "/login" },
+        { label: "Student Portal", href: "/login" },
+        { label: "Staff Portal", href: "/login" },
+        { label: "Track Application", href: "/track" },
       ],
     },
     {
-      title: "Trust",
+      title: "School Info",
       links: [
-        { label: "Trust & Commitments", href: "/trust" },
-        { label: "DEI", href: "/trust/dei" },
-        { label: "Environmental", href: "/trust/environment" },
-        { label: "Social Impact", href: "/trust/social-impact" },
-        { label: "Career Growth", href: "/trust/career-growth" },
-        { label: "Work-Life Balance", href: "/trust/work-life-balance" },
+        { label: "School Calendar", href: "#" },
+        { label: "Uniform & Rules", href: "#" },
+        { label: "Fees & Billing", href: "#" },
+        { label: "News & Events", href: "#news" },
       ],
     },
     {
-      title: "Legal",
+      title: "Platform",
       links: [
-        { label: "Legal Centre", href: "/legal" },
-        { label: "Terms of Service", href: "/legal/terms" },
-        { label: "Privacy Policy", href: "/legal/privacy" },
-        { label: "Cookie Policy", href: "/legal/cookies" },
-        { label: "Acceptable Use", href: "/legal/acceptable-use" },
-      ],
-    },
-    {
-      title: "Resources",
-      links: [
-        { label: "Documentation", href: "/resources/docs" },
-        { label: "FAQ", href: "/resources/faq" },
-        { label: "Help Centre", href: "/resources/help" },
-        { label: "Blog", href: "/blog" },
-        { label: "Community", href: "/community" },
-        { label: "Education News", href: "/education-news" },
-        { label: "Testimonials", href: "/testimonials" },
-        { label: "Partners", href: "/resources/partners" },
-        { label: "Contact", href: "/#contact" },
+        { label: "About AcadCoreOS", href: "#" },
+        { label: "Security", href: "#" },
+        { label: "Privacy Policy", href: "#" },
+        { label: "Terms of Service", href: "#" },
       ],
     },
   ];
 
   return (
-    <footer className="bg-black text-slate-400 py-16 px-6 border-t border-white/5">
+    <footer className="bg-[#04080F] text-slate-400 py-16 px-6 border-t border-white/5">
       <div className="max-w-[1400px] mx-auto">
         
         {/* Main Footer Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 lg:gap-8 mb-16">
           
-          {/* Brand Column (Spans 2 on mobile, 3 on desktop) */}
-          <div className="col-span-2 md:col-span-3 lg:col-span-1 max-w-xs">
-            <Link href="/" className="flex items-center gap-2 mb-6 group">
-              <div className="w-8 h-8 bg-orange-500 rounded flex items-center justify-center text-white transition-transform group-hover:scale-105">
-                <Layers size={18} />
+          {/* Brand Column */}
+          <div className="col-span-2 md:col-span-3 lg:col-span-2 max-w-sm">
+            <Link href="/" className="flex items-center gap-2.5 mb-6 group">
+              <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center text-white transition-transform group-hover:scale-105">
+                <GraduationCap size={22} />
               </div>
-              <span className="font-bold text-xl text-white tracking-tight">AcadCoreOS</span>
+              <div className="flex flex-col">
+                <span className="font-bold text-xl text-white tracking-tight leading-tight">THINK EduNova</span>
+                <span className="text-xs text-orange-500 font-medium tracking-wider uppercase">Academy</span>
+              </div>
             </Link>
-            <p className="text-sm leading-relaxed text-slate-400">
-              The all-in-one operating system for modern schools. Manage campuses, academics, and student life in a single workspace.
+            <p className="text-sm leading-relaxed text-slate-400 mb-6">
+              Nurturing the next generation of leaders and innovators. Our digital campus is powered by the intelligent AcadCoreOS platform.
             </p>
+            <div className="flex gap-2">
+                {[1,2,3,4].map((_, i) => (
+                  <div key={i} className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-orange-500 hover:border-orange-500/50 cursor-pointer transition-all">
+                    {/* Using generic icons for socials */}
+                    <span className="text-xs font-bold">{["F", "X", "I", "L"][i]}</span>
+                  </div>
+                ))}
+            </div>
           </div>
 
           {/* Links Columns */}
@@ -106,18 +98,13 @@ export default function PublicFooter() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-xs text-slate-500 font-medium">
-            © 2026 AcadCoreOS. All rights reserved.
+            © 2026 THINK EduNova Academy. All rights reserved.
           </p>
           
-          <div className="flex items-center gap-6 text-xs text-slate-500 font-medium">
-            <Link href="/legal/terms" className="hover:text-white transition-colors">Terms</Link>
-            <Link href="/legal/privacy" className="hover:text-white transition-colors">Privacy</Link>
-            <Link href="/legal/cookies" className="hover:text-white transition-colors">Cookies</Link>
+          <div className="flex items-center gap-4 text-xs text-slate-500 font-medium bg-white/5 px-4 py-2 rounded-full border border-white/5">
+            <span>Powered by</span>
+            <span className="text-white font-bold tracking-tight">AcadCoreOS</span>
           </div>
-
-          <p className="text-xs text-slate-500 font-medium flex items-center gap-1">
-            Made with <span className="text-red-500">♥</span> by Blueman Designs
-          </p>
         </div>
 
       </div>
