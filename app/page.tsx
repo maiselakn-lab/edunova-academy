@@ -6,7 +6,8 @@ import {
   ShieldCheck, Globe, BookOpen, PlayCircle, ArrowRight, Star, 
   Sparkles, Target, Calendar, Zap, ChevronDown, Mail, Phone, 
   MessageSquare, MapPin, Clock, Layers, Video, MonitorPlay, Lightbulb,
-  FileText, GraduationCap, Laptop, Award, CheckCircle2
+  FileText, GraduationCap, Laptop, Award, CheckCircle2,
+  School // <-- FIXED: Added missing import
 } from "lucide-react";
 import { useState } from "react";
 
