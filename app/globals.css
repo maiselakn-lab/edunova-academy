@@ -1,30 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #F8FAFC;
+  --color-background: #FFFFFF;
   --color-foreground: #0F172A;
-  --color-card: #FFFFFF;
-  --color-card-foreground: #0F172A;
   
-  --color-primary: #2563EB; /* The exact blue from the images */
+  --color-primary: #1E3A8A; /* Deep Academic Blue */
   --color-primary-foreground: #FFFFFF;
   
-  --color-secondary: #F1F5F9;
-  --color-secondary-foreground: #0F172A;
+  --color-accent: #F59E0B; /* Vibrant Gold */
+  --color-accent-foreground: #FFFFFF;
   
-  --color-muted: #F1F5F9;
-  --color-muted-foreground: #64748B;
-  
-  --color-accent: #E0F2FE;
-  --color-accent-foreground: #0284C7;
-  
+  --color-surface: #F8FAFC; /* Soft background for sections */
   --color-border: #E2E8F0;
-  --color-input: #E2E8F0;
-  --color-ring: #2563EB;
 
-  --color-brand-navy: #0B132B; /* For the dark headers */
-  --color-brand-teal: #14B8A6; /* For the green accents */
-  --color-brand-orange: #F59E0B; /* For the orange accents */
+  --color-brand-navy: #0B132B;
+  --color-brand-teal: #0D9488;
 }
 
 @layer base {
@@ -34,8 +24,4 @@
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-}
-
-html {
-  scroll-behavior: smooth;
 }
