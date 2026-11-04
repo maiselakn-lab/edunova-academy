@@ -6,7 +6,8 @@ import {
   ShieldCheck, Globe, BookOpen, PlayCircle, ArrowRight, Star, 
   Sparkles, Target, Calendar, Zap, ChevronDown, Mail, Phone, 
   MessageSquare, MapPin, Clock, Layers, Video, MonitorPlay, Lightbulb,
-  FileText, GraduationCap, Laptop, Award, Download, Library
+  FileText, GraduationCap, Laptop, Award, Download, Library,
+  CheckCircle2 // <-- FIXED: Added missing import
 } from "lucide-react";
 import { CORE_MODULES } from "@/lib/coreModules";
 import { useState } from "react";
