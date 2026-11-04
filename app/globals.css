@@ -122,9 +122,18 @@
   }
 }
 
-html, body { height: 100%; }
+html, body { 
+  height: 100%; 
+}
 
+/* Modern Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
+
+/* Smooth Scrolling and Offset for Sticky Navbar */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
