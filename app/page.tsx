@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { BookOpen, GraduationCap, Users, Microscope, ShieldCheck, Award, ArrowRight, CheckCircle2, LayoutDashboard, Database, Cpu, Calendar, MapPin, Phone, Mail } from 'lucide-react';
+import { BookOpen, GraduationCap, Users, Microscope, ShieldCheck, Award, ArrowRight, CheckCircle2, LayoutDashboard, Database, Cpu, Calendar, MapPin, Phone, Mail, Quote, Building2, Globe2, MonitorPlay } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -9,32 +9,31 @@ export default function Home() {
 
       <main className="flex-grow">
         
-        {/* 1. FULL-WIDTH HERO BANNER (Like TUT) */}
-        <section className="relative w-full h-[65vh] min-h-[500px] flex items-center">
+        {/* 1. HERO BANNER */}
+        <section className="relative w-full h-[75vh] min-h-[600px] flex items-center">
           <div className="absolute inset-0 z-0">
             <img 
               src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" 
               alt="University Campus" 
               className="w-full h-full object-cover object-center"
             />
-            {/* Dark overlay so text is readable */}
-            <div className="absolute inset-0 bg-brand-navy/70"></div>
+            <div className="absolute inset-0 bg-brand-navy/75"></div>
           </div>
           
-          <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
+          <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 pt-10 pb-20">
             <div className="max-w-3xl border-l-4 border-brand-gold pl-6 md:pl-8">
               <p className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-4">Welcome to EduNova</p>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight mb-6 leading-[1.1] text-white">
+              <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-6 leading-[1.1] text-white">
                 Leading Academic Excellence.
               </h1>
-              <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
+              <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed font-light">
                 A premier integrated online institution providing rigorous academic support, expert tutoring, and research guidance across Primary, Secondary, College, and University levels.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/register" className="bg-brand-royal text-white px-8 py-4 rounded-sm font-bold text-base hover:bg-blue-700 transition-all shadow-lg text-center flex items-center justify-center gap-2">
-                  Apply for Admission <ArrowRight size={18} />
+                <Link href="/register" className="bg-brand-royal text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-blue-700 transition-all shadow-lg text-center flex items-center justify-center gap-2">
+                  Apply for Admission <ArrowRight size={20} />
                 </Link>
-                <Link href="/courses" className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-sm font-bold text-base hover:bg-white hover:text-brand-navy transition-all text-center">
+                <Link href="/courses" className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-white hover:text-brand-navy transition-all text-center">
                   Explore Programmes
                 </Link>
               </div>
@@ -42,88 +41,108 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 2. QUICK LINKS / FACTS BAR (Edge to Edge) */}
-        <section className="bg-brand-navy border-t border-white/10 w-full py-6">
-          <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 divide-x divide-white/20 text-center">
-              <div>
-                <p className="text-3xl font-serif font-bold text-brand-gold">4</p>
-                <p className="text-xs font-bold text-white uppercase mt-1 tracking-wider">Academic Divisions</p>
-              </div>
-              <div>
-                <p className="text-3xl font-serif font-bold text-brand-gold">19</p>
-                <p className="text-xs font-bold text-white uppercase mt-1 tracking-wider">Integrated Modules</p>
-              </div>
-              <div>
-                <p className="text-3xl font-serif font-bold text-brand-gold">100%</p>
-                <p className="text-xs font-bold text-white uppercase mt-1 tracking-wider">Verified Tutors</p>
-              </div>
-              <div>
-                <p className="text-3xl font-serif font-bold text-brand-gold">24/7</p>
-                <p className="text-xs font-bold text-white uppercase mt-1 tracking-wider">Digital Campus</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 3. ASYMMETRICAL WELCOME SECTION (Fills the screen) */}
-        <section className="w-full flex flex-col lg:flex-row bg-brand-grey">
-          {/* Text Block */}
-          <div className="w-full lg:w-1/2 p-10 md:p-16 lg:p-24 flex flex-col justify-center">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-navy mb-6 leading-tight">
-              Empowering Minds.<br />Transforming Futures.
-            </h2>
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              Think EduNova Academy is not just a tutoring website. It is a comprehensive digital institution combining academic teaching, learning resources, AI-assisted education, and employment opportunities for qualified graduates.
-            </p>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Whether you are a parent seeking foundational support for your child, a university student requiring advanced research guidance, or a graduate looking to teach, EduNova provides the structured environment you need to succeed.
-            </p>
-            <Link href="/about" className="text-brand-royal font-bold text-lg hover:underline flex items-center gap-2">
-              Read Our Strategic Plan <ArrowRight size={18} />
+        {/* 2. FLOATING QUICK ACCESS BAR (Overlaps Hero & Next section) */}
+        <section className="relative z-20 max-w-[1200px] mx-auto px-6 sm:px-12 -mt-16">
+          <div className="bg-white shadow-2xl rounded-lg border border-gray-100 grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100 overflow-hidden">
+            <Link href="/portal/student" className="p-6 text-center hover:bg-brand-grey transition-colors group">
+              <MonitorPlay className="mx-auto text-brand-navy group-hover:text-brand-royal mb-3" size={28} />
+              <h3 className="font-bold text-brand-navy text-sm uppercase tracking-wide">Student Portal</h3>
+              <p className="text-xs text-gray-500 mt-1">Access your virtual classroom</p>
+            </Link>
+            <Link href="/status" className="p-6 text-center hover:bg-brand-grey transition-colors group">
+              <CheckCircle2 className="mx-auto text-brand-navy group-hover:text-brand-royal mb-3" size={28} />
+              <h3 className="font-bold text-brand-navy text-sm uppercase tracking-wide">Check Status</h3>
+              <p className="text-xs text-gray-500 mt-1">Track your application</p>
+            </Link>
+            <Link href="/tutors" className="p-6 text-center hover:bg-brand-grey transition-colors group">
+              <Users className="mx-auto text-brand-navy group-hover:text-brand-royal mb-3" size={28} />
+              <h3 className="font-bold text-brand-navy text-sm uppercase tracking-wide">Find a Tutor</h3>
+              <p className="text-xs text-gray-500 mt-1">Browse our faculty directory</p>
+            </Link>
+            <Link href="/fees" className="p-6 text-center hover:bg-brand-grey transition-colors group">
+              <LayoutDashboard className="mx-auto text-brand-navy group-hover:text-brand-royal mb-3" size={28} />
+              <h3 className="font-bold text-brand-navy text-sm uppercase tracking-wide">Fees & Funding</h3>
+              <p className="text-xs text-gray-500 mt-1">View financial guide</p>
             </Link>
           </div>
-          
-          {/* Image Block */}
-          <div className="w-full lg:w-1/2 min-h-[400px] relative">
-            <img 
-              src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=2070&auto=format&fit=crop" 
-              alt="Students collaborating" 
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            {/* Decorative Gold Box */}
-            <div className="absolute bottom-0 left-0 bg-brand-gold p-8 text-brand-navy max-w-sm">
-              <p className="font-serif font-bold text-2xl mb-2">Our Mission</p>
-              <p className="text-sm font-medium">To provide accessible, quality, and personalised education to people who need assistance with their academic development.</p>
+        </section>
+
+        {/* 3. WELCOME & STATS SECTION */}
+        <section className="py-24 bg-white w-full">
+          <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-navy mb-6 leading-tight">
+                  Empowering Minds.<br />Transforming Futures.
+                </h2>
+                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                  Think EduNova Academy is not just a tutoring website. It is a comprehensive digital institution combining academic teaching, learning resources, AI-assisted education, and employment opportunities for qualified graduates.
+                </p>
+                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  Whether you are a parent seeking foundational support for your child, a university student requiring advanced research guidance, or a graduate looking to teach, EduNova provides the structured environment you need to succeed.
+                </p>
+                
+                {/* Mini Stats inside text */}
+                <div className="grid grid-cols-2 gap-6 border-t border-gray-200 pt-8">
+                  <div>
+                    <p className="text-4xl font-serif font-bold text-brand-royal">15+</p>
+                    <p className="text-sm font-bold text-gray-500 uppercase mt-1 tracking-wider">Subjects Covered</p>
+                  </div>
+                  <div>
+                    <p className="text-4xl font-serif font-bold text-brand-royal">100%</p>
+                    <p className="text-sm font-bold text-gray-500 uppercase mt-1 tracking-wider">Online Accessible</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="relative h-[500px]">
+                <img 
+                  src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=2070&auto=format&fit=crop" 
+                  alt="Students collaborating" 
+                  className="w-full h-full object-cover rounded-lg shadow-xl"
+                />
+                {/* Overlapping Quote Card */}
+                <div className="absolute -bottom-8 -left-8 bg-brand-navy p-8 rounded-lg shadow-2xl max-w-sm border-l-4 border-brand-gold">
+                  <Quote className="text-brand-gold mb-4 opacity-50" size={32} />
+                  <p className="text-white font-serif italic text-lg leading-relaxed mb-4">
+                    "Education is the most powerful weapon which you can use to change the world."
+                  </p>
+                  <p className="text-brand-gold font-bold text-sm tracking-widest uppercase">— Nelson Mandela</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* 4. FACULTIES (Full Width Grid) */}
-        <section className="py-24 bg-white w-full">
+        {/* 4. ACADEMIC FACULTIES */}
+        <section className="py-24 bg-brand-grey border-y border-gray-200">
           <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-brand-navy mb-4">Our Academic Faculties</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">Structured educational pathways for every stage of your academic journey.</p>
+            <div className="flex flex-col md:flex-row justify-between items-end mb-12">
+              <div className="max-w-2xl">
+                <h2 className="text-3xl md:text-5xl font-serif font-bold text-brand-navy mb-4">Our Academic Faculties</h2>
+                <p className="text-lg text-gray-600">Structured educational pathways for every stage of your academic journey, guided by verified professionals.</p>
+              </div>
+              <Link href="/academies" className="mt-6 md:mt-0 bg-brand-navy text-white px-6 py-3 rounded-sm font-bold hover:bg-opacity-90 transition-colors flex items-center gap-2">
+                View All Faculties <ArrowRight size={18} />
+              </Link>
             </div>
             
             <div className="grid md:grid-cols-2 gap-8">
               {[
                 { title: "Primary Academy", desc: "Foundational education focusing on literacy, numeracy, and core academic development for young learners (Grades R-7).", icon: <BookOpen size={32} />, href: "/academies/primary" },
                 { title: "Secondary Academy", desc: "Comprehensive high school support, examination preparation, and subject-specific tutoring for Grades 8-12.", icon: <GraduationCap size={32} />, href: "/academies/secondary" },
-                { title: "College & TVET", desc: "Technical and vocational education support, engineering fundamentals, and specialised college modules.", icon: <Users size={32} />, href: "/academies/college" },
+                { title: "College & TVET", desc: "Technical and vocational education support, engineering fundamentals, and specialised college modules.", icon: <Building2 size={32} />, href: "/academies/college" },
                 { title: "University & Research", desc: "Advanced academic assistance, statistical analysis, postgraduate support, and comprehensive research guidance.", icon: <Microscope size={32} />, href: "/academies/university" },
               ].map((faculty, i) => (
-                <div key={i} className="group border border-gray-200 p-8 hover:border-brand-royal hover:shadow-2xl transition-all duration-300 bg-white relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-brand-royal/5 rounded-bl-full -mr-6 -mt-6 transition-transform group-hover:scale-150"></div>
-                  <div className="flex items-start gap-6 relative z-10">
-                    <div className="bg-brand-navy p-4 text-white group-hover:bg-brand-royal transition-colors">
+                <div key={i} className="group bg-white p-10 rounded-lg shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+                  <div className="flex flex-col md:flex-row items-start gap-6">
+                    <div className="bg-brand-navy/5 p-4 rounded-xl text-brand-navy group-hover:bg-brand-royal group-hover:text-white transition-colors">
                       {faculty.icon}
                     </div>
                     <div>
-                      <h3 className="text-2xl font-serif font-bold text-brand-navy mb-3 group-hover:text-brand-royal transition-colors">{faculty.title}</h3>
+                      <h3 className="text-2xl font-serif font-bold text-brand-navy mb-3">{faculty.title}</h3>
                       <p className="text-gray-600 mb-6 leading-relaxed">{faculty.desc}</p>
-                      <Link href={faculty.href} className="text-sm font-bold text-brand-royal uppercase tracking-wide flex items-center gap-2 group-hover:gap-3 transition-all">
+                      <Link href={faculty.href} className="text-sm font-bold text-brand-royal uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">
                         Explore Programmes <ArrowRight size={16} />
                       </Link>
                     </div>
@@ -134,7 +153,48 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 5. ACADCOREOS SHOWCASE (Full Width Background) */}
+        {/* 5. B2B / INSTITUTIONAL PARTNERSHIP SECTION */}
+        <section className="py-24 bg-white">
+          <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="order-2 lg:order-1 relative h-[400px]">
+                <img 
+                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" 
+                  alt="Institutional Meeting" 
+                  className="w-full h-full object-cover rounded-xl shadow-lg"
+                />
+              </div>
+              <div className="order-1 lg:order-2">
+                <div className="inline-flex items-center gap-2 bg-brand-navy/5 border border-brand-navy/10 px-4 py-1.5 rounded-full mb-6">
+                  <Globe2 size={16} className="text-brand-royal" />
+                  <p className="text-brand-royal font-bold tracking-widest uppercase text-xs">For Schools & Institutions</p>
+                </div>
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-navy mb-6">
+                  Partner with Think EduNova.
+                </h2>
+                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                  We collaborate with schools, colleges, and universities to provide additional academic support to their students. By integrating our tutoring and AI systems with your institution, we help improve learner outcomes and reduce dropout rates.
+                </p>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-center gap-3 text-brand-charcoal font-medium">
+                    <CheckCircle2 className="text-brand-teal shrink-0" size={20} /> Dedicated institutional dashboard
+                  </li>
+                  <li className="flex items-center gap-3 text-brand-charcoal font-medium">
+                    <CheckCircle2 className="text-brand-teal shrink-0" size={20} /> Bulk student enrollments & billing
+                  </li>
+                  <li className="flex items-center gap-3 text-brand-charcoal font-medium">
+                    <CheckCircle2 className="text-brand-teal shrink-0" size={20} /> Custom academic reporting
+                  </li>
+                </ul>
+                <Link href="/institutions" className="bg-brand-navy text-white px-8 py-4 rounded-sm font-bold hover:bg-opacity-90 transition-colors inline-block shadow-md">
+                  Become a Partner Institution
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. ACADCOREOS SHOWCASE (Dark Mode) */}
         <section className="w-full bg-brand-navy text-white py-24 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
           
@@ -151,37 +211,20 @@ export default function Home() {
                 <p className="text-lg text-gray-300 mb-8 leading-relaxed">
                   We power the institutions behind the students. <strong>AcadCoreOS</strong> is a comprehensive school management platform unifying academics, finance, HR, scheduling, and AI into a single workspace.
                 </p>
-                <div className="space-y-4 mb-10">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle2 className="text-brand-teal" size={20} />
-                    <span className="text-gray-200">19 Integrated Core Modules</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle2 className="text-brand-teal" size={20} />
-                    <span className="text-gray-200">Built for African Institutions</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle2 className="text-brand-teal" size={20} />
-                    <span className="text-gray-200">AcadAI Intelligence Layer</span>
-                  </div>
-                </div>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <a href="https://acadcoreos.base44.app/" target="_blank" rel="noopener noreferrer" className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold hover:bg-yellow-500 transition-all text-center flex items-center justify-center gap-2">
+                  <a href="https://acadcoreos.base44.app/" target="_blank" rel="noopener noreferrer" className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold hover:bg-yellow-500 transition-all text-center flex items-center justify-center gap-2 shadow-lg">
                     Explore AcadCoreOS <ArrowRight size={18} />
                   </a>
-                  <Link href="/contact" className="bg-white/10 border border-white/20 text-white px-8 py-4 rounded-sm font-bold hover:bg-white/20 transition-all text-center">
-                    Request a Demo
-                  </Link>
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
                 {["AcademicCore", "FinanceCore", "AdmissionsCore", "AssessmentCore", "AttendanceCore", "PeopleCore", "ScheduleCore", "ExamCore (CBT)"].map((mod, i) => (
-                  <div key={i} className="bg-white/5 border border-white/10 px-4 py-3 rounded text-sm text-gray-200">
-                    {mod}
+                  <div key={i} className="bg-brand-navy/50 border border-white/5 px-4 py-3 rounded-lg text-sm text-gray-200 flex items-center gap-3 hover:bg-brand-royal/20 transition-colors cursor-default">
+                    <span className="w-2 h-2 rounded-full bg-brand-sky"></span> {mod}
                   </div>
                 ))}
-                <div className="col-span-2 text-center bg-brand-royal/20 border border-brand-royal/30 px-4 py-3 rounded text-sm text-brand-sky font-bold">
+                <div className="col-span-2 text-center bg-brand-royal/20 border border-brand-royal/30 px-4 py-3 rounded-lg text-sm text-brand-sky font-bold cursor-pointer hover:bg-brand-royal/40 transition-colors">
                   + 11 More Integrated Modules
                 </div>
               </div>
@@ -189,28 +232,34 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 6. NEWSROOM (Full Width) */}
+        {/* 7. LATEST NEWSROOM */}
         <section className="w-full py-24 bg-brand-grey">
           <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
-            <div className="flex justify-between items-end mb-12 border-b border-gray-300 pb-4">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-navy">News & Announcements</h2>
-              <Link href="/news" className="text-brand-royal font-bold hover:underline flex items-center gap-1">View All News <ArrowRight size={16} /></Link>
+            <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-gray-300 pb-6">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-navy">News & Announcements</h2>
+                <p className="text-gray-600 mt-2">The latest updates from across the Academy.</p>
+              </div>
+              <Link href="/news" className="mt-4 md:mt-0 text-brand-royal font-bold hover:underline flex items-center gap-1">View All News <ArrowRight size={16} /></Link>
             </div>
             
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { date: "15 Jan 2026", title: "Launch of the 2026 Academic Year", desc: "Think EduNova Academy officially opens registrations for all four academic divisions.", img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" },
-                { date: "08 Jan 2026", title: "New Research Support Services", desc: "Expanding our postgraduate support with specialist statistical analysis tutoring.", img: "https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop" },
-                { date: "02 Jan 2026", title: "Welcoming Our New Verified Tutors", desc: "Meet the latest graduates and professionals who have joined our teaching faculty.", img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" }
+                { date: "15 Jan 2026", cat: "Institutional", title: "Launch of the 2026 Academic Year", desc: "Think EduNova Academy officially opens registrations for all four academic divisions.", img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" },
+                { date: "08 Jan 2026", cat: "Research", title: "New Research Support Services", desc: "Expanding our postgraduate support with specialist statistical analysis tutoring.", img: "https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop" },
+                { date: "02 Jan 2026", cat: "Faculty", title: "Welcoming Our New Verified Tutors", desc: "Meet the latest graduates and professionals who have joined our teaching faculty.", img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" }
               ].map((news, i) => (
-                <div key={i} className="bg-white border border-gray-200 group cursor-pointer hover:shadow-xl transition-all duration-300">
-                  <div className="h-56 overflow-hidden">
+                <div key={i} className="bg-white border border-gray-200 group cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                  <div className="h-56 overflow-hidden relative">
                     <img src={news.img} alt="News" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="absolute top-4 left-4 bg-brand-navy text-white text-xs font-bold px-3 py-1 uppercase tracking-wider">{news.cat}</div>
                   </div>
                   <div className="p-6">
-                    <p className="text-xs font-bold text-gray-500 mb-2">{news.date}</p>
-                    <h3 className="text-xl font-serif font-bold text-brand-navy mb-2 group-hover:text-brand-royal">{news.title}</h3>
-                    <p className="text-sm text-gray-600">{news.desc}</p>
+                    <div className="flex items-center gap-2 text-xs text-gray-500 mb-3 font-bold">
+                      <Calendar size={14} /> <span>{news.date}</span>
+                    </div>
+                    <h3 className="text-xl font-serif font-bold text-brand-navy mb-2 group-hover:text-brand-royal transition-colors leading-snug">{news.title}</h3>
+                    <p className="text-sm text-gray-600 line-clamp-2">{news.desc}</p>
                   </div>
                 </div>
               ))}
@@ -220,78 +269,79 @@ export default function Home() {
 
       </main>
 
-      {/* 7. THE RESTORED INSTITUTIONAL FOOTER */}
-      <footer className="bg-brand-navy text-gray-300 border-t-[6px] border-brand-royal">
+      {/* 8. MASSIVE INSTITUTIONAL FOOTER */}
+      <footer className="bg-[#081020] text-gray-400 border-t-[6px] border-brand-royal">
+        
+        {/* Top Footer: Links & Newsletter */}
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 py-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
             
-            {/* Column 1: Logo & Info */}
-            <div className="col-span-2 lg:col-span-1">
+            {/* Logo & About */}
+            <div className="lg:col-span-2">
               <div className="bg-white p-2 rounded inline-block mb-6">
-                <img src="/logo.png" alt="EduNova Logo" className="h-12 w-auto object-contain" />
+                <img src="/logo.png" alt="EduNova Logo" className="h-14 w-auto object-contain" />
               </div>
-              <p className="text-sm text-gray-400 mb-4 leading-relaxed">Empowering Minds. Transforming Futures. A premier integrated online institution.</p>
+              <p className="text-sm text-gray-400 mb-6 leading-relaxed max-w-sm">
+                Think EduNova Academy is a premier integrated online institution. We combine academic teaching, tutoring, research support, and institutional management software to transform education.
+              </p>
+              <div className="flex space-x-4">
+                {/* Social Placeholders */}
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-royal transition-colors cursor-pointer"></div>
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-royal transition-colors cursor-pointer"></div>
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-royal transition-colors cursor-pointer"></div>
+              </div>
             </div>
 
-            {/* Column 2: Faculties */}
+            {/* Links Column 1 */}
             <div>
-              <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider">Faculties</h4>
+              <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider font-serif">Quick Links</h4>
               <ul className="space-y-3 text-sm">
-                <li><Link href="/academies/primary" className="hover:text-white transition-colors">Primary Academy</Link></li>
-                <li><Link href="/academies/secondary" className="hover:text-white transition-colors">Secondary Academy</Link></li>
-                <li><Link href="/academies/college" className="hover:text-white transition-colors">College & TVET</Link></li>
-                <li><Link href="/academies/university" className="hover:text-white transition-colors">University & Research</Link></li>
+                <li><Link href="/about" className="hover:text-brand-gold transition-colors">About the Academy</Link></li>
+                <li><Link href="/admissions" className="hover:text-brand-gold transition-colors">Admissions</Link></li>
+                <li><Link href="/tutoring" className="hover:text-brand-gold transition-colors">Online Tutoring</Link></li>
+                <li><Link href="/research" className="hover:text-brand-gold transition-colors">Research Support</Link></li>
+                <li><Link href="/become-a-tutor" className="hover:text-brand-gold transition-colors">Tutor Careers</Link></li>
               </ul>
             </div>
 
-            {/* Column 3: Quick Links */}
+            {/* Links Column 2 */}
             <div>
-              <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider">Quick Links</h4>
+              <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider font-serif">Governance</h4>
               <ul className="space-y-3 text-sm">
-                <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
-                <li><Link href="/admissions" className="hover:text-white transition-colors">Admissions</Link></li>
-                <li><Link href="/tutoring" className="hover:text-white transition-colors">Tutoring</Link></li>
-                <li><Link href="/become-a-tutor" className="hover:text-white transition-colors">Tutor Careers</Link></li>
+                <li><Link href="/popia" className="hover:text-brand-gold transition-colors">POPIA Compliance</Link></li>
+                <li><Link href="/privacy" className="hover:text-brand-gold transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-brand-gold transition-colors">Terms of Use</Link></li>
+                <li><Link href="/audit" className="hover:text-brand-gold transition-colors">Audit & Annual Reports</Link></li>
               </ul>
             </div>
 
-            {/* Column 4: Governance */}
+            {/* Contact Details */}
             <div>
-              <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider">Governance</h4>
-              <ul className="space-y-3 text-sm">
-                <li><Link href="/popia" className="hover:text-white transition-colors">POPIA Compliance</Link></li>
-                <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link></li>
-                <li><Link href="/audit" className="hover:text-white transition-colors">Audit & Reports</Link></li>
-              </ul>
-            </div>
-
-            {/* Column 5: Contact */}
-            <div>
-              <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider">Contact Us</h4>
-              <ul className="space-y-3 text-sm">
+              <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider font-serif">Contact Us</h4>
+              <ul className="space-y-4 text-sm">
                 <li className="flex items-start gap-3">
-                  <MapPin size={16} className="text-brand-gold mt-1 shrink-0" />
+                  <MapPin size={18} className="text-brand-gold shrink-0 mt-0.5" />
                   <span>South Africa</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Phone size={16} className="text-brand-gold shrink-0" />
+                  <Phone size={18} className="text-brand-gold shrink-0" />
                   <span>+27 (0) 12 345 6789</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Mail size={16} className="text-brand-gold shrink-0" />
+                  <Mail size={18} className="text-brand-gold shrink-0" />
                   <span>info@thinkedunova.co.za</span>
                 </li>
               </ul>
             </div>
+
           </div>
         </div>
 
         {/* Bottom Copyright Bar */}
-        <div className="border-t border-white/10 py-6">
-          <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+        <div className="border-t border-white/5 py-6 bg-black/40">
+          <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
             <p>© 2026 Think EduNova Academy. All rights reserved.</p>
-            <p className="mt-2 md:mt-0">Registered Educational Institution.</p>
+            <p className="mt-2 md:mt-0">Registered Educational Institution. Powered by AcadCoreOS.</p>
           </div>
         </div>
       </footer>
