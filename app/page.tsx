@@ -10,37 +10,41 @@ export default function Home() {
 
       <main className="flex-grow">
         
-        {/* Hero Section - Fixed Layout */}
+        {/* Hero Section - Fixed Text Visibility & SA Context */}
         <section className="relative bg-brand-navy text-white overflow-hidden">
           {/* Background Image with Overlay */}
           <div className="absolute inset-0 z-0">
+            {/* SA Context Image: Diverse students on a modern campus */}
             <img 
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" 
-              alt="Students learning together" 
+              src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" 
+              alt="South African students learning" 
               className="w-full h-full object-cover object-center"
             />
-            {/* Dark gradient overlay to ensure text readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/90 to-brand-navy/40"></div>
+            {/* Stronger gradient on the left to ensure white text is 100% visible */}
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/95 to-brand-navy/40"></div>
           </div>
           
           {/* Hero Content */}
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40">
             <div className="max-w-3xl">
-              <div className="inline-block bg-brand-gold/10 border border-brand-gold/30 px-3 py-1 rounded-full mb-6">
+              <div className="inline-block bg-brand-gold/20 border border-brand-gold/50 backdrop-blur-sm px-4 py-1.5 rounded-full mb-6">
                 <p className="text-brand-gold font-bold tracking-wider uppercase text-xs">Welcome to Think EduNova Academy</p>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-[1.1]">
+              
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-[1.15] drop-shadow-lg">
                 Leading Academic Excellence for a <br className="hidden md:block" />
                 <span className="text-brand-gold">Digital Future.</span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed max-w-2xl">
+              
+              <p className="text-lg md:text-xl text-gray-100 mb-10 leading-relaxed max-w-2xl drop-shadow">
                 A premier integrated online institution providing rigorous academic support, expert tutoring, and research guidance across Primary, Secondary, College, and University levels.
               </p>
+              
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/register" className="bg-brand-royal text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-blue-700 transition-all shadow-lg text-center flex items-center justify-center gap-2">
+                <Link href="/register" className="bg-brand-royal text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-blue-700 hover:-translate-y-0.5 transition-all shadow-lg text-center flex items-center justify-center gap-2">
                   Apply for Admission <ArrowRight size={18} />
                 </Link>
-                <Link href="/courses" className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-white hover:text-brand-navy transition-all text-center">
+                <Link href="/courses" className="bg-white/10 backdrop-blur-md border border-white/40 text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-white hover:text-brand-navy hover:-translate-y-0.5 transition-all text-center">
                   Explore Programmes
                 </Link>
               </div>
@@ -49,22 +53,22 @@ export default function Home() {
         </section>
 
         {/* Data Bar */}
-        <section className="bg-brand-grey border-b border-gray-200 py-8 relative z-10">
+        <section className="bg-brand-grey border-b border-gray-200 py-8 relative z-10 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-gray-300 text-center">
-              <div>
+              <div className="hover:-translate-y-1 transition-transform cursor-default">
                 <p className="text-4xl font-bold text-brand-navy">4</p>
                 <p className="text-xs font-bold text-gray-500 uppercase mt-1 tracking-wider">Academic Divisions</p>
               </div>
-              <div>
+              <div className="hover:-translate-y-1 transition-transform cursor-default">
                 <p className="text-4xl font-bold text-brand-navy">19</p>
                 <p className="text-xs font-bold text-gray-500 uppercase mt-1 tracking-wider">Integrated Modules</p>
               </div>
-              <div>
+              <div className="hover:-translate-y-1 transition-transform cursor-default">
                 <p className="text-4xl font-bold text-brand-navy">100%</p>
                 <p className="text-xs font-bold text-gray-500 uppercase mt-1 tracking-wider">Verified Tutors</p>
               </div>
-              <div>
+              <div className="hover:-translate-y-1 transition-transform cursor-default">
                 <p className="text-4xl font-bold text-brand-navy">24/7</p>
                 <p className="text-xs font-bold text-gray-500 uppercase mt-1 tracking-wider">Digital Campus</p>
               </div>
@@ -87,7 +91,7 @@ export default function Home() {
             
             <div className="grid md:grid-cols-2 gap-6">
               {/* Faculty 1 */}
-              <div className="border border-gray-200 p-8 hover:border-brand-royal hover:shadow-lg transition-all duration-300 group bg-white cursor-pointer relative overflow-hidden">
+              <div className="border border-gray-200 p-8 hover:border-brand-royal hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white cursor-pointer relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-brand-royal/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
                 <div className="flex items-start gap-5 relative z-10">
                   <div className="bg-brand-navy p-3 rounded-sm text-white group-hover:bg-brand-royal transition-colors">
@@ -96,13 +100,13 @@ export default function Home() {
                   <div>
                     <h3 className="text-xl font-bold text-brand-navy mb-2 group-hover:text-brand-royal transition-colors">Primary Academy</h3>
                     <p className="text-sm text-gray-600 mb-4 leading-relaxed">Foundational education focusing on literacy, numeracy, and core academic development for young learners.</p>
-                    <span className="text-sm font-bold text-brand-royal uppercase tracking-wide flex items-center gap-1">View Programmes <ArrowRight size={14} /></span>
+                    <span className="text-sm font-bold text-brand-royal uppercase tracking-wide flex items-center gap-1 group-hover:gap-2 transition-all">View Programmes <ArrowRight size={14} /></span>
                   </div>
                 </div>
               </div>
 
               {/* Faculty 2 */}
-              <div className="border border-gray-200 p-8 hover:border-brand-royal hover:shadow-lg transition-all duration-300 group bg-white cursor-pointer relative overflow-hidden">
+              <div className="border border-gray-200 p-8 hover:border-brand-royal hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white cursor-pointer relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-brand-royal/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
                 <div className="flex items-start gap-5 relative z-10">
                   <div className="bg-brand-navy p-3 rounded-sm text-white group-hover:bg-brand-royal transition-colors">
@@ -111,13 +115,13 @@ export default function Home() {
                   <div>
                     <h3 className="text-xl font-bold text-brand-navy mb-2 group-hover:text-brand-royal transition-colors">Secondary Academy</h3>
                     <p className="text-sm text-gray-600 mb-4 leading-relaxed">Comprehensive high school support, examination preparation, and subject-specific tutoring for Grades 8-12.</p>
-                    <span className="text-sm font-bold text-brand-royal uppercase tracking-wide flex items-center gap-1">View Programmes <ArrowRight size={14} /></span>
+                    <span className="text-sm font-bold text-brand-royal uppercase tracking-wide flex items-center gap-1 group-hover:gap-2 transition-all">View Programmes <ArrowRight size={14} /></span>
                   </div>
                 </div>
               </div>
 
               {/* Faculty 3 */}
-              <div className="border border-gray-200 p-8 hover:border-brand-royal hover:shadow-lg transition-all duration-300 group bg-white cursor-pointer relative overflow-hidden">
+              <div className="border border-gray-200 p-8 hover:border-brand-royal hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white cursor-pointer relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-brand-royal/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
                 <div className="flex items-start gap-5 relative z-10">
                   <div className="bg-brand-navy p-3 rounded-sm text-white group-hover:bg-brand-royal transition-colors">
@@ -126,13 +130,13 @@ export default function Home() {
                   <div>
                     <h3 className="text-xl font-bold text-brand-navy mb-2 group-hover:text-brand-royal transition-colors">College & TVET Academy</h3>
                     <p className="text-sm text-gray-600 mb-4 leading-relaxed">Technical and vocational education support, engineering fundamentals, and specialised college modules.</p>
-                    <span className="text-sm font-bold text-brand-royal uppercase tracking-wide flex items-center gap-1">View Programmes <ArrowRight size={14} /></span>
+                    <span className="text-sm font-bold text-brand-royal uppercase tracking-wide flex items-center gap-1 group-hover:gap-2 transition-all">View Programmes <ArrowRight size={14} /></span>
                   </div>
                 </div>
               </div>
 
               {/* Faculty 4 */}
-              <div className="border border-gray-200 p-8 hover:border-brand-royal hover:shadow-lg transition-all duration-300 group bg-white cursor-pointer relative overflow-hidden">
+              <div className="border border-gray-200 p-8 hover:border-brand-royal hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white cursor-pointer relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-brand-royal/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
                 <div className="flex items-start gap-5 relative z-10">
                   <div className="bg-brand-navy p-3 rounded-sm text-white group-hover:bg-brand-royal transition-colors">
@@ -141,7 +145,7 @@ export default function Home() {
                   <div>
                     <h3 className="text-xl font-bold text-brand-navy mb-2 group-hover:text-brand-royal transition-colors">University & Research</h3>
                     <p className="text-sm text-gray-600 mb-4 leading-relaxed">Advanced academic assistance, statistical analysis, postgraduate support, and comprehensive research guidance.</p>
-                    <span className="text-sm font-bold text-brand-royal uppercase tracking-wide flex items-center gap-1">View Programmes <ArrowRight size={14} /></span>
+                    <span className="text-sm font-bold text-brand-royal uppercase tracking-wide flex items-center gap-1 group-hover:gap-2 transition-all">View Programmes <ArrowRight size={14} /></span>
                   </div>
                 </div>
               </div>
@@ -152,7 +156,7 @@ export default function Home() {
         {/* Institutional Quality & Tutor Careers */}
         <section className="py-20 bg-brand-grey">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-16">
-            <div>
+            <div className="bg-white p-10 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h2 className="text-2xl font-bold text-brand-navy mb-4 flex items-center gap-3">
                 <ShieldCheck className="text-brand-teal" size={28} /> Institutional Quality Assurance
               </h2>
@@ -166,21 +170,22 @@ export default function Home() {
               </ul>
             </div>
             
-            <div className="bg-white p-8 border border-gray-200 shadow-sm">
-              <h2 className="text-2xl font-bold text-brand-navy mb-4 flex items-center gap-3">
+            <div className="bg-brand-navy p-10 rounded-lg shadow-lg text-white relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150"></div>
+              <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 relative z-10">
                 <Award className="text-brand-gold" size={28} /> Tutor Careers & Empowerment
               </h2>
-              <p className="text-gray-600 mb-6 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed relative z-10">
                 We provide employment opportunities for graduates and qualified professionals. Join our network of educators, share your knowledge, and earn income through our structured teaching platform.
               </p>
-              <Link href="/become-a-tutor" className="inline-block bg-brand-navy text-white px-6 py-3 rounded-sm font-bold hover:bg-opacity-90 transition-colors">
+              <Link href="/become-a-tutor" className="inline-block bg-brand-gold text-brand-navy px-6 py-3 rounded-sm font-bold hover:bg-yellow-500 transition-colors relative z-10">
                 Apply to Become a Tutor
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Newsroom */}
+        {/* Newsroom - Updated with SA Images */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-end mb-10 border-b border-gray-200 pb-4">
@@ -188,36 +193,55 @@ export default function Home() {
               <Link href="/news" className="text-brand-royal font-bold hover:underline flex items-center gap-1">View Newsroom <ArrowRight size={16} /></Link>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white border border-gray-200 group cursor-pointer hover:shadow-md transition-shadow">
+              
+              {/* Card 1 */}
+              <div className="bg-white border border-gray-200 group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <div className="h-48 overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" alt="Campus" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute top-4 left-4 bg-brand-gold text-brand-navy text-xs font-bold px-3 py-1 uppercase tracking-wider">Announcements</div>
+                  <img 
+                    src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" 
+                    alt="SA Campus" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  />
+                  <div className="absolute top-4 left-4 bg-brand-gold text-brand-navy text-xs font-bold px-3 py-1 uppercase tracking-wider shadow-sm">Announcements</div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-brand-navy mb-2 group-hover:text-brand-royal transition-colors">Launch of the 2026 Academic Year</h3>
                   <p className="text-sm text-gray-600 leading-relaxed">Think EduNova Academy officially opens registrations for all four academic divisions.</p>
                 </div>
               </div>
-              <div className="bg-white border border-gray-200 group cursor-pointer hover:shadow-md transition-shadow">
+
+              {/* Card 2 */}
+              <div className="bg-white border border-gray-200 group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <div className="h-48 overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" alt="Research" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute top-4 left-4 bg-brand-royal text-white text-xs font-bold px-3 py-1 uppercase tracking-wider">Research</div>
+                  <img 
+                    src="https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop" 
+                    alt="SA Research" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  />
+                  <div className="absolute top-4 left-4 bg-brand-royal text-white text-xs font-bold px-3 py-1 uppercase tracking-wider shadow-sm">Research</div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-brand-navy mb-2 group-hover:text-brand-royal transition-colors">New Research Support Services</h3>
                   <p className="text-sm text-gray-600 leading-relaxed">Expanding our postgraduate support with specialist statistical analysis tutoring.</p>
                 </div>
               </div>
-              <div className="bg-white border border-gray-200 group cursor-pointer hover:shadow-md transition-shadow">
+
+              {/* Card 3 */}
+              <div className="bg-white border border-gray-200 group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <div className="h-48 overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=2070&auto=format&fit=crop" alt="Tutor" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute top-4 left-4 bg-brand-teal text-white text-xs font-bold px-3 py-1 uppercase tracking-wider">Tutor Network</div>
+                  <img 
+                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" 
+                    alt="SA Tutors" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  />
+                  <div className="absolute top-4 left-4 bg-brand-teal text-white text-xs font-bold px-3 py-1 uppercase tracking-wider shadow-sm">Tutor Network</div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-brand-navy mb-2 group-hover:text-brand-royal transition-colors">Welcoming Our New Verified Tutors</h3>
                   <p className="text-sm text-gray-600 leading-relaxed">Meet the latest graduates and professionals who have joined our teaching faculty.</p>
                 </div>
               </div>
+              
             </div>
           </div>
         </section>
