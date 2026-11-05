@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { BookOpen, GraduationCap, Users, Microscope, ShieldCheck, Award, ArrowRight, CheckCircle2, LayoutDashboard, Database, Cpu, Calendar, MapPin, Phone, Mail, Quote, Building2, Globe2, MonitorPlay } from 'lucide-react';
+import { BookOpen, GraduationCap, Users, Microscope, ArrowRight, CheckCircle2, LayoutDashboard, Database, Calendar, MapPin, Phone, Mail, Quote, Building2, Globe2, MonitorPlay, Facebook, Twitter, Linkedin } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -41,7 +41,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 2. FLOATING QUICK ACCESS BAR (Overlaps Hero & Next section) */}
+        {/* 2. FLOATING QUICK ACCESS BAR */}
         <section className="relative z-20 max-w-[1200px] mx-auto px-6 sm:px-12 -mt-16">
           <div className="bg-white shadow-2xl rounded-lg border border-gray-100 grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100 overflow-hidden">
             <Link href="/portal/student" className="p-6 text-center hover:bg-brand-grey transition-colors group">
@@ -82,7 +82,6 @@ export default function Home() {
                   Whether you are a parent seeking foundational support for your child, a university student requiring advanced research guidance, or a graduate looking to teach, EduNova provides the structured environment you need to succeed.
                 </p>
                 
-                {/* Mini Stats inside text */}
                 <div className="grid grid-cols-2 gap-6 border-t border-gray-200 pt-8">
                   <div>
                     <p className="text-4xl font-serif font-bold text-brand-royal">15+</p>
@@ -101,7 +100,6 @@ export default function Home() {
                   alt="Students collaborating" 
                   className="w-full h-full object-cover rounded-lg shadow-xl"
                 />
-                {/* Overlapping Quote Card */}
                 <div className="absolute -bottom-8 -left-8 bg-brand-navy p-8 rounded-lg shadow-2xl max-w-sm border-l-4 border-brand-gold">
                   <Quote className="text-brand-gold mb-4 opacity-50" size={32} />
                   <p className="text-white font-serif italic text-lg leading-relaxed mb-4">
@@ -153,17 +151,25 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 5. B2B / INSTITUTIONAL PARTNERSHIP SECTION */}
+        {/* 5. PARTNER WITH EDUNOVA (B2B Section) */}
         <section className="py-24 bg-white">
           <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="order-2 lg:order-1 relative h-[400px]">
+              {/* Image Grid */}
+              <div className="order-2 lg:order-1 grid grid-cols-2 gap-4">
                 <img 
-                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" 
-                  alt="Institutional Meeting" 
-                  className="w-full h-full object-cover rounded-xl shadow-lg"
+                  src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" 
+                  alt="Students in classroom" 
+                  className="w-full h-64 object-cover rounded-lg shadow-md"
+                />
+                <img 
+                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" 
+                  alt="Group study" 
+                  className="w-full h-64 object-cover rounded-lg shadow-md mt-8"
                 />
               </div>
+              
+              {/* Text Content */}
               <div className="order-1 lg:order-2">
                 <div className="inline-flex items-center gap-2 bg-brand-navy/5 border border-brand-navy/10 px-4 py-1.5 rounded-full mb-6">
                   <Globe2 size={16} className="text-brand-royal" />
@@ -173,7 +179,7 @@ export default function Home() {
                   Partner with Think EduNova.
                 </h2>
                 <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  We collaborate with schools, colleges, and universities to provide additional academic support to their students. By integrating our tutoring and AI systems with your institution, we help improve learner outcomes and reduce dropout rates.
+                  We collaborate with schools, colleges, NGOs, and universities to provide additional academic support to their students. By integrating our tutoring and AI systems with your institution, we help improve learner outcomes, reduce dropout rates, and empower your faculty.
                 </p>
                 <ul className="space-y-4 mb-8">
                   <li className="flex items-center gap-3 text-brand-charcoal font-medium">
@@ -194,7 +200,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 6. ACADCOREOS SHOWCASE (Dark Mode) */}
+        {/* 6. ACADCOREOS SHOWCASE */}
         <section className="w-full bg-brand-navy text-white py-24 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
           
@@ -272,7 +278,6 @@ export default function Home() {
       {/* 8. MASSIVE INSTITUTIONAL FOOTER */}
       <footer className="bg-[#081020] text-gray-400 border-t-[6px] border-brand-royal">
         
-        {/* Top Footer: Links & Newsletter */}
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
             
@@ -284,11 +289,18 @@ export default function Home() {
               <p className="text-sm text-gray-400 mb-6 leading-relaxed max-w-sm">
                 Think EduNova Academy is a premier integrated online institution. We combine academic teaching, tutoring, research support, and institutional management software to transform education.
               </p>
-              <div className="flex space-x-4">
-                {/* Social Placeholders */}
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-royal transition-colors cursor-pointer"></div>
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-royal transition-colors cursor-pointer"></div>
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-royal transition-colors cursor-pointer"></div>
+              
+              {/* Social Icons */}
+              <div className="flex space-x-3">
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-royal hover:text-white transition-all cursor-pointer text-gray-400">
+                  <Facebook size={18} />
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-royal hover:text-white transition-all cursor-pointer text-gray-400">
+                  <Twitter size={18} />
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-royal hover:text-white transition-all cursor-pointer text-gray-400">
+                  <Linkedin size={18} />
+                </a>
               </div>
             </div>
 

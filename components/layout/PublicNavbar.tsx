@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Menu, X, Search, ChevronDown } from 'lucide-react';
+import { Menu, X, Search, ChevronDown, Heart } from 'lucide-react';
 
 export default function PublicNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -92,7 +92,7 @@ export default function PublicNavbar() {
           heading: "Staff & Institutional",
           links: [
             { name: "Tutor Portal Login", href: "/login/tutor" },
-            { name: "AcadCoreOS System", href: "https://acadcoreos.base44.app/" }, // External Link
+            { name: "AcadCoreOS System", href: "https://acadcoreos.base44.app/" },
             { name: "Tutor Earnings", href: "/portal/earnings" },
             { name: "Submit Lesson Report", href: "/portal/reports" },
           ]
@@ -107,9 +107,9 @@ export default function PublicNavbar() {
   return (
     <header className="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-200 font-sans">
       
-      {/* 1. Top Utility Bar */}
+      {/* 1. Top Utility Bar with Donate Button */}
       <div className="bg-brand-navy text-gray-300 text-xs py-1.5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex space-x-5">
             <Link href="/login/student" className="hover:text-white transition-colors">Student Portal</Link>
             <Link href="/login/tutor" className="hover:text-white transition-colors">Tutor Portal</Link>
@@ -121,12 +121,16 @@ export default function PublicNavbar() {
               <Search size={14} /> Search
             </button>
             <Link href="/login" className="hover:text-white transition-colors font-medium border-l border-gray-600 pl-5">Login</Link>
+            {/* DONATE BUTTON */}
+            <Link href="/donate" className="bg-brand-gold text-brand-navy px-4 py-1 rounded font-bold hover:bg-yellow-500 transition-colors flex items-center gap-1">
+              <Heart size={12} /> Donate
+            </Link>
           </div>
         </div>
       </div>
 
       {/* 2. Main Header Area */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-24">
           
           {/* Logo Area */}
@@ -293,9 +297,12 @@ export default function PublicNavbar() {
 
             <Link href="/become-a-tutor" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Tutor Careers</Link>
             
-            <div className="mt-4 pt-4 border-t border-gray-100">
+            <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-2">
               <Link href="/register" className="block w-full text-center bg-brand-gold text-brand-navy font-bold px-4 py-3 rounded-md" onClick={() => setIsOpen(false)}>
                 Apply Now
+              </Link>
+              <Link href="/donate" className="block w-full text-center bg-brand-navy text-white font-bold px-4 py-3 rounded-md" onClick={() => setIsOpen(false)}>
+                Donate
               </Link>
             </div>
           </div>
