@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { BookOpen, GraduationCap, Users, Award, ShieldCheck, Microscope } from 'lucide-react';
+import { BookOpen, GraduationCap, Users, Microscope, ShieldCheck, Award } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -10,7 +10,8 @@ export default function Home() {
       <main className="flex-grow">
         
         {/* Section 1: Institutional Hero */}
-        <section className="relative bg-brand-navy text-white py-20 lg:py-28">
+        {/* Added pt-32 and lg:pt-40 to accommodate the mega-menu dropdowns cleanly */}
+        <section className="relative bg-brand-navy text-white pt-32 pb-24 lg:pt-40 lg:pb-32">
           <div className="absolute inset-0 opacity-15 bg-[url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
@@ -203,9 +204,6 @@ export default function Home() {
           <div className="col-span-2 md:col-span-1">
             <h3 className="text-white font-bold text-xl mb-4">Think EduNova</h3>
             <p className="text-sm text-gray-400 mb-4">Empowering Minds. Transforming Futures.</p>
-            <div className="flex space-x-4">
-              {/* Add social icons here */}
-            </div>
           </div>
           <div>
             <h4 className="text-white font-bold mb-4 uppercase text-sm tracking-wider">Faculties</h4>
@@ -241,9 +239,9 @@ export default function Home() {
             <Link href="/contact" className="text-brand-gold hover:underline text-sm font-bold mt-2 inline-block">Get in Touch</Link>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-white/10 text-sm text-gray-500 flex justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-white/10 text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center">
           <p>© 2026 Think EduNova Academy. All rights reserved.</p>
-          <p>Registered Educational Institution.</p>
+          <p className="mt-2 md:mt-0">Registered Educational Institution.</p>
         </div>
       </footer>
     </div>
