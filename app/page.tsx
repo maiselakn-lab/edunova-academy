@@ -44,7 +44,7 @@ export default function Home() {
         {/* 2. FLOATING QUICK ACCESS BAR */}
         <section className="relative z-20 max-w-[1200px] mx-auto px-6 sm:px-12 -mt-16">
           <div className="bg-white shadow-2xl rounded-lg border border-gray-100 grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100 overflow-hidden">
-            <Link href="/portal/student" className="p-6 text-center hover:bg-brand-grey transition-colors group">
+            <Link href="/login/student" className="p-6 text-center hover:bg-brand-grey transition-colors group">
               <MonitorPlay className="mx-auto text-brand-navy group-hover:text-brand-royal mb-3" size={28} />
               <h3 className="font-bold text-brand-navy text-sm uppercase tracking-wide">Student Portal</h3>
               <p className="text-xs text-gray-500 mt-1">Access your virtual classroom</p>
@@ -155,56 +155,34 @@ export default function Home() {
         <section className="py-24 bg-white overflow-hidden">
           <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
-              {/* Image Grid */}
               <div className="order-2 lg:order-1 grid grid-cols-2 gap-4 relative">
                 <div className="relative h-72 rounded-lg overflow-hidden shadow-lg group">
-                  <img 
-                    src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" 
-                    alt="Students in classroom" 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
+                  <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" alt="Students in classroom" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 </div>
                 <div className="relative h-72 rounded-lg overflow-hidden shadow-lg mt-12 group">
-                  <img 
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" 
-                    alt="Group study" 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
+                  <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" alt="Group study" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 </div>
               </div>
               
-              {/* Text Content */}
               <div className="order-1 lg:order-2">
                 <div className="inline-flex items-center gap-2 bg-brand-navy/5 border border-brand-navy/10 px-4 py-1.5 rounded-full mb-6">
                   <Globe2 size={16} className="text-brand-royal" />
                   <p className="text-brand-royal font-bold tracking-widest uppercase text-xs">For Schools & Institutions</p>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-navy mb-6">
-                  Partner with Think EduNova.
-                </h2>
-                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  We collaborate with schools, colleges, NGOs, and universities to provide additional academic support to their students. By integrating our tutoring and AI systems with your institution, we help improve learner outcomes, reduce dropout rates, and empower your faculty.
-                </p>
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-navy mb-6">Partner with Think EduNova.</h2>
+                <p className="text-lg text-gray-600 mb-6 leading-relaxed">We collaborate with schools, colleges, NGOs, and universities to provide additional academic support to their students. By integrating our tutoring and AI systems with your institution, we help improve learner outcomes, reduce dropout rates, and empower your faculty.</p>
                 <ul className="space-y-4 mb-8">
-                  <li className="flex items-center gap-3 text-brand-charcoal font-medium">
-                    <CheckCircle2 className="text-brand-teal shrink-0" size={20} /> Dedicated institutional dashboard
-                  </li>
-                  <li className="flex items-center gap-3 text-brand-charcoal font-medium">
-                    <CheckCircle2 className="text-brand-teal shrink-0" size={20} /> Bulk student enrollments & billing
-                  </li>
-                  <li className="flex items-center gap-3 text-brand-charcoal font-medium">
-                    <CheckCircle2 className="text-brand-teal shrink-0" size={20} /> Custom academic reporting
-                  </li>
+                  <li className="flex items-center gap-3 text-brand-charcoal font-medium"><CheckCircle2 className="text-brand-teal shrink-0" size={20} /> Dedicated institutional dashboard</li>
+                  <li className="flex items-center gap-3 text-brand-charcoal font-medium"><CheckCircle2 className="text-brand-teal shrink-0" size={20} /> Bulk student enrollments & billing</li>
+                  <li className="flex items-center gap-3 text-brand-charcoal font-medium"><CheckCircle2 className="text-brand-teal shrink-0" size={20} /> Custom academic reporting</li>
                 </ul>
-                <Link href="/institutions" className="bg-brand-navy text-white px-8 py-4 rounded-sm font-bold hover:bg-opacity-90 transition-colors inline-block shadow-md">
-                  Become a Partner Institution
-                </Link>
+                <Link href="/institutions" className="bg-brand-navy text-white px-8 py-4 rounded-sm font-bold hover:bg-opacity-90 transition-colors inline-block shadow-md">Become a Partner Institution</Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 6. ACADCOREOS SHOWCASE */}
+        {/* 6. ACADCOREOS SHOWCASE (Fixed Text Visibility) */}
         <section className="w-full bg-brand-navy text-white py-24 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
           
@@ -215,7 +193,7 @@ export default function Home() {
                   <Database size={14} className="text-brand-sky" />
                   <p className="text-brand-sky font-bold tracking-wider uppercase text-xs">Powered by AcadCoreOS</p>
                 </div>
-                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight">
+                <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
                   The Intelligent OS for <span className="text-brand-gold">Modern Schools.</span>
                 </h2>
                 <p className="text-lg text-gray-300 mb-8 leading-relaxed">
@@ -281,11 +259,8 @@ export default function Home() {
 
       {/* 8. MASSIVE INSTITUTIONAL FOOTER */}
       <footer className="bg-[#081020] text-gray-400 border-t-[6px] border-brand-royal">
-        
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
-            
-            {/* Logo & About */}
             <div className="lg:col-span-2">
               <div className="bg-white p-2 rounded inline-block mb-6">
                 <img src="/logo.png" alt="EduNova Logo" className="h-14 w-auto object-contain" />
@@ -293,22 +268,12 @@ export default function Home() {
               <p className="text-sm text-gray-400 mb-6 leading-relaxed max-w-sm">
                 Think EduNova Academy is a premier integrated online institution. We combine academic teaching, tutoring, research support, and institutional management software to transform education.
               </p>
-              
-              {/* Social Icons */}
               <div className="flex space-x-3">
-                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-royal hover:text-white transition-all cursor-pointer text-gray-400">
-                  <Share2 size={18} />
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-royal hover:text-white transition-all cursor-pointer text-gray-400">
-                  <MessageCircle size={18} />
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-royal hover:text-white transition-all cursor-pointer text-gray-400">
-                  <Globe size={18} />
-                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-royal hover:text-white transition-all cursor-pointer text-gray-400"><Share2 size={18} /></a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-royal hover:text-white transition-all cursor-pointer text-gray-400"><MessageCircle size={18} /></a>
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-royal hover:text-white transition-all cursor-pointer text-gray-400"><Globe size={18} /></a>
               </div>
             </div>
-
-            {/* Links Column 1 */}
             <div>
               <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider font-serif">Quick Links</h4>
               <ul className="space-y-3 text-sm">
@@ -319,8 +284,6 @@ export default function Home() {
                 <li><Link href="/become-a-tutor" className="hover:text-brand-gold transition-colors">Tutor Careers</Link></li>
               </ul>
             </div>
-
-            {/* Links Column 2 */}
             <div>
               <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider font-serif">Governance</h4>
               <ul className="space-y-3 text-sm">
@@ -330,30 +293,16 @@ export default function Home() {
                 <li><Link href="/audit" className="hover:text-brand-gold transition-colors">Audit & Annual Reports</Link></li>
               </ul>
             </div>
-
-            {/* Contact Details */}
             <div>
               <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider font-serif">Contact Us</h4>
               <ul className="space-y-4 text-sm">
-                <li className="flex items-start gap-3">
-                  <MapPin size={18} className="text-brand-gold shrink-0 mt-0.5" />
-                  <span>South Africa</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Phone size={18} className="text-brand-gold shrink-0" />
-                  <span>+27 (0) 12 345 6789</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Mail size={18} className="text-brand-gold shrink-0" />
-                  <span>info@thinkedunova.co.za</span>
-                </li>
+                <li className="flex items-start gap-3"><MapPin size={18} className="text-brand-gold shrink-0 mt-0.5" /><span>South Africa</span></li>
+                <li className="flex items-center gap-3"><Phone size={18} className="text-brand-gold shrink-0" /><span>+27 (0) 12 345 6789</span></li>
+                <li className="flex items-center gap-3"><Mail size={18} className="text-brand-gold shrink-0" /><span>info@thinkedunova.co.za</span></li>
               </ul>
             </div>
-
           </div>
         </div>
-
-        {/* Bottom Copyright Bar */}
         <div className="border-t border-white/5 py-6 bg-black/40">
           <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
             <p>© 2026 Think EduNova Academy. All rights reserved.</p>

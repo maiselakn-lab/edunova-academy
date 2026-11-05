@@ -18,7 +18,7 @@ export default function PrimaryAcademy() {
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
           <div className="max-w-3xl border-l-4 border-brand-gold pl-6 md:pl-8">
             <p className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-4">Faculty of Primary Education</p>
-            <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 leading-tight">Primary Academy</h1>
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">Primary Academy</h1>
             <p className="text-xl text-gray-200 mb-8 leading-relaxed">
               Building strong foundations for lifelong learning. We provide a nurturing, structured, and engaging online environment for learners in Grades R to 7.
             </p>
