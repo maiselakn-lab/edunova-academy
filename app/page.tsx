@@ -255,13 +255,13 @@ export default function Home() {
             
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { date: "15 Jan 2026", cat: "Institutional", title: "Launch of the 2026 Academic Year", desc: "Think EduNova Academy officially opens registrations for all four academic divisions.", img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" },
+                { date: "15 Jan 2026", cat: "Institutional", title: "Launch of the 2026 Academic Year", desc: "Think EduNova Academy officially opens registrations for all four academic divisions.", img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" },
                 { date: "08 Jan 2026", cat: "Research", title: "New Research Support Services", desc: "Expanding our postgraduate support with specialist statistical analysis tutoring.", img: "https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop" },
-                { date: "02 Jan 2026", cat: "Faculty", title: "Welcoming Our New Verified Tutors", desc: "Meet the latest graduates and professionals who have joined our teaching faculty.", img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" }
+                { date: "02 Jan 2026", cat: "Faculty", title: "Welcoming Our New Verified Tutors", desc: "Meet the latest graduates and professionals who have joined our teaching faculty.", img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop" }
               ].map((news, i) => (
                 <div key={i} className="bg-white border border-gray-200 group cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
                   <div className="h-56 overflow-hidden relative">
-                    <img src={news.img} alt="News" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src={news.img} alt={news.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     <div className="absolute top-4 left-4 bg-brand-navy text-white text-xs font-bold px-3 py-1 uppercase tracking-wider">{news.cat}</div>
                   </div>
                   <div className="p-6">
