@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
 import Logo from '@/components/Logo';
-import { BookOpen, GraduationCap, Users, Microscope, ShieldCheck, Award, ArrowRight } from 'lucide-react';
+import { BookOpen, GraduationCap, Users, Microscope, ShieldCheck, Award, ArrowRight, CheckCircle2, LayoutDashboard, Database, Cpu } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -10,20 +10,17 @@ export default function Home() {
 
       <main className="flex-grow">
         
-        {/* Hero Section - Fixed Text Visibility */}
+        {/* Hero Section */}
         <section className="relative bg-brand-navy text-white overflow-hidden">
-          {/* Background Image with Overlay */}
           <div className="absolute inset-0 z-0">
             <img 
               src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" 
               alt="South African students learning" 
               className="w-full h-full object-cover object-center opacity-60"
             />
-            {/* Strong gradient: Solid navy on the left ensuring text is highly visible */}
             <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/95 to-brand-navy/60"></div>
           </div>
           
-          {/* Hero Content */}
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40">
             <div className="max-w-3xl">
               <div className="inline-block bg-brand-gold/20 border border-brand-gold/50 backdrop-blur-sm px-4 py-1.5 rounded-full mb-6">
@@ -151,6 +148,96 @@ export default function Home() {
           </div>
         </section>
 
+        {/* NEW SECTION: AcadCoreOS Institutional Integration */}
+        <section className="py-24 bg-brand-navy text-white relative overflow-hidden">
+          {/* Subtle background pattern */}
+          <div className="absolute inset-0 opacity-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white via-brand-navy to-brand-navy"></div>
+          
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              
+              {/* Text Content */}
+              <div>
+                <div className="inline-block bg-brand-royal/20 border border-brand-royal/50 px-3 py-1 rounded-sm mb-6">
+                  <p className="text-brand-sky font-bold tracking-wider uppercase text-xs">Powered by AcadCoreOS</p>
+                </div>
+                <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+                  The Intelligent OS for <span className="text-brand-gold">Modern Schools.</span>
+                </h2>
+                <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+                  Think EduNova doesn't just teach students—we power the institutions behind them. We are proud to integrate <strong>AcadCoreOS</strong>, a comprehensive school management platform unifying academics, finance, HR, scheduling, and AI into a single, scalable workspace.
+                </p>
+                
+                <div className="space-y-4 mb-10">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="text-brand-teal shrink-0 mt-1" size={20} />
+                    <div>
+                      <h4 className="font-bold text-white">19 Integrated Core Modules</h4>
+                      <p className="text-sm text-gray-400">From AcademicCore and FinanceCore to Admissions and HR.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="text-brand-teal shrink-0 mt-1" size={20} />
+                    <div>
+                      <h4 className="font-bold text-white">Built for African Institutions</h4>
+                      <p className="text-sm text-gray-400">Secure, multi-tenant cloud architecture designed to scale from 100 to 1000+ students.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="text-brand-teal shrink-0 mt-1" size={20} />
+                    <div>
+                      <h4 className="font-bold text-white">AcadAI Intelligence Layer</h4>
+                      <p className="text-sm text-gray-400">Smart insights, automated reporting, and AI-powered productivity tools.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a 
+                    href="https://acadcoreos.base44.app/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold text-lg hover:bg-yellow-500 transition-all text-center flex items-center justify-center gap-2"
+                  >
+                    Explore AcadCoreOS <ArrowRight size={18} />
+                  </a>
+                  <Link href="/contact" className="bg-white/10 border border-white/20 text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-white/20 transition-all text-center">
+                    Request a Demo
+                  </Link>
+                </div>
+              </div>
+
+              {/* Visual Graphic / Module Grid */}
+              <div className="bg-white/5 border border-white/10 p-8 rounded-xl backdrop-blur-sm">
+                <h3 className="text-xl font-bold mb-6 text-white text-center">The 19 Core Modules</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { name: "AcademicCore", icon: <BookOpen size={16} /> },
+                    { name: "FinanceCore", icon: <LayoutDashboard size={16} /> },
+                    { name: "AdmissionsCore", icon: <Users size={16} /> },
+                    { name: "AssessmentCore", icon: <Award size={16} /> },
+                    { name: "AttendanceCore", icon: <CheckCircle2 size={16} /> },
+                    { name: "PeopleCore", icon: <Users size={16} /> },
+                    { name: "ScheduleCore", icon: <Database size={16} /> },
+                    { name: "ExamCore (CBT)", icon: <Cpu size={16} /> },
+                  ].map((mod, i) => (
+                    <div key={i} className="flex items-center gap-2 bg-brand-navy/50 border border-white/10 px-3 py-2 rounded text-sm text-gray-200">
+                      <span className="text-brand-sky">{mod.icon}</span> {mod.name}
+                    </div>
+                  ))}
+                  <div className="flex items-center justify-center bg-brand-royal/20 border border-brand-royal/30 px-3 py-2 rounded text-sm text-brand-sky font-bold col-span-2">
+                    + 11 More Integrated Modules
+                  </div>
+                </div>
+                <div className="mt-6 text-center">
+                  <p className="text-xs text-gray-400">Trusted by schools across Africa. Powered by AcadAI.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
         {/* Institutional Quality & Tutor Careers */}
         <section className="py-20 bg-brand-grey">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-16">
@@ -168,22 +255,21 @@ export default function Home() {
               </ul>
             </div>
             
-            <div className="bg-brand-navy p-10 rounded-lg shadow-lg text-white relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150"></div>
-              <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 relative z-10">
+            <div className="bg-white p-10 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+              <h2 className="text-2xl font-bold text-brand-navy mb-4 flex items-center gap-3">
                 <Award className="text-brand-gold" size={28} /> Tutor Careers & Empowerment
               </h2>
-              <p className="text-gray-300 mb-6 leading-relaxed relative z-10">
+              <p className="text-gray-600 mb-6 leading-relaxed">
                 We provide employment opportunities for graduates and qualified professionals. Join our network of educators, share your knowledge, and earn income through our structured teaching platform.
               </p>
-              <Link href="/become-a-tutor" className="inline-block bg-brand-gold text-brand-navy px-6 py-3 rounded-sm font-bold hover:bg-yellow-500 transition-colors relative z-10">
+              <Link href="/become-a-tutor" className="inline-block bg-brand-navy text-white px-6 py-3 rounded-sm font-bold hover:bg-opacity-90 transition-colors">
                 Apply to Become a Tutor
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Newsroom - Updated with SA Images */}
+        {/* Newsroom */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-end mb-10 border-b border-gray-200 pb-4">
@@ -191,15 +277,10 @@ export default function Home() {
               <Link href="/news" className="text-brand-royal font-bold hover:underline flex items-center gap-1">View Newsroom <ArrowRight size={16} /></Link>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
-              
               {/* Card 1 */}
               <div className="bg-white border border-gray-200 group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <div className="h-48 overflow-hidden relative">
-                  <img 
-                    src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" 
-                    alt="SA Campus" 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  />
+                  <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" alt="SA Campus" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute top-4 left-4 bg-brand-gold text-brand-navy text-xs font-bold px-3 py-1 uppercase tracking-wider shadow-sm">Announcements</div>
                 </div>
                 <div className="p-6">
@@ -207,15 +288,10 @@ export default function Home() {
                   <p className="text-sm text-gray-600 leading-relaxed">Think EduNova Academy officially opens registrations for all four academic divisions.</p>
                 </div>
               </div>
-
               {/* Card 2 */}
               <div className="bg-white border border-gray-200 group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <div className="h-48 overflow-hidden relative">
-                  <img 
-                    src="https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop" 
-                    alt="SA Research" 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  />
+                  <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop" alt="SA Research" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute top-4 left-4 bg-brand-royal text-white text-xs font-bold px-3 py-1 uppercase tracking-wider shadow-sm">Research</div>
                 </div>
                 <div className="p-6">
@@ -223,15 +299,10 @@ export default function Home() {
                   <p className="text-sm text-gray-600 leading-relaxed">Expanding our postgraduate support with specialist statistical analysis tutoring.</p>
                 </div>
               </div>
-
               {/* Card 3 */}
               <div className="bg-white border border-gray-200 group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <div className="h-48 overflow-hidden relative">
-                  <img 
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" 
-                    alt="SA Tutors" 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  />
+                  <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" alt="SA Tutors" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute top-4 left-4 bg-brand-teal text-white text-xs font-bold px-3 py-1 uppercase tracking-wider shadow-sm">Tutor Network</div>
                 </div>
                 <div className="p-6">
@@ -239,7 +310,6 @@ export default function Home() {
                   <p className="text-sm text-gray-600 leading-relaxed">Meet the latest graduates and professionals who have joined our teaching faculty.</p>
                 </div>
               </div>
-              
             </div>
           </div>
         </section>
