@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Menu, X, Search, ChevronDown } from 'lucide-react';
-import Logo from '@/components/Logo';
 
 export default function PublicNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -90,12 +89,12 @@ export default function PublicNavbar() {
           ]
         },
         {
-          heading: "Staff & Tutors",
+          heading: "Staff & Institutional",
           links: [
             { name: "Tutor Portal Login", href: "/login/tutor" },
+            { name: "AcadCoreOS System", href: "https://acadcoreos.base44.app/" }, // External Link
             { name: "Tutor Earnings", href: "/portal/earnings" },
             { name: "Submit Lesson Report", href: "/portal/reports" },
-            { name: "Staff Email", href: "/portal/email" },
           ]
         }
       ]
@@ -108,12 +107,13 @@ export default function PublicNavbar() {
   return (
     <header className="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-200 font-sans">
       
-      {/* Top Utility Bar */}
-      <div className="bg-brand-navy text-gray-300 text-xs py-2">
+      {/* 1. Top Utility Bar */}
+      <div className="bg-brand-navy text-gray-300 text-xs py-1.5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex space-x-5">
             <Link href="/login/student" className="hover:text-white transition-colors">Student Portal</Link>
             <Link href="/login/tutor" className="hover:text-white transition-colors">Tutor Portal</Link>
+            <a href="https://acadcoreos.base44.app/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors text-brand-gold font-medium">AcadCoreOS Login</a>
             <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
           </div>
           <div className="flex space-x-5 items-center">
@@ -125,24 +125,22 @@ export default function PublicNavbar() {
         </div>
       </div>
 
-      {/* Main Header */}
+      {/* 2. Main Header Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-24">
           
           {/* Logo Area */}
-          <div className="flex-shrink-0 flex items-center gap-4">
-            <Logo className="w-14 h-14" />
-            <div className="flex flex-col">
-              <Link href="/" className="text-2xl font-bold text-brand-navy tracking-tight leading-none">
-                Think EduNova
-              </Link>
-              <span className="text-[10px] text-brand-royal font-bold tracking-[0.2em] uppercase mt-1.5">
-                Academy & Research
-              </span>
-            </div>
+          <div className="flex-shrink-0 flex items-center">
+            <Link href="/">
+              <img 
+                src="/logo.png" 
+                alt="Think EduNova Academy Logo" 
+                className="h-16 md:h-20 w-auto object-contain" 
+              />
+            </Link>
           </div>
 
-          {/* Desktop Nav */}
+          {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex space-x-1 items-center h-full">
             <Link href="/" className="px-4 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors">
               Home
@@ -219,7 +217,13 @@ export default function PublicNavbar() {
                       <ul className="space-y-3">
                         {col.links.map((link) => (
                           <li key={link.name}>
-                            <Link href={link.href} className="text-sm text-gray-600 hover:text-brand-royal hover:translate-x-1 transition-all inline-block">{link.name}</Link>
+                            {link.href.startsWith('http') ? (
+                              <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 hover:text-brand-royal hover:translate-x-1 transition-all inline-flex items-center gap-1">
+                                {link.name} <span className="text-xs text-brand-royal">↗</span>
+                              </a>
+                            ) : (
+                              <Link href={link.href} className="text-sm text-gray-600 hover:text-brand-royal hover:translate-x-1 transition-all inline-block">{link.name}</Link>
+                            )}
                           </li>
                         ))}
                       </ul>
@@ -234,14 +238,14 @@ export default function PublicNavbar() {
             </Link>
           </nav>
 
-          {/* Gold CTA */}
+          {/* 3. The Gold CTA Block */}
           <div className="hidden lg:flex h-full">
-            <Link href="/register" className="bg-brand-gold hover:bg-[#d4a34a] text-brand-navy font-bold text-sm px-8 flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+            <Link href="/register" className="bg-brand-gold hover:bg-yellow-600 text-brand-navy font-bold text-sm px-8 flex items-center justify-center transition-colors">
               Apply Now
             </Link>
           </div>
 
-          {/* Mobile Button */}
+          {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center">
             <button onClick={() => setIsOpen(!isOpen)} className="text-brand-navy hover:text-brand-royal focus:outline-none">
               {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -250,22 +254,42 @@ export default function PublicNavbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Navigation Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full max-h-[85vh] overflow-y-auto animate-in slide-in-from-top duration-300">
+        <div className="lg:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full max-h-[80vh] overflow-y-auto">
           <div className="px-4 pt-2 pb-6 space-y-1">
-            <Link href="/" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Home</Link>
+            <Link href="/" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md">Home</Link>
             
-            {['about', 'faculties', 'portals'].map((menuKey) => (
-              <div key={menuKey} className="px-3 py-3">
-                <span className="block text-base font-bold text-brand-navy mb-2 capitalize">{menuKey === 'portals' ? 'Students & Staff' : menuKey}</span>
-                <div className="pl-4 space-y-2 border-l-2 border-gray-200">
-                  {megaMenus[menuKey as keyof typeof megaMenus].columns.flatMap(c => c.links).map(link => (
-                    <Link key={link.name} href={link.href} className="block py-1 text-sm text-gray-600" onClick={() => setIsOpen(false)}>{link.name}</Link>
-                  ))}
-                </div>
+            <div className="px-3 py-3">
+              <span className="block text-base font-bold text-brand-navy mb-2">About Us</span>
+              <div className="pl-4 space-y-2 border-l-2 border-gray-200">
+                {megaMenus.about.columns.flatMap(c => c.links).map(link => (
+                  <Link key={link.name} href={link.href} className="block py-1 text-sm text-gray-600" onClick={() => setIsOpen(false)}>{link.name}</Link>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div className="px-3 py-3">
+              <span className="block text-base font-bold text-brand-navy mb-2">Faculties</span>
+              <div className="pl-4 space-y-2 border-l-2 border-gray-200">
+                {megaMenus.faculties.columns.flatMap(c => c.links).map(link => (
+                  <Link key={link.name} href={link.href} className="block py-1 text-sm text-gray-600" onClick={() => setIsOpen(false)}>{link.name}</Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="px-3 py-3">
+              <span className="block text-base font-bold text-brand-navy mb-2">Students & Staff</span>
+              <div className="pl-4 space-y-2 border-l-2 border-gray-200">
+                {megaMenus.portals.columns.flatMap(c => c.links).map(link => (
+                  link.href.startsWith('http') ? (
+                    <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" className="block py-1 text-sm text-gray-600" onClick={() => setIsOpen(false)}>{link.name} ↗</a>
+                  ) : (
+                    <Link key={link.name} href={link.href} className="block py-1 text-sm text-gray-600" onClick={() => setIsOpen(false)}>{link.name}</Link>
+                  )
+                ))}
+              </div>
+            </div>
 
             <Link href="/become-a-tutor" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Tutor Careers</Link>
             

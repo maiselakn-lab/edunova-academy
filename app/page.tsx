@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import Logo from '@/components/Logo';
-import { BookOpen, GraduationCap, Users, Microscope, ShieldCheck, Award, ArrowRight, CheckCircle2, LayoutDashboard, Database, Cpu, Calendar, Globe } from 'lucide-react';
+import { BookOpen, GraduationCap, Users, Microscope, ShieldCheck, Award, ArrowRight, CheckCircle2, LayoutDashboard, Database, Cpu, Calendar } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -11,39 +10,39 @@ export default function Home() {
       <main className="flex-grow">
         
         {/* Institutional Split-Screen Hero */}
-        <section className="relative bg-brand-navy min-h-[85vh] flex items-center">
+        <section className="relative bg-brand-navy overflow-hidden">
           <div className="absolute inset-0 z-0">
             {/* Split background: Solid Navy on left, Image on right */}
-            <div className="absolute inset-0 bg-brand-navy w-full md:w-1/2 z-10"></div>
+            <div className="absolute inset-0 bg-brand-navy w-full md:w-[55%] z-10"></div>
             <img 
               src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop" 
               alt="South African students" 
-              className="absolute inset-0 w-full h-full object-cover object-center md:left-1/2 md:w-1/2 opacity-80"
+              className="absolute inset-0 w-full h-full object-cover object-center md:left-[55%] md:w-[45%] opacity-90"
             />
-            {/* Soft gradient overlay to blend the split */}
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/90 to-transparent md:w-3/4 z-10"></div>
+            {/* Soft gradient overlay to blend the split slightly */}
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy to-transparent md:w-2/3 z-10"></div>
           </div>
           
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-24 lg:py-32">
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 backdrop-blur-md px-4 py-2 rounded-full mb-8">
+              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 backdrop-blur-md px-4 py-2 rounded-full mb-6">
                 <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
                 <p className="text-white font-semibold tracking-wide text-xs uppercase">Admissions Open for 2026</p>
               </div>
               
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight mb-6 leading-[1.1] text-white">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-tight mb-6 leading-[1.15] text-white">
                 Leading Academic Excellence.
               </h1>
               
-              <p className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-xl">
+              <p className="text-lg text-gray-300 mb-8 leading-relaxed max-w-xl">
                 Think EduNova Academy is a premier integrated online institution providing rigorous academic support, expert tutoring, and research guidance across Primary, Secondary, College, and University levels.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/register" className="bg-brand-royal text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-blue-700 hover:-translate-y-0.5 transition-all shadow-lg text-center flex items-center justify-center gap-2">
+                <Link href="/register" className="bg-brand-royal text-white px-8 py-3.5 rounded-sm font-bold text-base hover:bg-blue-700 hover:-translate-y-0.5 transition-all shadow-lg text-center flex items-center justify-center gap-2">
                   Apply for Admission <ArrowRight size={18} />
                 </Link>
-                <Link href="/courses" className="bg-white/5 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-white hover:text-brand-navy hover:-translate-y-0.5 transition-all text-center">
+                <Link href="/courses" className="bg-white/5 backdrop-blur-md border border-white/30 text-white px-8 py-3.5 rounded-sm font-bold text-base hover:bg-white hover:text-brand-navy hover:-translate-y-0.5 transition-all text-center">
                   Explore Programmes
                 </Link>
               </div>
@@ -375,11 +374,14 @@ export default function Home() {
       <footer className="bg-brand-navy text-gray-300 py-16 border-t-[8px] border-brand-royal">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-5 gap-8">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <Logo className="w-10 h-10" />
-              <h3 className="text-white font-serif font-bold text-xl">EduNova</h3>
+            <div className="bg-white p-2 rounded mb-4 inline-block">
+              <img 
+                src="/logo.png" 
+                alt="Think EduNova Academy Logo" 
+                className="h-12 w-auto object-contain" 
+              />
             </div>
-            <p className="text-sm text-gray-400 mb-4">Empowering Minds. Transforming Futures.</p>
+            <p className="text-sm text-gray-400 mb-4 mt-2">Empowering Minds. Transforming Futures.</p>
             <p className="text-xs text-gray-500">A premier integrated online institution providing rigorous academic support.</p>
           </div>
           <div>
