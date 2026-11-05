@@ -3,15 +3,14 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Menu, X, Search, ChevronDown } from 'lucide-react';
+import Logo from '@/components/Logo';
 
 export default function PublicNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
-  // Mega Menu Data
   const megaMenus = {
     about: {
-      title: "About EduNova",
       columns: [
         {
           heading: "Introducing the Academy",
@@ -33,7 +32,7 @@ export default function PublicNavbar() {
           ]
         },
         {
-          heading: "Partnerships & Governance",
+          heading: "Governance",
           links: [
             { name: "Institutional Partners", href: "/institutions" },
             { name: "AcadCoreOS Integration", href: "/about/acadcoreos" },
@@ -44,7 +43,6 @@ export default function PublicNavbar() {
       ]
     },
     faculties: {
-      title: "Academic Faculties",
       columns: [
         {
           heading: "School Level",
@@ -72,7 +70,6 @@ export default function PublicNavbar() {
       ]
     },
     portals: {
-      title: "Student & Staff Portals",
       columns: [
         {
           heading: "Prospective Students",
@@ -111,43 +108,41 @@ export default function PublicNavbar() {
   return (
     <header className="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-200 font-sans">
       
-      {/* 1. Top Utility Bar */}
-      <div className="bg-brand-navy text-gray-300 text-xs py-1.5">
+      {/* Top Utility Bar */}
+      <div className="bg-brand-navy text-gray-300 text-xs py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <div className="flex space-x-4">
+          <div className="flex space-x-5">
             <Link href="/login/student" className="hover:text-white transition-colors">Student Portal</Link>
             <Link href="/login/tutor" className="hover:text-white transition-colors">Tutor Portal</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
           </div>
-          <div className="flex space-x-4 items-center">
-            <button className="hover:text-white transition-colors flex items-center gap-1">
+          <div className="flex space-x-5 items-center">
+            <button className="hover:text-white transition-colors flex items-center gap-1.5">
               <Search size={14} /> Search
             </button>
-            <Link href="/login" className="hover:text-white transition-colors font-medium">Login</Link>
+            <Link href="/login" className="hover:text-white transition-colors font-medium border-l border-gray-600 pl-5">Login</Link>
           </div>
         </div>
       </div>
 
-      {/* 2. Main Header Area */}
+      {/* Main Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-24">
           
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center gap-3">
-            <div className="w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center text-brand-gold font-serif font-bold text-xl border-2 border-brand-gold">
-              EN
-            </div>
+          {/* Logo Area */}
+          <div className="flex-shrink-0 flex items-center gap-4">
+            <Logo className="w-14 h-14" />
             <div className="flex flex-col">
-              <Link href="/" className="text-xl md:text-2xl font-bold text-brand-navy tracking-tight leading-none">
+              <Link href="/" className="text-2xl font-bold text-brand-navy tracking-tight leading-none">
                 Think EduNova
               </Link>
-              <span className="text-xs text-brand-royal font-semibold tracking-widest uppercase mt-1">
+              <span className="text-[10px] text-brand-royal font-bold tracking-[0.2em] uppercase mt-1.5">
                 Academy & Research
               </span>
             </div>
           </div>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Nav */}
           <nav className="hidden lg:flex space-x-1 items-center h-full">
             <Link href="/" className="px-4 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors">
               Home
@@ -155,22 +150,22 @@ export default function PublicNavbar() {
             
             {/* About Dropdown */}
             <div 
-              className="relative h-full flex items-center px-4 py-2 cursor-pointer"
+              className="relative h-full flex items-center px-3 cursor-pointer group"
               onMouseEnter={() => handleMouseEnter('about')}
               onMouseLeave={handleMouseLeave}
             >
-              <span className="text-sm font-semibold text-brand-charcoal hover:text-brand-royal flex items-center gap-1">
-                About Us <ChevronDown size={14} />
+              <span className="text-sm font-semibold text-brand-charcoal group-hover:text-brand-royal flex items-center gap-1 py-8">
+                About Us <ChevronDown size={14} className={`transition-transform duration-200 ${activeDropdown === 'about' ? 'rotate-180' : ''}`} />
               </span>
               {activeDropdown === 'about' && (
-                <div className="absolute top-16 left-0 w-[800px] bg-white shadow-2xl border-t-4 border-brand-gold p-8 grid grid-cols-3 gap-8 z-50">
+                <div className="absolute top-[88px] left-0 w-[750px] bg-white shadow-2xl border-t-[3px] border-brand-gold p-8 grid grid-cols-3 gap-8 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   {megaMenus.about.columns.map((col, idx) => (
                     <div key={idx}>
-                      <h4 className="font-bold text-brand-navy mb-4 text-sm uppercase tracking-wider">{col.heading}</h4>
+                      <h4 className="font-bold text-brand-navy mb-4 text-xs uppercase tracking-wider border-b border-gray-100 pb-2">{col.heading}</h4>
                       <ul className="space-y-3">
                         {col.links.map((link) => (
                           <li key={link.name}>
-                            <Link href={link.href} className="text-sm text-gray-600 hover:text-brand-royal hover:underline">{link.name}</Link>
+                            <Link href={link.href} className="text-sm text-gray-600 hover:text-brand-royal hover:translate-x-1 transition-all inline-block">{link.name}</Link>
                           </li>
                         ))}
                       </ul>
@@ -182,22 +177,22 @@ export default function PublicNavbar() {
 
             {/* Faculties Dropdown */}
             <div 
-              className="relative h-full flex items-center px-4 py-2 cursor-pointer"
+              className="relative h-full flex items-center px-3 cursor-pointer group"
               onMouseEnter={() => handleMouseEnter('faculties')}
               onMouseLeave={handleMouseLeave}
             >
-              <span className="text-sm font-semibold text-brand-charcoal hover:text-brand-royal flex items-center gap-1">
-                Faculties <ChevronDown size={14} />
+              <span className="text-sm font-semibold text-brand-charcoal group-hover:text-brand-royal flex items-center gap-1 py-8">
+                Faculties <ChevronDown size={14} className={`transition-transform duration-200 ${activeDropdown === 'faculties' ? 'rotate-180' : ''}`} />
               </span>
               {activeDropdown === 'faculties' && (
-                <div className="absolute top-16 left-0 w-[800px] bg-white shadow-2xl border-t-4 border-brand-gold p-8 grid grid-cols-3 gap-8 z-50">
+                <div className="absolute top-[88px] left-0 w-[750px] bg-white shadow-2xl border-t-[3px] border-brand-gold p-8 grid grid-cols-3 gap-8 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   {megaMenus.faculties.columns.map((col, idx) => (
                     <div key={idx}>
-                      <h4 className="font-bold text-brand-navy mb-4 text-sm uppercase tracking-wider">{col.heading}</h4>
+                      <h4 className="font-bold text-brand-navy mb-4 text-xs uppercase tracking-wider border-b border-gray-100 pb-2">{col.heading}</h4>
                       <ul className="space-y-3">
                         {col.links.map((link) => (
                           <li key={link.name}>
-                            <Link href={link.href} className="text-sm text-gray-600 hover:text-brand-royal hover:underline">{link.name}</Link>
+                            <Link href={link.href} className="text-sm text-gray-600 hover:text-brand-royal hover:translate-x-1 transition-all inline-block">{link.name}</Link>
                           </li>
                         ))}
                       </ul>
@@ -209,22 +204,22 @@ export default function PublicNavbar() {
 
             {/* Portals Dropdown */}
             <div 
-              className="relative h-full flex items-center px-4 py-2 cursor-pointer"
+              className="relative h-full flex items-center px-3 cursor-pointer group"
               onMouseEnter={() => handleMouseEnter('portals')}
               onMouseLeave={handleMouseLeave}
             >
-              <span className="text-sm font-semibold text-brand-charcoal hover:text-brand-royal flex items-center gap-1">
-                Students & Staff <ChevronDown size={14} />
+              <span className="text-sm font-semibold text-brand-charcoal group-hover:text-brand-royal flex items-center gap-1 py-8">
+                Students & Staff <ChevronDown size={14} className={`transition-transform duration-200 ${activeDropdown === 'portals' ? 'rotate-180' : ''}`} />
               </span>
               {activeDropdown === 'portals' && (
-                <div className="absolute top-16 right-0 w-[800px] bg-white shadow-2xl border-t-4 border-brand-gold p-8 grid grid-cols-3 gap-8 z-50">
+                <div className="absolute top-[88px] right-0 w-[750px] bg-white shadow-2xl border-t-[3px] border-brand-gold p-8 grid grid-cols-3 gap-8 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   {megaMenus.portals.columns.map((col, idx) => (
                     <div key={idx}>
-                      <h4 className="font-bold text-brand-navy mb-4 text-sm uppercase tracking-wider">{col.heading}</h4>
+                      <h4 className="font-bold text-brand-navy mb-4 text-xs uppercase tracking-wider border-b border-gray-100 pb-2">{col.heading}</h4>
                       <ul className="space-y-3">
                         {col.links.map((link) => (
                           <li key={link.name}>
-                            <Link href={link.href} className="text-sm text-gray-600 hover:text-brand-royal hover:underline">{link.name}</Link>
+                            <Link href={link.href} className="text-sm text-gray-600 hover:text-brand-royal hover:translate-x-1 transition-all inline-block">{link.name}</Link>
                           </li>
                         ))}
                       </ul>
@@ -239,14 +234,14 @@ export default function PublicNavbar() {
             </Link>
           </nav>
 
-          {/* 3. The Gold CTA Block */}
+          {/* Gold CTA */}
           <div className="hidden lg:flex h-full">
-            <Link href="/register" className="bg-brand-gold hover:bg-yellow-600 text-brand-navy font-bold text-sm px-8 flex items-center justify-center transition-colors">
+            <Link href="/register" className="bg-brand-gold hover:bg-[#d4a34a] text-brand-navy font-bold text-sm px-8 flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
               Apply Now
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Button */}
           <div className="lg:hidden flex items-center">
             <button onClick={() => setIsOpen(!isOpen)} className="text-brand-navy hover:text-brand-royal focus:outline-none">
               {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -255,38 +250,22 @@ export default function PublicNavbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full max-h-[80vh] overflow-y-auto">
+        <div className="lg:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full max-h-[85vh] overflow-y-auto animate-in slide-in-from-top duration-300">
           <div className="px-4 pt-2 pb-6 space-y-1">
-            <Link href="/" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md">Home</Link>
+            <Link href="/" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Home</Link>
             
-            <div className="px-3 py-3">
-              <span className="block text-base font-bold text-brand-navy mb-2">About Us</span>
-              <div className="pl-4 space-y-2 border-l-2 border-gray-200">
-                {megaMenus.about.columns.flatMap(c => c.links).map(link => (
-                  <Link key={link.name} href={link.href} className="block py-1 text-sm text-gray-600" onClick={() => setIsOpen(false)}>{link.name}</Link>
-                ))}
+            {['about', 'faculties', 'portals'].map((menuKey) => (
+              <div key={menuKey} className="px-3 py-3">
+                <span className="block text-base font-bold text-brand-navy mb-2 capitalize">{menuKey === 'portals' ? 'Students & Staff' : menuKey}</span>
+                <div className="pl-4 space-y-2 border-l-2 border-gray-200">
+                  {megaMenus[menuKey as keyof typeof megaMenus].columns.flatMap(c => c.links).map(link => (
+                    <Link key={link.name} href={link.href} className="block py-1 text-sm text-gray-600" onClick={() => setIsOpen(false)}>{link.name}</Link>
+                  ))}
+                </div>
               </div>
-            </div>
-
-            <div className="px-3 py-3">
-              <span className="block text-base font-bold text-brand-navy mb-2">Faculties</span>
-              <div className="pl-4 space-y-2 border-l-2 border-gray-200">
-                {megaMenus.faculties.columns.flatMap(c => c.links).map(link => (
-                  <Link key={link.name} href={link.href} className="block py-1 text-sm text-gray-600" onClick={() => setIsOpen(false)}>{link.name}</Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="px-3 py-3">
-              <span className="block text-base font-bold text-brand-navy mb-2">Students & Staff</span>
-              <div className="pl-4 space-y-2 border-l-2 border-gray-200">
-                {megaMenus.portals.columns.flatMap(c => c.links).map(link => (
-                  <Link key={link.name} href={link.href} className="block py-1 text-sm text-gray-600" onClick={() => setIsOpen(false)}>{link.name}</Link>
-                ))}
-              </div>
-            </div>
+            ))}
 
             <Link href="/become-a-tutor" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Tutor Careers</Link>
             
