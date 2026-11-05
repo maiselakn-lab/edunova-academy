@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { BookOpen, GraduationCap, Users, Microscope, ArrowRight, CheckCircle2, LayoutDashboard, Database, Calendar, MapPin, Phone, Mail, Quote, Building2, Globe2, MonitorPlay, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { BookOpen, GraduationCap, Users, Microscope, ArrowRight, CheckCircle2, LayoutDashboard, Database, Calendar, MapPin, Phone, Mail, Quote, Building2, Globe2, MonitorPlay, Share2, MessageCircle, Globe } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -293,13 +293,13 @@ export default function Home() {
               {/* Social Icons */}
               <div className="flex space-x-3">
                 <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-royal hover:text-white transition-all cursor-pointer text-gray-400">
-                  <Facebook size={18} />
+                  <Share2 size={18} />
                 </a>
                 <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-royal hover:text-white transition-all cursor-pointer text-gray-400">
-                  <Twitter size={18} />
+                  <MessageCircle size={18} />
                 </a>
                 <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-royal hover:text-white transition-all cursor-pointer text-gray-400">
-                  <Linkedin size={18} />
+                  <Globe size={18} />
                 </a>
               </div>
             </div>
