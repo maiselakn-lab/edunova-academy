@@ -9,17 +9,19 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          navy: "#142D4E",       // Main brand colour
-          royal: "#2463A6",      // Buttons and highlights
-          sky: "#5CA9E6",        // Learning elements
-          grey: "#F4F6F9",       // Dashboard backgrounds
+          navy: "#0B132B",       // Deep Navy
+          navyLight: "#1C2541",  
+          royal: "#2463A6",      // Royal Blue
+          sky: "#5CA9E6",        // Sky Blue
+          grey: "#F4F6F9",       // Light Grey
           charcoal: "#263445",   // Main text
-          teal: "#20A58A",       // Success and progress
-          gold: "#E5B45B",       // Premium highlights
+          teal: "#20A58A",       // Success
+          gold: "#C6A87C",       // Premium Gold
         },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "sans-serif"],
+        serif: ["var(--font-playfair)", "serif"],
       },
     },
   },
