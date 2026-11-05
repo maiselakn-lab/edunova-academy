@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { Users, GraduationCap, Presentation, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Users, BookOpen, GraduationCap, Presentation, ShieldCheck, ArrowRight } from 'lucide-react';
 
 export default function LoginGateway() {
   const portals = [
-    { title: "Student Portal", desc: "Access classes, assessments, and the AI assistant.", icon: <GraduationCap size={32} />, href: "/login/student", color: "border-brand-royal hover:bg-brand-royal" },
-    { title: "Parent Portal", desc: "Monitor your child's progress and manage payments.", icon: <Users size={32} />, href: "/login/parent", color: "border-brand-navy hover:bg-brand-navy" },
+    { title: "Parent Portal", desc: "Monitor your child's progress, pay fees, and manage bookings.", icon: <Users size={32} />, href: "/login/parent", color: "border-brand-navy hover:bg-brand-navy" },
+    { title: "Learner Portal", desc: "School learners (Grades R-12). Access homework and classes.", icon: <BookOpen size={32} />, href: "/login/learner", color: "border-brand-royal hover:bg-brand-royal" },
+    { title: "Student Portal", desc: "College & University students. Access modules and research.", icon: <GraduationCap size={32} />, href: "/login/student", color: "border-brand-sky hover:bg-brand-sky" },
     { title: "Tutor Portal", desc: "Manage your schedule, students, and earnings.", icon: <Presentation size={32} />, href: "/login/tutor", color: "border-brand-teal hover:bg-brand-teal" },
     { title: "Admin Portal", desc: "Institutional management and AcadCoreOS integration.", icon: <ShieldCheck size={32} />, href: "/login/admin", color: "border-brand-charcoal hover:bg-brand-charcoal" },
   ];
@@ -15,18 +16,18 @@ export default function LoginGateway() {
       <PublicNavbar />
       
       <main className="flex-grow flex items-center justify-center py-20 px-6">
-        <div className="max-w-5xl w-full">
+        <div className="max-w-6xl w-full">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-brand-navy mb-4">Secure Login</h1>
             <p className="text-lg text-gray-600">Select your portal to continue to your dashboard.</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
             {portals.map((portal, index) => (
               <Link 
                 key={index} 
                 href={portal.href}
-                className={`group bg-white border-2 p-8 rounded-xl transition-all duration-300 flex flex-col items-start ${portal.color}`}
+                className={`group bg-white border-2 p-8 rounded-xl transition-all duration-300 flex flex-col items-start ${portal.color} ${index === 3 ? 'lg:col-start-1 lg:ml-auto lg:w-full' : ''} ${index === 4 ? 'lg:col-start-2 lg:mr-auto lg:w-full' : ''}`}
               >
                 <div className="text-brand-navy group-hover:text-white transition-colors mb-6">
                   {portal.icon}
