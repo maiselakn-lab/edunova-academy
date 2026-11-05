@@ -10,26 +10,30 @@ export default function Home() {
 
       <main className="flex-grow">
         
-        {/* Hero Section */}
-        <section className="relative bg-brand-navy text-white pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
-          <div className="absolute inset-0">
+        {/* Hero Section - Fixed Layout */}
+        <section className="relative bg-brand-navy text-white overflow-hidden">
+          {/* Background Image with Overlay */}
+          <div className="absolute inset-0 z-0">
             <img 
               src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" 
               alt="Students learning together" 
-              className="w-full h-full object-cover opacity-20"
+              className="w-full h-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/90 to-transparent"></div>
+            {/* Dark gradient overlay to ensure text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/90 to-brand-navy/40"></div>
           </div>
           
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Hero Content */}
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40">
             <div className="max-w-3xl">
               <div className="inline-block bg-brand-gold/10 border border-brand-gold/30 px-3 py-1 rounded-full mb-6">
                 <p className="text-brand-gold font-bold tracking-wider uppercase text-xs">Welcome to Think EduNova Academy</p>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-[1.1]">
-                Leading Academic Excellence for a <span className="text-brand-gold">Digital Future.</span>
+                Leading Academic Excellence for a <br className="hidden md:block" />
+                <span className="text-brand-gold">Digital Future.</span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-2xl">
+              <p className="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed max-w-2xl">
                 A premier integrated online institution providing rigorous academic support, expert tutoring, and research guidance across Primary, Secondary, College, and University levels.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -45,7 +49,7 @@ export default function Home() {
         </section>
 
         {/* Data Bar */}
-        <section className="bg-brand-grey border-b border-gray-200 py-8">
+        <section className="bg-brand-grey border-b border-gray-200 py-8 relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-gray-300 text-center">
               <div>
