@@ -8,6 +8,7 @@ export default function PublicNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
+  // Mega Menu Data
   const megaMenus = {
     about: {
       columns: [
@@ -107,7 +108,7 @@ export default function PublicNavbar() {
   return (
     <header className="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-200 font-sans">
       
-      {/* 1. Top Utility Bar with Donate Button */}
+      {/* 1. Top Utility Bar */}
       <div className="bg-brand-navy text-gray-300 text-xs py-1.5">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex space-x-5">
@@ -121,7 +122,6 @@ export default function PublicNavbar() {
               <Search size={14} /> Search
             </button>
             <Link href="/login" className="hover:text-white transition-colors font-medium border-l border-gray-600 pl-5">Login</Link>
-            {/* DONATE BUTTON */}
             <Link href="/donate" className="bg-brand-gold text-brand-navy px-4 py-1 rounded font-bold hover:bg-yellow-500 transition-colors flex items-center gap-1">
               <Heart size={12} /> Donate
             </Link>
@@ -146,13 +146,13 @@ export default function PublicNavbar() {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex space-x-1 items-center h-full">
-            <Link href="/" className="px-4 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors">
+            <Link href="/" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors">
               Home
             </Link>
             
             {/* About Dropdown */}
             <div 
-              className="relative h-full flex items-center px-3 cursor-pointer group"
+              className="relative h-full flex items-center px-2 cursor-pointer group"
               onMouseEnter={() => handleMouseEnter('about')}
               onMouseLeave={handleMouseLeave}
             >
@@ -179,7 +179,7 @@ export default function PublicNavbar() {
 
             {/* Faculties Dropdown */}
             <div 
-              className="relative h-full flex items-center px-3 cursor-pointer group"
+              className="relative h-full flex items-center px-2 cursor-pointer group"
               onMouseEnter={() => handleMouseEnter('faculties')}
               onMouseLeave={handleMouseLeave}
             >
@@ -206,7 +206,7 @@ export default function PublicNavbar() {
 
             {/* Portals Dropdown */}
             <div 
-              className="relative h-full flex items-center px-3 cursor-pointer group"
+              className="relative h-full flex items-center px-2 cursor-pointer group"
               onMouseEnter={() => handleMouseEnter('portals')}
               onMouseLeave={handleMouseLeave}
             >
@@ -237,7 +237,21 @@ export default function PublicNavbar() {
               )}
             </div>
 
-            <Link href="/become-a-tutor" className="px-4 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors">
+            {/* New Links Added Here */}
+            <Link href="/research" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors whitespace-nowrap">
+              Research & Innovation
+            </Link>
+            <Link href="/library" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors">
+              Library
+            </Link>
+            <Link href="/news" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors whitespace-nowrap">
+              News & Media
+            </Link>
+            <Link href="/contact" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors">
+              Contact Us
+            </Link>
+
+            <Link href="/become-a-tutor" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors whitespace-nowrap">
               Tutor Careers
             </Link>
           </nav>
@@ -262,7 +276,7 @@ export default function PublicNavbar() {
       {isOpen && (
         <div className="lg:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full max-h-[80vh] overflow-y-auto">
           <div className="px-4 pt-2 pb-6 space-y-1">
-            <Link href="/" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md">Home</Link>
+            <Link href="/" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Home</Link>
             
             <div className="px-3 py-3">
               <span className="block text-base font-bold text-brand-navy mb-2">About Us</span>
@@ -295,6 +309,11 @@ export default function PublicNavbar() {
               </div>
             </div>
 
+            {/* New Mobile Links */}
+            <Link href="/research" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Research & Innovation</Link>
+            <Link href="/library" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Library</Link>
+            <Link href="/news" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>News & Media</Link>
+            <Link href="/contact" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Contact Us</Link>
             <Link href="/become-a-tutor" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Tutor Careers</Link>
             
             <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-2">
