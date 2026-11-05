@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ 
@@ -7,14 +7,9 @@ const inter = Inter({
   variable: "--font-inter" 
 });
 
-const playfair = Playfair_Display({ 
-  subsets: ["latin"], 
-  variable: "--font-playfair" 
-});
-
 export const metadata: Metadata = {
-  title: "Think EduNova Academy | Premium Education",
-  description: "Integrated Online Academy and Education Management Platform",
+  title: "Think EduNova Academy | Empowering Minds",
+  description: "Your Future Starts With Better Learning.",
 };
 
 export default function RootLayout({
@@ -23,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${inter.variable}`}>
       <body className="min-h-screen flex flex-col font-sans">
         {children}
       </body>
