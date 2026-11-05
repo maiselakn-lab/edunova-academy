@@ -4,14 +4,14 @@ import { Users, GraduationCap, Presentation, ShieldCheck } from 'lucide-react';
 
 export default function Login() {
   const portals = [
+    { title: "Student Portal", icon: <GraduationCap size={24} />, href: "/login/student", color: "bg-brand-royal hover:bg-blue-700" },
     { title: "Parent Portal", icon: <Users size={24} />, href: "/login/parent", color: "bg-brand-navy hover:bg-brand-navyLight" },
-    { title: "Learner Portal", icon: <GraduationCap size={24} />, href: "/login/learner", color: "bg-brand-royal hover:bg-blue-700" },
     { title: "Tutor Portal", icon: <Presentation size={24} />, href: "/login/tutor", color: "bg-brand-teal hover:bg-teal-700" },
     { title: "Admin Portal", icon: <ShieldCheck size={24} />, href: "/login/admin", color: "bg-brand-charcoal hover:bg-gray-800" },
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-brand-grey">
       <PublicNavbar />
       
       <main className="flex-grow flex items-center justify-center py-20 px-4">

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Menu, X, Search, ChevronDown, User, BookOpen, GraduationCap, Building2 } from 'lucide-react';
+import { Menu, X, Search, ChevronDown } from 'lucide-react';
 
 export default function PublicNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,8 +77,8 @@ export default function PublicNavbar() {
         {
           heading: "Prospective Students",
           links: [
+            { name: "Apply for Admission", href: "/register" },
             { name: "Check Application Status", href: "/status" },
-            { name: "How to Apply", href: "/register" },
             { name: "Student Fees Guide", href: "/fees" },
             { name: "Student Enquiries", href: "/contact" },
           ]
@@ -86,7 +86,7 @@ export default function PublicNavbar() {
         {
           heading: "Current Students",
           links: [
-            { name: "Student Self Service", href: "/portal" },
+            { name: "Student Portal Login", href: "/login/student" },
             { name: "Virtual Classroom", href: "/portal/classroom" },
             { name: "Academic Calendar", href: "/calendar" },
             { name: "Student Records", href: "/portal/records" },
@@ -95,10 +95,10 @@ export default function PublicNavbar() {
         {
           heading: "Staff & Tutors",
           links: [
-            { name: "Tutor Dashboard", href: "/portal/tutor" },
-            { name: "Staff Email", href: "/portal/email" },
+            { name: "Tutor Portal Login", href: "/login/tutor" },
             { name: "Tutor Earnings", href: "/portal/earnings" },
             { name: "Submit Lesson Report", href: "/portal/reports" },
+            { name: "Staff Email", href: "/portal/email" },
           ]
         }
       ]
@@ -115,8 +115,8 @@ export default function PublicNavbar() {
       <div className="bg-brand-navy text-gray-300 text-xs py-1.5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex space-x-4">
-            <Link href="/portal" className="hover:text-white transition-colors">Student Portal</Link>
-            <Link href="/portal/tutor" className="hover:text-white transition-colors">Tutor Portal</Link>
+            <Link href="/login/student" className="hover:text-white transition-colors">Student Portal</Link>
+            <Link href="/login/tutor" className="hover:text-white transition-colors">Tutor Portal</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
           </div>
           <div className="flex space-x-4 items-center">
@@ -217,7 +217,7 @@ export default function PublicNavbar() {
                 Students & Staff <ChevronDown size={14} />
               </span>
               {activeDropdown === 'portals' && (
-                <div className="absolute top-16 left-0 w-[800px] bg-white shadow-2xl border-t-4 border-brand-gold p-8 grid grid-cols-3 gap-8 z-50">
+                <div className="absolute top-16 right-0 w-[800px] bg-white shadow-2xl border-t-4 border-brand-gold p-8 grid grid-cols-3 gap-8 z-50">
                   {megaMenus.portals.columns.map((col, idx) => (
                     <div key={idx}>
                       <h4 className="font-bold text-brand-navy mb-4 text-sm uppercase tracking-wider">{col.heading}</h4>
@@ -239,7 +239,7 @@ export default function PublicNavbar() {
             </Link>
           </nav>
 
-          {/* 3. The Gold CTA Block (Like VUT's Donate) */}
+          {/* 3. The Gold CTA Block */}
           <div className="hidden lg:flex h-full">
             <Link href="/register" className="bg-brand-gold hover:bg-yellow-600 text-brand-navy font-bold text-sm px-8 flex items-center justify-center transition-colors">
               Apply Now
@@ -261,7 +261,6 @@ export default function PublicNavbar() {
           <div className="px-4 pt-2 pb-6 space-y-1">
             <Link href="/" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md">Home</Link>
             
-            {/* Mobile About */}
             <div className="px-3 py-3">
               <span className="block text-base font-bold text-brand-navy mb-2">About Us</span>
               <div className="pl-4 space-y-2 border-l-2 border-gray-200">
@@ -271,7 +270,6 @@ export default function PublicNavbar() {
               </div>
             </div>
 
-            {/* Mobile Faculties */}
             <div className="px-3 py-3">
               <span className="block text-base font-bold text-brand-navy mb-2">Faculties</span>
               <div className="pl-4 space-y-2 border-l-2 border-gray-200">
@@ -281,7 +279,6 @@ export default function PublicNavbar() {
               </div>
             </div>
 
-            {/* Mobile Portals */}
             <div className="px-3 py-3">
               <span className="block text-base font-bold text-brand-navy mb-2">Students & Staff</span>
               <div className="pl-4 space-y-2 border-l-2 border-gray-200">

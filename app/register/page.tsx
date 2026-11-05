@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { User, Users, GraduationCap, ArrowRight } from 'lucide-react';
+import { Users, GraduationCap, ArrowRight, User } from 'lucide-react';
 
 export default function Register() {
   const roles = [
@@ -12,10 +12,10 @@ export default function Register() {
       color: "border-brand-royal/30 hover:border-brand-royal"
     },
     {
-      title: "Learner / Student",
+      title: "Student (Learner)",
       description: "Access your courses, join live virtual classrooms, complete assessments, and use the AI learning assistant.",
       icon: <GraduationCap size={32} className="text-brand-sky" />,
-      href: "/register/learner",
+      href: "/register/student",
       color: "border-brand-sky/30 hover:border-brand-sky"
     },
     {
