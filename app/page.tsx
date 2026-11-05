@@ -13,11 +13,11 @@ export default function Home() {
         <section className="relative w-full h-[75vh] min-h-[600px] flex items-center">
           <div className="absolute inset-0 z-0">
             <img 
-              src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" 
+              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop" 
               alt="University Campus" 
               className="w-full h-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-brand-navy/75"></div>
+            <div className="absolute inset-0 bg-brand-navy/80"></div>
           </div>
           
           <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 pt-10 pb-20">
@@ -152,21 +152,25 @@ export default function Home() {
         </section>
 
         {/* 5. PARTNER WITH EDUNOVA (B2B Section) */}
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-white overflow-hidden">
           <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               {/* Image Grid */}
-              <div className="order-2 lg:order-1 grid grid-cols-2 gap-4">
-                <img 
-                  src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" 
-                  alt="Students in classroom" 
-                  className="w-full h-64 object-cover rounded-lg shadow-md"
-                />
-                <img 
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" 
-                  alt="Group study" 
-                  className="w-full h-64 object-cover rounded-lg shadow-md mt-8"
-                />
+              <div className="order-2 lg:order-1 grid grid-cols-2 gap-4 relative">
+                <div className="relative h-72 rounded-lg overflow-hidden shadow-lg group">
+                  <img 
+                    src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" 
+                    alt="Students in classroom" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                <div className="relative h-72 rounded-lg overflow-hidden shadow-lg mt-12 group">
+                  <img 
+                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" 
+                    alt="Group study" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
               </div>
               
               {/* Text Content */}
@@ -253,7 +257,7 @@ export default function Home() {
               {[
                 { date: "15 Jan 2026", cat: "Institutional", title: "Launch of the 2026 Academic Year", desc: "Think EduNova Academy officially opens registrations for all four academic divisions.", img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" },
                 { date: "08 Jan 2026", cat: "Research", title: "New Research Support Services", desc: "Expanding our postgraduate support with specialist statistical analysis tutoring.", img: "https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop" },
-                { date: "02 Jan 2026", cat: "Faculty", title: "Welcoming Our New Verified Tutors", desc: "Meet the latest graduates and professionals who have joined our teaching faculty.", img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" }
+                { date: "02 Jan 2026", cat: "Faculty", title: "Welcoming Our New Verified Tutors", desc: "Meet the latest graduates and professionals who have joined our teaching faculty.", img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" }
               ].map((news, i) => (
                 <div key={i} className="bg-white border border-gray-200 group cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
                   <div className="h-56 overflow-hidden relative">
