@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
+import Logo from '@/components/Logo';
 import { BookOpen, GraduationCap, Users, Microscope, ShieldCheck, Award, ArrowRight } from 'lucide-react';
 
 export default function Home() {
@@ -9,10 +10,9 @@ export default function Home() {
 
       <main className="flex-grow">
         
-        {/* Hero Section - Added richer overlay and image */}
+        {/* Hero Section */}
         <section className="relative bg-brand-navy text-white pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
           <div className="absolute inset-0">
-            {/* Using a high-quality academic/online learning image */}
             <img 
               src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" 
               alt="Students learning together" 
@@ -145,10 +145,41 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Newsroom - Added images to make it feel alive */}
+        {/* Institutional Quality & Tutor Careers */}
         <section className="py-20 bg-brand-grey">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-16">
+            <div>
+              <h2 className="text-2xl font-bold text-brand-navy mb-4 flex items-center gap-3">
+                <ShieldCheck className="text-brand-teal" size={28} /> Institutional Quality Assurance
+              </h2>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Think EduNova Academy maintains rigorous academic standards. All tutors undergo a strict recruitment process including qualification verification, subject competency assessments, and teaching demonstrations. We ensure that our students receive instruction from verified, capable professionals.
+              </p>
+              <ul className="space-y-3">
+                <li className="flex items-center text-brand-charcoal font-medium"><span className="w-2 h-2 bg-brand-teal rounded-full mr-3"></span> Verified Qualifications</li>
+                <li className="flex items-center text-brand-charcoal font-medium"><span className="w-2 h-2 bg-brand-teal rounded-full mr-3"></span> Competency Assessments</li>
+                <li className="flex items-center text-brand-charcoal font-medium"><span className="w-2 h-2 bg-brand-teal rounded-full mr-3"></span> Continuous Performance Monitoring</li>
+              </ul>
+            </div>
+            
+            <div className="bg-white p-8 border border-gray-200 shadow-sm">
+              <h2 className="text-2xl font-bold text-brand-navy mb-4 flex items-center gap-3">
+                <Award className="text-brand-gold" size={28} /> Tutor Careers & Empowerment
+              </h2>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                We provide employment opportunities for graduates and qualified professionals. Join our network of educators, share your knowledge, and earn income through our structured teaching platform.
+              </p>
+              <Link href="/become-a-tutor" className="inline-block bg-brand-navy text-white px-6 py-3 rounded-sm font-bold hover:bg-opacity-90 transition-colors">
+                Apply to Become a Tutor
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Newsroom */}
+        <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-end mb-10 border-b border-gray-300 pb-4">
+            <div className="flex justify-between items-end mb-10 border-b border-gray-200 pb-4">
               <h2 className="text-3xl font-bold text-brand-navy">Latest from the Academy</h2>
               <Link href="/news" className="text-brand-royal font-bold hover:underline flex items-center gap-1">View Newsroom <ArrowRight size={16} /></Link>
             </div>
@@ -189,7 +220,7 @@ export default function Home() {
 
       </main>
 
-      {/* Footer (Same as before, highly institutional) */}
+      {/* Footer */}
       <footer className="bg-brand-navy text-gray-300 py-16 border-t-[8px] border-brand-royal">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-5 gap-8">
           <div className="col-span-2 md:col-span-1">
