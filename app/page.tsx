@@ -10,18 +10,17 @@ export default function Home() {
 
       <main className="flex-grow">
         
-        {/* Hero Section - Fixed Text Visibility & SA Context */}
+        {/* Hero Section - Fixed Text Visibility */}
         <section className="relative bg-brand-navy text-white overflow-hidden">
           {/* Background Image with Overlay */}
           <div className="absolute inset-0 z-0">
-            {/* SA Context Image: Diverse students on a modern campus */}
             <img 
               src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop" 
               alt="South African students learning" 
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover object-center opacity-60"
             />
-            {/* Stronger gradient on the left to ensure white text is 100% visible */}
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/95 to-brand-navy/40"></div>
+            {/* Strong gradient: Solid navy on the left ensuring text is highly visible */}
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/95 to-brand-navy/60"></div>
           </div>
           
           {/* Hero Content */}
@@ -31,12 +30,11 @@ export default function Home() {
                 <p className="text-brand-gold font-bold tracking-wider uppercase text-xs">Welcome to Think EduNova Academy</p>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-[1.15] drop-shadow-lg">
-                Leading Academic Excellence for a <br className="hidden md:block" />
-                <span className="text-brand-gold">Digital Future.</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-[1.15] text-white">
+                Leading Academic Excellence for a <span className="text-brand-gold">Digital Future.</span>
               </h1>
               
-              <p className="text-lg md:text-xl text-gray-100 mb-10 leading-relaxed max-w-2xl drop-shadow">
+              <p className="text-lg md:text-xl text-gray-100 mb-10 leading-relaxed max-w-2xl">
                 A premier integrated online institution providing rigorous academic support, expert tutoring, and research guidance across Primary, Secondary, College, and University levels.
               </p>
               
@@ -44,7 +42,7 @@ export default function Home() {
                 <Link href="/register" className="bg-brand-royal text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-blue-700 hover:-translate-y-0.5 transition-all shadow-lg text-center flex items-center justify-center gap-2">
                   Apply for Admission <ArrowRight size={18} />
                 </Link>
-                <Link href="/courses" className="bg-white/10 backdrop-blur-md border border-white/40 text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-white hover:text-brand-navy hover:-translate-y-0.5 transition-all text-center">
+                <Link href="/courses" className="bg-transparent border-2 border-white/70 text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-white hover:text-brand-navy hover:-translate-y-0.5 transition-all text-center">
                   Explore Programmes
                 </Link>
               </div>
