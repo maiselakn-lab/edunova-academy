@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { 
   LayoutDashboard, BookOpen, Calendar, FileText, Bot, Settings, 
-  LogOut, Bell, Search, PlayCircle, Clock, CheckCircle, ArrowRight
+  LogOut, Bell, Search, PlayCircle, Clock, CheckCircle, ArrowRight, Menu
 } from 'lucide-react';
 
 export default function StudentDashboard() {
@@ -17,7 +17,7 @@ export default function StudentDashboard() {
       <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-brand-navy text-white flex flex-col transition-all duration-300 shrink-0`}>
         <div className="h-20 flex items-center justify-center border-b border-white/10 px-4">
           <Link href="/">
-            <img src="/logo.png" alt="EduNova" className={`${sidebarOpen ? 'h-12' : 'h-8'} w-auto object-contain bg-white rounded p-1`} />
+            <img src="/logo.png" alt="EduNova" className={`${sidebarOpen ? 'h-12' : 'h-8'} w-auto object-contain bg-white rounded p-1 transition-all`} />
           </Link>
         </div>
 
@@ -30,15 +30,15 @@ export default function StudentDashboard() {
             <PlayCircle size={20} />
             {sidebarOpen && <span>Live Classroom</span>}
           </Link>
-          <Link href="/portal/courses" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
+          <Link href="/courses" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <BookOpen size={20} />
             {sidebarOpen && <span>My Subjects</span>}
           </Link>
-          <Link href="/portal/calendar" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
+          <Link href="/calendar" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <Calendar size={20} />
             {sidebarOpen && <span>Timetable</span>}
           </Link>
-          <Link href="/portal/assessments" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
+          <Link href="/portal/records" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <FileText size={20} />
             {sidebarOpen && <span>Assessments</span>}
           </Link>
@@ -67,7 +67,7 @@ export default function StudentDashboard() {
         <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0">
           <div className="flex items-center gap-4">
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-gray-500 hover:text-brand-navy">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+              <Menu size={24} />
             </button>
             <div className="relative hidden md:block">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
@@ -96,7 +96,7 @@ export default function StudentDashboard() {
           <div className="bg-brand-navy rounded-2xl p-8 text-white mb-8 relative overflow-hidden shadow-lg">
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-royal/20 rounded-bl-full -mr-10 -mt-10"></div>
             <div className="relative z-10">
-              <h1 className="text-3xl font-serif font-bold mb-2">Welcome back, Siphelele!</h1>
+              <h1 className="text-3xl font-serif font-bold text-white mb-2">Welcome back, Siphelele!</h1>
               <p className="text-gray-300 mb-6 max-w-xl">You have 2 lessons scheduled for today. Your Mathematics tutor is waiting for you in the virtual classroom.</p>
               <Link href="/portal/classroom" className="bg-brand-gold text-brand-navy px-6 py-3 rounded-sm font-bold inline-flex items-center gap-2 hover:bg-yellow-500 transition-colors shadow-md">
                 Join Next Lesson <ArrowRight size={18} />
@@ -137,7 +137,7 @@ export default function StudentDashboard() {
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-xl font-bold text-brand-navy">Today's Schedule</h2>
-                  <Link href="/portal/calendar" className="text-sm text-brand-royal font-bold hover:underline">View Calendar</Link>
+                  <Link href="/calendar" className="text-sm text-brand-royal font-bold hover:underline">View Calendar</Link>
                 </div>
                 
                 <div className="space-y-4">
