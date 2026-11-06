@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { ArrowRight, BookOpen, GraduationCap, ShieldCheck, MessageSquare, Upload } from 'lucide-react';
+import { ArrowRight, BookOpen, GraduationCap, ShieldCheck, MessageSquare, Users } from 'lucide-react';
 
 export default function CommunityHub() {
   return (

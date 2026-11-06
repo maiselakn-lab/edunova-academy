@@ -1,8 +1,9 @@
 "use client";
 
 import Link from 'next/link';
+import { useState } from 'react';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { ArrowRight, Search, Plus, FileText, Download, MessageCircle, ThumbsUp, ShieldCheck, Filter } from 'lucide-react';
+import { ArrowRight, Search, Plus, FileText, Download, MessageCircle, ThumbsUp, ShieldCheck, Filter, BookOpen } from 'lucide-react';
 
 export default function LearnerCommunity() {
   const posts = [
@@ -15,7 +16,6 @@ export default function LearnerCommunity() {
     <div className="flex flex-col min-h-screen bg-brand-grey">
       <PublicNavbar />
       
-      {/* Top Banner */}
       <div className="bg-brand-navy py-12 text-white">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 flex flex-col md:flex-row justify-between items-center gap-6">
           <div>
