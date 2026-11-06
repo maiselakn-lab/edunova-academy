@@ -1,8 +1,50 @@
+"use client";
+
 import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { GraduationCap, Mail, Lock } from 'lucide-react';
+import { GraduationCap, Mail, Lock, Loader2, AlertCircle } from 'lucide-react';
 
 export default function StudentLogin() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Invalid email or password');
+      }
+
+      const data = await response.json();
+      
+      // 1. Save the JWT Token and User Data to localStorage
+      localStorage.setItem('edunova_token', data.access_token);
+      localStorage.setItem('edunova_user', JSON.stringify(data.user));
+
+      // 2. Redirect to the Dashboard
+      router.push('/portal/student');
+      
+    } catch (err: any) {
+      setError(err.message || 'Login failed.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-brand-grey">
       <PublicNavbar />
@@ -15,27 +57,47 @@ export default function StudentLogin() {
             <h1 className="text-3xl font-serif font-bold text-brand-navy mb-2">Student Portal</h1>
             <p className="text-gray-500">Access your tertiary modules and research.</p>
           </div>
+
+          {error && (
+            <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-start gap-3 border border-red-100">
+              <AlertCircle size={20} className="shrink-0 mt-0.5" />
+              <p className="text-sm font-medium">{error}</p>
+            </div>
+          )}
           
-          <form className="space-y-5">
+          <form onSubmit={handleLogin} className="space-y-5">
             <div>
               <label className="block text-sm font-bold text-brand-navy mb-2">Student Email</label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                <input type="email" placeholder="student@university.ac.za" className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-sky" />
+                <input 
+                  type="email" required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="student@university.ac.za" 
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-sky text-brand-charcoal" 
+                />
               </div>
             </div>
             <div>
               <label className="block text-sm font-bold text-brand-navy mb-2">Password</label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                <input type="password" placeholder="••••••••" className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-sky" />
+                <input 
+                  type="password" required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••" 
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-sky text-brand-charcoal" 
+                />
               </div>
             </div>
-            <div className="flex justify-between items-center text-sm">
-              <label className="flex items-center gap-2 text-gray-600"><input type="checkbox" className="rounded" /> Remember me</label>
-              <a href="#" className="text-brand-royal font-bold hover:underline">Forgot password?</a>
-            </div>
-            <button type="button" className="w-full bg-brand-sky text-white font-bold py-3.5 rounded-lg hover:bg-blue-500 transition-colors shadow-md">Log In to Portal</button>
+            <button 
+              type="submit" disabled={isLoading}
+              className="w-full bg-brand-sky text-white font-bold py-3.5 rounded-lg hover:bg-blue-500 transition-colors shadow-md flex justify-center items-center gap-2 disabled:opacity-70"
+            >
+              {isLoading ? <><Loader2 className="animate-spin" size={20}/> Logging in...</> : 'Log In to Portal'}
+            </button>
           </form>
           
           <div className="mt-8 pt-6 border-t border-gray-100 text-center">
