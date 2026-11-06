@@ -2,7 +2,9 @@ fastapi
 uvicorn
 sqlalchemy
 psycopg[binary]
+pydantic[email]
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart
 python-dotenv
 openai
-passlib
-bcrypt==4.0.1

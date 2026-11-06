@@ -1,12 +1,14 @@
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from openai import OpenAI
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
+from jose import JWTError, jwt
 
 # 1. Load environment variables FIRST
 load_dotenv()
@@ -36,8 +38,13 @@ client = OpenAI(
     base_url="https://api.groq.com/openai/v1"
 )
 
-# Password Hashing setup
+# --- SECURITY CONFIGURATION ---
+SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key-change-this")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 7 days
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/login")
 
 # Dependency to get DB session
 def get_db():
@@ -60,7 +67,7 @@ class UserCreate(BaseModel):
     email: str
     password: str
     role: str
-    school_id: int = None # Optional for platform admins
+    school_id: int = None 
 
 class UserLogin(BaseModel):
     email: str
@@ -69,6 +76,33 @@ class UserLogin(BaseModel):
 class SchoolCreate(BaseModel):
     name: str
     address: str
+
+# --- HELPER FUNCTIONS ---
+
+def create_access_token(data: dict):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+    
+    user = db.query(models.User).filter(models.User.email == email).first()
+    if user is None:
+        raise credentials_exception
+    return user
 
 # --- API ROUTES ---
 
@@ -109,14 +143,9 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return {
-        "message": "User created successfully", 
-        "user": new_user.email, 
-        "role": new_user.role,
-        "school_id": new_user.school_id
-    }
+    return {"message": "User created successfully", "user": new_user.email}
 
-# 4. User Login
+# 4. User Login (NOW RETURNS A JWT TOKEN)
 @app.post("/api/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
@@ -124,8 +153,13 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
     if not db_user or not pwd_context.verify(user.password, db_user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
+    # Generate Token
+    access_token = create_access_token(data={"sub": db_user.email})
+    
     return {
-        "message": "Login successful", 
+        "message": "Login successful",
+        "access_token": access_token,
+        "token_type": "bearer",
         "user": {
             "email": db_user.email,
             "first_name": db_user.first_name,
@@ -134,7 +168,18 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         }
     }
 
-# 5. AI Tutor
+# 5. Get Current User (Protected Route)
+@app.get("/api/users/me")
+def read_users_me(current_user: models.User = Depends(get_current_user)):
+    return {
+        "id": current_user.id,
+        "email": current_user.email,
+        "first_name": current_user.first_name,
+        "role": current_user.role,
+        "school_id": current_user.school_id
+    }
+
+# 6. AI Tutor
 @app.post("/api/chat")
 async def chat_with_tutor(request: ChatRequest):
     try:
@@ -167,7 +212,6 @@ async def chat_with_tutor(request: ChatRequest):
 # --- TEMPORARY DATABASE RESET ENDPOINT ---
 @app.post("/api/admin/reset-db")
 def reset_database():
-    # WARNING: This deletes all data. Only use in development.
     models.Base.metadata.drop_all(bind=engine)
     models.Base.metadata.create_all(bind=engine)
     return {"message": "Database reset successfully. All tables recreated."}
