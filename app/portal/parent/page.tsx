@@ -5,17 +5,16 @@ import { useState } from 'react';
 import { 
   LayoutDashboard, Users, CreditCard, Calendar, MessageSquare, 
   Settings, LogOut, Bell, Search, Menu, ArrowRight, CheckCircle, 
-  Clock, FileText, ChevronDown
+  Clock, FileText, ChevronDown, Award, TrendingUp, Download, Plus
 } from 'lucide-react';
 
 export default function ParentDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [selectedChild, setSelectedChild] = useState("Thabo");
 
-  // Mock Data for Children
   const children = [
     { name: "Thabo", grade: "Grade 11", school: "Pretoria Boys High", avatar: "T" },
-    { name: "Lerato", grade: "Grade 8", school: "Pretoria High School for Girls", avatar: "L" }
+    { name: "Lerato", grade: "Grade 8", school: "Pretoria Girls High", avatar: "L" }
   ];
 
   return (
@@ -29,7 +28,7 @@ export default function ParentDashboard() {
           </Link>
         </div>
 
-        <nav className="flex-grow py-6 space-y-2 px-3 overflow-y-auto">
+        <nav className="flex-grow py-6 space-y-1 px-3 overflow-y-auto">
           <Link href="/portal/parent" className="flex items-center gap-4 px-4 py-3 bg-brand-royal rounded-lg font-medium transition-colors">
             <LayoutDashboard size={20} />
             {sidebarOpen && <span>Dashboard</span>}
@@ -40,7 +39,7 @@ export default function ParentDashboard() {
           </Link>
           <Link href="/portal/parent/progress" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <FileText size={20} />
-            {sidebarOpen && <span>Academic Progress</span>}
+            {sidebarOpen && <span>Academic Reports</span>}
           </Link>
           <Link href="/portal/parent/bookings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <Calendar size={20} />
@@ -48,7 +47,7 @@ export default function ParentDashboard() {
           </Link>
           <Link href="/portal/parent/billing" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <CreditCard size={20} />
-            {sidebarOpen && <span>Payments & Invoices</span>}
+            {sidebarOpen && <span>Fees & Billing</span>}
           </Link>
           <Link href="/portal/parent/messages" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <MessageSquare size={20} />
@@ -151,6 +150,31 @@ export default function ParentDashboard() {
             </div>
           </div>
 
+          {/* Quick Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+              <div className="w-12 h-12 bg-brand-royal/10 text-brand-royal rounded-full flex items-center justify-center"><Calendar size={24} /></div>
+              <div>
+                <p className="text-sm text-gray-500 font-medium">Upcoming Lessons</p>
+                <p className="text-2xl font-bold text-brand-navy">2 This Week</p>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+              <div className="w-12 h-12 bg-brand-gold/10 text-brand-gold rounded-full flex items-center justify-center"><Award size={24} /></div>
+              <div>
+                <p className="text-sm text-gray-500 font-medium">Certificates Earned</p>
+                <p className="text-2xl font-bold text-brand-navy">3</p>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+              <div className="w-12 h-12 bg-brand-teal/10 text-brand-teal rounded-full flex items-center justify-center"><TrendingUp size={24} /></div>
+              <div>
+                <p className="text-sm text-gray-500 font-medium">Class Rank</p>
+                <p className="text-2xl font-bold text-brand-navy">Top 10%</p>
+              </div>
+            </div>
+          </div>
+
           {/* Two Column Layout */}
           <div className="grid lg:grid-cols-3 gap-8">
             
@@ -165,7 +189,6 @@ export default function ParentDashboard() {
                 </div>
                 
                 <div className="space-y-4">
-                  {/* Feedback Item */}
                   <div className="p-4 border border-gray-100 rounded-lg bg-brand-grey/30">
                     <div className="flex justify-between items-start mb-2">
                       <div>
@@ -177,7 +200,6 @@ export default function ParentDashboard() {
                     <p className="text-sm text-gray-600 mt-2">"{selectedChild} showed great improvement today. Grasped the chain rule quickly and completed all practice exercises with 100% accuracy. Keep encouraging the extra homework!"</p>
                   </div>
 
-                  {/* Feedback Item */}
                   <div className="p-4 border border-gray-100 rounded-lg bg-brand-grey/30">
                     <div className="flex justify-between items-start mb-2">
                       <div>
@@ -191,9 +213,12 @@ export default function ParentDashboard() {
                 </div>
               </div>
 
-              {/* Upcoming Lessons */}
+              {/* Upcoming Bookings */}
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-                <h2 className="text-xl font-bold text-brand-navy mb-4">Upcoming Bookings</h2>
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold text-brand-navy">Upcoming Bookings</h2>
+                  <button className="text-sm bg-brand-royal text-white px-3 py-1 rounded font-bold hover:bg-blue-700 flex items-center gap-1"><Plus size={14} /> Book Lesson</button>
+                </div>
                 <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg bg-white">
                   <div className="w-16 h-16 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0">
                     <span className="text-xs font-bold uppercase">Tomorrow</span>
@@ -226,7 +251,8 @@ export default function ParentDashboard() {
                     <span className="font-bold text-brand-navy">25 March 2026</span>
                   </div>
                 </div>
-                <button className="w-full bg-brand-navy text-white px-4 py-2 rounded text-sm font-bold hover:bg-opacity-90 transition-colors">Pay Now</button>
+                <button className="w-full bg-brand-navy text-white px-4 py-2 rounded text-sm font-bold hover:bg-opacity-90 transition-colors mb-3">Pay Now</button>
+                <button className="w-full border border-gray-300 text-gray-600 px-4 py-2 rounded text-sm font-bold hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"><Download size={14}/> Download Statement</button>
               </div>
 
               {/* Quick Actions */}
@@ -234,10 +260,10 @@ export default function ParentDashboard() {
                 <h2 className="text-lg font-bold mb-4">Quick Actions</h2>
                 <div className="space-y-3">
                   <button className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">
-                    Book a New Lesson <ArrowRight size={16} />
+                    Update Child Profile <ArrowRight size={16} />
                   </button>
                   <button className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">
-                    Update Child Profile <ArrowRight size={16} />
+                    Message a Tutor <ArrowRight size={16} />
                   </button>
                   <button className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">
                     Download Report Card <ArrowRight size={16} />

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { 
   Home, BookOpen, Calendar, FileText, Settings, LogOut, 
-  Bell, Menu, PlayCircle, Star, Award, Target, ArrowRight 
+  Bell, Menu, PlayCircle, Star, Award, Target, ArrowRight, CheckCircle 
 } from 'lucide-react';
 
 export default function LearnerDashboard() {
@@ -13,7 +13,6 @@ export default function LearnerDashboard() {
   return (
     <div className="flex h-screen bg-brand-grey overflow-hidden">
       
-      {/* Sidebar */}
       <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-brand-navy text-white flex flex-col transition-all duration-300 shrink-0`}>
         <div className="h-20 flex items-center justify-center border-b border-white/10 px-4">
           <Link href="/">
@@ -60,10 +59,8 @@ export default function LearnerDashboard() {
         </div>
       </aside>
 
-      {/* Main Content Area */}
       <main className="flex-grow flex flex-col h-screen overflow-hidden">
         
-        {/* Top Header */}
         <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0">
           <div className="flex items-center gap-4">
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-gray-500 hover:text-brand-navy">
@@ -86,10 +83,8 @@ export default function LearnerDashboard() {
           </div>
         </header>
 
-        {/* Dashboard Content */}
         <div className="flex-grow overflow-y-auto p-8">
           
-          {/* Fun Welcome Banner */}
           <div className="bg-gradient-to-r from-brand-royal to-brand-sky rounded-2xl p-8 text-white mb-8 relative overflow-hidden shadow-lg">
             <Star className="absolute top-4 right-4 text-white/20" size={120} />
             <div className="relative z-10">
@@ -101,7 +96,6 @@ export default function LearnerDashboard() {
             </div>
           </div>
 
-          {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
               <div className="w-12 h-12 bg-brand-gold/10 text-brand-gold rounded-full flex items-center justify-center"><Target size={24} /></div>
@@ -126,10 +120,7 @@ export default function LearnerDashboard() {
             </div>
           </div>
 
-          {/* Two Column Layout */}
           <div className="grid lg:grid-cols-3 gap-8">
-            
-            {/* Left Column */}
             <div className="lg:col-span-2 space-y-8">
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <h2 className="text-xl font-bold text-brand-navy mb-6">Homework to Do</h2>
@@ -152,7 +143,6 @@ export default function LearnerDashboard() {
               </div>
             </div>
 
-            {/* Right Column */}
             <div className="space-y-8">
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 text-center">
                 <h2 className="text-lg font-bold text-brand-navy mb-4">Today's Class</h2>
@@ -162,7 +152,6 @@ export default function LearnerDashboard() {
                 <Link href="/portal/classroom" className="w-full block bg-brand-royal text-white px-4 py-2 rounded text-sm font-bold hover:bg-blue-700">Join Now</Link>
               </div>
             </div>
-
           </div>
         </div>
       </main>

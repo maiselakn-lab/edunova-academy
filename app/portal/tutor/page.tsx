@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { 
   LayoutDashboard, Users, Calendar, FileText, DollarSign, 
-  Settings, LogOut, Bell, Menu, CheckCircle, Clock, Video, ChevronRight
+  Settings, LogOut, Bell, Menu, CheckCircle, Clock, Video, ChevronRight, TrendingUp
 } from 'lucide-react';
 
 export default function TutorDashboard() {
@@ -13,7 +13,6 @@ export default function TutorDashboard() {
   return (
     <div className="flex h-screen bg-brand-grey overflow-hidden">
       
-      {/* Sidebar */}
       <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-brand-navy text-white flex flex-col transition-all duration-300 shrink-0`}>
         <div className="h-20 flex items-center justify-center border-b border-white/10 px-4">
           <Link href="/">
@@ -56,10 +55,8 @@ export default function TutorDashboard() {
         </div>
       </aside>
 
-      {/* Main Content Area */}
       <main className="flex-grow flex flex-col h-screen overflow-hidden">
         
-        {/* Top Header */}
         <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0">
           <div className="flex items-center gap-4">
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-gray-500 hover:text-brand-navy">
@@ -81,10 +78,8 @@ export default function TutorDashboard() {
           </div>
         </header>
 
-        {/* Dashboard Content */}
         <div className="flex-grow overflow-y-auto p-8">
           
-          {/* Earnings Top Banner */}
           <div className="bg-brand-navy rounded-2xl p-8 text-white mb-8 relative overflow-hidden shadow-lg flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="relative z-10">
               <h1 className="text-3xl font-serif font-bold text-white mb-2">Welcome back, Mr. Nkosi!</h1>
@@ -97,10 +92,8 @@ export default function TutorDashboard() {
             </div>
           </div>
 
-          {/* Two Column Layout */}
           <div className="grid lg:grid-cols-3 gap-8">
             
-            {/* Left Column (2/3 width) */}
             <div className="lg:col-span-2 space-y-8">
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <div className="flex justify-between items-center mb-6">
@@ -109,7 +102,6 @@ export default function TutorDashboard() {
                 </div>
                 
                 <div className="space-y-4">
-                  {/* Lesson Item */}
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-4 border border-gray-100 rounded-lg bg-brand-grey/30 gap-4">
                     <div className="flex items-center gap-4">
                       <div className="w-14 h-14 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0">
@@ -126,7 +118,6 @@ export default function TutorDashboard() {
                     </Link>
                   </div>
 
-                  {/* Lesson Item */}
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-4 border border-gray-100 rounded-lg bg-brand-grey/30 gap-4">
                     <div className="flex items-center gap-4">
                       <div className="w-14 h-14 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0">
@@ -146,7 +137,6 @@ export default function TutorDashboard() {
               </div>
             </div>
 
-            {/* Right Column (1/3 width) */}
             <div className="space-y-8">
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <h2 className="text-lg font-bold text-brand-navy mb-4">Action Required</h2>
@@ -181,6 +171,26 @@ export default function TutorDashboard() {
                   </div>
                 </div>
               </div>
+
+              {/* NEW: Earnings Breakdown Widget */}
+              <div className="bg-brand-navy rounded-xl shadow-sm p-6 text-white border-t-4 border-brand-gold">
+                <h2 className="text-lg font-bold mb-4 flex items-center gap-2"><TrendingUp size={18} className="text-brand-gold"/> Earnings Breakdown</h2>
+                <div className="space-y-4 text-sm">
+                  <div className="flex justify-between items-center pb-2 border-b border-white/10">
+                    <span className="text-gray-400">Completed Lessons</span>
+                    <span className="font-bold">28</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-2 border-b border-white/10">
+                    <span className="text-gray-400">Rate per Lesson</span>
+                    <span className="font-bold">R 150.00</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-2 border-b border-white/10">
+                    <span className="text-gray-400">Last Payout</span>
+                    <span className="font-bold text-brand-teal">R 3,000.00</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
