@@ -23,10 +23,14 @@ models.Base.metadata.create_all(bind=engine)
 # 4. Initialize FastAPI app
 app = FastAPI(title="THINK EduNova Backend")
 
-# Allow Next.js to talk to Python
+# --- CORS CONFIGURATION (CRITICAL FOR VERCEL) ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=[
+        "http://localhost:3000",
+        "https://edunova-academy-rho.vercel.app",
+        "https://edunova-academy-qkk5.onrender.com"
+    ], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,7 +43,7 @@ client = OpenAI(
 )
 
 # --- SECURITY CONFIGURATION ---
-SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key-change-this")
+SECRET_KEY = os.getenv("SECRET_KEY", "edunova-super-secret-jwt-key-2026")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 7 days
 
@@ -127,11 +131,20 @@ def get_schools(db: Session = Depends(get_db)):
 # 3. User Signup (Linked to School)
 @app.post("/api/signup")
 def signup(user: UserCreate, db: Session = Depends(get_db)):
+    # Check if user exists
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
     
+    # Check if school exists (if provided)
+    if user.school_id is not None:
+        school = db.query(models.School).filter(models.School.id == user.school_id).first()
+        if not school:
+            raise HTTPException(status_code=400, detail=f"School with ID {user.school_id} does not exist.")
+
+    # Hash the password (bcrypt 4.0.1 fix is in requirements.txt)
     hashed_pw = pwd_context.hash(user.password)
+    
     new_user = models.User(
         first_name=user.first_name,
         last_name=user.last_name,
@@ -143,9 +156,10 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+    
     return {"message": "User created successfully", "user": new_user.email}
 
-# 4. User Login (NOW RETURNS A JWT TOKEN)
+# 4. User Login (Returns JWT Token)
 @app.post("/api/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
@@ -153,7 +167,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
     if not db_user or not pwd_context.verify(user.password, db_user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
-    # Generate Token
+    # Generate JWT Token
     access_token = create_access_token(data={"sub": db_user.email})
     
     return {
