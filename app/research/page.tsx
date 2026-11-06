@@ -10,7 +10,7 @@ export default function Research() {
       <section className="bg-brand-navy py-24 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
-          <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6">Research & Innovation</h1>
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">Research & Innovation</h1>
           <p className="text-xl text-gray-300 max-w-3xl">Pioneering academic research and providing specialist support for postgraduate students and institutional partners across South Africa.</p>
         </div>
       </section>

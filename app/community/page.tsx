@@ -11,7 +11,7 @@ export default function CommunityHub() {
         <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop')] bg-cover bg-center"></div>
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
           <MessageSquare className="mx-auto text-brand-gold mb-6" size={48} />
-          <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6">The EduNova Community</h1>
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">The EduNova Community</h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
             Don't study alone. Join thousands of peers sharing notes, past papers, and solving academic challenges together.
           </p>

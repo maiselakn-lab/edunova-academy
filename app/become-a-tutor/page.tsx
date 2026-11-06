@@ -15,17 +15,32 @@ export default function BecomeTutor() {
     <div className="flex flex-col min-h-screen bg-white">
       <PublicNavbar />
       
-      {/* Hero */}
+      {/* Hero Section - FIXED VISIBILITY */}
       <section className="bg-brand-navy py-24 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+        {/* Background Image with a darker overlay to guarantee text readability */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" 
+            alt="Tutor teaching" 
+            className="w-full h-full object-cover opacity-30"
+          />
+          <div className="absolute inset-0 bg-brand-navy/80"></div>
+        </div>
+        
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
           <div className="max-w-3xl">
             <p className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-4">Join Our Faculty</p>
-            <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 leading-tight">Turn Your Knowledge Into Opportunity.</h1>
-            <p className="text-xl text-gray-300 mb-8">
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+              Turn Your Knowledge Into Opportunity.
+            </h1>
+            <p className="text-xl text-gray-200 mb-8 leading-relaxed">
               Are you a graduate, qualified professional or subject specialist? Join Think EduNova Academy and become part of a growing network of educators dedicated to transforming lives through education.
             </p>
-            <Link href="/become-a-tutor/apply" className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold text-lg hover:bg-yellow-500 transition-all inline-flex items-center gap-2 shadow-lg">
+            {/* FIXED BUTTON LINK */}
+            <Link 
+              href="/become-a-tutor/apply" 
+              className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold text-lg hover:bg-yellow-500 transition-all inline-flex items-center gap-2 shadow-lg"
+            >
               Start Your Application <ArrowRight size={20} />
             </Link>
           </div>

@@ -23,7 +23,7 @@ export default function AcademiesHub() {
       <section className="bg-brand-navy py-20 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
-          <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4">Academic Programmes</h1>
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-4">Academic Programmes</h1>
           <p className="text-xl text-gray-300 max-w-3xl">Explore our comprehensive curriculum from Grade R to PhD, aligned with CAPS, IEB, TVET, and University standards.</p>
         </div>
       </section>
