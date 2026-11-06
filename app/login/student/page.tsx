@@ -23,7 +23,7 @@ export default function StudentLogin() {
       const response = await fetch('https://edunova-academy-qkk5.onrender.com/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, role: 'student' }),
       });
 
       if (!response.ok) {
