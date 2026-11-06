@@ -10,7 +10,7 @@ export default function Tutoring() {
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
           <div className="max-w-3xl">
             <p className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-4">1-on-1 & Group Sessions</p>
-            <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 leading-tight">Online Tutoring</h1>
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">Online Tutoring</h1>
             <p className="text-xl text-gray-300 mb-8">Connect with verified, expert tutors in our interactive virtual classrooms.</p>
             <Link href="/tutors" className="bg-brand-royal text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-blue-700 transition-all inline-flex items-center gap-2 shadow-lg">Find a Tutor <ArrowRight size={20} /></Link>
           </div>

@@ -7,7 +7,7 @@ export default function Search() {
       <PublicNavbar />
       <section className="bg-brand-navy py-20 text-white">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-8">Search the Academy</h1>
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-8">Search the Academy</h1>
           <div className="relative max-w-3xl">
             <input type="text" placeholder="Search for courses, subjects, tutors, or policies..." className="w-full p-5 pl-14 rounded-lg text-brand-navy font-medium text-lg focus:outline-none focus:ring-4 focus:ring-brand-gold/50" />
             <SearchIcon className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" size={24} />
