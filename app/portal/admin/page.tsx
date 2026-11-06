@@ -15,7 +15,6 @@ export default function AdminDashboard() {
   return (
     <div className="flex h-screen bg-brand-grey overflow-hidden">
       
-      {/* Sidebar */}
       <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-[#081020] text-white flex flex-col transition-all duration-300 shrink-0`}>
         <div className="h-20 flex items-center justify-center border-b border-white/10 px-4">
           <Link href="/">
@@ -37,7 +36,6 @@ export default function AdminDashboard() {
             {sidebarOpen && <span>Academic Management</span>}
           </Link>
           
-          {/* New Admin-Only Features */}
           <div className="pt-4 pb-2">
              {sidebarOpen && <p className="text-xs font-bold text-gray-500 uppercase tracking-wider pl-4 mb-2">Monitoring</p>}
           </div>
@@ -80,10 +78,8 @@ export default function AdminDashboard() {
         </div>
       </aside>
 
-      {/* Main Content Area */}
       <main className="flex-grow flex flex-col h-screen overflow-hidden">
         
-        {/* Top Header */}
         <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0">
           <div className="flex items-center gap-4">
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-gray-500 hover:text-brand-navy">
@@ -109,10 +105,9 @@ export default function AdminDashboard() {
           </div>
         </header>
 
-        {/* Dashboard Content */}
         <div className="flex-grow overflow-y-auto p-8">
           
-          {/* Quick Actions (The "Do Everything" Bar) */}
+          {/* Quick Actions */}
           <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm mb-8 flex flex-wrap gap-3">
             <span className="text-sm font-bold text-gray-500 py-2 px-2">God Mode:</span>
             <Link href="/portal/tutor" className="bg-brand-navy/5 hover:bg-brand-navy hover:text-white text-brand-navy px-4 py-2 rounded text-sm font-bold transition-colors flex items-center gap-2"><PlayCircle size={16}/> Start a Class</Link>
@@ -121,7 +116,7 @@ export default function AdminDashboard() {
             <Link href="/portal/admin/notifications" className="bg-brand-navy/5 hover:bg-brand-navy hover:text-white text-brand-navy px-4 py-2 rounded text-sm font-bold transition-colors flex items-center gap-2"><Send size={16}/> Broadcast Alert</Link>
           </div>
 
-          {/* Key Metrics Top Row */}
+          {/* Key Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm border-t-4 border-t-brand-royal">
               <p className="text-sm text-gray-500 font-bold mb-1">Total Revenue</p>
@@ -145,10 +140,8 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          {/* Two Column Layout */}
           <div className="grid lg:grid-cols-3 gap-8">
             
-            {/* Left Column (2/3 width) */}
             <div className="lg:col-span-2 space-y-8">
               
               {/* LIVE MONITOR WIDGET */}
@@ -162,7 +155,6 @@ export default function AdminDashboard() {
                 </div>
                 
                 <div className="space-y-4 relative z-10">
-                  {/* Active Class 1 */}
                   <div className="bg-white/5 border border-white/10 p-4 rounded-lg flex items-center justify-between">
                     <div>
                       <p className="font-bold text-white">Grade 11 Mathematics: Calculus</p>
@@ -172,7 +164,6 @@ export default function AdminDashboard() {
                       <Eye size={16} /> Observe
                     </button>
                   </div>
-                  {/* Active Class 2 */}
                   <div className="bg-white/5 border border-white/10 p-4 rounded-lg flex items-center justify-between">
                     <div>
                       <p className="font-bold text-white">Grade 8 English: Poetry</p>
@@ -224,7 +215,6 @@ export default function AdminDashboard() {
 
             </div>
 
-            {/* Right Column (1/3 width) */}
             <div className="space-y-8">
               
               {/* SAFEGUARDING AUDIT WIDGET */}

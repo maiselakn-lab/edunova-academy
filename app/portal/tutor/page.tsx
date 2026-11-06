@@ -172,7 +172,6 @@ export default function TutorDashboard() {
                 </div>
               </div>
 
-              {/* NEW: Earnings Breakdown Widget */}
               <div className="bg-brand-navy rounded-xl shadow-sm p-6 text-white border-t-4 border-brand-gold">
                 <h2 className="text-lg font-bold mb-4 flex items-center gap-2"><TrendingUp size={18} className="text-brand-gold"/> Earnings Breakdown</h2>
                 <div className="space-y-4 text-sm">

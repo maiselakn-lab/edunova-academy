@@ -5,16 +5,17 @@ import { useState } from 'react';
 import { 
   LayoutDashboard, Users, CreditCard, Calendar, MessageSquare, 
   Settings, LogOut, Bell, Search, Menu, ArrowRight, CheckCircle, 
-  Clock, FileText, ChevronDown, Award, TrendingUp, Download, Plus
+  Clock, FileText, Award, TrendingUp, Download, Plus
 } from 'lucide-react';
 
 export default function ParentDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [selectedChild, setSelectedChild] = useState("Thabo");
 
+  // Mock Data for Children
   const children = [
     { name: "Thabo", grade: "Grade 11", school: "Pretoria Boys High", avatar: "T" },
-    { name: "Lerato", grade: "Grade 8", school: "Pretoria Girls High", avatar: "L" }
+    { name: "Lerato", grade: "Grade 8", school: "Pretoria High School for Girls", avatar: "L" }
   ];
 
   return (
@@ -28,7 +29,7 @@ export default function ParentDashboard() {
           </Link>
         </div>
 
-        <nav className="flex-grow py-6 space-y-1 px-3 overflow-y-auto">
+        <nav className="flex-grow py-6 space-y-2 px-3 overflow-y-auto">
           <Link href="/portal/parent" className="flex items-center gap-4 px-4 py-3 bg-brand-royal rounded-lg font-medium transition-colors">
             <LayoutDashboard size={20} />
             {sidebarOpen && <span>Dashboard</span>}
@@ -39,7 +40,7 @@ export default function ParentDashboard() {
           </Link>
           <Link href="/portal/parent/progress" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <FileText size={20} />
-            {sidebarOpen && <span>Academic Reports</span>}
+            {sidebarOpen && <span>Academic Progress</span>}
           </Link>
           <Link href="/portal/parent/bookings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <Calendar size={20} />
@@ -47,7 +48,7 @@ export default function ParentDashboard() {
           </Link>
           <Link href="/portal/parent/billing" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <CreditCard size={20} />
-            {sidebarOpen && <span>Fees & Billing</span>}
+            {sidebarOpen && <span>Payments & Invoices</span>}
           </Link>
           <Link href="/portal/parent/messages" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <MessageSquare size={20} />
