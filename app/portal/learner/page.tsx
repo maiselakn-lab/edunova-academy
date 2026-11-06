@@ -1,14 +1,41 @@
 "use client";
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { 
   Home, BookOpen, Calendar, FileText, Settings, LogOut, 
   Bell, Menu, PlayCircle, Star, Award, Target, ArrowRight, Users 
 } from 'lucide-react';
 
 export default function LearnerDashboard() {
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [user, setUser] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('edunova_token');
+      const userData = localStorage.getItem('edunova_user');
+
+      if (!token || !userData) {
+        router.replace('/login/learner');
+      } else {
+        setUser(JSON.parse(userData));
+      }
+      setIsLoading(false);
+    }
+  }, [router]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('edunova_token');
+    localStorage.removeItem('edunova_user');
+    router.push('/login/learner');
+  };
+
+  if (isLoading) return <div className="flex h-screen items-center justify-center bg-brand-grey"><p className="text-brand-navy font-bold">Loading your portal...</p></div>;
+  if (!user) return null;
 
   return (
     <div className="flex h-screen bg-brand-grey overflow-hidden">
@@ -56,10 +83,10 @@ export default function LearnerDashboard() {
             <Settings size={20} />
             {sidebarOpen && <span>Settings</span>}
           </Link>
-          <Link href="/login" className="flex items-center gap-4 px-4 py-3 hover:bg-red-500/20 text-red-400 rounded-lg transition-colors">
+          <button onClick={handleLogout} className="w-full flex items-center gap-4 px-4 py-3 hover:bg-red-500/20 text-red-400 rounded-lg transition-colors">
             <LogOut size={20} />
             {sidebarOpen && <span>Logout</span>}
-          </Link>
+          </button>
         </div>
       </aside>
 
@@ -70,18 +97,15 @@ export default function LearnerDashboard() {
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-gray-500 hover:text-brand-navy">
               <Menu size={24} />
             </button>
-            <h2 className="text-xl font-bold text-brand-navy hidden md:block">Welcome back, Junior!</h2>
           </div>
           <div className="flex items-center gap-6">
-            <button className="relative text-gray-500 hover:text-brand-navy">
-              <Bell size={22} />
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
-            </button>
             <div className="flex items-center gap-3 border-l border-gray-200 pl-6">
-              <div className="w-10 h-10 bg-brand-royal text-white rounded-full flex items-center justify-center font-bold">J</div>
+              <div className="w-10 h-10 bg-brand-royal text-white rounded-full flex items-center justify-center font-bold">
+                {user.first_name.charAt(0)}
+              </div>
               <div className="hidden md:block">
-                <p className="text-sm font-bold text-brand-navy leading-tight">Junior D.</p>
-                <p className="text-xs text-gray-500">Grade 9 Learner</p>
+                <p className="text-sm font-bold text-brand-navy leading-tight">{user.first_name} {user.last_name}</p>
+                <p className="text-xs text-gray-500 capitalize">{user.role}</p>
               </div>
             </div>
           </div>
@@ -92,7 +116,7 @@ export default function LearnerDashboard() {
           <div className="bg-gradient-to-r from-brand-royal to-brand-sky rounded-2xl p-8 text-white mb-8 relative overflow-hidden shadow-lg">
             <Star className="absolute top-4 right-4 text-white/20" size={120} />
             <div className="relative z-10">
-              <h1 className="text-3xl font-serif font-bold text-white mb-2">Ready to learn today?</h1>
+              <h1 className="text-3xl font-serif font-bold text-white mb-2">Ready to learn today, {user.first_name}?</h1>
               <p className="text-blue-100 mb-6 max-w-xl">You have 1 class today. Don't forget to complete your Natural Sciences homework before 17:00!</p>
               <Link href="/portal/classroom" className="bg-white text-brand-royal px-6 py-3 rounded-sm font-bold inline-flex items-center gap-2 hover:bg-gray-100 transition-colors shadow-md">
                 Go to Classroom <ArrowRight size={18} />
@@ -100,6 +124,7 @@ export default function LearnerDashboard() {
             </div>
           </div>
 
+          {/* ... REST OF LEARNER DASHBOARD (Stats, Homework) ... */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
               <div className="w-12 h-12 bg-brand-gold/10 text-brand-gold rounded-full flex items-center justify-center"><Target size={24} /></div>
@@ -146,7 +171,6 @@ export default function LearnerDashboard() {
                 </div>
               </div>
             </div>
-
             <div className="space-y-8">
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 text-center">
                 <h2 className="text-lg font-bold text-brand-navy mb-4">Today's Class</h2>
