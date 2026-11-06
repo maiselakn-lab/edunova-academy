@@ -11,7 +11,7 @@ export default function About() {
       <section className="bg-brand-navy py-24 text-white">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 leading-tight">About Think EduNova</h1>
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">About Think EduNova</h1>
             <p className="text-xl text-gray-300">
               We are a comprehensive digital institution combining academic teaching, learning resources, AI-assisted education, and employment opportunities.
             </p>
