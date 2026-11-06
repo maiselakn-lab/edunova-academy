@@ -1,14 +1,55 @@
 "use client";
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { 
   LayoutDashboard, BookOpen, Calendar, FileText, Bot, Settings, 
   LogOut, Bell, Search, PlayCircle, Clock, CheckCircle, ArrowRight, Menu, Users
 } from 'lucide-react';
 
 export default function StudentDashboard() {
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [user, setUser] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // SECURITY GUARD: Check if user is logged in
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('edunova_token');
+      const userData = localStorage.getItem('edunova_user');
+
+      if (!token || !userData) {
+        router.replace('/login/student');
+      } else {
+        try {
+          setUser(JSON.parse(userData));
+        } catch (e) {
+          localStorage.removeItem('edunova_token');
+          localStorage.removeItem('edunova_user');
+          router.replace('/login/student');
+        }
+      }
+      setIsLoading(false);
+    }
+  }, [router]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('edunova_token');
+    localStorage.removeItem('edunova_user');
+    router.push('/login/student');
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-brand-grey">
+        <p className="text-brand-navy font-bold">Loading your portal...</p>
+      </div>
+    );
+  }
+
+  if (!user) return null;
 
   return (
     <div className="flex h-screen bg-brand-grey overflow-hidden">
@@ -57,10 +98,10 @@ export default function StudentDashboard() {
             <Settings size={20} />
             {sidebarOpen && <span>Settings</span>}
           </Link>
-          <Link href="/login" className="flex items-center gap-4 px-4 py-3 hover:bg-red-500/20 text-red-400 rounded-lg transition-colors">
+          <button onClick={handleLogout} className="w-full flex items-center gap-4 px-4 py-3 hover:bg-red-500/20 text-red-400 rounded-lg transition-colors">
             <LogOut size={20} />
             {sidebarOpen && <span>Logout</span>}
-          </Link>
+          </button>
         </div>
       </aside>
 
@@ -83,11 +124,17 @@ export default function StudentDashboard() {
               <Bell size={22} />
               <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
             </button>
+            
+            {/* Dynamic User Profile */}
             <div className="flex items-center gap-3 border-l border-gray-200 pl-6">
-              <div className="w-10 h-10 bg-brand-royal text-white rounded-full flex items-center justify-center font-bold">S</div>
+              <div className="w-10 h-10 bg-brand-royal text-white rounded-full flex items-center justify-center font-bold">
+                {user.first_name ? user.first_name.charAt(0) : 'S'}
+              </div>
               <div className="hidden md:block">
-                <p className="text-sm font-bold text-brand-navy leading-tight">Siphelele B.</p>
-                <p className="text-xs text-gray-500">Grade 11 Student</p>
+                <p className="text-sm font-bold text-brand-navy leading-tight">
+                  {user.first_name ? `${user.first_name} ${user.last_name || ''}` : 'Student'}
+                </p>
+                <p className="text-xs text-gray-500 capitalize">{user.role || 'Student'}</p>
               </div>
             </div>
           </div>
@@ -96,11 +143,13 @@ export default function StudentDashboard() {
         {/* Dashboard Content */}
         <div className="flex-grow overflow-y-auto p-8">
           
-          {/* Welcome Banner */}
+          {/* Dynamic Welcome Banner */}
           <div className="bg-brand-navy rounded-2xl p-8 text-white mb-8 relative overflow-hidden shadow-lg">
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-royal/20 rounded-bl-full -mr-10 -mt-10"></div>
             <div className="relative z-10">
-              <h1 className="text-3xl font-serif font-bold text-white mb-2">Welcome back, Siphelele!</h1>
+              <h1 className="text-3xl font-serif font-bold text-white mb-2">
+                Welcome back, {user.first_name || 'Student'}!
+              </h1>
               <p className="text-gray-300 mb-6 max-w-xl">You have 2 lessons scheduled for today. Your Mathematics tutor is waiting for you in the virtual classroom.</p>
               <Link href="/portal/classroom" className="bg-brand-gold text-brand-navy px-6 py-3 rounded-sm font-bold inline-flex items-center gap-2 hover:bg-yellow-500 transition-colors shadow-md">
                 Join Next Lesson <ArrowRight size={18} />
