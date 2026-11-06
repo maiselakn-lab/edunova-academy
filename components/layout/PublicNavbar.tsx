@@ -107,7 +107,7 @@ export default function PublicNavbar() {
   return (
     <header className="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-200 font-sans">
       
-      {/* 1. Top Utility Bar */}
+      {/* 1. Top Utility Bar (FIXED ROUTING) */}
       <div className="bg-brand-navy text-gray-300 text-xs py-1.5">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex space-x-5">
