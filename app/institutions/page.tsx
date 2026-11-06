@@ -11,7 +11,7 @@ export default function Institutions() {
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
           <div className="max-w-3xl">
             <p className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-4">Institutional Partnerships</p>
-            <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 leading-tight">Partner with Think EduNova.</h1>
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">Partner with Think EduNova.</h1>
             <p className="text-xl text-gray-300 mb-8">
               We collaborate with schools, colleges, NGOs, and universities to provide additional academic support to their students and integrate our technology into their operations.
             </p>

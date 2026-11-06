@@ -24,7 +24,7 @@ export default function News() {
       
       <section className="bg-brand-navy py-20 text-white">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
-          <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4">News & Media</h1>
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-4">News & Media</h1>
           <p className="text-xl text-gray-300">The latest announcements, press releases, and academic updates.</p>
         </div>
       </section>

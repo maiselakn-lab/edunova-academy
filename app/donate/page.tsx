@@ -8,7 +8,7 @@ export default function Donate() {
       <section className="bg-brand-navy py-24 text-white text-center">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
           <Heart className="mx-auto text-brand-gold mb-6" size={48} />
-          <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6">Support Our Mission</h1>
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">Support Our Mission</h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">Your donation helps provide scholarships and academic support to underprivileged learners across South Africa.</p>
         </div>
       </section>
