@@ -8,7 +8,6 @@ export default function PublicNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
-  // Mega Menu Data
   const megaMenus = {
     about: {
       columns: [
@@ -118,9 +117,9 @@ export default function PublicNavbar() {
             <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
           </div>
           <div className="flex space-x-5 items-center">
-            <button className="hover:text-white transition-colors flex items-center gap-1.5">
+            <Link href="/search" className="hover:text-white transition-colors flex items-center gap-1.5">
               <Search size={14} /> Search
-            </button>
+            </Link>
             <Link href="/login" className="hover:text-white transition-colors font-medium border-l border-gray-600 pl-5">Login</Link>
             <Link href="/donate" className="bg-brand-gold text-brand-navy px-4 py-1 rounded font-bold hover:bg-yellow-500 transition-colors flex items-center gap-1">
               <Heart size={12} /> Donate
@@ -237,20 +236,18 @@ export default function PublicNavbar() {
               )}
             </div>
 
-            {/* New Links Added Here */}
+            <Link href="/community" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors whitespace-nowrap">
+              Community
+            </Link>
             <Link href="/research" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors whitespace-nowrap">
-              Research & Innovation
+              Research
             </Link>
             <Link href="/library" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors">
               Library
             </Link>
             <Link href="/news" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors whitespace-nowrap">
-              News & Media
+              News
             </Link>
-            <Link href="/contact" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors">
-              Contact Us
-            </Link>
-
             <Link href="/become-a-tutor" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors whitespace-nowrap">
               Tutor Careers
             </Link>
@@ -309,11 +306,10 @@ export default function PublicNavbar() {
               </div>
             </div>
 
-            {/* New Mobile Links */}
-            <Link href="/research" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Research & Innovation</Link>
+            <Link href="/community" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Community</Link>
+            <Link href="/research" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Research</Link>
             <Link href="/library" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Library</Link>
-            <Link href="/news" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>News & Media</Link>
-            <Link href="/contact" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Contact Us</Link>
+            <Link href="/news" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>News</Link>
             <Link href="/become-a-tutor" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Tutor Careers</Link>
             
             <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-2">

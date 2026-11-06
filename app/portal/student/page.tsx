@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { 
   LayoutDashboard, BookOpen, Calendar, FileText, Bot, Settings, 
-  LogOut, Bell, Search, PlayCircle, Clock, CheckCircle, ArrowRight, Menu
+  LogOut, Bell, Search, PlayCircle, Clock, CheckCircle, ArrowRight, Menu, Users
 } from 'lucide-react';
 
 export default function StudentDashboard() {
@@ -45,6 +45,10 @@ export default function StudentDashboard() {
           <Link href="/ai-assistant" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold transition-colors">
             <Bot size={20} />
             {sidebarOpen && <span>AI Assistant</span>}
+          </Link>
+          <Link href="/community/student" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-sky transition-colors">
+            <Users size={20} />
+            {sidebarOpen && <span>Community</span>}
           </Link>
         </nav>
 

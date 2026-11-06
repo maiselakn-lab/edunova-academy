@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { 
   Home, BookOpen, Calendar, FileText, Settings, LogOut, 
-  Bell, Menu, PlayCircle, Star, Award, Target, ArrowRight, CheckCircle 
+  Bell, Menu, PlayCircle, Star, Award, Target, ArrowRight, Users 
 } from 'lucide-react';
 
 export default function LearnerDashboard() {
@@ -44,6 +44,10 @@ export default function LearnerDashboard() {
           <Link href="/rewards" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold transition-colors">
             <Award size={20} />
             {sidebarOpen && <span>My Rewards</span>}
+          </Link>
+          <Link href="/community/learner" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-sky transition-colors">
+            <Users size={20} />
+            {sidebarOpen && <span>Community</span>}
           </Link>
         </nav>
 
