@@ -1,10 +1,61 @@
 "use client";
 
 import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { BookOpen, Mail, Lock, User, ArrowRight } from 'lucide-react';
+import { BookOpen, Mail, Lock, User, ArrowRight, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 export default function LearnerRegister() {
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('https://edunova-academy-qkk5.onrender.com/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          role: 'learner',
+          school_id: 1
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.detail || 'Registration failed');
+      }
+
+      setSuccess(true);
+      
+      setTimeout(() => {
+        router.push('/login/learner');
+      }, 2000);
+      
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-brand-grey">
       <PublicNavbar />
@@ -17,13 +68,48 @@ export default function LearnerRegister() {
             <h1 className="text-3xl font-serif font-bold text-brand-navy mb-2">Learner Registration</h1>
             <p className="text-gray-500">Join the academy and start learning.</p>
           </div>
+
+          {error && (
+            <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-start gap-3 border border-red-100">
+              <AlertCircle size={20} className="shrink-0 mt-0.5" />
+              <p className="text-sm font-medium">{error}</p>
+            </div>
+          )}
+
+          {success && (
+            <div className="bg-brand-teal/10 text-brand-teal p-4 rounded-lg mb-6 flex items-start gap-3 border border-brand-teal/20">
+              <CheckCircle2 size={20} className="shrink-0 mt-0.5" />
+              <p className="text-sm font-medium">Account created! Redirecting to login...</p>
+            </div>
+          )}
           
-          <form className="space-y-5">
-            <div>
-              <label className="block text-sm font-bold text-brand-navy mb-2">Full Name</label>
-              <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                <input type="text" placeholder="Your Full Name" className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal" />
+          <form onSubmit={handleRegister} className="space-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-sm font-bold text-brand-navy mb-2">First Name</label>
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <input 
+                    type="text" required
+                    value={formData.firstName}
+                    onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                    placeholder="First Name" 
+                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal" 
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-brand-navy mb-2">Last Name</label>
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <input 
+                    type="text" required
+                    value={formData.lastName}
+                    onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                    placeholder="Last Name" 
+                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal" 
+                  />
+                </div>
               </div>
             </div>
 
@@ -31,26 +117,27 @@ export default function LearnerRegister() {
               <label className="block text-sm font-bold text-brand-navy mb-2">Email Address</label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                <input type="email" placeholder="your.email@example.com" className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal" />
+                <input 
+                  type="email" required
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  placeholder="your.email@example.com" 
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal" 
+                />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div>
-                <label className="block text-sm font-bold text-brand-navy mb-2">Grade</label>
-                <select className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal text-gray-600">
-                  <option value="">Select Grade</option>
-                  <option value="r">Grade R</option>
-                  <option value="1-7">Grade 1 - 7</option>
-                  <option value="8-12">Grade 8 - 12</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-brand-navy mb-2">Password</label>
-                <div className="relative">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                  <input type="password" placeholder="••••••••" className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal" />
-                </div>
+            <div>
+              <label className="block text-sm font-bold text-brand-navy mb-2">Password</label>
+              <div className="relative">
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                <input 
+                  type="password" required
+                  value={formData.password}
+                  onChange={(e) => setFormData({...formData, password: e.target.value})}
+                  placeholder="••••••••" 
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal" 
+                />
               </div>
             </div>
 
@@ -58,8 +145,11 @@ export default function LearnerRegister() {
               Note: If you are under 18, a parent or guardian must verify your account. We will send them an email to approve your registration.
             </div>
 
-            <button type="button" className="w-full bg-brand-royal text-white font-bold py-4 rounded-lg hover:bg-blue-700 transition-colors shadow-md flex justify-center items-center gap-2">
-              Register as Learner <ArrowRight size={18} />
+            <button 
+              type="submit" disabled={isLoading || success}
+              className="w-full bg-brand-royal text-white font-bold py-4 rounded-lg hover:bg-blue-700 transition-colors shadow-md flex justify-center items-center gap-2 disabled:opacity-70"
+            >
+              {isLoading ? <><Loader2 className="animate-spin" size={20}/> Creating Account...</> : <>Register as Learner <ArrowRight size={18} /></>}
             </button>
           </form>
           
