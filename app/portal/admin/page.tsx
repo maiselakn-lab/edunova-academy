@@ -4,7 +4,9 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { 
   LayoutDashboard, Users, GraduationCap, CreditCard, ShieldCheck, 
-  Settings, LogOut, Bell, Menu, TrendingUp, CheckCircle, Database, Activity
+  Settings, LogOut, Bell, Menu, TrendingUp, CheckCircle, Database, 
+  Activity, Video, MessageSquare, AlertTriangle, PlayCircle, Eye,
+  UserPlus, Send, BookOpen
 } from 'lucide-react';
 
 export default function AdminDashboard() {
@@ -21,7 +23,7 @@ export default function AdminDashboard() {
           </Link>
         </div>
 
-        <nav className="flex-grow py-6 space-y-2 px-3 overflow-y-auto">
+        <nav className="flex-grow py-6 space-y-1 px-3 overflow-y-auto">
           <Link href="/portal/admin" className="flex items-center gap-4 px-4 py-3 bg-brand-royal rounded-lg font-medium transition-colors">
             <LayoutDashboard size={20} />
             {sidebarOpen && <span>Executive Overview</span>}
@@ -34,28 +36,46 @@ export default function AdminDashboard() {
             <GraduationCap size={20} />
             {sidebarOpen && <span>Academic Management</span>}
           </Link>
+          
+          {/* New Admin-Only Features */}
+          <div className="pt-4 pb-2">
+             {sidebarOpen && <p className="text-xs font-bold text-gray-500 uppercase tracking-wider pl-4 mb-2">Monitoring</p>}
+          </div>
+          <Link href="/portal/admin/live-monitor" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-sky transition-colors">
+            <Video size={20} />
+            {sidebarOpen && <span>Live Class Monitor</span>}
+          </Link>
+          <Link href="/portal/admin/communications" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold transition-colors">
+            <MessageSquare size={20} />
+            {sidebarOpen && <span>Comm. Audit (Safeguarding)</span>}
+          </Link>
+
+          <div className="pt-4 pb-2">
+             {sidebarOpen && <p className="text-xs font-bold text-gray-500 uppercase tracking-wider pl-4 mb-2">Operations</p>}
+          </div>
           <Link href="/portal/admin/finance" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <CreditCard size={20} />
             {sidebarOpen && <span>Finance & Billing</span>}
           </Link>
           <Link href="/portal/admin/audit" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <ShieldCheck size={20} />
-            {sidebarOpen && <span>Audit Logs</span>}
+            {sidebarOpen && <span>System Audit Logs</span>}
           </Link>
-          <Link href="https://acadcoreos.base44.app/" target="_blank" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold transition-colors mt-4 border border-brand-gold/20">
+          
+          <Link href="https://acadcoreos.base44.app/" target="_blank" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold transition-colors mt-4 border border-brand-gold/20 bg-brand-gold/5">
             <Database size={20} />
-            {sidebarOpen && <span>Launch AcadCoreOS ↗</span>}
+            {sidebarOpen && <span>AcadCoreOS ↗</span>}
           </Link>
         </nav>
 
         <div className="p-4 border-t border-white/10 space-y-2">
-          <Link href="/portal/settings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
+          <Link href="/portal/admin/settings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300 transition-colors">
             <Settings size={20} />
             {sidebarOpen && <span>System Settings</span>}
           </Link>
           <Link href="/login" className="flex items-center gap-4 px-4 py-3 hover:bg-red-500/20 text-red-400 rounded-lg transition-colors">
             <LogOut size={20} />
-            {sidebarOpen && <span>Logout</span>}
+            {sidebarOpen && <span>Terminate Session</span>}
           </Link>
         </div>
       </aside>
@@ -77,12 +97,13 @@ export default function AdminDashboard() {
             </div>
             <button className="relative text-gray-500 hover:text-brand-navy">
               <Bell size={22} />
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
             </button>
             <div className="flex items-center gap-3 border-l border-gray-200 pl-6">
               <div className="w-10 h-10 bg-brand-charcoal text-white rounded-full flex items-center justify-center font-bold">A</div>
               <div className="hidden md:block">
-                <p className="text-sm font-bold text-brand-navy leading-tight">Super Admin</p>
-                <p className="text-xs text-gray-500">Root Access</p>
+                <p className="text-sm font-bold text-brand-navy leading-tight">Root Admin</p>
+                <p className="text-xs text-gray-500">All Access</p>
               </div>
             </div>
           </div>
@@ -91,6 +112,15 @@ export default function AdminDashboard() {
         {/* Dashboard Content */}
         <div className="flex-grow overflow-y-auto p-8">
           
+          {/* Quick Actions (The "Do Everything" Bar) */}
+          <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm mb-8 flex flex-wrap gap-3">
+            <span className="text-sm font-bold text-gray-500 py-2 px-2">God Mode:</span>
+            <Link href="/portal/tutor" className="bg-brand-navy/5 hover:bg-brand-navy hover:text-white text-brand-navy px-4 py-2 rounded text-sm font-bold transition-colors flex items-center gap-2"><PlayCircle size={16}/> Start a Class</Link>
+            <Link href="/portal/admin/communications" className="bg-brand-navy/5 hover:bg-brand-navy hover:text-white text-brand-navy px-4 py-2 rounded text-sm font-bold transition-colors flex items-center gap-2"><Eye size={16}/> Read All Messages</Link>
+            <Link href="/portal/admin/users" className="bg-brand-navy/5 hover:bg-brand-navy hover:text-white text-brand-navy px-4 py-2 rounded text-sm font-bold transition-colors flex items-center gap-2"><UserPlus size={16}/> Create New Admin</Link>
+            <Link href="/portal/admin/notifications" className="bg-brand-navy/5 hover:bg-brand-navy hover:text-white text-brand-navy px-4 py-2 rounded text-sm font-bold transition-colors flex items-center gap-2"><Send size={16}/> Broadcast Alert</Link>
+          </div>
+
           {/* Key Metrics Top Row */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm border-t-4 border-t-brand-royal">
@@ -121,7 +151,41 @@ export default function AdminDashboard() {
             {/* Left Column (2/3 width) */}
             <div className="lg:col-span-2 space-y-8">
               
-              {/* Recent Financial Transactions */}
+              {/* LIVE MONITOR WIDGET */}
+              <div className="bg-brand-navy rounded-xl border border-white/10 shadow-sm p-6 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-teal/10 rounded-bl-full -mr-8 -mt-8"></div>
+                <div className="flex justify-between items-center mb-6 relative z-10">
+                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                    <span className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span> Live Session Monitor
+                  </h2>
+                  <Link href="/portal/admin/live-monitor" className="text-sm text-brand-sky font-bold hover:underline">View All (12 Active)</Link>
+                </div>
+                
+                <div className="space-y-4 relative z-10">
+                  {/* Active Class 1 */}
+                  <div className="bg-white/5 border border-white/10 p-4 rounded-lg flex items-center justify-between">
+                    <div>
+                      <p className="font-bold text-white">Grade 11 Mathematics: Calculus</p>
+                      <p className="text-sm text-gray-400">Tutor: Mr. T. Nkosi • Student: Siphelele B.</p>
+                    </div>
+                    <button className="bg-brand-teal text-white px-4 py-2 rounded text-sm font-bold hover:bg-teal-600 flex items-center gap-2">
+                      <Eye size={16} /> Observe
+                    </button>
+                  </div>
+                  {/* Active Class 2 */}
+                  <div className="bg-white/5 border border-white/10 p-4 rounded-lg flex items-center justify-between">
+                    <div>
+                      <p className="font-bold text-white">Grade 8 English: Poetry</p>
+                      <p className="text-sm text-gray-400">Tutor: Mrs. K. Zulu • Student: Lerato N.</p>
+                    </div>
+                    <button className="bg-brand-teal text-white px-4 py-2 rounded text-sm font-bold hover:bg-teal-600 flex items-center gap-2">
+                      <Eye size={16} /> Observe
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* RECENT TRANSACTIONS */}
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-xl font-bold text-brand-navy">Recent Transactions</h2>
@@ -153,13 +217,6 @@ export default function AdminDashboard() {
                         <td className="py-3 text-right font-bold text-red-500">- R 1,200.00</td>
                         <td className="py-3 text-right"><span className="bg-brand-royal/10 text-brand-royal px-2 py-1 rounded text-xs font-bold">Processing</span></td>
                       </tr>
-                      <tr>
-                        <td className="py-3 text-gray-500">TXN-8906</td>
-                        <td className="py-3 font-bold text-brand-navy">Siphelele B.</td>
-                        <td className="py-3 text-gray-600">Single Lesson</td>
-                        <td className="py-3 text-right font-bold text-brand-navy">R 250.00</td>
-                        <td className="py-3 text-right"><span className="bg-brand-teal/10 text-brand-teal px-2 py-1 rounded text-xs font-bold">Cleared</span></td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -170,10 +227,27 @@ export default function AdminDashboard() {
             {/* Right Column (1/3 width) */}
             <div className="space-y-8">
               
-              {/* Tutor Approvals Widget */}
+              {/* SAFEGUARDING AUDIT WIDGET */}
+              <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 border-l-4 border-l-brand-gold">
+                <h2 className="text-lg font-bold text-brand-navy mb-2 flex items-center gap-2">
+                  <ShieldCheck className="text-brand-gold" size={20} /> Safeguarding Alerts
+                </h2>
+                <p className="text-xs text-gray-500 mb-4">Flagged communications requiring review.</p>
+                <div className="space-y-4">
+                  <div className="bg-orange-50 border border-orange-100 p-3 rounded-lg">
+                    <div className="flex items-center gap-2 text-orange-600 font-bold text-sm mb-1">
+                      <AlertTriangle size={14} /> Flagged Message
+                    </div>
+                    <p className="text-xs text-gray-700">Tutor attempted to share personal WhatsApp number with a minor.</p>
+                    <button className="text-xs text-brand-royal font-bold hover:underline mt-2">Review Conversation</button>
+                  </div>
+                </div>
+              </div>
+
+              {/* PENDING APPROVALS */}
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <h2 className="text-lg font-bold text-brand-navy mb-4 flex items-center gap-2">
-                  <CheckCircle className="text-brand-gold" size={20} /> Pending Tutor Vetting
+                  <CheckCircle className="text-brand-teal" size={20} /> Pending Vetting
                 </h2>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between pb-3 border-b border-gray-100">
@@ -193,7 +267,7 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              {/* Institution Stats */}
+              {/* INSTITUTION STATS */}
               <div className="bg-brand-navy rounded-xl shadow-sm p-6 text-white">
                 <h2 className="text-lg font-bold mb-4">Institution Overview</h2>
                 <div className="space-y-4 text-sm">
