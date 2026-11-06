@@ -10,7 +10,7 @@ export default function AIAssistant() {
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
           <div className="max-w-3xl">
             <p className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-4">Powered by AcadAI</p>
-            <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 leading-tight">Your 24/7 AI Learning Assistant</h1>
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">Your 24/7 AI Learning Assistant</h1>
             <p className="text-xl text-gray-300 mb-8">Get instant explanations, generate practice questions, and receive personalised study recommendations.</p>
             <Link href="/register" className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold text-lg hover:bg-yellow-500 transition-all inline-flex items-center gap-2 shadow-lg">Try It Out <ArrowRight size={20} /></Link>
           </div>

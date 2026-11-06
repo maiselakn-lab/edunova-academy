@@ -19,7 +19,7 @@ export default function SecondaryAcademy() {
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
           <div className="max-w-3xl border-l-4 border-brand-gold pl-6 md:pl-8">
             <p className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-4">Faculty of Secondary Education</p>
-            <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 leading-tight">Secondary Academy</h1>
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">Secondary Academy</h1>
             <p className="text-xl text-gray-200 mb-8 leading-relaxed">
               Mastering the high school years. From Grade 8 to Matric, we provide rigorous academic support, exam preparation, and subject-specific tutoring.
             </p>

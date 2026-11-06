@@ -19,7 +19,7 @@ export default function CollegeAcademy() {
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
           <div className="max-w-3xl border-l-4 border-brand-gold pl-6 md:pl-8">
             <p className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-4">College & TVET Faculty</p>
-            <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 leading-tight">College & TVET Academy</h1>
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">College & TVET Academy</h1>
             <p className="text-xl text-gray-200 mb-8 leading-relaxed">
               Building the technical and vocational skills for the future workforce. Support for NATED, NCV, and specialised college modules.
             </p>
