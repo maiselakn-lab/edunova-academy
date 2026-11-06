@@ -19,7 +19,8 @@ export default function StudentLogin() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
+      // HARDCODED URL TO FIX THE 404 ERROR
+      const response = await fetch('https://edunova-academy-qkk5.onrender.com/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
