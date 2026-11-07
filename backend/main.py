@@ -76,7 +76,7 @@ class UserCreate(BaseModel):
 class UserLogin(BaseModel):
     email: str
     password: str
-    role: str # NEW: Required for role-based login
+    role: str
 
 class SchoolCreate(BaseModel):
     name: str
@@ -162,18 +162,15 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
 def login(user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     
-    # Verify password
     if not db_user or not pwd_context.verify(user.password, db_user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
-    # ROLE CHECK: Does the user's role match the portal they are trying to access?
     if db_user.role != user.role:
         raise HTTPException(
             status_code=403, 
             detail=f"Access denied. This account is registered as a {db_user.role}, not a {user.role}."
         )
     
-    # Generate JWT Token
     access_token = create_access_token(data={"sub": db_user.email, "role": db_user.role})
     
     return {
@@ -183,6 +180,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         "user": {
             "email": db_user.email,
             "first_name": db_user.first_name,
+            "last_name": db_user.last_name,
             "role": db_user.role,
             "school_id": db_user.school_id
         }
@@ -195,11 +193,76 @@ def read_users_me(current_user: models.User = Depends(get_current_user)):
         "id": current_user.id,
         "email": current_user.email,
         "first_name": current_user.first_name,
+        "last_name": current_user.last_name,
         "role": current_user.role,
         "school_id": current_user.school_id
     }
 
-# 6. AI Tutor
+# --- DASHBOARD DATA ENDPOINTS ---
+
+# 6. Student Dashboard Data
+@app.get("/api/student/dashboard")
+def get_student_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "student":
+        raise HTTPException(status_code=403, detail="Access denied. Student access only.")
+    
+    return {
+        "student_name": f"{current_user.first_name} {current_user.last_name}",
+        "enrolled_subjects": 6,
+        "average_grade": "78% (B)",
+        "upcoming_lessons": 3,
+        "recent_assessments": [
+            {"name": "Maths Test 1", "date": "2 days ago", "score": "85%"},
+            {"name": "Physics Quiz", "date": "1 week ago", "score": "72%"}
+        ]
+    }
+
+# 7. Parent Dashboard Data
+@app.get("/api/parent/dashboard")
+def get_parent_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "parent":
+        raise HTTPException(status_code=403, detail="Access denied. Parent access only.")
+    
+    return {
+        "parent_name": f"{current_user.first_name} {current_user.last_name}",
+        "children": [
+            {"name": "Thabo", "grade": "Grade 11", "school": "Pretoria Boys High", "average": "82%", "attendance": "98%"},
+            {"name": "Lerato", "grade": "Grade 8", "school": "Pretoria Girls High", "average": "76%", "attendance": "95%"}
+        ],
+        "outstanding_balance": "R450.00"
+    }
+
+# 8. Tutor Dashboard Data
+@app.get("/api/tutor/dashboard")
+def get_tutor_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "tutor":
+        raise HTTPException(status_code=403, detail="Access denied. Tutor access only.")
+    
+    return {
+        "tutor_name": f"{current_user.first_name} {current_user.last_name}",
+        "pending_earnings": "R 4,250.00",
+        "upcoming_lessons": 3,
+        "active_students": 12,
+        "rating": "4.9/5.0"
+    }
+
+# 9. Admin Dashboard Data (Real DB Stats)
+@app.get("/api/admin/dashboard")
+def get_admin_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
+    
+    total_users = db.query(models.User).count()
+    total_schools = db.query(models.School).count()
+    
+    return {
+        "admin_name": f"{current_user.first_name} {current_user.last_name}",
+        "total_users": total_users,
+        "total_schools": total_schools,
+        "system_status": "Online"
+    }
+
+# 10. AI Tutor
 @app.post("/api/chat")
 async def chat_with_tutor(request: ChatRequest):
     try:
