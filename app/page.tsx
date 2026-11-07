@@ -196,7 +196,7 @@ export default function Home() {
                   <BrainCircuit size={16} className="text-brand-sky" />
                   <p className="text-brand-sky font-bold tracking-wider uppercase text-xs">AcadAI Intelligence</p>
                 </div>
-                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight">
+                <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
                   AI-Powered <span className="text-brand-gold">Academic Support.</span>
                 </h2>
                 <p className="text-lg text-gray-300 mb-8 leading-relaxed">
