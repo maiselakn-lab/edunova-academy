@@ -31,23 +31,25 @@ export default function StudentDashboard() {
   return (
     <div className="flex h-screen bg-brand-grey overflow-hidden">
       
+      {/* Sidebar */}
       <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-brand-navy text-white flex flex-col transition-all duration-300 shrink-0`}>
         <div className="h-20 flex items-center justify-center border-b border-white/10 px-4">
           <Link href="/"><img src="/logo.png" alt="EduNova" className={`${sidebarOpen ? 'h-12' : 'h-8'} w-auto object-contain bg-white rounded p-1 transition-all`} /></Link>
         </div>
 
         <nav className="flex-grow py-6 space-y-2 px-3 overflow-y-auto">
+          {/* NOTE: Changed hrefs to /portal/student/... */}
           <Link href="/portal/student" className="flex items-center gap-4 px-4 py-3 bg-brand-royal rounded-lg font-medium"><LayoutDashboard size={20} />{sidebarOpen && <span>Dashboard</span>}</Link>
-          <Link href="/portal/classroom" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><PlayCircle size={20} />{sidebarOpen && <span>Live Classroom</span>}</Link>
-          <Link href="/courses" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><BookOpen size={20} />{sidebarOpen && <span>My Subjects</span>}</Link>
-          <Link href="/calendar" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Calendar size={20} />{sidebarOpen && <span>Timetable</span>}</Link>
-          <Link href="/portal/records" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><FileText size={20} />{sidebarOpen && <span>Assessments</span>}</Link>
-          <Link href="/ai-assistant" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold"><Bot size={20} />{sidebarOpen && <span>AI Assistant</span>}</Link>
-          <Link href="/community/student" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-sky"><Users size={20} />{sidebarOpen && <span>Community</span>}</Link>
+          <Link href="/portal/student/classroom" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><PlayCircle size={20} />{sidebarOpen && <span>Live Classroom</span>}</Link>
+          <Link href="/portal/student/subjects" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><BookOpen size={20} />{sidebarOpen && <span>My Subjects</span>}</Link>
+          <Link href="/portal/student/timetable" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Calendar size={20} />{sidebarOpen && <span>Timetable</span>}</Link>
+          <Link href="/portal/student/assessments" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><FileText size={20} />{sidebarOpen && <span>Assessments</span>}</Link>
+          <Link href="/portal/student/ai" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold"><Bot size={20} />{sidebarOpen && <span>AI Assistant</span>}</Link>
+          <Link href="/portal/student/community" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-sky"><Users size={20} />{sidebarOpen && <span>Community</span>}</Link>
         </nav>
 
         <div className="p-4 border-t border-white/10 space-y-2">
-          <Link href="/portal/settings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Settings size={20} />{sidebarOpen && <span>Settings</span>}</Link>
+          <Link href="/portal/student/settings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Settings size={20} />{sidebarOpen && <span>Settings</span>}</Link>
           <button onClick={handleLogout} className="w-full flex items-center gap-4 px-4 py-3 hover:bg-red-500/20 text-red-400 rounded-lg"><LogOut size={20} />{sidebarOpen && <span>Logout</span>}</button>
         </div>
       </aside>
@@ -81,7 +83,7 @@ export default function StudentDashboard() {
             <div className="relative z-10">
               <h1 className="text-3xl font-serif font-bold text-white mb-2">Welcome back, {user.first_name}!</h1>
               <p className="text-gray-300 mb-6 max-w-xl">You have 2 lessons scheduled for today. Your Mathematics tutor is waiting for you in the virtual classroom.</p>
-              <Link href="/portal/classroom" className="bg-brand-gold text-brand-navy px-6 py-3 rounded-sm font-bold inline-flex items-center gap-2 hover:bg-yellow-500 shadow-md">Join Next Lesson <ArrowRight size={18} /></Link>
+              <Link href="/portal/student/classroom" className="bg-brand-gold text-brand-navy px-6 py-3 rounded-sm font-bold inline-flex items-center gap-2 hover:bg-yellow-500 shadow-md">Join Next Lesson <ArrowRight size={18} /></Link>
             </div>
           </div>
 
@@ -105,18 +107,19 @@ export default function StudentDashboard() {
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-xl font-bold text-brand-navy">Today's Schedule</h2>
-                  <Link href="/calendar" className="text-sm text-brand-royal font-bold hover:underline">View Calendar</Link>
+                  {/* NOTE: Changed link to portal timetable */}
+                  <Link href="/portal/student/timetable" className="text-sm text-brand-royal font-bold hover:underline">View Calendar</Link>
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg hover:border-brand-royal transition-colors bg-brand-grey/50">
                     <div className="w-16 h-16 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0"><span className="text-xs font-bold uppercase">Today</span><span className="text-lg font-bold">14:00</span></div>
                     <div className="flex-grow"><h3 className="font-bold text-brand-navy">Mathematics: Calculus</h3><p className="text-sm text-gray-500">Tutor: Mr. T. Nkosi</p></div>
-                    <Link href="/portal/classroom" className="bg-brand-royal text-white px-4 py-2 rounded text-sm font-bold hover:bg-blue-700">Join</Link>
+                    <Link href="/portal/student/classroom" className="bg-brand-royal text-white px-4 py-2 rounded text-sm font-bold hover:bg-blue-700">Join</Link>
                   </div>
                   <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg hover:border-brand-royal transition-colors bg-brand-grey/50">
                     <div className="w-16 h-16 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0"><span className="text-xs font-bold uppercase">Today</span><span className="text-lg font-bold">16:30</span></div>
                     <div className="flex-grow"><h3 className="font-bold text-brand-navy">Physical Sciences: Mechanics</h3><p className="text-sm text-gray-500">Tutor: Dr. A. Smith</p></div>
-                    <Link href="/portal/classroom" className="bg-brand-royal text-white px-4 py-2 rounded text-sm font-bold hover:bg-blue-700">Join</Link>
+                    <Link href="/portal/student/classroom" className="bg-brand-royal text-white px-4 py-2 rounded text-sm font-bold hover:bg-blue-700">Join</Link>
                   </div>
                 </div>
               </div>
@@ -137,7 +140,7 @@ export default function StudentDashboard() {
                 <Bot className="absolute -bottom-4 -right-4 text-white/10" size={100} />
                 <h2 className="text-lg font-bold mb-2 relative z-10">Need Help?</h2>
                 <p className="text-sm text-gray-300 mb-4 relative z-10">Ask our AI assistant for instant explanations and practice questions.</p>
-                <Link href="/ai-assistant" className="bg-brand-gold text-brand-navy px-4 py-2 rounded text-sm font-bold hover:bg-yellow-500 relative z-10 inline-block">Ask AI Now</Link>
+                <Link href="/portal/student/ai" className="bg-brand-gold text-brand-navy px-4 py-2 rounded text-sm font-bold hover:bg-yellow-500 relative z-10 inline-block">Ask AI Now</Link>
               </div>
 
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
