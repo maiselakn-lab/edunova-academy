@@ -223,7 +223,6 @@ def get_parent_dashboard(current_user: models.User = Depends(get_current_user), 
     if current_user.role != "parent":
         raise HTTPException(status_code=403, detail="Access denied. Parent access only.")
     
-    # Query the linked children for this parent
     links = db.query(models.ParentChildLink).filter(models.ParentChildLink.parent_id == current_user.id).all()
     children = []
     for link in links:
@@ -253,9 +252,29 @@ def get_tutor_dashboard(current_user: models.User = Depends(get_current_user), d
     return {
         "tutor_name": f"{current_user.first_name} {current_user.last_name}",
         "pending_earnings": "R 4,250.00",
-        "upcoming_lessons": 3,
+        "upcoming_lessons": [
+            {
+                "id": 1,
+                "student_name": "Siphelele Blose",
+                "subject": "Mathematics: Calculus",
+                "time": "14:00",
+                "status": "ready"
+            },
+            {
+                "id": 2,
+                "student_name": "Lerato Ndlovu",
+                "subject": "Physical Sciences: Mechanics",
+                "time": "16:30",
+                "status": "waiting"
+            }
+        ],
         "active_students": 12,
-        "rating": "4.9/5.0"
+        "rating": "4.9/5.0",
+        "completed_lessons": 28,
+        "recent_assessments": [
+            {"student": "Siphelele B.", "subject": "Mathematics", "average": "85%"},
+            {"student": "Lerato N.", "subject": "Physical Sciences", "average": "72%"}
+        ]
     }
 
 # 9. Admin Dashboard Data (Real DB Stats)
