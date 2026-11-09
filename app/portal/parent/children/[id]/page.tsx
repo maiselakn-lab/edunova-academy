@@ -1,14 +1,12 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, User, FileText, CheckCircle2, Loader2 } from 'lucide-react';
 
-// Force dynamic rendering to fix the useParams prerender build error
-export const dynamic = 'force-dynamic';
-
-export default function ChildProfile() {
+// The actual component that uses useParams
+function ChildProfileContent() {
   const router = useRouter();
   const params = useParams();
   const childId = params.id;
@@ -69,7 +67,6 @@ export default function ChildProfile() {
         <ArrowLeft size={16} /> Back to My Children
       </Link>
 
-      {/* Profile Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-8 flex flex-col md:flex-row items-center gap-8">
         <div className="w-24 h-24 bg-brand-royal/10 text-brand-royal rounded-full flex items-center justify-center font-bold text-4xl shrink-0">
           {childData.name.charAt(0)}
@@ -83,7 +80,6 @@ export default function ChildProfile() {
         </div>
       </div>
 
-      {/* Academic Overview Cards */}
       <div className="grid md:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
           <FileText className="text-brand-royal mb-4" size={24} />
@@ -104,5 +100,19 @@ export default function ChildProfile() {
         </div>
       </div>
     </div>
+  );
+}
+
+// The wrapper component that uses Suspense
+export default function ChildProfile() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center py-20">
+        <Loader2 className="animate-spin text-brand-royal" size={32} />
+        <span className="ml-4 text-gray-500 font-medium">Loading profile...</span>
+      </div>
+    }>
+      <ChildProfileContent />
+    </Suspense>
   );
 }
