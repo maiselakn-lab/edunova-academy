@@ -88,6 +88,13 @@ class PostCreate(BaseModel):
     category: str
     post_type: str 
 
+class ReportCreate(BaseModel):
+    student_name: str
+    subject: str
+    topic_covered: str
+    student_performance: str
+    homework_assigned: str
+
 # --- HELPER FUNCTIONS ---
 
 def create_access_token(data: dict):
@@ -345,7 +352,6 @@ def get_child_profile(child_id: int, current_user: models.User = Depends(get_cur
     if current_user.role != "parent":
         raise HTTPException(status_code=403, detail="Only parents can access child profiles.")
     
-    # Check if this parent is linked to this specific child
     link = db.query(models.ParentChildLink).filter(
         models.ParentChildLink.parent_id == current_user.id,
         models.ParentChildLink.learner_id == child_id
@@ -398,6 +404,45 @@ def get_posts(post_type: str, db: Session = Depends(get_db)):
             "created_at": p.created_at.strftime("%Y-%m-%d %H:%M")
         })
     return result
+
+# --- LESSON REPORTING ROUTES ---
+
+@app.post("/api/tutor/reports")
+def submit_report(report: ReportCreate, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "tutor":
+        raise HTTPException(status_code=403, detail="Only tutors can submit reports.")
+    
+    new_report = models.LessonReport(
+        tutor_id=current_user.id,
+        student_name=report.student_name,
+        subject=report.subject,
+        topic_covered=report.topic_covered,
+        student_performance=report.student_performance,
+        homework_assigned=report.homework_assigned
+    )
+    db.add(new_report)
+    db.commit()
+    db.refresh(new_report)
+    return {"message": "Report submitted successfully", "report_id": new_report.id}
+
+@app.get("/api/tutor/reports")
+def get_my_reports(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "tutor":
+        raise HTTPException(status_code=403, detail="Only tutors can view their reports.")
+    
+    reports = db.query(models.LessonReport).filter(models.LessonReport.tutor_id == current_user.id).order_by(models.LessonReport.created_at.desc()).all()
+    
+    return [
+        {
+            "id": r.id,
+            "student_name": r.student_name,
+            "subject": r.subject,
+            "topic": r.topic_covered,
+            "performance": r.student_performance,
+            "homework": r.homework_assigned,
+            "date": r.created_at.strftime("%Y-%m-%d")
+        } for r in reports
+    ]
 
 # 11. AI Tutor
 @app.post("/api/chat")
