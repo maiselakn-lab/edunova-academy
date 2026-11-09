@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { ArrowRight, Mail, Globe, Quote, Award, Briefcase } from 'lucide-react';
+import { Mail, Globe, Quote, Briefcase, Award, Linkedin } from 'lucide-react';
 
 export default function Leadership() {
   const executives = [
@@ -8,19 +8,19 @@ export default function Leadership() {
       name: "Prof. Thandi Mokoena", 
       role: "Academic Director", 
       bio: "Former Dean of Education at a leading South African university. Expert in CAPS and IEB curriculum design.", 
-      img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" 
+      img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" 
     },
     { 
       name: "Mr. Johan van der Merwe", 
       role: "Chief Technology Officer", 
       bio: "Architect of the AcadCoreOS ecosystem and driving force behind EduNova's AI integration.", 
-      img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop" 
+      img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800&auto=format&fit=crop" 
     },
     { 
       name: "Mrs. Sarah Ndlovu", 
       role: "Head of Institutional Partnerships", 
       bio: "Over 15 years of experience in B2B educational partnerships and school management across South Africa.", 
-      img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop" 
+      img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop" 
     },
   ];
 
@@ -38,34 +38,44 @@ export default function Leadership() {
 
       {/* Founder Section (Featured) */}
       <section className="py-24 max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 w-full">
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden flex flex-col lg:flex-row">
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden flex flex-col lg:flex-row relative">
           
           {/* Founder Image */}
-          <div className="lg:w-1/3 bg-brand-navy relative min-h-[400px]">
-            {/* Replace with your real photo */}
+          <div className="lg:w-5/12 relative min-h-[500px]">
+            {/* Ensure 'founder.png' is in your public folder */}
             <img 
-              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop" 
+              src="/founder.png" 
               alt="Maisela Kholofelo Norman" 
-              className="absolute inset-0 w-full h-full object-cover object-center"
+              className="absolute inset-0 w-full h-full object-cover object-top"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-transparent to-transparent opacity-80"></div>
+            {/* Premium Overlay Text on the Image */}
+            <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0B132B] via-[#0B132B]/80 to-transparent pt-20 pb-6 px-6">
+               <div className="border-l-4 border-brand-gold pl-4">
+                  <h3 className="text-white font-bold text-xl">Maisela Kholofelo Norman</h3>
+                  <p className="text-brand-gold text-sm font-bold">Founder & Strategic Director</p>
+               </div>
+            </div>
           </div>
 
           {/* Founder Message */}
-          <div className="lg:w-2/3 p-10 lg:p-16 flex flex-col justify-center relative">
-            <Quote className="absolute top-10 right-10 text-gray-100" size={120} />
+          <div className="lg:w-7/12 p-10 lg:p-16 flex flex-col justify-center relative">
+            <Quote className="absolute top-10 right-10 text-gray-50" size={140} />
             
             <div className="relative z-10">
-              <p className="text-brand-royal font-bold tracking-widest uppercase text-sm mb-2">Meet the Founder</p>
-              <h2 className="text-4xl font-serif font-bold text-brand-navy mb-2">Maisela Kholofelo Norman</h2>
-              <p className="text-lg font-bold text-gray-600 mb-6">Founder & Strategic Director</p>
+              <p className="text-brand-royal font-bold tracking-widest uppercase text-sm mb-2">A Message from the Founder</p>
               
-              <div className="prose prose-lg text-gray-600 mb-8">
+              <div className="prose prose-lg text-gray-600 mb-8 mt-6">
                 <p className="mb-4">
-                  Maisela Kholofelo Norman is the Founder and Strategic Director of Think EduNova Academy. With a Master's degree and an academic background in Electronic Engineering, he combines technical problem-solving with a deep passion for educational transformation.
+                  "I founded Think EduNova Academy because I believe education has the power to change individual lives, strengthen communities and contribute to the development of society.
                 </p>
-                <p className="italic border-l-4 border-brand-gold pl-4 py-1 text-brand-navy font-medium bg-brand-grey/50 rounded-r-lg">
-                  "Education has the power to change individual lives, strengthen communities, and contribute to the development of society. Think EduNova Academy represents a long-term commitment to developing people, unlocking potential, and transforming the future of education."
+                <p className="mb-4">
+                  My academic and professional journey has taught me the importance of knowledge, innovation, discipline and continuous development. I want to bring these principles into an education platform that does more than deliver lessons.
+                </p>
+                <p className="mb-4">
+                  Our ambition is to create an environment where learners can access quality academic support, educators can share their expertise, graduates can find meaningful opportunities and institutions can benefit from modern educational technology.
+                </p>
+                <p className="font-bold text-brand-navy">
+                  Think EduNova Academy represents a long-term commitment to developing people, unlocking potential and transforming the future of education."
                 </p>
               </div>
 
@@ -92,11 +102,11 @@ export default function Leadership() {
         <div className="grid md:grid-cols-3 gap-8">
           {executives.map((exec, i) => (
             <div key={i} className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden group">
-              <div className="h-64 overflow-hidden">
+              <div className="h-72 overflow-hidden relative">
                 <img 
                   src={exec.img} 
                   alt={exec.name} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" 
                 />
               </div>
               <div className="p-8 text-center">
