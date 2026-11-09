@@ -468,6 +468,33 @@ def get_admin_finance(current_user: models.User = Depends(get_current_user), db:
         ]
     }
 
+# --- ADMIN LIVE MONITOR ---
+@app.get("/api/admin/live-sessions")
+def get_live_sessions(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
+    
+    return [
+        {
+            "id": 1,
+            "tutor_name": "Mr. T. Nkosi",
+            "student_name": "Siphelele Blose",
+            "subject": "Mathematics: Calculus",
+            "started_at": "14:00",
+            "duration": "25 mins",
+            "status": "active"
+        },
+        {
+            "id": 2,
+            "tutor_name": "Mrs. K. Zulu",
+            "student_name": "Lerato Ndlovu",
+            "subject": "English Literature",
+            "started_at": "14:15",
+            "duration": "10 mins",
+            "status": "active"
+        }
+    ]
+
 # 11. AI Tutor
 @app.post("/api/chat")
 async def chat_with_tutor(request: ChatRequest):
