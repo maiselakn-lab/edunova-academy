@@ -6,20 +6,16 @@ import { useRouter } from 'next/navigation';
 import { 
   LayoutDashboard, Users, CreditCard, Calendar, MessageSquare, 
   Settings, LogOut, Bell, Menu, ArrowRight, CheckCircle, 
-  Clock, FileText, Award, TrendingUp, Download, Plus, BarChart3
+  Clock, FileText, Award, TrendingUp, Download, Plus, BarChart3, UserPlus
 } from 'lucide-react';
 
 export default function ParentDashboard() {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [user, setUser] = useState<any>(null);
-  const [selectedChild, setSelectedChild] = useState("Thabo");
+  const [children, setChildren] = useState<any[]>([]);
+  const [selectedChild, setSelectedChild] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  const children = [
-    { name: "Thabo", grade: "Grade 11", school: "Pretoria Boys High", avatar: "T" },
-    { name: "Lerato", grade: "Grade 8", school: "Pretoria High School for Girls", avatar: "L" }
-  ];
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -27,7 +23,26 @@ export default function ParentDashboard() {
       const userData = localStorage.getItem('edunova_user');
       if (!token || !userData) { router.replace('/login/parent'); return; }
       setUser(JSON.parse(userData));
-      setIsLoading(false);
+
+      const fetchData = async () => {
+        try {
+          const response = await fetch('https://edunova-academy-qkk5.onrender.com/api/parent/dashboard', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setChildren(data.children);
+            if (data.children.length > 0) {
+              setSelectedChild(data.children[0]);
+            }
+          }
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchData();
     }
   }, [router]);
 
@@ -45,7 +60,6 @@ export default function ParentDashboard() {
         </div>
 
         <nav className="flex-grow py-6 space-y-2 px-3 overflow-y-auto">
-          {/* FIXED: All internal portal routing */}
           <Link href="/portal/parent" className="flex items-center gap-4 px-4 py-3 bg-brand-royal rounded-lg font-medium"><LayoutDashboard size={20} />{sidebarOpen && <span>Dashboard</span>}</Link>
           <Link href="/portal/parent/children" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Users size={20} />{sidebarOpen && <span>My Children</span>}</Link>
           <Link href="/portal/parent/progress" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><FileText size={20} />{sidebarOpen && <span>Academic Progress</span>}</Link>
@@ -80,101 +94,100 @@ export default function ParentDashboard() {
 
         <div className="flex-grow overflow-y-auto p-8">
           
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-            <div>
-              <h1 className="text-3xl font-serif font-bold text-brand-navy mb-2">Parent Dashboard</h1>
-              <p className="text-gray-600">Monitoring the academic progress of your children.</p>
+          {/* If No Children Are Linked */}
+          {children.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full min-h-[50vh] bg-white rounded-2xl border border-gray-200 shadow-sm text-center p-8">
+              <div className="w-20 h-20 bg-brand-royal/10 text-brand-royal rounded-full flex items-center justify-center mb-6"><UserPlus size={40} /></div>
+              <h2 className="text-2xl font-serif font-bold text-brand-navy mb-2">No Children Linked Yet</h2>
+              <p className="text-gray-500 mb-8 max-w-md">To monitor your child's progress, you need to link their Learner account to your Parent profile.</p>
+              <Link href="/portal/parent/children" className="bg-brand-royal text-white px-8 py-3 rounded font-bold flex items-center gap-2 hover:bg-blue-700">
+                <Plus size={18} /> Link a Child Account
+              </Link>
             </div>
-            <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-2 flex items-center gap-2">
-              <span className="text-sm font-bold text-gray-500 pl-2">Viewing:</span>
-              {children.map((child) => (
-                <button key={child.name} onClick={() => setSelectedChild(child.name)} className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${selectedChild === child.name ? 'bg-brand-royal text-white shadow-sm' : 'hover:bg-brand-grey text-brand-navy'}`}>
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${selectedChild === child.name ? 'bg-white text-brand-royal' : 'bg-brand-royal text-white'}`}>{child.avatar}</div>
-                  {child.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="bg-brand-navy rounded-2xl p-8 text-white mb-8 relative overflow-hidden shadow-lg">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-royal/20 rounded-bl-full -mr-10 -mt-10"></div>
-            <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-3xl font-serif font-bold text-white">{selectedChild}'s Overview</h2>
-                  <span className="bg-brand-gold/20 text-brand-gold text-xs font-bold px-2 py-1 rounded border border-brand-gold/30">{children.find(c => c.name === selectedChild)?.grade}</span>
+          ) : (
+            <>
+              {/* Child Selector */}
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                <div>
+                  <h1 className="text-3xl font-serif font-bold text-brand-navy mb-2">Parent Dashboard</h1>
+                  <p className="text-gray-600">Monitoring the academic progress of your children.</p>
                 </div>
-                <p className="text-gray-300">School: {children.find(c => c.name === selectedChild)?.school}</p>
-              </div>
-              <div className="flex gap-4">
-                <div className="bg-white/10 rounded-lg p-3 text-center min-w-[100px] border border-white/10"><p className="text-sm text-gray-300 font-medium">Average</p><p className="text-xl font-bold text-brand-gold">82%</p></div>
-                <div className="bg-white/10 rounded-lg p-3 text-center min-w-[100px] border border-white/10"><p className="text-sm text-gray-300 font-medium">Attendance</p><p className="text-xl font-bold text-brand-teal">98%</p></div>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
-              <div className="w-12 h-12 bg-brand-royal/10 text-brand-royal rounded-full flex items-center justify-center"><Calendar size={24} /></div>
-              <div><p className="text-sm text-gray-500 font-medium">Upcoming Lessons</p><p className="text-2xl font-bold text-brand-navy">2 This Week</p></div>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
-              <div className="w-12 h-12 bg-brand-gold/10 text-brand-gold rounded-full flex items-center justify-center"><Award size={24} /></div>
-              <div><p className="text-sm text-gray-500 font-medium">Certificates Earned</p><p className="text-2xl font-bold text-brand-navy">3</p></div>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
-              <div className="w-12 h-12 bg-brand-teal/10 text-brand-teal rounded-full flex items-center justify-center"><TrendingUp size={24} /></div>
-              <div><p className="text-sm text-gray-500 font-medium">Class Rank</p><p className="text-2xl font-bold text-brand-navy">Top 10%</p></div>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 space-y-8">
-              <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-                <h2 className="text-xl font-bold text-brand-navy mb-6 flex items-center gap-2"><BarChart3 size={20}/> Subject Performance</h2>
-                <div className="h-48 bg-brand-grey rounded-lg flex items-end justify-between p-4 gap-4">
-                  {[85, 72, 90, 65, 78, 88].map((h, i) => (
-                    <div key={i} className="w-full bg-brand-royal/80 rounded-t hover:bg-brand-royal transition-colors" style={{ height: `${h}%` }}></div>
+                <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-2 flex items-center gap-2">
+                  <span className="text-sm font-bold text-gray-500 pl-2">Viewing:</span>
+                  {children.map((child) => (
+                    <button key={child.id} onClick={() => setSelectedChild(child)} className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${selectedChild?.id === child.id ? 'bg-brand-royal text-white shadow-sm' : 'hover:bg-brand-grey text-brand-navy'}`}>
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${selectedChild?.id === child.id ? 'bg-white text-brand-royal' : 'bg-brand-royal text-white'}`}>{child.name.charAt(0)}</div>
+                      {child.name}
+                    </button>
                   ))}
                 </div>
-                <div className="flex justify-between text-xs text-gray-400 mt-2 font-bold px-2"><span>Maths</span><span>Physics</span><span>English</span><span>History</span><span>Bio</span><span>Art</span></div>
               </div>
 
-              <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-                <h2 className="text-xl font-bold text-brand-navy mb-6">Recent Tutor Feedback</h2>
-                <div className="space-y-4">
-                  <div className="p-4 border border-gray-100 rounded-lg bg-brand-grey/30">
-                    <div className="flex justify-between items-start mb-2">
-                      <div><h3 className="font-bold text-brand-navy">Mathematics: Calculus</h3><p className="text-xs text-gray-500">Tutor: Mr. T. Nkosi • Yesterday</p></div>
-                      <span className="bg-brand-teal/10 text-brand-teal text-xs font-bold px-2 py-1 rounded">Excellent</span>
+              {/* Selected Child Overview */}
+              <div className="bg-brand-navy rounded-2xl p-8 text-white mb-8 relative overflow-hidden shadow-lg">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-royal/20 rounded-bl-full -mr-10 -mt-10"></div>
+                <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                  <div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <h2 className="text-3xl font-serif font-bold text-white">{selectedChild?.name}'s Overview</h2>
+                      <span className="bg-brand-gold/20 text-brand-gold text-xs font-bold px-2 py-1 rounded border border-brand-gold/30">{selectedChild?.grade}</span>
                     </div>
-                    <p className="text-sm text-gray-600 mt-2">"{selectedChild} showed great improvement today. Grasped the chain rule quickly and completed all practice exercises with 100% accuracy."</p>
+                    <p className="text-gray-300">School: {selectedChild?.school}</p>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="bg-white/10 rounded-lg p-3 text-center min-w-[100px] border border-white/10"><p className="text-sm text-gray-300 font-medium">Average</p><p className="text-xl font-bold text-brand-gold">{selectedChild?.average}</p></div>
+                    <div className="bg-white/10 rounded-lg p-3 text-center min-w-[100px] border border-white/10"><p className="text-sm text-gray-300 font-medium">Attendance</p><p className="text-xl font-bold text-brand-teal">{selectedChild?.attendance}</p></div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="space-y-8">
-              <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-                <h2 className="text-lg font-bold text-brand-navy mb-4 flex items-center gap-2"><CreditCard className="text-brand-royal" size={20} /> Billing</h2>
-                <div className="space-y-4 mb-6">
-                  <div className="flex justify-between items-center border-b border-gray-100 pb-2"><span className="text-sm text-gray-500">Outstanding Balance</span><span className="font-bold text-red-500">R450.00</span></div>
-                  <div className="flex justify-between items-center border-b border-gray-100 pb-2"><span className="text-sm text-gray-500">Next Invoice</span><span className="font-bold text-brand-navy">25 March 2026</span></div>
-                </div>
-                <Link href="/portal/parent/billing" className="w-full block text-center bg-brand-navy text-white px-4 py-2 rounded text-sm font-bold hover:bg-opacity-90 mb-3">Pay Now</Link>
-                <Link href="/portal/parent/billing" className="w-full text-center border border-gray-300 text-gray-600 px-4 py-2 rounded text-sm font-bold hover:bg-gray-100 flex items-center justify-center gap-2"><Download size={14}/> Statement</Link>
-              </div>
+              {/* The Rest of the Dashboard */}
+              <div className="grid lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2 space-y-8">
+                  <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+                    <h2 className="text-xl font-bold text-brand-navy mb-6 flex items-center gap-2"><BarChart3 size={20}/> Subject Performance</h2>
+                    <div className="h-48 bg-brand-grey rounded-lg flex items-end justify-between p-4 gap-4">
+                      {[85, 72, 90, 65, 78, 88].map((h, i) => (
+                        <div key={i} className="w-full bg-brand-royal/80 rounded-t hover:bg-brand-royal transition-colors" style={{ height: `${h}%` }}></div>
+                      ))}
+                    </div>
+                    <div className="flex justify-between text-xs text-gray-400 mt-2 font-bold px-2"><span>Maths</span><span>Physics</span><span>English</span><span>History</span><span>Bio</span><span>Art</span></div>
+                  </div>
 
-              <div className="bg-brand-navy rounded-xl shadow-sm p-6 text-white">
-                <h2 className="text-lg font-bold mb-4">Quick Actions</h2>
-                <div className="space-y-3">
-                  <Link href="/portal/parent/bookings" className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">Book a Lesson <ArrowRight size={16} /></Link>
-                  <Link href="/portal/parent/children" className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">Update Child Profile <ArrowRight size={16} /></Link>
-                  <Link href="/portal/parent/progress" className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">Download Report <ArrowRight size={16} /></Link>
+                  <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+                    <h2 className="text-xl font-bold text-brand-navy mb-6">Recent Tutor Feedback</h2>
+                    <div className="p-4 border border-gray-100 rounded-lg bg-brand-grey/30">
+                      <div className="flex justify-between items-start mb-2">
+                        <div><h3 className="font-bold text-brand-navy">Mathematics: Calculus</h3><p className="text-xs text-gray-500">Tutor: Mr. T. Nkosi • Yesterday</p></div>
+                        <span className="bg-brand-teal/10 text-brand-teal text-xs font-bold px-2 py-1 rounded">Excellent</span>
+                      </div>
+                      <p className="text-sm text-gray-600 mt-2">"{selectedChild?.name} showed great improvement today. Grasped the chain rule quickly and completed all practice exercises with 100% accuracy."</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-8">
+                  <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+                    <h2 className="text-lg font-bold text-brand-navy mb-4 flex items-center gap-2"><CreditCard className="text-brand-royal" size={20} /> Billing</h2>
+                    <div className="space-y-4 mb-6">
+                      <div className="flex justify-between items-center border-b border-gray-100 pb-2"><span className="text-sm text-gray-500">Outstanding Balance</span><span className="font-bold text-red-500">R450.00</span></div>
+                      <div className="flex justify-between items-center border-b border-gray-100 pb-2"><span className="text-sm text-gray-500">Next Invoice</span><span className="font-bold text-brand-navy">25 March 2026</span></div>
+                    </div>
+                    <Link href="/portal/parent/billing" className="w-full block text-center bg-brand-navy text-white px-4 py-2 rounded text-sm font-bold hover:bg-opacity-90 mb-3">Pay Now</Link>
+                  </div>
+
+                  <div className="bg-brand-navy rounded-xl shadow-sm p-6 text-white">
+                    <h2 className="text-lg font-bold mb-4">Quick Actions</h2>
+                    <div className="space-y-3">
+                      <Link href="/portal/parent/bookings" className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">Book a Lesson <ArrowRight size={16} /></Link>
+                      <Link href="/portal/parent/children" className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">Manage Children <ArrowRight size={16} /></Link>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
+
         </div>
       </main>
     </div>
