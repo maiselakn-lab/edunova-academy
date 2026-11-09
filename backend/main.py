@@ -217,18 +217,31 @@ def get_student_dashboard(current_user: models.User = Depends(get_current_user),
         ]
     }
 
-# 7. Parent Dashboard Data
+# 7. Parent Dashboard Data (WITH REAL LINKED CHILDREN)
 @app.get("/api/parent/dashboard")
 def get_parent_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "parent":
         raise HTTPException(status_code=403, detail="Access denied. Parent access only.")
     
+    # Query the linked children for this parent
+    links = db.query(models.ParentChildLink).filter(models.ParentChildLink.parent_id == current_user.id).all()
+    children = []
+    for link in links:
+        children.append({
+            "id": link.learner.id,
+            "name": link.learner.first_name,
+            "surname": link.learner.last_name,
+            "email": link.learner.email,
+            # Mock data for now - later this will be real grades from a database
+            "grade": "Grade 11",
+            "school": "Pretoria Boys High",
+            "average": "82%",
+            "attendance": "98%"
+        })
+    
     return {
         "parent_name": f"{current_user.first_name} {current_user.last_name}",
-        "children": [
-            {"name": "Thabo", "grade": "Grade 11", "school": "Pretoria Boys High", "average": "82%", "attendance": "98%"},
-            {"name": "Lerato", "grade": "Grade 8", "school": "Pretoria Girls High", "average": "76%", "attendance": "95%"}
-        ],
+        "children": children,
         "outstanding_balance": "R450.00"
     }
 
@@ -261,6 +274,43 @@ def get_admin_dashboard(current_user: models.User = Depends(get_current_user), d
         "total_schools": total_schools,
         "system_status": "Online"
     }
+
+# --- PARENT-CHILD LINKING ROUTES ---
+
+@app.post("/api/parent/link-child")
+def link_child(learner_email: str, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "parent":
+        raise HTTPException(status_code=403, detail="Only parents can link children.")
+    
+    # Find the learner
+    learner = db.query(models.User).filter(models.User.email == learner_email, models.User.role == "learner").first()
+    if not learner:
+        raise HTTPException(status_code=404, detail="No learner found with that email.")
+    
+    # Check if already linked
+    existing = db.query(models.ParentChildLink).filter(
+        models.ParentChildLink.parent_id == current_user.id,
+        models.ParentChildLink.learner_id == learner.id
+    ).first()
+    if existing:
+        raise HTTPException(status_code=400, detail="This learner is already linked to your account.")
+    
+    # Create the link
+    new_link = models.ParentChildLink(parent_id=current_user.id, learner_id=learner.id)
+    db.add(new_link)
+    db.commit()
+    
+    return {"message": f"Successfully linked to {learner.first_name} {learner.last_name}."}
+
+@app.get("/api/parent/children")
+def get_linked_children(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "parent":
+        raise HTTPException(status_code=403, detail="Only parents can view children.")
+    
+    links = db.query(models.ParentChildLink).filter(models.ParentChildLink.parent_id == current_user.id).all()
+    children = [{"name": link.learner.first_name, "surname": link.learner.last_name, "email": link.learner.email, "role": "learner"} for link in links]
+    
+    return {"children": children}
 
 # 10. AI Tutor
 @app.post("/api/chat")
