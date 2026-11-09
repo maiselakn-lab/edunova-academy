@@ -82,6 +82,12 @@ class SchoolCreate(BaseModel):
     name: str
     address: str
 
+class PostCreate(BaseModel):
+    title: str
+    content: str
+    category: str
+    post_type: str 
+
 # --- HELPER FUNCTIONS ---
 
 def create_access_token(data: dict):
@@ -253,20 +259,8 @@ def get_tutor_dashboard(current_user: models.User = Depends(get_current_user), d
         "tutor_name": f"{current_user.first_name} {current_user.last_name}",
         "pending_earnings": "R 4,250.00",
         "upcoming_lessons": [
-            {
-                "id": 1,
-                "student_name": "Siphelele Blose",
-                "subject": "Mathematics: Calculus",
-                "time": "14:00",
-                "status": "ready"
-            },
-            {
-                "id": 2,
-                "student_name": "Lerato Ndlovu",
-                "subject": "Physical Sciences: Mechanics",
-                "time": "16:30",
-                "status": "waiting"
-            }
+            {"id": 1, "student_name": "Siphelele Blose", "subject": "Mathematics: Calculus", "time": "14:00", "status": "ready"},
+            {"id": 2, "student_name": "Lerato Ndlovu", "subject": "Physical Sciences: Mechanics", "time": "16:30", "status": "waiting"}
         ],
         "active_students": 12,
         "rating": "4.9/5.0",
@@ -277,7 +271,7 @@ def get_tutor_dashboard(current_user: models.User = Depends(get_current_user), d
         ]
     }
 
-# 9. Admin Dashboard Data (Real DB Stats)
+# 9. Admin Dashboard Data
 @app.get("/api/admin/dashboard")
 def get_admin_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "admin":
@@ -308,11 +302,7 @@ def get_learner_dashboard(current_user: models.User = Depends(get_current_user),
             {"subject": "Natural Sciences", "title": "Photosynthesis Worksheet", "due": "Today at 17:00", "status": "urgent"},
             {"subject": "Mathematics", "title": "Fractions Practice", "due": "Tomorrow at 08:00", "status": "pending"}
         ],
-        "today_class": {
-            "subject": "English Literature",
-            "time": "14:00 - 15:00",
-            "tutor": "Mrs. K. Zulu"
-        }
+        "today_class": {"subject": "English Literature", "time": "14:00 - 15:00", "tutor": "Mrs. K. Zulu"}
     }
 
 # --- PARENT-CHILD LINKING ROUTES ---
@@ -348,6 +338,39 @@ def get_linked_children(current_user: models.User = Depends(get_current_user), d
     children = [{"name": link.learner.first_name, "surname": link.learner.last_name, "email": link.learner.email, "role": "learner"} for link in links]
     
     return {"children": children}
+
+# --- COMMUNITY FORUM ROUTES ---
+
+@app.post("/api/community/posts")
+def create_post(post: PostCreate, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    new_post = models.CommunityPost(
+        author_id=current_user.id,
+        title=post.title,
+        content=post.content,
+        category=post.category,
+        post_type=post.post_type
+    )
+    db.add(new_post)
+    db.commit()
+    db.refresh(new_post)
+    return {"message": "Post created successfully", "post_id": new_post.id}
+
+@app.get("/api/community/posts/{post_type}")
+def get_posts(post_type: str, db: Session = Depends(get_db)):
+    posts = db.query(models.CommunityPost).filter(models.CommunityPost.post_type == post_type).order_by(models.CommunityPost.created_at.desc()).all()
+    
+    result = []
+    for p in posts:
+        result.append({
+            "id": p.id,
+            "title": p.title,
+            "content": p.content,
+            "category": p.category,
+            "author_name": f"{p.author.first_name} {p.author.last_name}",
+            "author_role": p.author.role,
+            "created_at": p.created_at.strftime("%Y-%m-%d %H:%M")
+        })
+    return result
 
 # 11. AI Tutor
 @app.post("/api/chat")
