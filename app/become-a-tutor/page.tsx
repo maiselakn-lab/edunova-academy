@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { ArrowRight, Briefcase, Heart, Laptop, PenTool, Video, Megaphone, Users, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Heart, Laptop, PenTool, Video, Megaphone, CheckCircle2, UserPlus } from 'lucide-react';
 
 export default function CareersHub() {
   const positions = [
@@ -56,7 +56,7 @@ export default function CareersHub() {
               <a href="#open-roles" className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold text-lg hover:bg-yellow-500 transition-all inline-flex items-center justify-center gap-2 shadow-lg">
                 View Open Roles <ArrowRight size={20} />
               </a>
-              <Link href="/careers/volunteer" className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-white hover:text-brand-navy transition-all text-center">
+              <Link href="#volunteer" className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-white hover:text-brand-navy transition-all text-center">
                 Become a Volunteer
               </Link>
             </div>
@@ -78,13 +78,13 @@ export default function CareersHub() {
                 <div className={`bg-brand-grey p-4 rounded-xl ${role.color}`}>
                   {role.icon}
                 </div>
-                <div className="flex-grow">
+                <div className="flex-grow flex flex-col h-full">
                   <div className="flex justify-between items-center mb-2">
                     <h3 className="text-2xl font-serif font-bold text-brand-navy">{role.title}</h3>
                     <span className="bg-brand-grey text-gray-600 text-xs font-bold px-3 py-1 rounded-full">{role.type}</span>
                   </div>
-                  <p className="text-gray-600 mb-6">{role.desc}</p>
-                  <Link href={role.href} className="text-brand-royal font-bold text-sm uppercase tracking-wider hover:underline flex items-center gap-2">
+                  <p className="text-gray-600 mb-6 flex-grow">{role.desc}</p>
+                  <Link href={role.href} className="mt-auto inline-flex items-center gap-2 bg-brand-navy text-white px-6 py-3 rounded font-bold hover:bg-opacity-90 transition-colors w-fit">
                     Apply Now <ArrowRight size={16} />
                   </Link>
                 </div>
@@ -95,7 +95,7 @@ export default function CareersHub() {
       </section>
 
       {/* Volunteer Section */}
-      <section className="py-24 bg-white">
+      <section id="volunteer" className="py-24 bg-white">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
           <div className="bg-brand-navy rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row">
             <div className="lg:w-1/2 p-12 lg:p-16 flex flex-col justify-center">
@@ -109,12 +109,17 @@ export default function CareersHub() {
                 <li className="flex items-center gap-3 text-gray-200"><CheckCircle2 className="text-brand-teal" size={20}/> Receive a certificate of service</li>
                 <li className="flex items-center gap-3 text-gray-200"><CheckCircle2 className="text-brand-teal" size={20}/> Make a real impact on a child's future</li>
               </ul>
-              <Link href="/careers/volunteer" className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold text-lg hover:bg-yellow-500 transition-all inline-flex items-center gap-2 shadow-lg w-fit">
+              <Link href="/careers/apply?role=volunteer" className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold text-lg hover:bg-yellow-500 transition-all inline-flex items-center gap-2 shadow-lg w-fit">
                 Apply to Volunteer <ArrowRight size={20} />
               </Link>
             </div>
             <div className="lg:w-1/2 relative min-h-[400px]">
-              <img src="https://images.unsplash.com/photo-1593113589914-07599018dd2a?q=80&w=2070&auto=format&fit=crop" alt="Volunteers" className="absolute inset-0 w-full h-full object-cover" />
+              {/* FIXED: Replaced broken image URL with a reliable one */}
+              <img 
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" 
+                alt="Volunteers collaborating" 
+                className="absolute inset-0 w-full h-full object-cover" 
+              />
             </div>
           </div>
         </div>
@@ -128,7 +133,7 @@ export default function CareersHub() {
             <p className="text-lg text-gray-600">We maintain rigorous standards for all academic staff.</p>
           </div>
           
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 mb-12">
             {[
               { step: "01", title: "Application", desc: "Submit your CV and qualifications." },
               { step: "02", title: "Verification", desc: "We verify your academic credentials." },
@@ -142,6 +147,12 @@ export default function CareersHub() {
                 <p className="text-sm text-gray-600 relative z-10">{item.desc}</p>
               </div>
             ))}
+          </div>
+
+          <div className="text-center">
+            <Link href="/become-a-tutor/apply" className="bg-brand-royal text-white px-8 py-4 rounded-sm font-bold text-lg hover:bg-blue-700 transition-all inline-flex items-center gap-2 shadow-lg">
+              Start Your Tutor Application <UserPlus size={20} />
+            </Link>
           </div>
         </div>
       </section>
