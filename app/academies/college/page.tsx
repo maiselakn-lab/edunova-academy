@@ -30,29 +30,29 @@ export default function CollegeAcademy() {
       <section className="py-24 bg-brand-grey">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 space-y-12">
           
-          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-            <h2 className="text-2xl font-bold text-brand-navy mb-6 flex items-center gap-2"><Cpu className="text-brand-royal"/> National Certificate (Vocational)</h2>
+          <div className="bg-brand-navy p-8 rounded-xl shadow-lg text-white">
+            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-white"><Cpu className="text-brand-gold"/> National Certificate (Vocational)</h2>
             <div className="grid md:grid-cols-3 gap-4">
               {ncvtPrograms.map((prog, i) => (
-                <div key={i} className="flex items-center gap-2 bg-brand-grey p-3 rounded"><CheckCircle2 className="text-brand-teal shrink-0" size={16} /><span className="text-sm font-medium">{prog}</span></div>
+                <div key={i} className="flex items-center gap-2 bg-white/10 p-3 rounded"><CheckCircle2 className="text-brand-teal shrink-0" size={16} /><span className="text-sm font-medium text-white">{prog}</span></div>
               ))}
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-            <h2 className="text-2xl font-bold text-brand-navy mb-6 flex items-center gap-2"><Presentation className="text-brand-royal"/> NATED / Report 191 Programmes</h2>
+          <div className="bg-brand-navy p-8 rounded-xl shadow-lg text-white">
+            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-white"><Presentation className="text-brand-gold"/> NATED / Report 191 Programmes</h2>
             <div className="grid md:grid-cols-3 gap-4">
               {natedPrograms.map((prog, i) => (
-                <div key={i} className="flex items-center gap-2 bg-brand-grey p-3 rounded"><CheckCircle2 className="text-brand-teal shrink-0" size={16} /><span className="text-sm font-medium">{prog}</span></div>
+                <div key={i} className="flex items-center gap-2 bg-white/10 p-3 rounded"><CheckCircle2 className="text-brand-teal shrink-0" size={16} /><span className="text-sm font-medium text-white">{prog}</span></div>
               ))}
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-            <h2 className="text-2xl font-bold text-brand-navy mb-6 flex items-center gap-2"><Wrench className="text-brand-royal"/> Trade & Artisan Training</h2>
+          <div className="bg-brand-navy p-8 rounded-xl shadow-lg text-white">
+            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-white"><Wrench className="text-brand-gold"/> Trade & Artisan Training</h2>
             <div className="grid md:grid-cols-3 gap-4">
               {trades.map((prog, i) => (
-                <div key={i} className="flex items-center gap-2 bg-brand-grey p-3 rounded"><CheckCircle2 className="text-brand-teal shrink-0" size={16} /><span className="text-sm font-medium">{prog}</span></div>
+                <div key={i} className="flex items-center gap-2 bg-white/10 p-3 rounded"><CheckCircle2 className="text-brand-teal shrink-0" size={16} /><span className="text-sm font-medium text-white">{prog}</span></div>
               ))}
             </div>
           </div>

@@ -42,13 +42,11 @@ export default function Leadership() {
           
           {/* Founder Image */}
           <div className="lg:w-5/12 relative min-h-[500px]">
-            {/* Ensure 'founder.png' is in your public folder */}
             <img 
               src="/founder.png" 
               alt="Maisela Kholofelo Norman" 
               className="absolute inset-0 w-full h-full object-cover object-top"
             />
-            {/* Premium Overlay Text on the Image */}
             <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0B132B] via-[#0B132B]/80 to-transparent pt-20 pb-6 px-6">
                <div className="border-l-4 border-brand-gold pl-4">
                   <h3 className="text-white font-bold text-xl">Maisela Kholofelo Norman</h3>
@@ -101,7 +99,7 @@ export default function Leadership() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {executives.map((exec, i) => (
-            <div key={i} className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden group">
+            <div key={i} className="bg-brand-navy rounded-2xl shadow-lg border border-brand-navyLight overflow-hidden group">
               <div className="h-72 overflow-hidden relative">
                 <img 
                   src={exec.img} 
@@ -110,14 +108,14 @@ export default function Leadership() {
                 />
               </div>
               <div className="p-8 text-center">
-                <h3 className="text-xl font-serif font-bold text-brand-navy mb-1">{exec.name}</h3>
-                <p className="text-brand-royal font-bold text-xs uppercase tracking-wider mb-4">{exec.role}</p>
-                <p className="text-gray-600 text-sm leading-relaxed mb-6">{exec.bio}</p>
+                <h3 className="text-xl font-serif font-bold text-white mb-1">{exec.name}</h3>
+                <p className="text-brand-gold font-bold text-xs uppercase tracking-wider mb-4">{exec.role}</p>
+                <p className="text-gray-300 text-sm leading-relaxed mb-6">{exec.bio}</p>
                 <div className="flex justify-center gap-3">
-                  <a href="#" className="w-10 h-10 bg-brand-grey rounded-full flex items-center justify-center text-brand-navy hover:bg-brand-royal hover:text-white transition-colors">
+                  <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-brand-royal hover:text-white transition-colors">
                     <Mail size={16}/>
                   </a>
-                  <a href="#" className="w-10 h-10 bg-brand-grey rounded-full flex items-center justify-center text-brand-navy hover:bg-brand-royal hover:text-white transition-colors">
+                  <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-brand-royal hover:text-white transition-colors">
                     <Globe size={16}/>
                   </a>
                 </div>

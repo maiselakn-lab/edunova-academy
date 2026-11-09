@@ -63,9 +63,21 @@ export default function PrimaryAcademy() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-brand-navy text-white p-6 rounded-xl"><Heart className="text-brand-gold mb-4" size={24}/><h4 className="font-bold text-lg mb-2">Nurturing Environment</h4><p className="text-sm text-gray-300">Tutors trained to be patient and encouraging.</p></div>
-            <div className="bg-brand-navy text-white p-6 rounded-xl"><Sparkles className="text-brand-gold mb-4" size={24}/><h4 className="font-bold text-lg mb-2">Interactive Learning</h4><p className="text-sm text-gray-300">Digital whiteboards and educational games.</p></div>
-            <div className="bg-brand-navy text-white p-6 rounded-xl"><UserCheck className="text-brand-gold mb-4" size={24}/><h4 className="font-bold text-lg mb-2">Parental Oversight</h4><p className="text-sm text-gray-300">Detailed progress reports after every lesson.</p></div>
+            <div className="bg-brand-navy text-white p-6 rounded-xl">
+              <Heart className="text-brand-gold mb-4" size={24}/>
+              <h4 className="font-bold text-lg mb-2 text-white">Nurturing Environment</h4>
+              <p className="text-sm text-gray-300">Tutors trained to be patient and encouraging.</p>
+            </div>
+            <div className="bg-brand-navy text-white p-6 rounded-xl">
+              <Sparkles className="text-brand-gold mb-4" size={24}/>
+              <h4 className="font-bold text-lg mb-2 text-white">Interactive Learning</h4>
+              <p className="text-sm text-gray-300">Digital whiteboards and educational games.</p>
+            </div>
+            <div className="bg-brand-navy text-white p-6 rounded-xl">
+              <UserCheck className="text-brand-gold mb-4" size={24}/>
+              <h4 className="font-bold text-lg mb-2 text-white">Parental Oversight</h4>
+              <p className="text-sm text-gray-300">Detailed progress reports after every lesson.</p>
+            </div>
           </div>
         </div>
       </section>

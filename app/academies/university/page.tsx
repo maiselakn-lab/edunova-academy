@@ -48,17 +48,17 @@ export default function UniversityAcademy() {
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-brand-navy p-8 rounded-xl shadow-lg text-white text-center">
               <GraduationCap className="mx-auto text-brand-gold mb-4" size={40} />
-              <h3 className="text-xl font-bold mb-2">Honours Degrees</h3>
+              <h3 className="text-xl font-bold mb-2 text-white">Honours Degrees</h3>
               <p className="text-sm text-gray-300">NQF Level 8. Specialisations in Science, Commerce, Engineering, Humanities.</p>
             </div>
             <div className="bg-brand-navy p-8 rounded-xl shadow-lg text-white text-center">
               <Microscope className="mx-auto text-brand-gold mb-4" size={40} />
-              <h3 className="text-xl font-bold mb-2">Master's Degrees</h3>
+              <h3 className="text-xl font-bold mb-2 text-white">Master's Degrees</h3>
               <p className="text-sm text-gray-300">NQF Level 9. MBA, MSc, MEd, MA. Coursework and research routes available.</p>
             </div>
             <div className="bg-brand-navy p-8 rounded-xl shadow-lg text-white text-center">
               <Building2 className="mx-auto text-brand-gold mb-4" size={40} />
-              <h3 className="text-xl font-bold mb-2">Doctoral (PhD)</h3>
+              <h3 className="text-xl font-bold mb-2 text-white">Doctoral (PhD)</h3>
               <p className="text-sm text-gray-300">NQF Level 10. Advanced research across all academic disciplines.</p>
             </div>
           </div>

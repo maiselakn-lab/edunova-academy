@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { BookOpen, CheckCircle2, ArrowRight, Target, TrendingUp, UserCheck } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Target, TrendingUp, UserCheck } from 'lucide-react';
 
 export default function SecondaryAcademy() {
   const subjects = {
