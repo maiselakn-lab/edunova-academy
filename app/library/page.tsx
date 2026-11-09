@@ -24,7 +24,12 @@ export default function Library() {
           <p className="text-xl text-gray-300 max-w-3xl mb-8">Access our repository of learning materials, past papers, and academic resources.</p>
           
           <div className="max-w-3xl relative">
-            <input type="text" placeholder="Search for subjects, past papers, or textbooks..." className="w-full p-5 pl-14 rounded-lg text-brand-navy font-medium text-lg focus:outline-none focus:ring-4 focus:ring-brand-gold/50" />
+            {/* FIXED: Added bg-white and text-brand-navy for visibility */}
+            <input 
+              type="text" 
+              placeholder="Search for subjects, past papers, or textbooks..." 
+              className="w-full p-5 pl-14 rounded-lg bg-white text-brand-navy font-medium text-lg focus:outline-none focus:ring-4 focus:ring-brand-gold/50 shadow-lg" 
+            />
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" size={24} />
           </div>
         </div>
