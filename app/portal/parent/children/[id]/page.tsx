@@ -5,6 +5,9 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, User, FileText, CheckCircle2, Loader2 } from 'lucide-react';
 
+// Force dynamic rendering to fix the useParams prerender build error
+export const dynamic = 'force-dynamic';
+
 export default function ChildProfile() {
   const router = useRouter();
   const params = useParams();
@@ -27,10 +30,10 @@ export default function ChildProfile() {
         if (response.ok) {
           setChildData(await response.json());
         } else {
-          setError("Access Denied. You are not authorized to view this child.");
+          setError("Access Denied. You are not authorized to view this child's profile.");
         }
       } catch (err) {
-        setError("Failed to load child profile.");
+        setError("Failed to load child profile. Please try again.");
       } finally {
         setIsLoading(false);
       }
@@ -38,8 +41,27 @@ export default function ChildProfile() {
     fetchChild();
   }, [childId, router]);
 
-  if (isLoading) return <div className="p-8 text-gray-500">Loading profile...</div>;
-  if (error) return <div className="p-8 text-red-500 font-bold">{error}</div>;
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <Loader2 className="animate-spin text-brand-royal" size={32} />
+        <span className="ml-4 text-gray-500 font-medium">Loading profile...</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 p-8 rounded-xl text-center max-w-lg mx-auto mt-12">
+        <p className="text-red-600 font-bold text-lg mb-4">{error}</p>
+        <Link href="/portal/parent/children" className="text-brand-royal font-bold hover:underline">
+          &larr; Return to My Children
+        </Link>
+      </div>
+    );
+  }
+
+  if (!childData) return null;
 
   return (
     <div>
@@ -47,28 +69,34 @@ export default function ChildProfile() {
         <ArrowLeft size={16} /> Back to My Children
       </Link>
 
+      {/* Profile Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-8 flex flex-col md:flex-row items-center gap-8">
         <div className="w-24 h-24 bg-brand-royal/10 text-brand-royal rounded-full flex items-center justify-center font-bold text-4xl shrink-0">
           {childData.name.charAt(0)}
         </div>
-        <div>
+        <div className="text-center md:text-left">
           <h1 className="text-3xl font-serif font-bold text-brand-navy mb-2">{childData.name}</h1>
           <p className="text-gray-500 font-medium">{childData.email}</p>
-          <span className="inline-block mt-2 bg-brand-teal/10 text-brand-teal px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Learner Account</span>
+          <span className="inline-block mt-3 bg-brand-teal/10 text-brand-teal px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+            Learner Account
+          </span>
         </div>
       </div>
 
+      {/* Academic Overview Cards */}
       <div className="grid md:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
           <FileText className="text-brand-royal mb-4" size={24} />
           <p className="text-sm text-gray-500 font-bold mb-1">Average Grade</p>
           <p className="text-3xl font-bold text-brand-navy">{childData.average}</p>
         </div>
+        
         <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
           <CheckCircle2 className="text-brand-teal mb-4" size={24} />
           <p className="text-sm text-gray-500 font-bold mb-1">Attendance</p>
           <p className="text-3xl font-bold text-brand-navy">{childData.attendance}</p>
         </div>
+        
         <div className="bg-brand-navy p-6 rounded-xl shadow-lg text-white">
           <User className="text-brand-gold mb-4" size={24} />
           <p className="text-sm text-gray-400 font-bold mb-1">Tutor Feedback</p>
