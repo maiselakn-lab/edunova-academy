@@ -271,9 +271,12 @@ export default function Home() {
                   <Database size={14} className="text-brand-sky" />
                   <p className="text-brand-sky font-bold tracking-wider uppercase text-xs">Powered by AcadCoreOS</p>
                 </div>
-                <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
+                
+                {/* FIXED VISIBILITY HERE */}
+                <div className="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight text-white">
                   The Intelligent OS for <span className="text-brand-gold">Modern Schools.</span>
-                </h2>
+                </div>
+                
                 <p className="text-lg text-gray-300 mb-8 leading-relaxed">
                   We power the institutions behind the students. <strong>AcadCoreOS</strong> is a comprehensive school management platform unifying academics, finance, HR, scheduling, and AI into a single workspace.
                 </p>
