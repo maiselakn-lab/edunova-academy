@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { Mail, Globe, Quote, Briefcase, Award, Linkedin } from 'lucide-react';
+import { Mail, Globe, Quote, Briefcase, Award } from 'lucide-react';
 
 export default function Leadership() {
   const executives = [
