@@ -6,7 +6,7 @@ export default function Facts() {
       <PublicNavbar />
       <section className="bg-brand-navy py-24 text-white">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
-          <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4">Facts & Figures</h1>
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-4">Facts & Figures</h1>
           <p className="text-xl text-gray-300 max-w-3xl">The scale and reach of Think EduNova Academy.</p>
         </div>
       </section>
