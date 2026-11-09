@@ -1,8 +1,46 @@
-import Link from 'next/link';
+"use client";
+
+import { useState } from 'react';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { Mail, Phone, MapPin, Send, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: 'General Enquiry',
+    message: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setSuccess(false);
+    setError('');
+
+    try {
+      const response = await fetch('https://edunova-academy-qkk5.onrender.com/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) throw new Error(data.detail || 'Failed to send message.');
+      
+      setSuccess(true);
+      setFormData({ name: '', email: '', subject: 'General Enquiry', message: '' });
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-brand-grey">
       <PublicNavbar />
@@ -55,20 +93,32 @@ export default function Contact() {
           <div className="lg:col-span-2">
             <div className="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-gray-200">
               <h2 className="text-2xl font-serif font-bold text-brand-navy mb-6">Send us a Message</h2>
-              <form className="space-y-6">
+              
+              {success && (
+                <div className="bg-brand-teal/10 text-brand-teal p-4 rounded-lg mb-6 flex items-center gap-2 border border-brand-teal/20">
+                  <CheckCircle2 size={20} /> Message sent! We will respond within 24 hours.
+                </div>
+              )}
+              {error && (
+                <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-center gap-2 border border-red-100">
+                  <AlertCircle size={20} /> {error}
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-bold text-brand-navy mb-2">Full Name</label>
-                    <input type="text" className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal" placeholder="Your Name" />
+                    <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal" placeholder="Your Name" />
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-brand-navy mb-2">Email Address</label>
-                    <input type="email" className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal" placeholder="you@example.com" />
+                    <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal" placeholder="you@example.com" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-brand-navy mb-2">Subject</label>
-                  <select className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal text-gray-600">
+                  <select value={formData.subject} onChange={(e) => setFormData({...formData, subject: e.target.value})} className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal text-gray-600">
                     <option>General Enquiry</option>
                     <option>Admissions</option>
                     <option>Tutor Application</option>
@@ -78,10 +128,10 @@ export default function Contact() {
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-brand-navy mb-2">Message</label>
-                  <textarea className="w-full p-3 border border-gray-300 rounded-lg h-32 focus:outline-none focus:ring-2 focus:ring-brand-royal" placeholder="How can we help you?"></textarea>
+                  <textarea required value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} className="w-full p-3 border border-gray-300 rounded-lg h-32 focus:outline-none focus:ring-2 focus:ring-brand-royal" placeholder="How can we help you?"></textarea>
                 </div>
-                <button type="button" className="bg-brand-royal text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-md">
-                  Send Message <Send size={18} />
+                <button type="submit" disabled={isLoading} className="bg-brand-royal text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-md disabled:opacity-70">
+                  {isLoading ? <><Loader2 className="animate-spin" size={18}/> Sending...</> : <><Send size={18}/> Send Message</>}
                 </button>
               </form>
             </div>

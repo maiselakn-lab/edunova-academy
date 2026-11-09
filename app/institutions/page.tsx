@@ -1,8 +1,37 @@
-import Link from 'next/link';
+"use client";
+
+import { useState } from 'react';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { ArrowRight, Building2, Globe2, CheckCircle2, Handshake, BarChart3, Users } from 'lucide-react';
+import { ArrowRight, Building2, Globe2, CheckCircle2, Handshake, BarChart3, Users, Loader2, CheckCircle } from 'lucide-react';
 
 export default function Institutions() {
+  const [formData, setFormData] = useState({ institution: '', email: '' });
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const handleDemoRequest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      await fetch('https://edunova-academy-qkk5.onrender.com/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.institution,
+          email: formData.email,
+          subject: 'Institutional Partnership',
+          message: 'Requesting a demo of AcadCoreOS for our institution.'
+        })
+      });
+      setSuccess(true);
+      setFormData({ institution: '', email: '' });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <PublicNavbar />
@@ -16,9 +45,9 @@ export default function Institutions() {
             <p className="text-xl text-gray-200 mb-8">
               We collaborate with schools, colleges, NGOs, and universities to provide additional academic support to their students and integrate our technology into their operations.
             </p>
-            <Link href="/contact" className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold text-lg hover:bg-yellow-500 transition-all inline-flex items-center gap-2 shadow-lg">
+            <a href="#enquiry" className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold text-lg hover:bg-yellow-500 transition-all inline-flex items-center gap-2 shadow-lg">
               Request a Consultation <ArrowRight size={20} />
-            </Link>
+            </a>
           </div>
         </div>
       </section>
@@ -50,7 +79,7 @@ export default function Institutions() {
         </div>
       </section>
 
-      <section className="py-24 bg-brand-navy text-white">
+      <section id="enquiry" className="py-24 bg-brand-navy text-white">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -64,11 +93,22 @@ export default function Institutions() {
             </div>
             <div className="bg-white/10 p-8 rounded-2xl border border-white/20 backdrop-blur-sm">
               <h3 className="text-2xl font-serif font-bold text-white mb-6">Institutional Enquiry</h3>
-              <div className="space-y-4">
-                <input type="text" placeholder="Institution Name" className="w-full p-3 bg-brand-navy/50 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-gold" />
-                <input type="email" placeholder="Official Email Address" className="w-full p-3 bg-brand-navy/50 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-gold" />
-                <button className="w-full bg-brand-gold text-brand-navy font-bold py-3 rounded-lg hover:bg-yellow-500 transition-colors">Request a Demo</button>
-              </div>
+              
+              {success ? (
+                <div className="bg-brand-teal/20 text-brand-teal p-6 rounded-lg text-center">
+                  <CheckCircle className="mx-auto mb-2" size={32} />
+                  <p className="font-bold">Request Received!</p>
+                  <p className="text-sm">Our partnerships team will contact you shortly.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleDemoRequest} className="space-y-4">
+                  <input type="text" required placeholder="Institution Name" value={formData.institution} onChange={(e) => setFormData({...formData, institution: e.target.value})} className="w-full p-3 bg-brand-navy/50 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-gold" />
+                  <input type="email" required placeholder="Official Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-3 bg-brand-navy/50 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-gold" />
+                  <button type="submit" disabled={isLoading} className="w-full bg-brand-gold text-brand-navy font-bold py-3 rounded-lg hover:bg-yellow-500 transition-colors flex justify-center items-center gap-2">
+                    {isLoading ? <Loader2 className="animate-spin" size={18}/> : 'Request a Demo'}
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </div>
