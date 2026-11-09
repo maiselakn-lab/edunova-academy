@@ -12,6 +12,7 @@ export default function TutorDashboard() {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [user, setUser] = useState<any>(null);
+  const [dashboardData, setDashboardData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,7 +21,22 @@ export default function TutorDashboard() {
       const userData = localStorage.getItem('edunova_user');
       if (!token || !userData) { router.replace('/login/tutor'); return; }
       setUser(JSON.parse(userData));
-      setIsLoading(false);
+
+      const fetchData = async () => {
+        try {
+          const response = await fetch('https://edunova-academy-qkk5.onrender.com/api/tutor/dashboard', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (response.ok) {
+            setDashboardData(await response.json());
+          }
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchData();
     }
   }, [router]);
 
@@ -73,11 +89,11 @@ export default function TutorDashboard() {
           <div className="bg-brand-navy rounded-2xl p-8 text-white mb-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
               <h1 className="text-3xl font-serif font-bold text-white mb-2">Welcome back, {user.first_name}!</h1>
-              <p className="text-gray-300">You have 3 lessons scheduled for today. Remember to submit your reports.</p>
+              <p className="text-gray-300">You have {dashboardData?.upcoming_lessons?.length || 0} lessons scheduled for today. Remember to submit your reports.</p>
             </div>
             <div className="bg-white/10 rounded-xl p-4 border border-white/10 text-center min-w-[200px]">
               <p className="text-sm text-gray-300 mb-1">Pending Earnings</p>
-              <p className="text-3xl font-bold text-brand-teal">R 4,250.00</p>
+              <p className="text-3xl font-bold text-brand-teal">{dashboardData?.pending_earnings || 'R 0.00'}</p>
               <Link href="/portal/tutor/earnings" className="text-xs text-brand-gold font-bold hover:underline mt-2 inline-block">Withdraw Funds</Link>
             </div>
           </div>
@@ -91,22 +107,20 @@ export default function TutorDashboard() {
                   <Link href="/portal/tutor/schedule" className="text-sm text-brand-royal font-bold hover:underline">Full Calendar</Link>
                 </div>
                 <div className="space-y-4">
-                  <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg bg-brand-grey/30">
-                    <div className="w-14 h-14 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0"><span className="text-xs font-bold uppercase">14:00</span></div>
-                    <div className="flex-grow">
-                      <h3 className="font-bold text-brand-navy">Mathematics: Calculus</h3>
-                      <p className="text-sm text-gray-500">Student: Siphelele B. (Grade 11)</p>
+                  {dashboardData?.upcoming_lessons?.map((lesson: any, i: number) => (
+                    <div key={i} className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg bg-brand-grey/30">
+                      <div className="w-14 h-14 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0">
+                        <span className="text-xs font-bold uppercase">{lesson.time}</span>
+                      </div>
+                      <div className="flex-grow">
+                        <h3 className="font-bold text-brand-navy">{lesson.subject}</h3>
+                        <p className="text-sm text-gray-500">Student: {lesson.student_name}</p>
+                      </div>
+                      <Link href="/portal/student/classroom" className={`px-4 py-2 rounded text-sm font-bold flex items-center gap-2 ${lesson.status === 'ready' ? 'bg-brand-teal text-white' : 'border border-brand-navy text-brand-navy'}`}>
+                        <Video size={16} /> {lesson.status === 'ready' ? 'Start' : 'Waiting'}
+                      </Link>
                     </div>
-                    <Link href="/portal/student/classroom" className="bg-brand-teal text-white px-4 py-2 rounded text-sm font-bold flex items-center gap-2"><Video size={16} /> Start</Link>
-                  </div>
-                  <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg bg-brand-grey/30">
-                    <div className="w-14 h-14 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0"><span className="text-xs font-bold uppercase">16:30</span></div>
-                    <div className="flex-grow">
-                      <h3 className="font-bold text-brand-navy">Physical Sciences: Mechanics</h3>
-                      <p className="text-sm text-gray-500">Student: Lerato N. (Grade 8)</p>
-                    </div>
-                    <Link href="/portal/student/classroom" className="border border-brand-navy text-brand-navy px-4 py-2 rounded text-sm font-bold flex items-center gap-2">Waiting</Link>
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -124,23 +138,26 @@ export default function TutorDashboard() {
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <h2 className="text-lg font-bold text-brand-navy mb-4">Student Progress</h2>
                 <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between items-center mb-1"><p className="text-sm font-medium text-gray-600">Siphelele B.</p><span className="text-brand-teal font-bold text-sm">85%</span></div>
-                    <div className="w-full bg-gray-200 rounded-full h-2"><div className="bg-brand-teal h-2 rounded-full" style={{ width: '85%' }}></div></div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between items-center mb-1"><p className="text-sm font-medium text-gray-600">Lerato N.</p><span className="text-brand-royal font-bold text-sm">72%</span></div>
-                    <div className="w-full bg-gray-200 rounded-full h-2"><div className="bg-brand-royal h-2 rounded-full" style={{ width: '72%' }}></div></div>
-                  </div>
+                  {dashboardData?.recent_assessments?.map((assessment: any, i: number) => (
+                    <div key={i}>
+                      <div className="flex justify-between items-center mb-1">
+                        <p className="text-sm font-medium text-gray-600">{assessment.student}</p>
+                        <span className="text-brand-teal font-bold text-sm">{assessment.average}</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div className="bg-brand-teal h-2 rounded-full" style={{ width: assessment.average }}></div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="bg-brand-navy rounded-xl shadow-sm p-6 text-white border-t-4 border-brand-gold">
                 <h2 className="text-lg font-bold mb-4 flex items-center gap-2"><TrendingUp size={18} className="text-brand-gold"/> Earnings Breakdown</h2>
                 <div className="space-y-4 text-sm">
-                  <div className="flex justify-between items-center pb-2 border-b border-white/10"><span className="text-gray-400">Completed Lessons</span><span className="font-bold">28</span></div>
-                  <div className="flex justify-between items-center pb-2 border-b border-white/10"><span className="text-gray-400">Rate per Lesson</span><span className="font-bold">R 150.00</span></div>
-                  <div className="flex justify-between items-center"><span className="text-gray-400">Total Earned</span><span className="font-bold text-brand-teal">R 4,250.00</span></div>
+                  <div className="flex justify-between items-center pb-2 border-b border-white/10"><span className="text-gray-400">Completed Lessons</span><span className="font-bold">{dashboardData?.completed_lessons || 0}</span></div>
+                  <div className="flex justify-between items-center pb-2 border-b border-white/10"><span className="text-gray-400">Rating</span><span className="font-bold">{dashboardData?.rating || 'N/A'}</span></div>
+                  <div className="flex justify-between items-center"><span className="text-gray-400">Total Earned</span><span className="font-bold text-brand-teal">{dashboardData?.pending_earnings || 'R 0.00'}</span></div>
                 </div>
               </div>
             </div>
