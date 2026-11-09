@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { Calendar, ArrowRight, Newspaper, Video, Mic } from 'lucide-react';
+import { Calendar, ArrowRight } from 'lucide-react';
 
 export default function News() {
   const featuredNews = {
