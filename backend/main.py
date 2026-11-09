@@ -335,9 +335,36 @@ def get_linked_children(current_user: models.User = Depends(get_current_user), d
         raise HTTPException(status_code=403, detail="Only parents can view children.")
     
     links = db.query(models.ParentChildLink).filter(models.ParentChildLink.parent_id == current_user.id).all()
-    children = [{"name": link.learner.first_name, "surname": link.learner.last_name, "email": link.learner.email, "role": "learner"} for link in links]
+    children = [{"id": link.learner.id, "name": link.learner.first_name, "surname": link.learner.last_name, "email": link.learner.email, "role": "learner"} for link in links]
     
     return {"children": children}
+
+# --- SECURE CHILD PROFILE ACCESS ---
+@app.get("/api/parent/child/{child_id}")
+def get_child_profile(child_id: int, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "parent":
+        raise HTTPException(status_code=403, detail="Only parents can access child profiles.")
+    
+    # Check if this parent is linked to this specific child
+    link = db.query(models.ParentChildLink).filter(
+        models.ParentChildLink.parent_id == current_user.id,
+        models.ParentChildLink.learner_id == child_id
+    ).first()
+    
+    if not link:
+        raise HTTPException(status_code=403, detail="You are not authorized to view this child's profile.")
+    
+    learner = db.query(models.User).filter(models.User.id == child_id).first()
+    
+    return {
+        "id": learner.id,
+        "name": f"{learner.first_name} {learner.last_name}",
+        "email": learner.email,
+        "role": learner.role,
+        "average": "82%",
+        "attendance": "98%",
+        "recent_feedback": "Great improvement in Mathematics this term."
+    }
 
 # --- COMMUNITY FORUM ROUTES ---
 
