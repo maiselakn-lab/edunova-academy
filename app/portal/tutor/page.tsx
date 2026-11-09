@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   LayoutDashboard, Users, Calendar, FileText, DollarSign, 
-  Settings, LogOut, Bell, Menu, Video, Clock, TrendingUp, BarChart3, UserCheck
+  Settings, LogOut, Bell, Menu, Video, Clock, TrendingUp, BarChart3
 } from 'lucide-react';
 
 export default function TutorDashboard() {
@@ -40,12 +40,12 @@ export default function TutorDashboard() {
           <Link href="/portal/tutor" className="flex items-center gap-4 px-4 py-3 bg-brand-royal rounded-lg font-medium"><LayoutDashboard size={20} />{sidebarOpen && <span>Dashboard</span>}</Link>
           <Link href="/portal/tutor/students" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Users size={20} />{sidebarOpen && <span>My Students</span>}</Link>
           <Link href="/portal/tutor/schedule" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Calendar size={20} />{sidebarOpen && <span>Schedule</span>}</Link>
-          <Link href="/portal/reports" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><FileText size={20} />{sidebarOpen && <span>Lesson Reports</span>}</Link>
-          <Link href="/portal/earnings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold"><DollarSign size={20} />{sidebarOpen && <span>My Earnings</span>}</Link>
+          <Link href="/portal/tutor/reports" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><FileText size={20} />{sidebarOpen && <span>Lesson Reports</span>}</Link>
+          <Link href="/portal/tutor/earnings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold"><DollarSign size={20} />{sidebarOpen && <span>My Earnings</span>}</Link>
         </nav>
 
         <div className="p-4 border-t border-white/10 space-y-2">
-          <Link href="/portal/settings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Settings size={20} />{sidebarOpen && <span>Settings</span>}</Link>
+          <Link href="/portal/tutor/settings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Settings size={20} />{sidebarOpen && <span>Settings</span>}</Link>
           <button onClick={handleLogout} className="w-full flex items-center gap-4 px-4 py-3 hover:bg-red-500/20 text-red-400 rounded-lg"><LogOut size={20} />{sidebarOpen && <span>Logout</span>}</button>
         </div>
       </aside>
@@ -78,14 +78,13 @@ export default function TutorDashboard() {
             <div className="bg-white/10 rounded-xl p-4 border border-white/10 text-center min-w-[200px]">
               <p className="text-sm text-gray-300 mb-1">Pending Earnings</p>
               <p className="text-3xl font-bold text-brand-teal">R 4,250.00</p>
-              <button className="text-xs text-brand-gold font-bold hover:underline mt-2">Withdraw Funds</button>
+              <Link href="/portal/tutor/earnings" className="text-xs text-brand-gold font-bold hover:underline mt-2 inline-block">Withdraw Funds</Link>
             </div>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
             
             <div className="lg:col-span-2 space-y-8">
-              {/* Schedule */}
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-xl font-bold text-brand-navy">Today's Schedule</h2>
@@ -98,7 +97,7 @@ export default function TutorDashboard() {
                       <h3 className="font-bold text-brand-navy">Mathematics: Calculus</h3>
                       <p className="text-sm text-gray-500">Student: Siphelele B. (Grade 11)</p>
                     </div>
-                    <Link href="/portal/classroom" className="bg-brand-teal text-white px-4 py-2 rounded text-sm font-bold flex items-center gap-2"><Video size={16} /> Start</Link>
+                    <Link href="/portal/student/classroom" className="bg-brand-teal text-white px-4 py-2 rounded text-sm font-bold flex items-center gap-2"><Video size={16} /> Start</Link>
                   </div>
                   <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg bg-brand-grey/30">
                     <div className="w-14 h-14 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0"><span className="text-xs font-bold uppercase">16:30</span></div>
@@ -106,12 +105,11 @@ export default function TutorDashboard() {
                       <h3 className="font-bold text-brand-navy">Physical Sciences: Mechanics</h3>
                       <p className="text-sm text-gray-500">Student: Lerato N. (Grade 8)</p>
                     </div>
-                    <Link href="/portal/classroom" className="border border-brand-navy text-brand-navy px-4 py-2 rounded text-sm font-bold flex items-center gap-2">Waiting</Link>
+                    <Link href="/portal/student/classroom" className="border border-brand-navy text-brand-navy px-4 py-2 rounded text-sm font-bold flex items-center gap-2">Waiting</Link>
                   </div>
                 </div>
               </div>
 
-              {/* Earnings Chart */}
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <h2 className="text-xl font-bold text-brand-navy mb-6 flex items-center gap-2"><BarChart3 size={20}/> Earnings Over Time</h2>
                 <div className="h-48 bg-brand-grey rounded-lg flex items-end justify-between p-4 gap-2">

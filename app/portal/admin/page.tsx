@@ -7,7 +7,7 @@ import {
   LayoutDashboard, Users, GraduationCap, CreditCard, ShieldCheck, 
   Settings, LogOut, Bell, Menu, TrendingUp, CheckCircle, Database, 
   Activity, Video, MessageSquare, AlertTriangle, PlayCircle, Eye,
-  UserPlus, Send, Calendar as CalendarIcon, BarChart3, PieChart, Edit
+  UserPlus, Send, Calendar as CalendarIcon, BarChart3, Edit
 } from 'lucide-react';
 
 export default function AdminDashboard() {
@@ -53,7 +53,6 @@ export default function AdminDashboard() {
   return (
     <div className="flex h-screen bg-brand-grey overflow-hidden">
       
-      {/* Sidebar */}
       <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-[#081020] text-white flex flex-col transition-all duration-300 shrink-0`}>
         <div className="h-20 flex items-center justify-center border-b border-white/10 px-4">
           <Link href="/"><img src="/logo.png" alt="EduNova" className={`${sidebarOpen ? 'h-12' : 'h-8'} w-auto object-contain bg-white rounded p-1 transition-all`} /></Link>
@@ -82,7 +81,6 @@ export default function AdminDashboard() {
         </div>
       </aside>
 
-      {/* Main Content */}
       <main className="flex-grow flex flex-col h-screen overflow-hidden">
         
         <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0">
@@ -105,7 +103,6 @@ export default function AdminDashboard() {
 
         <div className="flex-grow overflow-y-auto p-8">
           
-          {/* Top Stats Row */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm border-t-4 border-t-brand-royal">
               <p className="text-sm text-gray-500 font-bold mb-1">Total Revenue</p>
@@ -131,10 +128,7 @@ export default function AdminDashboard() {
 
           <div className="grid lg:grid-cols-3 gap-8">
             
-            {/* Left Column (2/3) */}
             <div className="lg:col-span-2 space-y-8">
-              
-              {/* Statistics Chart (Mockup) */}
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <h2 className="text-xl font-bold text-brand-navy mb-6 flex items-center gap-2"><BarChart3 size={20}/> Monthly Revenue & Enrolments</h2>
                 <div className="h-64 bg-brand-grey rounded-lg flex items-end justify-between p-4 gap-2">
@@ -147,39 +141,24 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              {/* Calendar / Schedule */}
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <h2 className="text-xl font-bold text-brand-navy mb-6 flex items-center gap-2"><CalendarIcon size={20}/> Today's Operations</h2>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg bg-brand-grey/30">
-                    <div className="w-16 h-16 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0">
-                      <span className="text-xs font-bold uppercase">09:00</span>
-                    </div>
-                    <div className="flex-grow">
-                      <h3 className="font-bold text-brand-navy">Tutor Onboarding Session</h3>
-                      <p className="text-sm text-gray-500">Review new applications (5 pending)</p>
-                    </div>
+                    <div className="w-16 h-16 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0"><span className="text-xs font-bold uppercase">09:00</span></div>
+                    <div className="flex-grow"><h3 className="font-bold text-brand-navy">Tutor Onboarding Session</h3><p className="text-sm text-gray-500">Review new applications (5 pending)</p></div>
                     <button className="bg-brand-royal text-white px-4 py-2 rounded text-sm font-bold">Start</button>
                   </div>
                   <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg bg-brand-grey/30">
-                    <div className="w-16 h-16 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0">
-                      <span className="text-xs font-bold uppercase">14:00</span>
-                    </div>
-                    <div className="flex-grow">
-                      <h3 className="font-bold text-brand-navy">Financial Reconciliation</h3>
-                      <p className="text-sm text-gray-500">Process tutor payouts for November</p>
-                    </div>
+                    <div className="w-16 h-16 bg-brand-navy text-white rounded-lg flex flex-col items-center justify-center shrink-0"><span className="text-xs font-bold uppercase">14:00</span></div>
+                    <div className="flex-grow"><h3 className="font-bold text-brand-navy">Financial Reconciliation</h3><p className="text-sm text-gray-500">Process tutor payouts for November</p></div>
                     <button className="border border-brand-navy text-brand-navy px-4 py-2 rounded text-sm font-bold">Review</button>
                   </div>
                 </div>
               </div>
-
             </div>
 
-            {/* Right Column (1/3) */}
             <div className="space-y-8">
-              
-              {/* Live Monitor Widget */}
               <div className="bg-brand-navy rounded-xl border border-white/10 shadow-sm p-6 text-white">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-xl font-bold flex items-center gap-2"><span className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span> Live Classes</h2>
@@ -187,31 +166,29 @@ export default function AdminDashboard() {
                 <div className="bg-white/5 border border-white/10 p-4 rounded-lg">
                   <p className="font-bold text-white mb-1">Grade 11 Mathematics</p>
                   <p className="text-sm text-gray-400 mb-3">Tutor: Mr. T. Nkosi</p>
-                  <button className="w-full bg-brand-teal text-white py-2 rounded text-sm font-bold flex items-center justify-center gap-2"><Eye size={16}/> Observe Session</button>
+                  <Link href="/portal/admin/live-monitor" className="w-full block text-center bg-brand-teal text-white py-2 rounded text-sm font-bold flex items-center justify-center gap-2"><Eye size={16}/> Observe Session</Link>
                 </div>
               </div>
 
-              {/* Safeguarding Alerts */}
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 border-l-4 border-l-brand-gold">
                 <h2 className="text-lg font-bold text-brand-navy mb-4 flex items-center gap-2"><ShieldCheck className="text-brand-gold" size={20} /> Safeguarding</h2>
                 <div className="bg-orange-50 border border-orange-100 p-4 rounded-lg">
                   <div className="flex items-center gap-2 text-orange-600 font-bold text-sm mb-2"><AlertTriangle size={16} /> Review Required</div>
                   <p className="text-xs text-gray-700 mb-3">Tutor attempted to share a personal contact number with a minor.</p>
-                  <button className="text-xs bg-orange-600 text-white px-3 py-1.5 rounded font-bold">Review Chat</button>
+                  <Link href="/portal/admin/communications" className="text-xs bg-orange-600 text-white px-3 py-1.5 rounded font-bold inline-block">Review Chat</Link>
                 </div>
               </div>
 
-              {/* User Management Quick Tools */}
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <h2 className="text-lg font-bold text-brand-navy mb-4">Quick Management</h2>
                 <div className="space-y-2">
-                  <button className="w-full text-left px-4 py-3 bg-brand-grey rounded-lg text-sm font-bold text-brand-navy flex items-center gap-3 hover:bg-gray-200 transition-colors"><UserPlus size={16}/> Add New Admin</button>
-                  <button className="w-full text-left px-4 py-3 bg-brand-grey rounded-lg text-sm font-bold text-brand-navy flex items-center gap-3 hover:bg-gray-200 transition-colors"><Users size={16}/> Add New Tutor</button>
-                  <button className="w-full text-left px-4 py-3 bg-brand-grey rounded-lg text-sm font-bold text-brand-navy flex items-center gap-3 hover:bg-gray-200 transition-colors"><CreditCard size={16}/> View Finance Ledger</button>
+                  <Link href="/portal/admin/users" className="w-full text-left px-4 py-3 bg-brand-grey rounded-lg text-sm font-bold text-brand-navy flex items-center gap-3 hover:bg-gray-200 transition-colors"><UserPlus size={16}/> Add New Admin</Link>
+                  <Link href="/portal/admin/users" className="w-full text-left px-4 py-3 bg-brand-grey rounded-lg text-sm font-bold text-brand-navy flex items-center gap-3 hover:bg-gray-200 transition-colors"><Users size={16}/> Add New Tutor</Link>
+                  <Link href="/portal/admin/finance" className="w-full text-left px-4 py-3 bg-brand-grey rounded-lg text-sm font-bold text-brand-navy flex items-center gap-3 hover:bg-gray-200 transition-colors"><CreditCard size={16}/> View Finance Ledger</Link>
                 </div>
               </div>
-
             </div>
+
           </div>
         </div>
       </main>

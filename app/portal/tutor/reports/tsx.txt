@@ -1,0 +1,30 @@
+export default function LessonReports() {
+  return (
+    <div>
+      <h1 className="text-3xl font-serif font-bold text-brand-navy mb-6">Lesson Reports</h1>
+      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-xl font-bold text-brand-navy">Submit New Report</h2>
+        </div>
+        <div className="space-y-4 max-w-2xl">
+          <div>
+            <label className="block text-sm font-bold text-brand-navy mb-2">Select Student</label>
+            <select className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none">
+              <option>Siphelele Blose (Mathematics)</option>
+              <option>Lerato Ndlovu (Physical Sciences)</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-brand-navy mb-2">Topics Covered</label>
+            <textarea className="w-full p-3 border border-gray-300 rounded-lg h-24" placeholder="What did you cover in this lesson?"></textarea>
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-brand-navy mb-2">Student Progress & Feedback</label>
+            <textarea className="w-full p-3 border border-gray-300 rounded-lg h-24" placeholder="How did the student perform?"></textarea>
+          </div>
+          <button className="bg-brand-royal text-white px-6 py-3 rounded-lg font-bold">Submit Report</button>
+        </div>
+      </div>
+    </div>
+  );
+}
