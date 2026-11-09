@@ -8,15 +8,39 @@ export default function News() {
     category: "Institutional",
     title: "Think EduNova Academy Officially Launches for the 2026 Academic Year",
     desc: "We are proud to announce the official opening of admissions for all four academic divisions. The platform integrates AI-driven learning, verified human tutoring, and comprehensive institutional management.",
-    // FIXED: Replaced broken URL with a reliable image
-    img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop"
+    // FIXED: Replaced broken URL with a reliable, high-quality campus image
+    img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop"
   };
 
   const news = [
-    { date: "08 Jan 2026", cat: "Research", title: "New Research Support Services Launched", desc: "Expanding our postgraduate support with specialist statistical analysis tutoring and methodology guidance.", img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" },
-    { date: "02 Jan 2026", cat: "Faculty", title: "Welcoming Our New Verified Tutors", desc: "Meet the latest graduates and professionals who have successfully passed our rigorous competency assessments.", img: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" },
-    { date: "20 Dec 2025", cat: "Technology", title: "AcadCoreOS Integration Complete", desc: "Our institutional partners can now seamlessly sync student records, billing, and academic reports.", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" },
-    { date: "12 Dec 2025", cat: "Safeguarding", title: "New POPIA Compliance Protocols", desc: "We have implemented industry-leading data protection measures to ensure the safety of all parents and minors.", img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop" },
+    { 
+      date: "08 Jan 2026", 
+      cat: "Research", 
+      title: "New Research Support Services Launched", 
+      desc: "Expanding our postgraduate support with specialist statistical analysis tutoring and methodology guidance.", 
+      img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" 
+    },
+    { 
+      date: "02 Jan 2026", 
+      cat: "Faculty", 
+      title: "Welcoming Our New Verified Tutors", 
+      desc: "Meet the latest graduates and professionals who have successfully passed our rigorous competency assessments.", 
+      img: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" 
+    },
+    { 
+      date: "20 Dec 2025", 
+      cat: "Technology", 
+      title: "AcadCoreOS Integration Complete", 
+      desc: "Our institutional partners can now seamlessly sync student records, billing, and academic reports.", 
+      img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" 
+    },
+    { 
+      date: "12 Dec 2025", 
+      cat: "Safeguarding", 
+      title: "New POPIA Compliance Protocols", 
+      desc: "We have implemented industry-leading data protection measures to ensure the safety of all parents and minors.", 
+      img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop" 
+    },
   ];
 
   return (
