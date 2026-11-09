@@ -8,8 +8,8 @@ export default function News() {
     category: "Institutional",
     title: "Think EduNova Academy Officially Launches for the 2026 Academic Year",
     desc: "We are proud to announce the official opening of admissions for all four academic divisions. The platform integrates AI-driven learning, verified human tutoring, and comprehensive institutional management.",
-    // FIXED: Replaced broken URL with a reliable, high-quality campus image
-    img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop"
+    // FIXED: Restored the reliable image that was working previously
+    img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop"
   };
 
   const news = [
