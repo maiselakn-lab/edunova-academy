@@ -1,18 +1,16 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { ArrowRight, BookOpen, CheckCircle2, UserCheck, Heart, Sparkles } from 'lucide-react';
+import { BookOpen, CheckCircle2, ArrowRight, Heart, Sparkles, UserCheck } from 'lucide-react';
 
 export default function PrimaryAcademy() {
-  const subjects = [
-    "Mathematics", "English Home Language", "Afrikaans / isiZulu", 
-    "Natural Sciences & Technology", "Social Sciences", "Life Skills"
-  ];
+  const foundationPhase = ["Mathematics", "Home Language", "First Additional Language", "Life Skills", "Beginning Knowledge", "Creative Arts"];
+  const intermediatePhase = ["Mathematics", "Home Language", "First Additional Language", "Natural Sciences & Technology", "Social Sciences", "Life Skills"];
+  const seniorPhase = ["Mathematics", "Natural Sciences", "Technology", "Social Sciences", "EMS", "Life Orientation", "Creative Arts", "Languages"];
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <PublicNavbar />
       
-      {/* Hero */}
       <section className="bg-brand-navy py-24 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop')] bg-cover bg-center"></div>
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
@@ -29,67 +27,45 @@ export default function PrimaryAcademy() {
         </div>
       </section>
 
-      {/* Curriculum & Approach */}
       <section className="py-24 bg-brand-grey">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
-          <div className="grid lg:grid-cols-2 gap-16">
-            
-            {/* Subjects */}
-            <div>
-              <h2 className="text-3xl font-serif font-bold text-brand-navy mb-6">Subjects & Curriculum</h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Our primary curriculum is fully aligned with the South African CAPS curriculum, ensuring your child stays on track with their schoolwork while building confidence.
-              </p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {subjects.map((subject, i) => (
-                  <div key={i} className="flex items-center gap-3 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                    <CheckCircle2 className="text-brand-teal shrink-0" size={20} />
-                    <span className="font-semibold text-brand-charcoal">{subject}</span>
-                  </div>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-navy mb-4">Curriculum & Subjects</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Fully aligned with the South African CAPS curriculum, ensuring your child stays on track with their schoolwork.</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+              <h3 className="text-xl font-bold text-brand-navy mb-6 border-b border-gray-100 pb-3">Foundation Phase (Grades R-3)</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {foundationPhase.map((sub, i) => (
+                  <div key={i} className="flex items-center gap-2"><CheckCircle2 className="text-brand-teal shrink-0" size={16} /><span className="text-sm font-medium text-gray-700">{sub}</span></div>
                 ))}
               </div>
-
-              <div className="mt-8 bg-brand-royal/10 p-6 rounded-lg border border-brand-royal/20">
-                <h4 className="font-bold text-brand-navy mb-2 flex items-center gap-2"><Sparkles size={18} className="text-brand-royal"/> AI Learning Support</h4>
-                <p className="text-sm text-gray-700">Primary learners get safe, controlled access to our AI assistant for spelling, basic math, and reading comprehension practice.</p>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+              <h3 className="text-xl font-bold text-brand-navy mb-6 border-b border-gray-100 pb-3">Intermediate Phase (Grades 4-6)</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {intermediatePhase.map((sub, i) => (
+                  <div key={i} className="flex items-center gap-2"><CheckCircle2 className="text-brand-teal shrink-0" size={16} /><span className="text-sm font-medium text-gray-700">{sub}</span></div>
+                ))}
               </div>
             </div>
-            
-            {/* How We Teach */}
-            <div className="bg-white p-10 rounded-xl shadow-xl border border-gray-100">
-              <h3 className="text-2xl font-serif font-bold text-brand-navy mb-8">Our Teaching Approach</h3>
-              <ul className="space-y-8">
-                <li className="flex gap-5">
-                  <div className="bg-brand-navy/5 p-3 rounded-lg text-brand-royal h-fit">
-                    <Heart size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-lg text-brand-navy mb-1">Nurturing Environment</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">Our tutors are trained to be patient, encouraging, and supportive, ensuring young learners never feel overwhelmed.</p>
-                  </div>
-                </li>
-                <li className="flex gap-5">
-                  <div className="bg-brand-navy/5 p-3 rounded-lg text-brand-royal h-fit">
-                    <BookOpen size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-lg text-brand-navy mb-1">Interactive Learning</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">We use digital whiteboards, educational games, and visual aids to make online lessons fun and engaging.</p>
-                  </div>
-                </li>
-                <li className="flex gap-5">
-                  <div className="bg-brand-navy/5 p-3 rounded-lg text-brand-royal h-fit">
-                    <UserCheck size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-lg text-brand-navy mb-1">Parental Oversight</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">Parents receive detailed progress reports after every lesson and can monitor all communications through the Parent Portal.</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
+          </div>
 
+          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 mb-12">
+            <h3 className="text-xl font-bold text-brand-navy mb-6 border-b border-gray-100 pb-3">Senior Phase (Grade 7)</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {seniorPhase.map((sub, i) => (
+                <div key={i} className="flex items-center gap-2"><CheckCircle2 className="text-brand-teal shrink-0" size={16} /><span className="text-sm font-medium text-gray-700">{sub}</span></div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-brand-navy text-white p-6 rounded-xl"><Heart className="text-brand-gold mb-4" size={24}/><h4 className="font-bold text-lg mb-2">Nurturing Environment</h4><p className="text-sm text-gray-300">Tutors trained to be patient and encouraging.</p></div>
+            <div className="bg-brand-navy text-white p-6 rounded-xl"><Sparkles className="text-brand-gold mb-4" size={24}/><h4 className="font-bold text-lg mb-2">Interactive Learning</h4><p className="text-sm text-gray-300">Digital whiteboards and educational games.</p></div>
+            <div className="bg-brand-navy text-white p-6 rounded-xl"><UserCheck className="text-brand-gold mb-4" size={24}/><h4 className="font-bold text-lg mb-2">Parental Oversight</h4><p className="text-sm text-gray-300">Detailed progress reports after every lesson.</p></div>
           </div>
         </div>
       </section>

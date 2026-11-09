@@ -1,19 +1,21 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { ArrowRight, BookOpen, CheckCircle2, Microscope, BarChart3, GraduationCap } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Microscope, BarChart3, GraduationCap, Building2 } from 'lucide-react';
 
 export default function UniversityAcademy() {
-  const subjects = [
-    "Engineering (Civil, Mechanical)", "Computer Science & IT", "Business & Management",
-    "Accounting & Finance", "Mathematics & Statistics", "Research Methodology",
-    "Postgraduate Support", "Data Analysis (SPSS, R, Python)"
+  const faculties = [
+    { name: "Engineering & Built Environment", desc: "Electrical, Mechanical, Civil, Chemical, Mining, Architecture." },
+    { name: "Natural & Applied Sciences", desc: "Mathematics, Physics, Chemistry, Biology, Computer Science, AI." },
+    { name: "Health Sciences", desc: "Medicine, Nursing, Pharmacy, Physiotherapy, Public Health." },
+    { name: "Commerce & Business", desc: "Accounting, Economics, Finance, Business Management, Marketing." },
+    { name: "Humanities & Social Sciences", desc: "Psychology, Sociology, Political Science, History, Education." },
+    { name: "Law", desc: "LLB, Constitutional Law, Criminal Law, Commercial Law." },
   ];
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <PublicNavbar />
       
-      {/* Hero */}
       <section className="bg-brand-navy py-24 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
@@ -30,67 +32,35 @@ export default function UniversityAcademy() {
         </div>
       </section>
 
-      {/* Curriculum & Approach */}
       <section className="py-24 bg-brand-grey">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
-          <div className="grid lg:grid-cols-2 gap-16">
-            
-            {/* Subjects */}
-            <div>
-              <h2 className="text-3xl font-serif font-bold text-brand-navy mb-6">Academic Disciplines</h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Our university tutors are highly qualified professionals (many with Masters and PhDs) who can assist with complex, high-level academic material.
-              </p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {subjects.map((subject, i) => (
-                  <div key={i} className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 shadow-sm">
-                    <CheckCircle2 className="text-brand-teal shrink-0" size={16} />
-                    <span className="font-semibold text-sm text-brand-charcoal">{subject}</span>
-                  </div>
-                ))}
+          <h2 className="text-3xl font-serif font-bold text-brand-navy mb-8 text-center">Undergraduate Faculties</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {faculties.map((fac, i) => (
+              <div key={i} className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:border-brand-royal transition-colors">
+                <h3 className="text-lg font-bold text-brand-navy mb-2">{fac.name}</h3>
+                <p className="text-sm text-gray-600">{fac.desc}</p>
               </div>
+            ))}
+          </div>
 
-              <div className="mt-8 bg-brand-navy p-6 rounded-lg text-white">
-                <h4 className="font-bold mb-2 flex items-center gap-2"><GraduationCap size={18} className="text-brand-gold"/> Postgraduate Research</h4>
-                <p className="text-sm text-gray-300">Dedicated support for Honours, Masters, and PhD candidates, including literature reviews and proposal guidance.</p>
-              </div>
+          <h2 className="text-3xl font-serif font-bold text-brand-navy mb-8 mt-16 text-center">Postgraduate & Research</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-brand-navy p-8 rounded-xl shadow-lg text-white text-center">
+              <GraduationCap className="mx-auto text-brand-gold mb-4" size={40} />
+              <h3 className="text-xl font-bold mb-2">Honours Degrees</h3>
+              <p className="text-sm text-gray-300">NQF Level 8. Specialisations in Science, Commerce, Engineering, Humanities.</p>
             </div>
-            
-            {/* How We Teach */}
-            <div className="bg-white p-10 rounded-xl shadow-xl border border-gray-100">
-              <h3 className="text-2xl font-serif font-bold text-brand-navy mb-8">Our Teaching Approach</h3>
-              <ul className="space-y-8">
-                <li className="flex gap-5">
-                  <div className="bg-brand-navy/5 p-3 rounded-lg text-brand-royal h-fit">
-                    <Microscope size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-lg text-brand-navy mb-1">Research Excellence</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">We guide students through the academic research process, ensuring methodologies are sound and ethical.</p>
-                  </div>
-                </li>
-                <li className="flex gap-5">
-                  <div className="bg-brand-navy/5 p-3 rounded-lg text-brand-royal h-fit">
-                    <BarChart3 size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-lg text-brand-navy mb-1">Statistical Analysis</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">Tutoring on software like SPSS, R, and Python to help students interpret complex data for their theses.</p>
-                  </div>
-                </li>
-                <li className="flex gap-5">
-                  <div className="bg-brand-navy/5 p-3 rounded-lg text-brand-royal h-fit">
-                    <BookOpen size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-lg text-brand-navy mb-1">Exam & Assignment Prep</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">Support with complex assignments, academic writing structure, and preparation for rigorous university exams.</p>
-                  </div>
-                </li>
-              </ul>
+            <div className="bg-brand-navy p-8 rounded-xl shadow-lg text-white text-center">
+              <Microscope className="mx-auto text-brand-gold mb-4" size={40} />
+              <h3 className="text-xl font-bold mb-2">Master's Degrees</h3>
+              <p className="text-sm text-gray-300">NQF Level 9. MBA, MSc, MEd, MA. Coursework and research routes available.</p>
             </div>
-
+            <div className="bg-brand-navy p-8 rounded-xl shadow-lg text-white text-center">
+              <Building2 className="mx-auto text-brand-gold mb-4" size={40} />
+              <h3 className="text-xl font-bold mb-2">Doctoral (PhD)</h3>
+              <p className="text-sm text-gray-300">NQF Level 10. Advanced research across all academic disciplines.</p>
+            </div>
           </div>
         </div>
       </section>
