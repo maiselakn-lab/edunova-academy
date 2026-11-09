@@ -113,8 +113,7 @@ export default function PublicNavbar() {
           <div className="flex space-x-5">
             <Link href="/login/student" className="hover:text-white transition-colors">Student Portal</Link>
             <Link href="/login/tutor" className="hover:text-white transition-colors">Tutor Portal</Link>
-            <Link href="/become-a-tutor" className="hover:text-white transition-colors text-brand-gold font-medium">Become a Tutor</Link>
-            <Link href="/jobs" className="hover:text-white transition-colors">Jobs</Link>
+            <Link href="/become-a-tutor" className="hover:text-white transition-colors text-brand-gold font-medium">Careers</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
           </div>
           <div className="flex space-x-5 items-center">
@@ -251,11 +250,7 @@ export default function PublicNavbar() {
             </Link>
             
             <Link href="/become-a-tutor" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors whitespace-nowrap">
-              Become a Tutor
-            </Link>
-            
-            <Link href="/jobs" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors whitespace-nowrap">
-              Jobs
+              Careers
             </Link>
           </nav>
 
@@ -317,8 +312,7 @@ export default function PublicNavbar() {
             <Link href="/library" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Library</Link>
             <Link href="/news" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>News</Link>
             
-            <Link href="/become-a-tutor" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Become a Tutor</Link>
-            <Link href="/jobs" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Jobs</Link>
+            <Link href="/become-a-tutor" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Careers</Link>
             
             <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-2">
               <Link href="/register" className="block w-full text-center bg-brand-gold text-brand-navy font-bold px-4 py-3 rounded-md" onClick={() => setIsOpen(false)}>

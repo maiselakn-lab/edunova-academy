@@ -24,7 +24,7 @@ export default function Library() {
           <p className="text-xl text-gray-300 max-w-3xl mb-8">Access our repository of learning materials, past papers, and academic resources.</p>
           
           <div className="max-w-3xl relative">
-            {/* FIXED: Added bg-white and text-brand-navy for visibility */}
+            {/* FIXED: Added bg-white */}
             <input 
               type="text" 
               placeholder="Search for subjects, past papers, or textbooks..." 
