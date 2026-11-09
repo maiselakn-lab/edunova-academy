@@ -38,12 +38,14 @@ export default function ParentDashboard() {
   return (
     <div className="flex h-screen bg-brand-grey overflow-hidden">
       
+      {/* Sidebar */}
       <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-brand-navy text-white flex flex-col transition-all duration-300 shrink-0`}>
         <div className="h-20 flex items-center justify-center border-b border-white/10 px-4">
           <Link href="/"><img src="/logo.png" alt="EduNova" className={`${sidebarOpen ? 'h-12' : 'h-8'} w-auto object-contain bg-white rounded p-1 transition-all`} /></Link>
         </div>
 
         <nav className="flex-grow py-6 space-y-2 px-3 overflow-y-auto">
+          {/* FIXED: All internal portal routing */}
           <Link href="/portal/parent" className="flex items-center gap-4 px-4 py-3 bg-brand-royal rounded-lg font-medium"><LayoutDashboard size={20} />{sidebarOpen && <span>Dashboard</span>}</Link>
           <Link href="/portal/parent/children" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Users size={20} />{sidebarOpen && <span>My Children</span>}</Link>
           <Link href="/portal/parent/progress" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><FileText size={20} />{sidebarOpen && <span>Academic Progress</span>}</Link>
@@ -128,7 +130,6 @@ export default function ParentDashboard() {
 
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-8">
-              {/* Progress Chart */}
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <h2 className="text-xl font-bold text-brand-navy mb-6 flex items-center gap-2"><BarChart3 size={20}/> Subject Performance</h2>
                 <div className="h-48 bg-brand-grey rounded-lg flex items-end justify-between p-4 gap-4">
@@ -139,7 +140,6 @@ export default function ParentDashboard() {
                 <div className="flex justify-between text-xs text-gray-400 mt-2 font-bold px-2"><span>Maths</span><span>Physics</span><span>English</span><span>History</span><span>Bio</span><span>Art</span></div>
               </div>
 
-              {/* Tutor Feedback */}
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <h2 className="text-xl font-bold text-brand-navy mb-6">Recent Tutor Feedback</h2>
                 <div className="space-y-4">
@@ -161,16 +161,16 @@ export default function ParentDashboard() {
                   <div className="flex justify-between items-center border-b border-gray-100 pb-2"><span className="text-sm text-gray-500">Outstanding Balance</span><span className="font-bold text-red-500">R450.00</span></div>
                   <div className="flex justify-between items-center border-b border-gray-100 pb-2"><span className="text-sm text-gray-500">Next Invoice</span><span className="font-bold text-brand-navy">25 March 2026</span></div>
                 </div>
-                <button className="w-full bg-brand-navy text-white px-4 py-2 rounded text-sm font-bold hover:bg-opacity-90 mb-3">Pay Now</button>
-                <button className="w-full border border-gray-300 text-gray-600 px-4 py-2 rounded text-sm font-bold hover:bg-gray-100 flex items-center justify-center gap-2"><Download size={14}/> Statement</button>
+                <Link href="/portal/parent/billing" className="w-full block text-center bg-brand-navy text-white px-4 py-2 rounded text-sm font-bold hover:bg-opacity-90 mb-3">Pay Now</Link>
+                <Link href="/portal/parent/billing" className="w-full text-center border border-gray-300 text-gray-600 px-4 py-2 rounded text-sm font-bold hover:bg-gray-100 flex items-center justify-center gap-2"><Download size={14}/> Statement</Link>
               </div>
 
               <div className="bg-brand-navy rounded-xl shadow-sm p-6 text-white">
                 <h2 className="text-lg font-bold mb-4">Quick Actions</h2>
                 <div className="space-y-3">
-                  <button className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">Update Child Profile <ArrowRight size={16} /></button>
-                  <button className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">Message a Tutor <ArrowRight size={16} /></button>
-                  <button className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">Download Report <ArrowRight size={16} /></button>
+                  <Link href="/portal/parent/bookings" className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">Book a Lesson <ArrowRight size={16} /></Link>
+                  <Link href="/portal/parent/children" className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">Update Child Profile <ArrowRight size={16} /></Link>
+                  <Link href="/portal/parent/progress" className="w-full text-left bg-white/10 hover:bg-white/20 px-4 py-3 rounded transition-colors text-sm font-medium flex justify-between items-center">Download Report <ArrowRight size={16} /></Link>
                 </div>
               </div>
             </div>
