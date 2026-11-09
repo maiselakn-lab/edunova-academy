@@ -31,23 +31,25 @@ export default function LearnerDashboard() {
   return (
     <div className="flex h-screen bg-brand-grey overflow-hidden">
       
+      {/* Sidebar */}
       <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-brand-navy text-white flex flex-col transition-all duration-300 shrink-0`}>
         <div className="h-20 flex items-center justify-center border-b border-white/10 px-4">
           <Link href="/"><img src="/logo.png" alt="EduNova" className={`${sidebarOpen ? 'h-12' : 'h-8'} w-auto object-contain bg-white rounded p-1 transition-all`} /></Link>
         </div>
 
         <nav className="flex-grow py-6 space-y-2 px-3 overflow-y-auto">
+          {/* NOTE: Updated all hrefs to /portal/learner/... */}
           <Link href="/portal/learner" className="flex items-center gap-4 px-4 py-3 bg-brand-royal rounded-lg font-medium"><Home size={20} />{sidebarOpen && <span>My Home</span>}</Link>
-          <Link href="/portal/classroom" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><PlayCircle size={20} />{sidebarOpen && <span>Join Class</span>}</Link>
-          <Link href="/courses" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><BookOpen size={20} />{sidebarOpen && <span>My Subjects</span>}</Link>
-          <Link href="/calendar" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Calendar size={20} />{sidebarOpen && <span>My Calendar</span>}</Link>
-          <Link href="/portal/records" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><FileText size={20} />{sidebarOpen && <span>My Marks</span>}</Link>
-          <Link href="/rewards" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold"><Award size={20} />{sidebarOpen && <span>My Rewards</span>}</Link>
-          <Link href="/community/learner" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-sky"><Users size={20} />{sidebarOpen && <span>Community</span>}</Link>
+          <Link href="/portal/learner/classroom" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><PlayCircle size={20} />{sidebarOpen && <span>Join Class</span>}</Link>
+          <Link href="/portal/learner/subjects" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><BookOpen size={20} />{sidebarOpen && <span>My Subjects</span>}</Link>
+          <Link href="/portal/learner/calendar" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Calendar size={20} />{sidebarOpen && <span>My Calendar</span>}</Link>
+          <Link href="/portal/learner/marks" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><FileText size={20} />{sidebarOpen && <span>My Marks</span>}</Link>
+          <Link href="/portal/learner/rewards" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold"><Award size={20} />{sidebarOpen && <span>My Rewards</span>}</Link>
+          <Link href="/portal/learner/community" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-sky"><Users size={20} />{sidebarOpen && <span>Community</span>}</Link>
         </nav>
 
         <div className="p-4 border-t border-white/10 space-y-2">
-          <Link href="/portal/settings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Settings size={20} />{sidebarOpen && <span>Settings</span>}</Link>
+          <Link href="/portal/learner/settings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Settings size={20} />{sidebarOpen && <span>Settings</span>}</Link>
           <button onClick={handleLogout} className="w-full flex items-center gap-4 px-4 py-3 hover:bg-red-500/20 text-red-400 rounded-lg"><LogOut size={20} />{sidebarOpen && <span>Logout</span>}</button>
         </div>
       </aside>
@@ -77,7 +79,8 @@ export default function LearnerDashboard() {
             <div className="relative z-10">
               <h1 className="text-3xl font-serif font-bold text-white mb-2">Ready to learn today, {user.first_name}?</h1>
               <p className="text-blue-100 mb-6 max-w-xl">You have 1 class today. Don't forget to complete your Natural Sciences homework before 17:00!</p>
-              <Link href="/portal/classroom" className="bg-white text-brand-royal px-6 py-3 rounded-sm font-bold inline-flex items-center gap-2 hover:bg-gray-100 transition-colors shadow-md">Go to Classroom <ArrowRight size={18} /></Link>
+              {/* NOTE: Updated href to internal classroom */}
+              <Link href="/portal/learner/classroom" className="bg-white text-brand-royal px-6 py-3 rounded-sm font-bold inline-flex items-center gap-2 hover:bg-gray-100 transition-colors shadow-md">Go to Classroom <ArrowRight size={18} /></Link>
             </div>
           </div>
 
@@ -119,7 +122,7 @@ export default function LearnerDashboard() {
                 <div className="w-16 h-16 bg-brand-royal/10 text-brand-royal rounded-full flex items-center justify-center mx-auto mb-4"><PlayCircle size={32} /></div>
                 <h3 className="font-bold text-brand-navy mb-1">English Literature</h3>
                 <p className="text-sm text-gray-500 mb-4">14:00 - 15:00</p>
-                <Link href="/portal/classroom" className="w-full block bg-brand-royal text-white px-4 py-2 rounded text-sm font-bold">Join Now</Link>
+                <Link href="/portal/learner/classroom" className="w-full block bg-brand-royal text-white px-4 py-2 rounded text-sm font-bold">Join Now</Link>
               </div>
             </div>
           </div>
