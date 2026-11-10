@@ -153,7 +153,6 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 def read_root():
     return {"status": "Online", "message": "Welcome to the THINK EduNova API."}
 
-# 1. Create a School (Tenant)
 @app.post("/api/schools")
 def create_school(school: SchoolCreate, db: Session = Depends(get_db)):
     new_school = models.School(name=school.name, address=school.address)
@@ -162,12 +161,10 @@ def create_school(school: SchoolCreate, db: Session = Depends(get_db)):
     db.refresh(new_school)
     return new_school
 
-# 2. Get all Schools
 @app.get("/api/schools")
 def get_schools(db: Session = Depends(get_db)):
     return db.query(models.School).all()
 
-# 3. User Signup (With Automatic Link Code for Learners)
 @app.post("/api/signup")
 def signup(user: UserCreate, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
@@ -181,11 +178,9 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
 
     hashed_pw = pwd_context.hash(user.password)
     
-    # Generate unique link code for learners
     link_code = None
     if user.role == "learner":
         link_code = f"LNK-{random.randint(1000, 9999)}"
-        # Ensure uniqueness
         while db.query(models.User).filter(models.User.link_code == link_code).first():
             link_code = f"LNK-{random.randint(1000, 9999)}"
 
@@ -204,7 +199,6 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
     
     return {"message": "User created successfully", "user": new_user.email, "link_code": link_code}
 
-# 4. User Login
 @app.post("/api/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
@@ -234,7 +228,6 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         }
     }
 
-# 5. Get Current User
 @app.get("/api/users/me")
 def read_users_me(current_user: models.User = Depends(get_current_user)):
     return {
@@ -291,16 +284,28 @@ def get_parent_dashboard(current_user: models.User = Depends(get_current_user), 
 def get_tutor_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "tutor":
         raise HTTPException(status_code=403, detail="Access denied. Tutor access only.")
+    
+    my_reports = db.query(models.LessonReport).filter(models.LessonReport.tutor_id == current_user.id).all()
+    total_lessons = len(my_reports)
+    total_earnings = total_lessons * 150
+    
+    my_payouts = db.query(models.Payout).filter(models.Payout.tutor_id == current_user.id, models.Payout.status == "Completed").all()
+    total_paid = sum([p.amount for p in my_payouts])
+    
+    pending_earnings = total_earnings - total_paid
+    if pending_earnings < 0:
+        pending_earnings = 0
+    
     return {
         "tutor_name": f"{current_user.first_name} {current_user.last_name}",
-        "pending_earnings": "R 4,250.00",
+        "pending_earnings": f"R {pending_earnings:,.2f}",
+        "completed_lessons": total_lessons,
+        "active_students": 12, 
+        "rating": "4.9/5.0",
         "upcoming_lessons": [
             {"id": 1, "student_name": "Siphelele Blose", "subject": "Mathematics: Calculus", "time": "14:00", "status": "ready"},
             {"id": 2, "student_name": "Lerato Ndlovu", "subject": "Physical Sciences: Mechanics", "time": "16:30", "status": "waiting"}
         ],
-        "active_students": 12,
-        "rating": "4.9/5.0",
-        "completed_lessons": 28,
         "recent_assessments": [
             {"student": "Siphelele B.", "subject": "Mathematics", "average": "85%"},
             {"student": "Lerato N.", "subject": "Physical Sciences", "average": "72%"}
