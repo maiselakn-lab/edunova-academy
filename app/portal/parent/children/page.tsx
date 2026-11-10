@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Users, Plus, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Users, Plus, CheckCircle2, AlertCircle, Loader2, ArrowLeft } from 'lucide-react';
 
 export default function MyChildren() {
   const [children, setChildren] = useState<any[]>([]);
-  const [email, setEmail] = useState('');
+  const [linkCode, setLinkCode] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -18,65 +18,50 @@ export default function MyChildren() {
       const response = await fetch('https://edunova-academy-qkk5.onrender.com/api/parent/children', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
-      if (response.ok) {
-        const data = await response.json();
-        setChildren(data.children);
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsFetching(false);
-    }
+      if (response.ok) setChildren((await response.json()).children);
+    } catch (err) { console.error(err); } 
+    finally { setIsFetching(false); }
   };
 
-  useEffect(() => {
-    fetchChildren();
-  }, []);
+  useEffect(() => { fetchChildren(); }, []);
 
   const handleLink = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setMessage('');
-    setIsLoading(true);
-
+    e.preventDefault(); setError(''); setMessage(''); setIsLoading(true);
     const token = localStorage.getItem('edunova_token');
     try {
-      const response = await fetch(`https://edunova-academy-qkk5.onrender.com/api/parent/link-child?learner_email=${email}`, {
+      const response = await fetch(`https://edunova-academy-qkk5.onrender.com/api/parent/link-child?link_code=${linkCode.toUpperCase()}`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.detail);
-      setMessage(data.message);
-      setEmail('');
-      fetchChildren();
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
+      setMessage(data.message); setLinkCode(''); fetchChildren();
+    } catch (err: any) { setError(err.message); } 
+    finally { setIsLoading(false); }
   };
 
   return (
     <div>
-      <h1 className="text-3xl font-serif font-bold text-brand-navy mb-6">My Children</h1>
+      <div className="flex items-center gap-4 mb-6">
+        <Link href="/portal/parent" className="text-gray-400 hover:text-brand-navy"><ArrowLeft size={24} /></Link>
+        <h1 className="text-3xl font-serif font-bold text-brand-navy">My Children</h1>
+      </div>
       
-      {/* Add Child Form */}
       <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm mb-8">
-        <h2 className="text-xl font-bold text-brand-navy mb-4">Link a Learner Account</h2>
-        <p className="text-sm text-gray-500 mb-4">Enter the email address your child uses to log in to their Learner Portal.</p>
+        <h2 className="text-xl font-bold text-brand-navy mb-2">Link a Learner Account</h2>
+        <p className="text-sm text-gray-500 mb-6">Ask your child to log into their Learner Portal and copy the <strong>Link Code</strong> shown on their dashboard.</p>
         
         {error && <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-4 flex items-center gap-2"><AlertCircle size={18} />{error}</div>}
         {message && <div className="bg-brand-teal/10 text-brand-teal p-3 rounded-lg mb-4 flex items-center gap-2"><CheckCircle2 size={18} />{message}</div>}
         
-        <form onSubmit={handleLink} className="flex gap-2">
+        <form onSubmit={handleLink} className="flex gap-3">
           <input 
-            type="email" 
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="learner@example.com"
+            type="text" 
+            value={linkCode}
+            onChange={(e) => setLinkCode(e.target.value)}
+            placeholder="e.g. LNK-8842"
             required
-            className="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal" 
+            className="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-royal uppercase" 
           />
           <button type="submit" disabled={isLoading} className="bg-brand-royal text-white px-6 py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-blue-700 disabled:opacity-70">
             {isLoading ? <Loader2 className="animate-spin" size={18}/> : <Plus size={18}/>} Link Child
@@ -84,7 +69,6 @@ export default function MyChildren() {
         </form>
       </div>
 
-      {/* Children List */}
       <div className="grid md:grid-cols-2 gap-6">
         {isFetching ? (
           <p className="text-gray-500">Loading children...</p>
