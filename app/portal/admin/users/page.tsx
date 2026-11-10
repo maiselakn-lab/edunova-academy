@@ -1,22 +1,32 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Search, MoreVertical } from 'lucide-react';
+import { Search, MoreVertical, Loader2 } from 'lucide-react';
 
 export default function UserManagement() {
   const [users, setUsers] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // In a real app, this would fetch from /api/admin/users
-    // For now, we simulate fetching real data
-    setUsers([
-      { name: "Norman Maisela", email: "student@test.com", role: "Student", joined: "Jan 15, 2026" },
-      { name: "Sarah Ndlovu", email: "parent@test.com", role: "Parent", joined: "Jan 10, 2026" },
-      { name: "Thabo Nkosi", email: "tutor@test.com", role: "Tutor", joined: "Jan 05, 2026" },
-      { name: "Junior Dlamini", email: "learner@test.com", role: "Learner", joined: "Jan 20, 2026" },
-      { name: "Root Admin", email: "admin@test.com", role: "Admin", joined: "Jan 01, 2026" },
-    ]);
+    const fetchUsers = async () => {
+      const token = localStorage.getItem('edunova_token');
+      try {
+        const response = await fetch('https://edunova-academy-qkk5.onrender.com/api/admin/users', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (response.ok) {
+          setUsers(await response.json());
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchUsers();
   }, []);
+
+  if (isLoading) return <div className="p-8 text-gray-500">Loading users...</div>;
 
   return (
     <div>
@@ -36,17 +46,19 @@ export default function UserManagement() {
               <th className="p-4 font-bold">Name</th>
               <th className="p-4 font-bold">Email</th>
               <th className="p-4 font-bold">Role</th>
-              <th className="p-4 font-bold">Joined</th>
               <th className="p-4 font-bold text-right">Actions</th>
             </tr>
           </thead>
           <tbody className="text-sm">
-            {users.map((u, i) => (
-              <tr key={i} className="border-b border-gray-100">
+            {users.map((u) => (
+              <tr key={u.id} className="border-b border-gray-100">
                 <td className="p-4 font-bold text-brand-navy">{u.name}</td>
                 <td className="p-4 text-gray-500">{u.email}</td>
-                <td className="p-4"><span className={`px-2 py-1 rounded text-xs font-bold ${u.role === 'Admin' ? 'bg-brand-charcoal text-white' : 'bg-brand-royal/10 text-brand-royal'}`}>{u.role}</span></td>
-                <td className="p-4 text-gray-500">{u.joined}</td>
+                <td className="p-4">
+                  <span className={`px-2 py-1 rounded text-xs font-bold capitalize ${u.role === 'admin' ? 'bg-brand-charcoal text-white' : 'bg-brand-royal/10 text-brand-royal'}`}>
+                    {u.role}
+                  </span>
+                </td>
                 <td className="p-4 text-right"><button><MoreVertical size={16} className="text-gray-400"/></button></td>
               </tr>
             ))}
