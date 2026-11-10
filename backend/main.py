@@ -11,13 +11,20 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 
+# 1. Load environment variables FIRST
 load_dotenv()
+
+# 2. Import database setup and models
 import models
 from database import engine, SessionLocal
 
+# 3. Create the database tables on startup
 models.Base.metadata.create_all(bind=engine)
+
+# 4. Initialize FastAPI app
 app = FastAPI(title="THINK EduNova Backend")
 
+# --- CORS CONFIGURATION ---
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -30,23 +37,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Initialize Groq Client
 client = OpenAI(
     api_key=os.getenv("GROQ_API_KEY"),
     base_url="https://api.groq.com/openai/v1"
 )
 
+# --- SECURITY CONFIGURATION ---
 SECRET_KEY = os.getenv("SECRET_KEY", "edunova-super-secret-jwt-key-2026")
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 7 days
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/login")
 
+# Dependency to get DB session
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
+# --- PYDANTIC MODELS ---
 
 class ChatRequest(BaseModel):
     message: str
@@ -107,6 +120,8 @@ class NewsCreate(BaseModel):
     category: str
     image_url: str
 
+# --- HELPER FUNCTIONS ---
+
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -126,10 +141,13 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
             raise credentials_exception
     except JWTError:
         raise credentials_exception
+    
     user = db.query(models.User).filter(models.User.email == email).first()
     if user is None:
         raise credentials_exception
     return user
+
+# --- API ROUTES ---
 
 @app.get("/")
 def read_root():
@@ -178,16 +196,24 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+    
     return {"message": "User created successfully", "user": new_user.email, "link_code": link_code}
 
 @app.post("/api/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
+    
     if not db_user or not pwd_context.verify(user.password, db_user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid email or password")
+    
     if db_user.role != user.role:
-        raise HTTPException(status_code=403, detail=f"Access denied. This account is registered as a {db_user.role}, not a {user.role}.")
+        raise HTTPException(
+            status_code=403, 
+            detail=f"Access denied. This account is registered as a {db_user.role}, not a {user.role}."
+        )
+    
     access_token = create_access_token(data={"sub": db_user.email, "role": db_user.role})
+    
     return {
         "message": "Login successful",
         "access_token": access_token,
@@ -236,7 +262,18 @@ def get_parent_dashboard(current_user: models.User = Depends(get_current_user), 
     if current_user.role != "parent":
         raise HTTPException(status_code=403, detail="Access denied. Parent access only.")
     links = db.query(models.ParentChildLink).filter(models.ParentChildLink.parent_id == current_user.id).all()
-    children = [{"id": link.learner.id, "name": link.learner.first_name, "surname": link.learner.last_name, "email": link.learner.email, "grade": "Grade 11", "school": "Pretoria Boys High", "average": "82%", "attendance": "98%"} for link in links]
+    children = []
+    for link in links:
+        children.append({
+            "id": link.learner.id,
+            "name": link.learner.first_name,
+            "surname": link.learner.last_name,
+            "email": link.learner.email,
+            "grade": "Grade 11",
+            "school": "Pretoria Boys High",
+            "average": "82%",
+            "attendance": "98%"
+        })
     return {"parent_name": f"{current_user.first_name} {current_user.last_name}", "children": children, "outstanding_balance": "R450.00"}
 
 @app.get("/api/tutor/dashboard")
@@ -372,6 +409,39 @@ def get_child_profile(child_id: int, current_user: models.User = Depends(get_cur
         raise HTTPException(status_code=403, detail="You are not authorized to view this child's profile.")
     learner = db.query(models.User).filter(models.User.id == child_id).first()
     return {"id": learner.id, "name": f"{learner.first_name} {learner.last_name}", "email": learner.email, "role": learner.role, "average": "82%", "attendance": "98%", "recent_feedback": "Great improvement in Mathematics this term."}
+
+# --- PARENT: CHILD ACADEMIC PROGRESS ---
+@app.get("/api/parent/child/{child_id}/progress")
+def get_child_progress(child_id: int, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "parent":
+        raise HTTPException(status_code=403, detail="Only parents can access child progress.")
+    
+    link = db.query(models.ParentChildLink).filter(
+        models.ParentChildLink.parent_id == current_user.id,
+        models.ParentChildLink.learner_id == child_id
+    ).first()
+    
+    if not link:
+        raise HTTPException(status_code=403, detail="You are not authorized to view this child's progress.")
+    
+    learner = db.query(models.User).filter(models.User.id == child_id).first()
+    
+    return {
+        "child_id": learner.id,
+        "child_name": f"{learner.first_name} {learner.last_name}",
+        "grade": "Grade 11",
+        "school": "Pretoria Boys High",
+        "average": "82%",
+        "attendance": "98%",
+        "subjects": [
+            {"name": "Mathematics", "score": 85, "color": "bg-brand-teal"},
+            {"name": "Physical Sciences", "score": 72, "color": "bg-brand-royal"},
+            {"name": "English", "score": 90, "color": "bg-brand-teal"},
+            {"name": "History", "score": 65, "color": "bg-brand-gold"},
+            {"name": "Life Sciences", "score": 78, "color": "bg-brand-sky"},
+        ],
+        "recent_feedback": "Great improvement in Mathematics this term. Keep up the consistent effort."
+    }
 
 # --- TUTOR STUDENT DIRECTORY ---
 
