@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { ArrowRight, Heart, Laptop, PenTool, Video, Megaphone, CheckCircle2, UserPlus } from 'lucide-react';
+import { ArrowRight, Briefcase, Heart, Laptop, PenTool, Video, Megaphone, CheckCircle2, UserPlus } from 'lucide-react';
 
 export default function CareersHub() {
   const positions = [
@@ -17,7 +17,7 @@ export default function CareersHub() {
       type: "Full-Time",
       desc: "Developers to help us scale the Next.js frontend and FastAPI backend.",
       icon: <Laptop size={28} />,
-      href: "/careers/apply?role=engineer",
+      href: "/contact",
       color: "text-brand-sky"
     },
     {
@@ -25,7 +25,7 @@ export default function CareersHub() {
       type: "Freelance",
       desc: "Writers, videographers, and designers to build our digital curriculum.",
       icon: <Video size={28} />,
-      href: "/careers/apply?role=content",
+      href: "/contact",
       color: "text-brand-gold"
     },
     {
@@ -33,7 +33,7 @@ export default function CareersHub() {
       type: "Commission-Based",
       desc: "Drive student enrolments on campuses and in schools across South Africa.",
       icon: <Megaphone size={28} />,
-      href: "/careers/apply?role=marketing",
+      href: "/contact",
       color: "text-brand-teal"
     }
   ];
@@ -109,12 +109,11 @@ export default function CareersHub() {
                 <li className="flex items-center gap-3 text-gray-200"><CheckCircle2 className="text-brand-teal" size={20}/> Receive a certificate of service</li>
                 <li className="flex items-center gap-3 text-gray-200"><CheckCircle2 className="text-brand-teal" size={20}/> Make a real impact on a child's future</li>
               </ul>
-              <Link href="/careers/apply?role=volunteer" className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold text-lg hover:bg-yellow-500 transition-all inline-flex items-center gap-2 shadow-lg w-fit">
+              <Link href="/careers/volunteer" className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold text-lg hover:bg-yellow-500 transition-all inline-flex items-center gap-2 shadow-lg w-fit">
                 Apply to Volunteer <ArrowRight size={20} />
               </Link>
             </div>
             <div className="lg:w-1/2 relative min-h-[400px]">
-              {/* FIXED: Replaced broken image URL with a reliable one */}
               <img 
                 src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" 
                 alt="Volunteers collaborating" 

@@ -1,34 +1,17 @@
 "use client";
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { UserPlus, Mail, Lock, User, BookOpen, Building2, ArrowRight, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { UserPlus, Mail, Lock, User, ArrowRight, Loader2, AlertCircle, CheckCircle2, BookOpen } from 'lucide-react';
 
 export default function TutorApply() {
   const router = useRouter();
-  const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', password: '', specialization: '', schoolId: '' });
-  const [schools, setSchools] = useState<any[]>([]);
+  const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', password: '', specialization: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingSchools, setIsLoadingSchools] = useState(true);
-
-  useEffect(() => {
-    const fetchSchools = async () => {
-      try {
-        const response = await fetch('https://edunova-academy-qkk5.onrender.com/api/schools');
-        if (response.ok) {
-          const data = await response.json();
-          setSchools(data);
-          if (data.length > 0) setFormData(prev => ({ ...prev, schoolId: data[0].id.toString() }));
-        }
-      } catch (err) { console.error(err); } 
-      finally { setIsLoadingSchools(false); }
-    };
-    fetchSchools();
-  }, []);
 
   const handleApply = async (e: React.FormEvent) => {
     e.preventDefault(); setError(''); setIsLoading(true);
@@ -38,7 +21,7 @@ export default function TutorApply() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           first_name: formData.firstName, last_name: formData.lastName, email: formData.email,
-          password: formData.password, role: 'tutor', school_id: parseInt(formData.schoolId)
+          password: formData.password, role: 'tutor', school_id: 1
         }),
       });
       const data = await response.json();
@@ -61,7 +44,7 @@ export default function TutorApply() {
           </div>
 
           {error && <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-start gap-3 border border-red-100"><AlertCircle size={20} className="shrink-0 mt-0.5" /><p className="text-sm font-medium">{error}</p></div>}
-          {success && <div className="bg-brand-teal/10 text-brand-teal p-4 rounded-lg mb-6 flex items-start gap-3 border border-brand-teal/20"><CheckCircle2 size={20} className="shrink-0 mt-0.5" /><p className="text-sm font-medium">Application successful! Redirecting to login...</p></div>}
+          {success && <div className="bg-brand-teal/10 text-brand-teal p-4 rounded-lg mb-6 flex items-start gap-3 border border-brand-teal/20"><CheckCircle2 size={20} className="shrink-0 mt-0.5" /><p className="text-sm font-medium">Application successful! Redirecting...</p></div>}
           
           <form onSubmit={handleApply} className="space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -79,15 +62,6 @@ export default function TutorApply() {
               <div className="relative"><Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} /><input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} placeholder="tutor@example.com" className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-gold" /></div>
             </div>
             <div>
-              <label className="block text-sm font-bold text-brand-navy mb-2">Institution</label>
-              <div className="relative">
-                <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                <select required value={formData.schoolId} onChange={(e) => setFormData({...formData, schoolId: e.target.value})} className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-gold text-gray-600" disabled={isLoadingSchools}>
-                  {isLoadingSchools ? <option>Loading institutions...</option> : schools.map(school => <option key={school.id} value={school.id}>{school.name}</option>)}
-                </select>
-              </div>
-            </div>
-            <div>
               <label className="block text-sm font-bold text-brand-navy mb-2">Subject Specialisation</label>
               <div className="relative"><BookOpen className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} /><input type="text" required value={formData.specialization} onChange={(e) => setFormData({...formData, specialization: e.target.value})} placeholder="e.g. Mathematics & Physical Sciences" className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-gold" /></div>
             </div>
@@ -96,7 +70,7 @@ export default function TutorApply() {
               <div className="relative"><Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} /><input type="password" required value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} placeholder="••••••••" className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-gold" /></div>
             </div>
             <button type="submit" disabled={isLoading || success} className="w-full bg-brand-gold text-brand-navy font-bold py-4 rounded-lg hover:bg-yellow-500 transition-colors shadow-md mt-6 flex justify-center items-center gap-2 disabled:opacity-70">
-              {isLoading ? <><Loader2 className="animate-spin" size={20}/> Submitting Application...</> : <>Submit Application <ArrowRight size={18} /></>}
+              {isLoading ? <><Loader2 className="animate-spin" size={20}/> Submitting...</> : <>Submit Application <ArrowRight size={18} /></>}
             </button>
           </form>
           <div className="mt-8 pt-6 border-t border-gray-100 text-center"><p className="text-gray-500 text-sm">Already applied? <Link href="/login/tutor" className="text-brand-royal font-bold hover:underline">Check Status / Login</Link></p></div>
