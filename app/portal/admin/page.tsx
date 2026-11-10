@@ -7,7 +7,7 @@ import {
   LayoutDashboard, Users, GraduationCap, CreditCard, ShieldCheck, 
   Settings, LogOut, Bell, Menu, TrendingUp, CheckCircle, Database, 
   Activity, Video, MessageSquare, AlertTriangle, PlayCircle, Eye,
-  UserPlus, Send, Calendar as CalendarIcon, BarChart3, Edit
+  UserPlus, Send, Calendar as CalendarIcon, BarChart3, Edit, Newspaper
 } from 'lucide-react';
 
 export default function AdminDashboard() {
@@ -63,6 +63,7 @@ export default function AdminDashboard() {
           <Link href="/portal/admin/users" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Users size={20} />{sidebarOpen && <span>User Management</span>}</Link>
           <Link href="/portal/admin/academics" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><GraduationCap size={20} />{sidebarOpen && <span>Academic Management</span>}</Link>
           <Link href="/portal/admin/website" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Edit size={20} />{sidebarOpen && <span>Edit Website Content</span>}</Link>
+          <Link href="/portal/admin/news" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Newspaper size={20} />{sidebarOpen && <span>News Manager</span>}</Link>
           
           <div className="pt-4 pb-2">{sidebarOpen && <p className="text-xs font-bold text-gray-500 uppercase tracking-wider pl-4 mb-2">Monitoring</p>}</div>
           <Link href="/portal/admin/live-monitor" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-sky"><Video size={20} />{sidebarOpen && <span>Live Class Monitor</span>}</Link>
