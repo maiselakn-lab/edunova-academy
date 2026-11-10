@@ -310,6 +310,20 @@ def get_learner_dashboard(current_user: models.User = Depends(get_current_user),
         "today_class": {"subject": "English Literature", "time": "14:00 - 15:00", "tutor": "Mrs. K. Zulu"}
     }
 
+# --- LEARNER SUBJECTS ---
+@app.get("/api/learner/subjects")
+def get_learner_subjects(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "learner":
+        raise HTTPException(status_code=403, detail="Access denied. Learner access only.")
+    return [
+        {"id": 1, "name": "Mathematics", "code": "MATH-11", "teacher": "Mr. T. Nkosi", "progress": 85, "color": "bg-brand-royal"},
+        {"id": 2, "name": "English Home Language", "code": "ENG-11", "teacher": "Mrs. K. Zulu", "progress": 90, "color": "bg-brand-teal"},
+        {"id": 3, "name": "Physical Sciences", "code": "PHYS-11", "teacher": "Dr. A. Smith", "progress": 72, "color": "bg-brand-gold"},
+        {"id": 4, "name": "Life Sciences", "code": "LIFE-11", "teacher": "Ms. N. Dlamini", "progress": 78, "color": "bg-brand-sky"},
+        {"id": 5, "name": "Geography", "code": "GEO-11", "teacher": "Mr. P. van Wyk", "progress": 88, "color": "bg-brand-royal"},
+        {"id": 6, "name": "History", "code": "HIST-11", "teacher": "Mrs. M. Sithole", "progress": 82, "color": "bg-brand-teal"},
+    ]
+
 # --- PARENT-CHILD LINKING ---
 
 @app.post("/api/parent/link-child")
