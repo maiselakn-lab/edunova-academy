@@ -9,7 +9,6 @@ export default function AdminFinance() {
   const [tutors, setTutors] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  // Payout Modal State
   const [showPayoutModal, setShowPayoutModal] = useState(false);
   const [payoutForm, setPayoutForm] = useState({ tutor_id: '', amount: '' });
   const [isProcessing, setIsProcessing] = useState(false);
@@ -28,11 +27,8 @@ export default function AdminFinance() {
         const allUsers = await usersRes.json();
         setTutors(allUsers.filter((u: any) => u.role === 'tutor'));
       }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+    } catch (err) { console.error(err); } 
+    finally { setIsLoading(false); }
   };
 
   useEffect(() => { fetchData(); }, []);
@@ -49,13 +45,10 @@ export default function AdminFinance() {
       if (response.ok) {
         setPayoutSuccess(`Payout of R${payoutForm.amount} processed successfully.`);
         setTimeout(() => { setShowPayoutModal(false); setPayoutSuccess(''); }, 2000);
-        fetchData(); // Refresh finance data
+        fetchData();
       }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsProcessing(false);
-    }
+    } catch (err) { console.error(err); } 
+    finally { setIsProcessing(false); }
   };
 
   if (isLoading) return <div className="p-8 text-gray-500">Loading financial data...</div>;
@@ -74,7 +67,6 @@ export default function AdminFinance() {
         </div>
       </div>
 
-      {/* Top Summary Cards */}
       <div className="grid md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm border-t-4 border-t-brand-royal">
           <div className="w-10 h-10 bg-brand-royal/10 text-brand-royal rounded-full flex items-center justify-center mb-4"><TrendingUp size={20}/></div>
@@ -95,7 +87,6 @@ export default function AdminFinance() {
         </div>
       </div>
 
-      {/* Transaction Ledger */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="p-6 border-b border-gray-200 flex justify-between items-center">
           <h2 className="text-xl font-bold text-brand-navy">Recent Transactions</h2>
@@ -128,7 +119,6 @@ export default function AdminFinance() {
         </table>
       </div>
 
-      {/* Payout Modal */}
       {showPayoutModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-6">

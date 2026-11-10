@@ -31,21 +31,19 @@ export default function StudentDashboard() {
   return (
     <div className="flex h-screen bg-brand-grey overflow-hidden">
       
-      {/* Sidebar */}
       <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-brand-navy text-white flex flex-col transition-all duration-300 shrink-0`}>
         <div className="h-20 flex items-center justify-center border-b border-white/10 px-4">
           <Link href="/"><img src="/logo.png" alt="EduNova" className={`${sidebarOpen ? 'h-12' : 'h-8'} w-auto object-contain bg-white rounded p-1 transition-all`} /></Link>
         </div>
 
         <nav className="flex-grow py-6 space-y-2 px-3 overflow-y-auto">
-          {/* NOTE: Changed hrefs to /portal/student/... */}
           <Link href="/portal/student" className="flex items-center gap-4 px-4 py-3 bg-brand-royal rounded-lg font-medium"><LayoutDashboard size={20} />{sidebarOpen && <span>Dashboard</span>}</Link>
           <Link href="/portal/student/classroom" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><PlayCircle size={20} />{sidebarOpen && <span>Live Classroom</span>}</Link>
-          <Link href="/portal/student/subjects" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><BookOpen size={20} />{sidebarOpen && <span>My Subjects</span>}</Link>
-          <Link href="/portal/student/timetable" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Calendar size={20} />{sidebarOpen && <span>Timetable</span>}</Link>
+          <Link href="/courses" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><BookOpen size={20} />{sidebarOpen && <span>My Subjects</span>}</Link>
+          <Link href="/calendar" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Calendar size={20} />{sidebarOpen && <span>Timetable</span>}</Link>
           <Link href="/portal/student/assessments" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><FileText size={20} />{sidebarOpen && <span>Assessments</span>}</Link>
           <Link href="/portal/student/ai" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold"><Bot size={20} />{sidebarOpen && <span>AI Assistant</span>}</Link>
-          <Link href="/portal/student/community" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-sky"><Users size={20} />{sidebarOpen && <span>Community</span>}</Link>
+          <Link href="/community/student" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-sky"><Users size={20} />{sidebarOpen && <span>Community</span>}</Link>
         </nav>
 
         <div className="p-4 border-t border-white/10 space-y-2">
@@ -107,8 +105,7 @@ export default function StudentDashboard() {
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-xl font-bold text-brand-navy">Today's Schedule</h2>
-                  {/* NOTE: Changed link to portal timetable */}
-                  <Link href="/portal/student/timetable" className="text-sm text-brand-royal font-bold hover:underline">View Calendar</Link>
+                  <Link href="/calendar" className="text-sm text-brand-royal font-bold hover:underline">View Calendar</Link>
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-lg hover:border-brand-royal transition-colors bg-brand-grey/50">

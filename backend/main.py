@@ -10,20 +10,13 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 
-# 1. Load environment variables FIRST
 load_dotenv()
-
-# 2. Import database setup and models
 import models
 from database import engine, SessionLocal
 
-# 3. Create the database tables on startup
 models.Base.metadata.create_all(bind=engine)
-
-# 4. Initialize FastAPI app
 app = FastAPI(title="THINK EduNova Backend")
 
-# --- CORS CONFIGURATION ---
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -36,29 +29,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize Groq Client
 client = OpenAI(
     api_key=os.getenv("GROQ_API_KEY"),
     base_url="https://api.groq.com/openai/v1"
 )
 
-# --- SECURITY CONFIGURATION ---
 SECRET_KEY = os.getenv("SECRET_KEY", "edunova-super-secret-jwt-key-2026")
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 7 days
-
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/login")
 
-# Dependency to get DB session
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
-
-# --- PYDANTIC MODELS ---
 
 class ChatRequest(BaseModel):
     message: str
@@ -113,8 +100,6 @@ class ApplicationCreate(BaseModel):
     role: str
     details: str
 
-# --- HELPER FUNCTIONS ---
-
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -134,19 +119,15 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
             raise credentials_exception
     except JWTError:
         raise credentials_exception
-    
     user = db.query(models.User).filter(models.User.email == email).first()
     if user is None:
         raise credentials_exception
     return user
 
-# --- API ROUTES ---
-
 @app.get("/")
 def read_root():
     return {"status": "Online", "message": "Welcome to the THINK EduNova API."}
 
-# 1. Create a School (Tenant)
 @app.post("/api/schools")
 def create_school(school: SchoolCreate, db: Session = Depends(get_db)):
     new_school = models.School(name=school.name, address=school.address)
@@ -155,12 +136,10 @@ def create_school(school: SchoolCreate, db: Session = Depends(get_db)):
     db.refresh(new_school)
     return new_school
 
-# 2. Get all Schools
 @app.get("/api/schools")
 def get_schools(db: Session = Depends(get_db)):
     return db.query(models.School).all()
 
-# 3. User Signup (Linked to School)
 @app.post("/api/signup")
 def signup(user: UserCreate, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
@@ -173,7 +152,6 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
             raise HTTPException(status_code=400, detail=f"School with ID {user.school_id} does not exist.")
 
     hashed_pw = pwd_context.hash(user.password)
-    
     new_user = models.User(
         first_name=user.first_name,
         last_name=user.last_name,
@@ -185,25 +163,19 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    
     return {"message": "User created successfully", "user": new_user.email}
 
-# 4. User Login (WITH ROLE VERIFICATION)
 @app.post("/api/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
-    
     if not db_user or not pwd_context.verify(user.password, db_user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid email or password")
-    
     if db_user.role != user.role:
         raise HTTPException(
             status_code=403, 
             detail=f"Access denied. This account is registered as a {db_user.role}, not a {user.role}."
         )
-    
     access_token = create_access_token(data={"sub": db_user.email, "role": db_user.role})
-    
     return {
         "message": "Login successful",
         "access_token": access_token,
@@ -217,7 +189,6 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         }
     }
 
-# 5. Get Current User (Protected Route)
 @app.get("/api/users/me")
 def read_users_me(current_user: models.User = Depends(get_current_user)):
     return {
@@ -228,8 +199,6 @@ def read_users_me(current_user: models.User = Depends(get_current_user)):
         "role": current_user.role,
         "school_id": current_user.school_id
     }
-
-# --- DASHBOARD DATA ENDPOINTS ---
 
 @app.get("/api/student/dashboard")
 def get_student_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -316,8 +285,6 @@ def get_learner_dashboard(current_user: models.User = Depends(get_current_user),
         "today_class": {"subject": "English Literature", "time": "14:00 - 15:00", "tutor": "Mrs. K. Zulu"}
     }
 
-# --- LEARNER SUBJECTS, MARKS & REWARDS ---
-
 @app.get("/api/learner/subjects")
 def get_learner_subjects(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "learner":
@@ -357,8 +324,6 @@ def get_learner_rewards(current_user: models.User = Depends(get_current_user), d
             {"name": "Helping Hand", "description": "Answered 5 questions in the community forum", "icon": "heart"}
         ]
     }
-
-# --- PARENT-CHILD LINKING ---
 
 @app.post("/api/parent/link-child")
 def link_child(learner_email: str, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -407,8 +372,6 @@ def get_child_profile(child_id: int, current_user: models.User = Depends(get_cur
         "recent_feedback": "Great improvement in Mathematics this term."
     }
 
-# --- TUTOR STUDENT DIRECTORY ---
-
 @app.get("/api/tutor/students")
 def get_tutor_students(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "tutor":
@@ -419,8 +382,6 @@ def get_tutor_students(current_user: models.User = Depends(get_current_user), db
         {"id": 3, "name": "Thabo Mokoena", "grade": "Grade 12", "subject": "Mathematics", "progress": 91, "email": "thabo@test.com"}
     ]
 
-# --- ADMIN USER MANAGEMENT ---
-
 @app.get("/api/admin/users")
 def get_all_users(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "admin":
@@ -430,8 +391,6 @@ def get_all_users(current_user: models.User = Depends(get_current_user), db: Ses
         {"id": u.id, "name": f"{u.first_name} {u.last_name}", "email": u.email, "role": u.role, "school_id": u.school_id, "is_active": u.is_active}
         for u in users
     ]
-
-# --- COMMUNITY FORUM ---
 
 @app.post("/api/community/posts")
 def create_post(post: PostCreate, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -445,8 +404,6 @@ def create_post(post: PostCreate, current_user: models.User = Depends(get_curren
 def get_posts(post_type: str, db: Session = Depends(get_db)):
     posts = db.query(models.CommunityPost).filter(models.CommunityPost.post_type == post_type).order_by(models.CommunityPost.created_at.desc()).all()
     return [{"id": p.id, "title": p.title, "content": p.content, "category": p.category, "author_name": f"{p.author.first_name} {p.author.last_name}", "author_role": p.author.role, "created_at": p.created_at.strftime("%Y-%m-%d %H:%M")} for p in posts]
-
-# --- LESSON REPORTING ---
 
 @app.post("/api/tutor/reports")
 def submit_report(report: ReportCreate, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -465,8 +422,6 @@ def get_my_reports(current_user: models.User = Depends(get_current_user), db: Se
         raise HTTPException(status_code=403, detail="Only tutors can view their reports.")
     reports = db.query(models.LessonReport).filter(models.LessonReport.tutor_id == current_user.id).order_by(models.LessonReport.created_at.desc()).all()
     return [{"id": r.id, "student_name": r.student_name, "subject": r.subject, "topic": r.topic_covered, "performance": r.student_performance, "homework": r.homework_assigned, "date": r.created_at.strftime("%Y-%m-%d")} for r in reports]
-
-# --- ADMIN FINANCE & PAYOUTS ---
 
 @app.get("/api/admin/finance")
 def get_admin_finance(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -505,14 +460,10 @@ def get_all_payouts(current_user: models.User = Depends(get_current_user), db: S
 def process_payout(tutor_id: int, amount: int, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
-    
     new_payout = models.Payout(tutor_id=tutor_id, amount=amount, status="Completed")
     db.add(new_payout)
     db.commit()
-    
     return {"message": f"Successfully processed payout of R {amount} to tutor."}
-
-# --- ADMIN LIVE MONITOR ---
 
 @app.get("/api/admin/live-sessions")
 def get_live_sessions(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -522,8 +473,6 @@ def get_live_sessions(current_user: models.User = Depends(get_current_user), db:
         {"id": 1, "tutor_name": "Mr. T. Nkosi", "student_name": "Siphelele Blose", "subject": "Mathematics: Calculus", "started_at": "14:00", "duration": "25 mins", "status": "active"},
         {"id": 2, "tutor_name": "Mrs. K. Zulu", "student_name": "Lerato Ndlovu", "subject": "English Literature", "started_at": "14:15", "duration": "10 mins", "status": "active"}
     ]
-
-# --- ADMIN COMMUNICATION AUDIT & AUDIT LOGS ---
 
 @app.get("/api/admin/flagged-messages")
 def get_flagged_messages(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -545,8 +494,6 @@ def get_audit_logs(current_user: models.User = Depends(get_current_user), db: Se
         {"id": 4, "action": "ADMIN_LOGIN", "description": "Admin logged into Command Center.", "actor": "admin@test.com", "ip": "192.168.1.5", "timestamp": "2026-03-15 11:30:00"},
     ]
 
-# --- ADMIN WEBSITE CONTENT ---
-
 @app.get("/api/admin/website-content")
 def get_website_content(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "admin":
@@ -563,8 +510,6 @@ def update_website_content(content: WebsiteContentUpdate, current_user: models.U
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     return {"message": "Website content updated successfully."}
-
-# --- CONTACT FORM & CAREER APPLICATIONS ---
 
 @app.post("/api/contact")
 def submit_contact(contact: ContactCreate, db: Session = Depends(get_db)):
@@ -584,8 +529,6 @@ def submit_job_application(app_data: ApplicationCreate, db: Session = Depends(ge
 def book_consultation(contact: ContactCreate, db: Session = Depends(get_db)):
     print(f"Research Booking: {contact.name} ({contact.email}) - {contact.subject}")
     return {"message": "Consultation booked successfully. We will contact you soon."}
-
-# --- AI TUTOR ---
 
 @app.post("/api/chat")
 async def chat_with_tutor(request: ChatRequest):
