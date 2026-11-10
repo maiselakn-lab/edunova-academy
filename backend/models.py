@@ -68,6 +68,17 @@ class JobApplication(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
     email = Column(String)
-    role = Column(String)  # "Software Engineer", "Content Creator", "Marketing Ambassador"
-    details = Column(String)  # JSON string containing extra details
+    role = Column(String)
+    details = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+# --- PAYOUTS ---
+class Payout(Base):
+    __tablename__ = "payouts"
+    id = Column(Integer, primary_key=True, index=True)
+    tutor_id = Column(Integer, ForeignKey("users.id"))
+    amount = Column(Integer)
+    status = Column(String) # "Pending", "Completed"
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    tutor = relationship("User")

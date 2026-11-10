@@ -316,7 +316,8 @@ def get_learner_dashboard(current_user: models.User = Depends(get_current_user),
         "today_class": {"subject": "English Literature", "time": "14:00 - 15:00", "tutor": "Mrs. K. Zulu"}
     }
 
-# --- LEARNER SUBJECTS ---
+# --- LEARNER SUBJECTS, MARKS & REWARDS ---
+
 @app.get("/api/learner/subjects")
 def get_learner_subjects(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "learner":
@@ -330,7 +331,6 @@ def get_learner_subjects(current_user: models.User = Depends(get_current_user), 
         {"id": 6, "name": "History", "code": "HIST-11", "teacher": "Mrs. M. Sithole", "progress": 82, "color": "bg-brand-teal"},
     ]
 
-# --- LEARNER MARKS ---
 @app.get("/api/learner/marks")
 def get_learner_marks(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "learner":
@@ -343,7 +343,6 @@ def get_learner_marks(current_user: models.User = Depends(get_current_user), db:
         {"id": 5, "subject": "History", "assessment": "Research Project", "date": "2026-02-15", "score": "72%", "color": "text-brand-royal"},
     ]
 
-# --- LEARNER REWARDS ---
 @app.get("/api/learner/rewards")
 def get_learner_rewards(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "learner":
@@ -467,16 +466,22 @@ def get_my_reports(current_user: models.User = Depends(get_current_user), db: Se
     reports = db.query(models.LessonReport).filter(models.LessonReport.tutor_id == current_user.id).order_by(models.LessonReport.created_at.desc()).all()
     return [{"id": r.id, "student_name": r.student_name, "subject": r.subject, "topic": r.topic_covered, "performance": r.student_performance, "homework": r.homework_assigned, "date": r.created_at.strftime("%Y-%m-%d")} for r in reports]
 
-# --- ADMIN FINANCE ---
+# --- ADMIN FINANCE & PAYOUTS ---
 
 @app.get("/api/admin/finance")
 def get_admin_finance(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     total_lesson_reports = db.query(models.LessonReport).count()
-    estimated_tutor_liability = total_lesson_reports * 150
+    total_payouts = db.query(models.Payout).filter(models.Payout.status == "Completed").all()
+    total_paid_out = sum([p.amount for p in total_payouts])
+    
+    estimated_tutor_liability = (total_lesson_reports * 150) - total_paid_out
+    if estimated_tutor_liability < 0: estimated_tutor_liability = 0
+    
     estimated_total_revenue = total_lesson_reports * 250
-    estimated_academy_profit = estimated_total_revenue - estimated_tutor_liability
+    estimated_academy_profit = estimated_total_revenue - (total_lesson_reports * 150)
+    
     return {
         "total_revenue": f"R {estimated_total_revenue:,.2f}",
         "tutor_liabilities": f"R {estimated_tutor_liability:,.2f}",
@@ -489,6 +494,24 @@ def get_admin_finance(current_user: models.User = Depends(get_current_user), db:
         ]
     }
 
+@app.get("/api/admin/payouts")
+def get_all_payouts(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
+    payouts = db.query(models.Payout).order_by(models.Payout.created_at.desc()).all()
+    return [{"id": p.id, "tutor": f"{p.tutor.first_name} {p.tutor.last_name}", "amount": f"R {p.amount:,.2f}", "status": p.status, "date": p.created_at.strftime("%Y-%m-%d")} for p in payouts]
+
+@app.post("/api/admin/payouts/process")
+def process_payout(tutor_id: int, amount: int, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
+    
+    new_payout = models.Payout(tutor_id=tutor_id, amount=amount, status="Completed")
+    db.add(new_payout)
+    db.commit()
+    
+    return {"message": f"Successfully processed payout of R {amount} to tutor."}
+
 # --- ADMIN LIVE MONITOR ---
 
 @app.get("/api/admin/live-sessions")
@@ -500,7 +523,7 @@ def get_live_sessions(current_user: models.User = Depends(get_current_user), db:
         {"id": 2, "tutor_name": "Mrs. K. Zulu", "student_name": "Lerato Ndlovu", "subject": "English Literature", "started_at": "14:15", "duration": "10 mins", "status": "active"}
     ]
 
-# --- ADMIN COMMUNICATION AUDIT ---
+# --- ADMIN COMMUNICATION AUDIT & AUDIT LOGS ---
 
 @app.get("/api/admin/flagged-messages")
 def get_flagged_messages(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -510,8 +533,6 @@ def get_flagged_messages(current_user: models.User = Depends(get_current_user), 
         {"id": 1, "sender": "Mr. T. Nkosi", "sender_role": "Tutor", "receiver": "Siphelele Blose", "receiver_role": "Student", "message": "Hey, do you have WhatsApp? We can chat easier there.", "reason": "Attempting to move conversation off-platform (Safeguarding violation).", "severity": "high", "timestamp": "2026-03-15 10:23"},
         {"id": 2, "sender": "Mrs. K. Zulu", "sender_role": "Tutor", "receiver": "Lerato Ndlovu", "receiver_role": "Student", "message": "Don't worry about the deadline, just submit it whenever.", "reason": "Unapproved deadline extension.", "severity": "medium", "timestamp": "2026-03-14 15:45"}
     ]
-
-# --- ADMIN AUDIT LOGS ---
 
 @app.get("/api/admin/audit-logs")
 def get_audit_logs(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -543,7 +564,7 @@ def update_website_content(content: WebsiteContentUpdate, current_user: models.U
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     return {"message": "Website content updated successfully."}
 
-# --- CONTACT FORM & APPLICATIONS ---
+# --- CONTACT FORM & CAREER APPLICATIONS ---
 
 @app.post("/api/contact")
 def submit_contact(contact: ContactCreate, db: Session = Depends(get_db)):
