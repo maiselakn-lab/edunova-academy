@@ -1,27 +1,27 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { Mail, Globe, Quote, Briefcase, Award } from 'lucide-react';
+import { Mail, Globe, Quote, Briefcase, ArrowRight, UserPlus } from 'lucide-react';
 
 export default function Leadership() {
-  const executives = [
-    { 
-      name: "Prof. Thandi Mokoena", 
-      role: "Academic Director", 
-      bio: "Former Dean of Education at a leading South African university. Expert in CAPS and IEB curriculum design.", 
-      img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" 
+  const vacantRoles = [
+    {
+      title: "Academic Director",
+      desc: "Oversee curriculum design, academic quality assurance, and tutor competency assessments.",
+      icon: <Briefcase size={24} />,
+      link: "/contact"
     },
-    { 
-      name: "Mr. Johan van der Merwe", 
-      role: "Chief Technology Officer", 
-      bio: "Architect of the AcadCoreOS ecosystem and driving force behind EduNova's AI integration.", 
-      img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800&auto=format&fit=crop" 
+    {
+      title: "Chief Technology Officer",
+      desc: "Drive the technical vision of the platform, overseeing the AcadCoreOS integration and AI systems.",
+      icon: <Briefcase size={24} />,
+      link: "/careers/software-engineer"
     },
-    { 
-      name: "Mrs. Sarah Ndlovu", 
-      role: "Head of Institutional Partnerships", 
-      bio: "Over 15 years of experience in B2B educational partnerships and school management across South Africa.", 
-      img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop" 
-    },
+    {
+      title: "Head of Institutional Partnerships",
+      desc: "Build relationships with schools, colleges, and universities to expand our B2B footprint.",
+      icon: <Briefcase size={24} />,
+      link: "/contact"
+    }
   ];
 
   return (
@@ -47,6 +47,7 @@ export default function Leadership() {
               alt="Maisela Kholofelo Norman" 
               className="absolute inset-0 w-full h-full object-cover object-top"
             />
+            {/* Premium Overlay Text on the Image */}
             <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0B132B] via-[#0B132B]/80 to-transparent pt-20 pb-6 px-6">
                <div className="border-l-4 border-brand-gold pl-4">
                   <h3 className="text-white font-bold text-xl">Maisela Kholofelo Norman</h3>
@@ -90,38 +91,38 @@ export default function Leadership() {
         </div>
       </section>
 
-      {/* Executive Team */}
+      {/* Vacant Positions / Join the Team */}
       <section className="pb-24 max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 w-full">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-serif font-bold text-brand-navy">Executive Management</h2>
+          <h2 className="text-3xl font-serif font-bold text-brand-navy">Join Our Leadership Team</h2>
+          <p className="text-gray-600 mt-2">We are actively recruiting for key positions to help scale the academy.</p>
           <div className="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {executives.map((exec, i) => (
-            <div key={i} className="bg-brand-navy rounded-2xl shadow-lg border border-brand-navyLight overflow-hidden group">
-              <div className="h-72 overflow-hidden relative">
-                <img 
-                  src={exec.img} 
-                  alt={exec.name} 
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" 
-                />
+          {vacantRoles.map((role, i) => (
+            <div key={i} className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 flex flex-col items-center text-center hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-brand-grey rounded-full flex items-center justify-center text-brand-royal mb-6">
+                {role.icon}
               </div>
-              <div className="p-8 text-center">
-                <h3 className="text-xl font-serif font-bold text-white mb-1">{exec.name}</h3>
-                <p className="text-brand-gold font-bold text-xs uppercase tracking-wider mb-4">{exec.role}</p>
-                <p className="text-gray-300 text-sm leading-relaxed mb-6">{exec.bio}</p>
-                <div className="flex justify-center gap-3">
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-brand-royal hover:text-white transition-colors">
-                    <Mail size={16}/>
-                  </a>
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-brand-royal hover:text-white transition-colors">
-                    <Globe size={16}/>
-                  </a>
-                </div>
-              </div>
+              <h3 className="text-xl font-bold text-brand-navy mb-2">{role.title}</h3>
+              <span className="bg-brand-gold/20 text-brand-gold text-xs font-bold px-3 py-1 rounded-full mb-4">Position Vacant</span>
+              <p className="text-gray-600 text-sm mb-6 flex-grow">{role.desc}</p>
+              <Link href={role.link} className="text-brand-royal font-bold text-sm uppercase tracking-wider hover:underline flex items-center gap-2">
+                Apply Now <ArrowRight size={16} />
+              </Link>
             </div>
           ))}
+        </div>
+
+        <div className="mt-16 bg-brand-navy rounded-2xl p-8 text-center text-white flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="text-left">
+            <h3 className="text-2xl font-serif font-bold mb-2">Don't see a role for you?</h3>
+            <p className="text-gray-300">We are always looking for passionate educators and professionals to join our team.</p>
+          </div>
+          <Link href="/become-a-tutor" className="bg-brand-gold text-brand-navy px-8 py-4 rounded-sm font-bold hover:bg-yellow-500 transition-colors flex items-center gap-2 whitespace-nowrap">
+            <UserPlus size={20} /> View All Careers
+          </Link>
         </div>
       </section>
     </div>
