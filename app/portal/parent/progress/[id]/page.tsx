@@ -1,13 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Loader2, Quote, CheckCircle2 } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-
-export default function ChildProgress() {
+function ChildProgressContent() {
   const params = useParams();
   const childId = params.id;
   const [data, setData] = useState<any>(null);
@@ -35,8 +33,27 @@ export default function ChildProgress() {
     fetchProgress();
   }, [childId]);
 
-  if (isLoading) return <div className="p-8 text-gray-500">Loading progress...</div>;
-  if (error) return <div className="p-8 text-red-500 font-bold">{error}</div>;
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <Loader2 className="animate-spin text-brand-royal" size={32} />
+        <span className="ml-4 text-gray-500 font-medium">Loading progress...</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 p-8 rounded-xl text-center max-w-lg mx-auto mt-12">
+        <p className="text-red-600 font-bold text-lg mb-4">{error}</p>
+        <Link href="/portal/parent/progress" className="text-brand-royal font-bold hover:underline">
+          &larr; Return to Progress Overview
+        </Link>
+      </div>
+    );
+  }
+
+  if (!data) return null;
 
   return (
     <div>
@@ -87,5 +104,18 @@ export default function ChildProgress() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ChildProgress() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center py-20">
+        <Loader2 className="animate-spin text-brand-royal" size={32} />
+        <span className="ml-4 text-gray-500 font-medium">Loading progress...</span>
+      </div>
+    }>
+      <ChildProgressContent />
+    </Suspense>
   );
 }
