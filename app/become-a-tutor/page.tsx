@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { ArrowRight, Briefcase, Heart, Laptop, PenTool, Video, Megaphone, CheckCircle2, UserPlus } from 'lucide-react';
+import { ArrowRight, Heart, Laptop, PenTool, Video, Megaphone, CheckCircle2, UserPlus } from 'lucide-react';
 
 export default function CareersHub() {
   const positions = [
@@ -17,7 +17,7 @@ export default function CareersHub() {
       type: "Full-Time",
       desc: "Developers to help us scale the Next.js frontend and FastAPI backend.",
       icon: <Laptop size={28} />,
-      href: "/contact",
+      href: "/careers/software-engineer",
       color: "text-brand-sky"
     },
     {
@@ -25,7 +25,7 @@ export default function CareersHub() {
       type: "Freelance",
       desc: "Writers, videographers, and designers to build our digital curriculum.",
       icon: <Video size={28} />,
-      href: "/contact",
+      href: "/careers/content-creator",
       color: "text-brand-gold"
     },
     {
@@ -33,7 +33,7 @@ export default function CareersHub() {
       type: "Commission-Based",
       desc: "Drive student enrolments on campuses and in schools across South Africa.",
       icon: <Megaphone size={28} />,
-      href: "/contact",
+      href: "/careers/marketing-ambassador",
       color: "text-brand-teal"
     }
   ];

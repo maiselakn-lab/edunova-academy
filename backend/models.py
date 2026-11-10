@@ -61,3 +61,13 @@ class LessonReport(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     tutor = relationship("User")
+
+# --- JOB APPLICATIONS ---
+class JobApplication(Base):
+    __tablename__ = "job_applications"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    email = Column(String)
+    role = Column(String)  # "Software Engineer", "Content Creator", "Marketing Ambassador"
+    details = Column(String)  # JSON string containing extra details
+    created_at = Column(DateTime, default=datetime.utcnow)

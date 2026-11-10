@@ -107,6 +107,12 @@ class ContactCreate(BaseModel):
     subject: str
     message: str
 
+class ApplicationCreate(BaseModel):
+    name: str
+    email: str
+    role: str
+    details: str
+
 # --- HELPER FUNCTIONS ---
 
 def create_access_token(data: dict):
@@ -537,12 +543,26 @@ def update_website_content(content: WebsiteContentUpdate, current_user: models.U
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     return {"message": "Website content updated successfully."}
 
-# --- CONTACT FORM ---
+# --- CONTACT FORM & APPLICATIONS ---
 
 @app.post("/api/contact")
 def submit_contact(contact: ContactCreate, db: Session = Depends(get_db)):
     print(f"New contact message from {contact.name} ({contact.email}): {contact.subject}")
     return {"message": "Message sent successfully. We will respond within 24 hours."}
+
+@app.post("/api/careers/apply")
+def submit_job_application(app_data: ApplicationCreate, db: Session = Depends(get_db)):
+    new_app = models.JobApplication(
+        name=app_data.name, email=app_data.email, role=app_data.role, details=app_data.details
+    )
+    db.add(new_app)
+    db.commit()
+    return {"message": "Application submitted successfully."}
+
+@app.post("/api/research/book")
+def book_consultation(contact: ContactCreate, db: Session = Depends(get_db)):
+    print(f"Research Booking: {contact.name} ({contact.email}) - {contact.subject}")
+    return {"message": "Consultation booked successfully. We will contact you soon."}
 
 # --- AI TUTOR ---
 
