@@ -55,6 +55,7 @@ export default function TutorDashboard() {
         <nav className="flex-grow py-6 space-y-2 px-3 overflow-y-auto">
           <Link href="/portal/tutor" className="flex items-center gap-4 px-4 py-3 bg-brand-royal rounded-lg font-medium"><LayoutDashboard size={20} />{sidebarOpen && <span>Dashboard</span>}</Link>
           <Link href="/portal/tutor/students" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Users size={20} />{sidebarOpen && <span>My Students</span>}</Link>
+          {/* FIXED: Points to internal tutor schedule */}
           <Link href="/portal/tutor/schedule" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Calendar size={20} />{sidebarOpen && <span>Schedule</span>}</Link>
           <Link href="/portal/tutor/reports" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><FileText size={20} />{sidebarOpen && <span>Lesson Reports</span>}</Link>
           <Link href="/portal/tutor/earnings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold"><DollarSign size={20} />{sidebarOpen && <span>My Earnings</span>}</Link>
@@ -104,6 +105,7 @@ export default function TutorDashboard() {
               <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-xl font-bold text-brand-navy">Today's Schedule</h2>
+                  {/* FIXED: Points to internal tutor schedule */}
                   <Link href="/portal/tutor/schedule" className="text-sm text-brand-royal font-bold hover:underline">Full Calendar</Link>
                 </div>
                 <div className="space-y-4">

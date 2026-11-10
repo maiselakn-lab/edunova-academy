@@ -47,7 +47,6 @@ export default function LearnerDashboard() {
   return (
     <div className="flex h-screen bg-brand-grey overflow-hidden">
       
-      {/* Sidebar */}
       <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-brand-navy text-white flex flex-col transition-all duration-300 shrink-0`}>
         <div className="h-20 flex items-center justify-center border-b border-white/10 px-4">
           <Link href="/"><img src="/logo.png" alt="EduNova" className={`${sidebarOpen ? 'h-12' : 'h-8'} w-auto object-contain bg-white rounded p-1 transition-all`} /></Link>
@@ -57,6 +56,7 @@ export default function LearnerDashboard() {
           <Link href="/portal/learner" className="flex items-center gap-4 px-4 py-3 bg-brand-royal rounded-lg font-medium"><Home size={20} />{sidebarOpen && <span>My Home</span>}</Link>
           <Link href="/portal/learner/classroom" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><PlayCircle size={20} />{sidebarOpen && <span>Join Class</span>}</Link>
           <Link href="/portal/learner/subjects" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><BookOpen size={20} />{sidebarOpen && <span>My Subjects</span>}</Link>
+          {/* FIXED: Points to internal learner calendar */}
           <Link href="/portal/learner/calendar" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Calendar size={20} />{sidebarOpen && <span>My Calendar</span>}</Link>
           <Link href="/portal/learner/marks" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><FileText size={20} />{sidebarOpen && <span>My Marks</span>}</Link>
           <Link href="/portal/learner/rewards" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold"><Award size={20} />{sidebarOpen && <span>My Rewards</span>}</Link>
@@ -98,7 +98,6 @@ export default function LearnerDashboard() {
             </div>
           </div>
 
-          {/* PARENT LINK CODE BANNER */}
           <div className="bg-brand-gold/10 border border-brand-gold/30 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
             <div>
               <h3 className="text-lg font-bold text-brand-navy mb-1">Parent Link Code</h3>
