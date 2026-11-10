@@ -19,9 +19,7 @@ export default function LearnerDashboard() {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('edunova_token');
       const userData = localStorage.getItem('edunova_user');
-      
       if (!token || !userData) { router.replace('/login/learner'); return; }
-      
       setUser(JSON.parse(userData));
 
       const fetchData = async () => {
@@ -38,14 +36,13 @@ export default function LearnerDashboard() {
           setIsLoading(false);
         }
       };
-
       fetchData();
     }
   }, [router]);
 
   const handleLogout = () => { localStorage.clear(); router.push('/login/learner'); };
 
-  if (isLoading || !user) return <div className="flex h-screen items-center justify-center bg-brand-grey"><p className="text-brand-navy font-bold">Loading your portal...</p></div>;
+  if (isLoading || !user) return <div className="flex h-screen items-center justify-center bg-brand-grey"><p className="text-brand-navy font-bold">Loading...</p></div>;
 
   return (
     <div className="flex h-screen bg-brand-grey overflow-hidden">
@@ -63,7 +60,7 @@ export default function LearnerDashboard() {
           <Link href="/portal/learner/calendar" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><Calendar size={20} />{sidebarOpen && <span>My Calendar</span>}</Link>
           <Link href="/portal/learner/marks" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><FileText size={20} />{sidebarOpen && <span>My Marks</span>}</Link>
           <Link href="/portal/learner/rewards" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-gold"><Award size={20} />{sidebarOpen && <span>My Rewards</span>}</Link>
-          <Link href="/portal/learner/community" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-sky"><Users size={20} />{sidebarOpen && <span>Community</span>}</Link>
+          <Link href="/community/learner" className="flex items-center gap-4 px-4 py-3 hover:bg-white/10 rounded-lg text-brand-sky"><Users size={20} />{sidebarOpen && <span>Community</span>}</Link>
         </nav>
 
         <div className="p-4 border-t border-white/10 space-y-2">
@@ -98,6 +95,17 @@ export default function LearnerDashboard() {
               <h1 className="text-3xl font-serif font-bold text-white mb-2">Ready to learn today, {user.first_name}?</h1>
               <p className="text-blue-100 mb-6 max-w-xl">You have 1 class today. Don't forget to complete your Natural Sciences homework before 17:00!</p>
               <Link href="/portal/learner/classroom" className="bg-white text-brand-royal px-6 py-3 rounded-sm font-bold inline-flex items-center gap-2 hover:bg-gray-100 transition-colors shadow-md">Go to Classroom <ArrowRight size={18} /></Link>
+            </div>
+          </div>
+
+          {/* PARENT LINK CODE BANNER */}
+          <div className="bg-brand-gold/10 border border-brand-gold/30 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+            <div>
+              <h3 className="text-lg font-bold text-brand-navy mb-1">Parent Link Code</h3>
+              <p className="text-sm text-gray-600">Share this code with your parent so they can monitor your progress.</p>
+            </div>
+            <div className="bg-brand-navy text-brand-gold font-mono text-2xl font-bold px-8 py-3 rounded-lg shadow-md tracking-widest">
+              {dashboardData?.link_code || "N/A"}
             </div>
           </div>
 
