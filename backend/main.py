@@ -324,6 +324,35 @@ def get_learner_subjects(current_user: models.User = Depends(get_current_user), 
         {"id": 6, "name": "History", "code": "HIST-11", "teacher": "Mrs. M. Sithole", "progress": 82, "color": "bg-brand-teal"},
     ]
 
+# --- LEARNER MARKS ---
+@app.get("/api/learner/marks")
+def get_learner_marks(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "learner":
+        raise HTTPException(status_code=403, detail="Access denied. Learner access only.")
+    return [
+        {"id": 1, "subject": "Mathematics", "assessment": "Term 1 Test", "date": "2026-03-16", "score": "92%", "color": "text-brand-teal"},
+        {"id": 2, "subject": "English", "assessment": "Poetry Essay", "date": "2026-03-10", "score": "85%", "color": "text-brand-teal"},
+        {"id": 3, "subject": "Natural Sciences", "assessment": "Photosynthesis Quiz", "date": "2026-03-05", "score": "78%", "color": "text-brand-royal"},
+        {"id": 4, "subject": "Mathematics", "assessment": "Algebra Assignment", "date": "2026-02-25", "score": "88%", "color": "text-brand-teal"},
+        {"id": 5, "subject": "History", "assessment": "Research Project", "date": "2026-02-15", "score": "72%", "color": "text-brand-royal"},
+    ]
+
+# --- LEARNER REWARDS ---
+@app.get("/api/learner/rewards")
+def get_learner_rewards(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role != "learner":
+        raise HTTPException(status_code=403, detail="Access denied. Learner access only.")
+    return {
+        "reward_points": 450,
+        "attendance_streak": 12,
+        "badges_earned": 3,
+        "recent_badges": [
+            {"name": "Perfect Attendance", "description": "Attended 10 classes in a row", "icon": "award"},
+            {"name": "Maths Master", "description": "Scored 90%+ on a Maths test", "icon": "star"},
+            {"name": "Helping Hand", "description": "Answered 5 questions in the community forum", "icon": "heart"}
+        ]
+    }
+
 # --- PARENT-CHILD LINKING ---
 
 @app.post("/api/parent/link-child")
