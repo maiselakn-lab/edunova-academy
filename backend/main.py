@@ -31,7 +31,7 @@ app.add_middleware(
         "http://localhost:3000",
         "https://edunova-academy-rho.vercel.app",
         "https://edunova-academy-qkk5.onrender.com"
-    ], 
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -46,10 +46,11 @@ client = OpenAI(
 # --- SECURITY CONFIGURATION ---
 SECRET_KEY = os.getenv("SECRET_KEY", "edunova-super-secret-jwt-key-2026")
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 7 days
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/login")
+
 
 # Dependency to get DB session
 def get_db():
@@ -59,6 +60,7 @@ def get_db():
     finally:
         db.close()
 
+
 # --- PYDANTIC MODELS ---
 
 class ChatRequest(BaseModel):
@@ -66,28 +68,33 @@ class ChatRequest(BaseModel):
     language: str = "English"
     grade_level: str = "Grade 10"
 
+
 class UserCreate(BaseModel):
     first_name: str
     last_name: str
     email: str
     password: str
     role: str
-    school_id: int = None 
+    school_id: int = None
+
 
 class UserLogin(BaseModel):
     email: str
     password: str
     role: str
 
+
 class SchoolCreate(BaseModel):
     name: str
     address: str
+
 
 class PostCreate(BaseModel):
     title: str
     content: str
     category: str
-    post_type: str 
+    post_type: str
+
 
 class ReportCreate(BaseModel):
     student_name: str
@@ -96,11 +103,13 @@ class ReportCreate(BaseModel):
     student_performance: str
     homework_assigned: str
 
+
 class WebsiteContentUpdate(BaseModel):
     homepage_hero_title: str
     homepage_hero_subtitle: str
     contact_email: str
     contact_phone: str
+
 
 class ContactCreate(BaseModel):
     name: str
@@ -108,17 +117,27 @@ class ContactCreate(BaseModel):
     subject: str
     message: str
 
+
 class ApplicationCreate(BaseModel):
     name: str
     email: str
     role: str
     details: str
 
+
 class NewsCreate(BaseModel):
     title: str
     content: str
     category: str
     image_url: str
+
+
+class CourseCreate(BaseModel):
+    title: str
+    description: str
+    faculty: str
+    price: int
+
 
 # --- HELPER FUNCTIONS ---
 
@@ -127,6 +146,7 @@ def create_access_token(data: dict):
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
 
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
@@ -141,17 +161,21 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
             raise credentials_exception
     except JWTError:
         raise credentials_exception
-    
+
     user = db.query(models.User).filter(models.User.email == email).first()
     if user is None:
         raise credentials_exception
     return user
+
 
 # --- API ROUTES ---
 
 @app.get("/")
 def read_root():
     return {"status": "Online", "message": "Welcome to the THINK EduNova API."}
+
+
+# --- SCHOOLS ---
 
 @app.post("/api/schools")
 def create_school(school: SchoolCreate, db: Session = Depends(get_db)):
@@ -161,23 +185,27 @@ def create_school(school: SchoolCreate, db: Session = Depends(get_db)):
     db.refresh(new_school)
     return new_school
 
+
 @app.get("/api/schools")
 def get_schools(db: Session = Depends(get_db)):
     return db.query(models.School).all()
+
+
+# --- AUTH ---
 
 @app.post("/api/signup")
 def signup(user: UserCreate, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
-    
+
     if user.school_id is not None:
         school = db.query(models.School).filter(models.School.id == user.school_id).first()
         if not school:
             raise HTTPException(status_code=400, detail=f"School with ID {user.school_id} does not exist.")
 
     hashed_pw = pwd_context.hash(user.password)
-    
+
     link_code = None
     if user.role == "learner":
         link_code = f"LNK-{random.randint(1000, 9999)}"
@@ -196,24 +224,20 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    
     return {"message": "User created successfully", "user": new_user.email, "link_code": link_code}
+
 
 @app.post("/api/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
-    
     if not db_user or not pwd_context.verify(user.password, db_user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid email or password")
-    
     if db_user.role != user.role:
         raise HTTPException(
-            status_code=403, 
+            status_code=403,
             detail=f"Access denied. This account is registered as a {db_user.role}, not a {user.role}."
         )
-    
     access_token = create_access_token(data={"sub": db_user.email, "role": db_user.role})
-    
     return {
         "message": "Login successful",
         "access_token": access_token,
@@ -228,6 +252,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         }
     }
 
+
 @app.get("/api/users/me")
 def read_users_me(current_user: models.User = Depends(get_current_user)):
     return {
@@ -239,6 +264,7 @@ def read_users_me(current_user: models.User = Depends(get_current_user)):
         "school_id": current_user.school_id,
         "link_code": current_user.link_code
     }
+
 
 # --- DASHBOARD DATA ---
 
@@ -257,6 +283,7 @@ def get_student_dashboard(current_user: models.User = Depends(get_current_user),
         ]
     }
 
+
 @app.get("/api/parent/dashboard")
 def get_parent_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "parent":
@@ -274,23 +301,23 @@ def get_parent_dashboard(current_user: models.User = Depends(get_current_user), 
             "average": "82%",
             "attendance": "98%"
         })
-    return {"parent_name": f"{current_user.first_name} {current_user.last_name}", "children": children, "outstanding_balance": "R450.00"}
+    return {"parent_name": f"{current_user.first_name} {current_user.last_name}", "children": children,
+            "outstanding_balance": "R450.00"}
+
 
 @app.get("/api/tutor/dashboard")
 def get_tutor_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "tutor":
         raise HTTPException(status_code=403, detail="Access denied. Tutor access only.")
-    
     my_reports = db.query(models.LessonReport).filter(models.LessonReport.tutor_id == current_user.id).all()
     total_lessons = len(my_reports)
     total_earnings = total_lessons * 150
-    
-    my_payouts = db.query(models.Payout).filter(models.Payout.tutor_id == current_user.id, models.Payout.status == "Completed").all()
+    my_payouts = db.query(models.Payout).filter(models.Payout.tutor_id == current_user.id,
+                                                models.Payout.status == "Completed").all()
     total_paid = sum([p.amount for p in my_payouts])
-    
     pending_earnings = total_earnings - total_paid
-    if pending_earnings < 0: pending_earnings = 0
-    
+    if pending_earnings < 0:
+        pending_earnings = 0
     return {
         "tutor_name": f"{current_user.first_name} {current_user.last_name}",
         "pending_earnings": f"R {pending_earnings:,.2f}",
@@ -298,14 +325,17 @@ def get_tutor_dashboard(current_user: models.User = Depends(get_current_user), d
         "active_students": 12,
         "rating": "4.9/5.0",
         "upcoming_lessons": [
-            {"id": 1, "student_name": "Siphelele Blose", "subject": "Mathematics: Calculus", "time": "14:00", "status": "ready"},
-            {"id": 2, "student_name": "Lerato Ndlovu", "subject": "Physical Sciences: Mechanics", "time": "16:30", "status": "waiting"}
+            {"id": 1, "student_name": "Siphelele Blose", "subject": "Mathematics: Calculus", "time": "14:00",
+             "status": "ready"},
+            {"id": 2, "student_name": "Lerato Ndlovu", "subject": "Physical Sciences: Mechanics", "time": "16:30",
+             "status": "waiting"}
         ],
         "recent_assessments": [
             {"student": "Siphelele B.", "subject": "Mathematics", "average": "85%"},
             {"student": "Lerato N.", "subject": "Physical Sciences", "average": "72%"}
         ]
     }
+
 
 @app.get("/api/admin/dashboard")
 def get_admin_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -318,6 +348,7 @@ def get_admin_dashboard(current_user: models.User = Depends(get_current_user), d
         "system_status": "Online"
     }
 
+
 @app.get("/api/learner/dashboard")
 def get_learner_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "learner":
@@ -329,36 +360,53 @@ def get_learner_dashboard(current_user: models.User = Depends(get_current_user),
         "reward_points": 450,
         "link_code": current_user.link_code,
         "homework_due": [
-            {"subject": "Natural Sciences", "title": "Photosynthesis Worksheet", "due": "Today at 17:00", "status": "urgent"},
+            {"subject": "Natural Sciences", "title": "Photosynthesis Worksheet", "due": "Today at 17:00",
+             "status": "urgent"},
             {"subject": "Mathematics", "title": "Fractions Practice", "due": "Tomorrow at 08:00", "status": "pending"}
         ],
         "today_class": {"subject": "English Literature", "time": "14:00 - 15:00", "tutor": "Mrs. K. Zulu"}
     }
+
+
+# --- LEARNER SUBJECTS, MARKS & REWARDS ---
 
 @app.get("/api/learner/subjects")
 def get_learner_subjects(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "learner":
         raise HTTPException(status_code=403, detail="Access denied. Learner access only.")
     return [
-        {"id": 1, "name": "Mathematics", "code": "MATH-11", "teacher": "Mr. T. Nkosi", "progress": 85, "color": "bg-brand-royal"},
-        {"id": 2, "name": "English Home Language", "code": "ENG-11", "teacher": "Mrs. K. Zulu", "progress": 90, "color": "bg-brand-teal"},
-        {"id": 3, "name": "Physical Sciences", "code": "PHYS-11", "teacher": "Dr. A. Smith", "progress": 72, "color": "bg-brand-gold"},
-        {"id": 4, "name": "Life Sciences", "code": "LIFE-11", "teacher": "Ms. N. Dlamini", "progress": 78, "color": "bg-brand-sky"},
-        {"id": 5, "name": "Geography", "code": "GEO-11", "teacher": "Mr. P. van Wyk", "progress": 88, "color": "bg-brand-royal"},
-        {"id": 6, "name": "History", "code": "HIST-11", "teacher": "Mrs. M. Sithole", "progress": 82, "color": "bg-brand-teal"},
+        {"id": 1, "name": "Mathematics", "code": "MATH-11", "teacher": "Mr. T. Nkosi", "progress": 85,
+         "color": "bg-brand-royal"},
+        {"id": 2, "name": "English Home Language", "code": "ENG-11", "teacher": "Mrs. K. Zulu", "progress": 90,
+         "color": "bg-brand-teal"},
+        {"id": 3, "name": "Physical Sciences", "code": "PHYS-11", "teacher": "Dr. A. Smith", "progress": 72,
+         "color": "bg-brand-gold"},
+        {"id": 4, "name": "Life Sciences", "code": "LIFE-11", "teacher": "Ms. N. Dlamini", "progress": 78,
+         "color": "bg-brand-sky"},
+        {"id": 5, "name": "Geography", "code": "GEO-11", "teacher": "Mr. P. van Wyk", "progress": 88,
+         "color": "bg-brand-royal"},
+        {"id": 6, "name": "History", "code": "HIST-11", "teacher": "Mrs. M. Sithole", "progress": 82,
+         "color": "bg-brand-teal"},
     ]
+
 
 @app.get("/api/learner/marks")
 def get_learner_marks(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "learner":
         raise HTTPException(status_code=403, detail="Access denied. Learner access only.")
     return [
-        {"id": 1, "subject": "Mathematics", "assessment": "Term 1 Test", "date": "2026-03-16", "score": "92%", "color": "text-brand-teal"},
-        {"id": 2, "subject": "English", "assessment": "Poetry Essay", "date": "2026-03-10", "score": "85%", "color": "text-brand-teal"},
-        {"id": 3, "subject": "Natural Sciences", "assessment": "Photosynthesis Quiz", "date": "2026-03-05", "score": "78%", "color": "text-brand-royal"},
-        {"id": 4, "subject": "Mathematics", "assessment": "Algebra Assignment", "date": "2026-02-25", "score": "88%", "color": "text-brand-teal"},
-        {"id": 5, "subject": "History", "assessment": "Research Project", "date": "2026-02-15", "score": "72%", "color": "text-brand-royal"},
+        {"id": 1, "subject": "Mathematics", "assessment": "Term 1 Test", "date": "2026-03-16", "score": "92%",
+         "color": "text-brand-teal"},
+        {"id": 2, "subject": "English", "assessment": "Poetry Essay", "date": "2026-03-10", "score": "85%",
+         "color": "text-brand-teal"},
+        {"id": 3, "subject": "Natural Sciences", "assessment": "Photosynthesis Quiz", "date": "2026-03-05",
+         "score": "78%", "color": "text-brand-royal"},
+        {"id": 4, "subject": "Mathematics", "assessment": "Algebra Assignment", "date": "2026-02-25", "score": "88%",
+         "color": "text-brand-teal"},
+        {"id": 5, "subject": "History", "assessment": "Research Project", "date": "2026-02-15", "score": "72%",
+         "color": "text-brand-royal"},
     ]
+
 
 @app.get("/api/learner/rewards")
 def get_learner_rewards(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -375,16 +423,20 @@ def get_learner_rewards(current_user: models.User = Depends(get_current_user), d
         ]
     }
 
+
 # --- PARENT-CHILD LINKING ---
 
 @app.post("/api/parent/link-child")
-def link_child(link_code: str, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+def link_child(link_code: str, current_user: models.User = Depends(get_current_user),
+               db: Session = Depends(get_db)):
     if current_user.role != "parent":
         raise HTTPException(status_code=403, detail="Only parents can link children.")
-    learner = db.query(models.User).filter(models.User.link_code == link_code, models.User.role == "learner").first()
+    learner = db.query(models.User).filter(models.User.link_code == link_code,
+                                            models.User.role == "learner").first()
     if not learner:
         raise HTTPException(status_code=404, detail="Invalid Link Code. Please check the code with your child.")
-    existing = db.query(models.ParentChildLink).filter(models.ParentChildLink.parent_id == current_user.id, models.ParentChildLink.learner_id == learner.id).first()
+    existing = db.query(models.ParentChildLink).filter(models.ParentChildLink.parent_id == current_user.id,
+                                                       models.ParentChildLink.learner_id == learner.id).first()
     if existing:
         raise HTTPException(status_code=400, detail="This learner is already linked to your account.")
     new_link = models.ParentChildLink(parent_id=current_user.id, learner_id=learner.id)
@@ -392,40 +444,43 @@ def link_child(link_code: str, current_user: models.User = Depends(get_current_u
     db.commit()
     return {"message": f"Successfully linked to {learner.first_name} {learner.last_name}."}
 
+
 @app.get("/api/parent/children")
 def get_linked_children(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "parent":
         raise HTTPException(status_code=403, detail="Only parents can view children.")
     links = db.query(models.ParentChildLink).filter(models.ParentChildLink.parent_id == current_user.id).all()
-    children = [{"id": link.learner.id, "name": link.learner.first_name, "surname": link.learner.last_name, "email": link.learner.email, "role": "learner"} for link in links]
+    children = [
+        {"id": link.learner.id, "name": link.learner.first_name, "surname": link.learner.last_name,
+         "email": link.learner.email, "role": "learner"} for link in links]
     return {"children": children}
 
+
 @app.get("/api/parent/child/{child_id}")
-def get_child_profile(child_id: int, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+def get_child_profile(child_id: int, current_user: models.User = Depends(get_current_user),
+                      db: Session = Depends(get_db)):
     if current_user.role != "parent":
         raise HTTPException(status_code=403, detail="Only parents can access child profiles.")
-    link = db.query(models.ParentChildLink).filter(models.ParentChildLink.parent_id == current_user.id, models.ParentChildLink.learner_id == child_id).first()
+    link = db.query(models.ParentChildLink).filter(models.ParentChildLink.parent_id == current_user.id,
+                                                   models.ParentChildLink.learner_id == child_id).first()
     if not link:
         raise HTTPException(status_code=403, detail="You are not authorized to view this child's profile.")
     learner = db.query(models.User).filter(models.User.id == child_id).first()
-    return {"id": learner.id, "name": f"{learner.first_name} {learner.last_name}", "email": learner.email, "role": learner.role, "average": "82%", "attendance": "98%", "recent_feedback": "Great improvement in Mathematics this term."}
+    return {"id": learner.id, "name": f"{learner.first_name} {learner.last_name}", "email": learner.email,
+            "role": learner.role, "average": "82%", "attendance": "98%",
+            "recent_feedback": "Great improvement in Mathematics this term."}
 
-# --- PARENT: CHILD ACADEMIC PROGRESS ---
+
 @app.get("/api/parent/child/{child_id}/progress")
-def get_child_progress(child_id: int, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+def get_child_progress(child_id: int, current_user: models.User = Depends(get_current_user),
+                       db: Session = Depends(get_db)):
     if current_user.role != "parent":
         raise HTTPException(status_code=403, detail="Only parents can access child progress.")
-    
-    link = db.query(models.ParentChildLink).filter(
-        models.ParentChildLink.parent_id == current_user.id,
-        models.ParentChildLink.learner_id == child_id
-    ).first()
-    
+    link = db.query(models.ParentChildLink).filter(models.ParentChildLink.parent_id == current_user.id,
+                                                   models.ParentChildLink.learner_id == child_id).first()
     if not link:
         raise HTTPException(status_code=403, detail="You are not authorized to view this child's progress.")
-    
     learner = db.query(models.User).filter(models.User.id == child_id).first()
-    
     return {
         "child_id": learner.id,
         "child_name": f"{learner.first_name} {learner.last_name}",
@@ -443,6 +498,7 @@ def get_child_progress(child_id: int, current_user: models.User = Depends(get_cu
         "recent_feedback": "Great improvement in Mathematics this term. Keep up the consistent effort."
     }
 
+
 # --- TUTOR STUDENT DIRECTORY ---
 
 @app.get("/api/tutor/students")
@@ -450,10 +506,14 @@ def get_tutor_students(current_user: models.User = Depends(get_current_user), db
     if current_user.role != "tutor":
         raise HTTPException(status_code=403, detail="Access denied. Tutor access only.")
     return [
-        {"id": 1, "name": "Siphelele Blose", "grade": "Grade 11", "subject": "Mathematics", "progress": 85, "email": "siphelele@test.com"},
-        {"id": 2, "name": "Lerato Ndlovu", "grade": "Grade 8", "subject": "Physical Sciences", "progress": 72, "email": "lerato@test.com"},
-        {"id": 3, "name": "Thabo Mokoena", "grade": "Grade 12", "subject": "Mathematics", "progress": 91, "email": "thabo@test.com"}
+        {"id": 1, "name": "Siphelele Blose", "grade": "Grade 11", "subject": "Mathematics", "progress": 85,
+         "email": "siphelele@test.com"},
+        {"id": 2, "name": "Lerato Ndlovu", "grade": "Grade 8", "subject": "Physical Sciences", "progress": 72,
+         "email": "lerato@test.com"},
+        {"id": 3, "name": "Thabo Mokoena", "grade": "Grade 12", "subject": "Mathematics", "progress": 91,
+         "email": "thabo@test.com"}
     ]
+
 
 # --- ADMIN USER MANAGEMENT ---
 
@@ -462,40 +522,62 @@ def get_all_users(current_user: models.User = Depends(get_current_user), db: Ses
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     users = db.query(models.User).all()
-    return [{"id": u.id, "name": f"{u.first_name} {u.last_name}", "email": u.email, "role": u.role, "school_id": u.school_id, "is_active": u.is_active} for u in users]
+    return [{"id": u.id, "name": f"{u.first_name} {u.last_name}", "email": u.email, "role": u.role,
+             "school_id": u.school_id, "is_active": u.is_active} for u in users]
+
 
 # --- COMMUNITY FORUM ---
 
 @app.post("/api/community/posts")
-def create_post(post: PostCreate, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
-    new_post = models.CommunityPost(author_id=current_user.id, title=post.title, content=post.content, category=post.category, post_type=post.post_type)
-    db.add(new_post); db.commit(); db.refresh(new_post)
+def create_post(post: PostCreate, current_user: models.User = Depends(get_current_user),
+                db: Session = Depends(get_db)):
+    new_post = models.CommunityPost(author_id=current_user.id, title=post.title, content=post.content,
+                                    category=post.category, post_type=post.post_type)
+    db.add(new_post)
+    db.commit()
+    db.refresh(new_post)
     return {"message": "Post created successfully", "post_id": new_post.id}
+
 
 @app.get("/api/community/posts/{post_type}")
 def get_posts(post_type: str, db: Session = Depends(get_db)):
-    posts = db.query(models.CommunityPost).filter(models.CommunityPost.post_type == post_type).order_by(models.CommunityPost.created_at.desc()).all()
-    return [{"id": p.id, "title": p.title, "content": p.content, "category": p.category, "author_name": f"{p.author.first_name} {p.author.last_name}", "author_role": p.author.role, "created_at": p.created_at.strftime("%Y-%m-%d %H:%M")} for p in posts]
+    posts = db.query(models.CommunityPost).filter(models.CommunityPost.post_type == post_type).order_by(
+        models.CommunityPost.created_at.desc()).all()
+    return [
+        {"id": p.id, "title": p.title, "content": p.content, "category": p.category,
+         "author_name": f"{p.author.first_name} {p.author.last_name}", "author_role": p.author.role,
+         "created_at": p.created_at.strftime("%Y-%m-%d %H:%M")} for p in posts
+    ]
+
 
 # --- LESSON REPORTING ---
 
 @app.post("/api/tutor/reports")
-def submit_report(report: ReportCreate, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+def submit_report(report: ReportCreate, current_user: models.User = Depends(get_current_user),
+                  db: Session = Depends(get_db)):
     if current_user.role != "tutor":
         raise HTTPException(status_code=403, detail="Only tutors can submit reports.")
     new_report = models.LessonReport(
         tutor_id=current_user.id, student_name=report.student_name, subject=report.subject,
-        topic_covered=report.topic_covered, student_performance=report.student_performance, homework_assigned=report.homework_assigned
+        topic_covered=report.topic_covered, student_performance=report.student_performance,
+        homework_assigned=report.homework_assigned
     )
-    db.add(new_report); db.commit(); db.refresh(new_report)
+    db.add(new_report)
+    db.commit()
+    db.refresh(new_report)
     return {"message": "Report submitted successfully", "report_id": new_report.id}
+
 
 @app.get("/api/tutor/reports")
 def get_my_reports(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "tutor":
         raise HTTPException(status_code=403, detail="Only tutors can view their reports.")
-    reports = db.query(models.LessonReport).filter(models.LessonReport.tutor_id == current_user.id).order_by(models.LessonReport.created_at.desc()).all()
-    return [{"id": r.id, "student_name": r.student_name, "subject": r.subject, "topic": r.topic_covered, "performance": r.student_performance, "homework": r.homework_assigned, "date": r.created_at.strftime("%Y-%m-%d")} for r in reports]
+    reports = db.query(models.LessonReport).filter(models.LessonReport.tutor_id == current_user.id).order_by(
+        models.LessonReport.created_at.desc()).all()
+    return [{"id": r.id, "student_name": r.student_name, "subject": r.subject, "topic": r.topic_covered,
+             "performance": r.student_performance, "homework": r.homework_assigned,
+             "date": r.created_at.strftime("%Y-%m-%d")} for r in reports]
+
 
 # --- ADMIN FINANCE & PAYOUTS ---
 
@@ -506,13 +588,11 @@ def get_admin_finance(current_user: models.User = Depends(get_current_user), db:
     total_lesson_reports = db.query(models.LessonReport).count()
     total_payouts = db.query(models.Payout).filter(models.Payout.status == "Completed").all()
     total_paid_out = sum([p.amount for p in total_payouts])
-    
     estimated_tutor_liability = (total_lesson_reports * 150) - total_paid_out
-    if estimated_tutor_liability < 0: estimated_tutor_liability = 0
-    
+    if estimated_tutor_liability < 0:
+        estimated_tutor_liability = 0
     estimated_total_revenue = total_lesson_reports * 250
     estimated_academy_profit = estimated_total_revenue - (total_lesson_reports * 150)
-    
     return {
         "total_revenue": f"R {estimated_total_revenue:,.2f}",
         "tutor_liabilities": f"R {estimated_tutor_liability:,.2f}",
@@ -525,21 +605,26 @@ def get_admin_finance(current_user: models.User = Depends(get_current_user), db:
         ]
     }
 
+
 @app.get("/api/admin/payouts")
 def get_all_payouts(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     payouts = db.query(models.Payout).order_by(models.Payout.created_at.desc()).all()
-    return [{"id": p.id, "tutor": f"{p.tutor.first_name} {p.tutor.last_name}", "amount": f"R {p.amount:,.2f}", "status": p.status, "date": p.created_at.strftime("%Y-%m-%d")} for p in payouts]
+    return [{"id": p.id, "tutor": f"{p.tutor.first_name} {p.tutor.last_name}", "amount": f"R {p.amount:,.2f}",
+             "status": p.status, "date": p.created_at.strftime("%Y-%m-%d")} for p in payouts]
+
 
 @app.post("/api/admin/payouts/process")
-def process_payout(tutor_id: int, amount: int, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+def process_payout(tutor_id: int, amount: int, current_user: models.User = Depends(get_current_user),
+                   db: Session = Depends(get_db)):
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     new_payout = models.Payout(tutor_id=tutor_id, amount=amount, status="Completed")
     db.add(new_payout)
     db.commit()
     return {"message": f"Successfully processed payout of R {amount} to tutor."}
+
 
 # --- ADMIN LIVE MONITOR ---
 
@@ -548,9 +633,12 @@ def get_live_sessions(current_user: models.User = Depends(get_current_user), db:
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     return [
-        {"id": 1, "tutor_name": "Mr. T. Nkosi", "student_name": "Siphelele Blose", "subject": "Mathematics: Calculus", "started_at": "14:00", "duration": "25 mins", "status": "active"},
-        {"id": 2, "tutor_name": "Mrs. K. Zulu", "student_name": "Lerato Ndlovu", "subject": "English Literature", "started_at": "14:15", "duration": "10 mins", "status": "active"}
+        {"id": 1, "tutor_name": "Mr. T. Nkosi", "student_name": "Siphelele Blose",
+         "subject": "Mathematics: Calculus", "started_at": "14:00", "duration": "25 mins", "status": "active"},
+        {"id": 2, "tutor_name": "Mrs. K. Zulu", "student_name": "Lerato Ndlovu",
+         "subject": "English Literature", "started_at": "14:15", "duration": "10 mins", "status": "active"}
     ]
+
 
 # --- ADMIN COMMUNICATION AUDIT & AUDIT LOGS ---
 
@@ -559,20 +647,31 @@ def get_flagged_messages(current_user: models.User = Depends(get_current_user), 
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     return [
-        {"id": 1, "sender": "Mr. T. Nkosi", "sender_role": "Tutor", "receiver": "Siphelele Blose", "receiver_role": "Student", "message": "Hey, do you have WhatsApp? We can chat easier there.", "reason": "Attempting to move conversation off-platform (Safeguarding violation).", "severity": "high", "timestamp": "2026-03-15 10:23"},
-        {"id": 2, "sender": "Mrs. K. Zulu", "sender_role": "Tutor", "receiver": "Lerato Ndlovu", "receiver_role": "Student", "message": "Don't worry about the deadline, just submit it whenever.", "reason": "Unapproved deadline extension.", "severity": "medium", "timestamp": "2026-03-14 15:45"}
+        {"id": 1, "sender": "Mr. T. Nkosi", "sender_role": "Tutor", "receiver": "Siphelele Blose",
+         "receiver_role": "Student", "message": "Hey, do you have WhatsApp? We can chat easier there.",
+         "reason": "Attempting to move conversation off-platform (Safeguarding violation).", "severity": "high",
+         "timestamp": "2026-03-15 10:23"},
+        {"id": 2, "sender": "Mrs. K. Zulu", "sender_role": "Tutor", "receiver": "Lerato Ndlovu",
+         "receiver_role": "Student", "message": "Don't worry about the deadline, just submit it whenever.",
+         "reason": "Unapproved deadline extension.", "severity": "medium", "timestamp": "2026-03-14 15:45"}
     ]
+
 
 @app.get("/api/admin/audit-logs")
 def get_audit_logs(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     return [
-        {"id": 1, "action": "USER_LOGIN", "description": "Student logged in successfully.", "actor": "student@test.com", "ip": "192.168.1.1", "timestamp": "2026-03-15 09:12:01"},
-        {"id": 2, "action": "PAYMENT_SUCCESS", "description": "Payment for INV-2026-001 processed.", "actor": "system", "ip": "10.0.0.5", "timestamp": "2026-03-15 09:15:22"},
-        {"id": 3, "action": "TUTOR_REPORT_SUBMITTED", "description": "Lesson report submitted for Siphelele B.", "actor": "tutor@test.com", "ip": "192.168.1.4", "timestamp": "2026-03-15 10:05:11"},
-        {"id": 4, "action": "ADMIN_LOGIN", "description": "Admin logged into Command Center.", "actor": "admin@test.com", "ip": "192.168.1.5", "timestamp": "2026-03-15 11:30:00"},
+        {"id": 1, "action": "USER_LOGIN", "description": "Student logged in successfully.",
+         "actor": "student@test.com", "ip": "192.168.1.1", "timestamp": "2026-03-15 09:12:01"},
+        {"id": 2, "action": "PAYMENT_SUCCESS", "description": "Payment for INV-2026-001 processed.",
+         "actor": "system", "ip": "10.0.0.5", "timestamp": "2026-03-15 09:15:22"},
+        {"id": 3, "action": "TUTOR_REPORT_SUBMITTED", "description": "Lesson report submitted for Siphelele B.",
+         "actor": "tutor@test.com", "ip": "192.168.1.4", "timestamp": "2026-03-15 10:05:11"},
+        {"id": 4, "action": "ADMIN_LOGIN", "description": "Admin logged into Command Center.",
+         "actor": "admin@test.com", "ip": "192.168.1.5", "timestamp": "2026-03-15 11:30:00"},
     ]
+
 
 # --- ADMIN WEBSITE CONTENT & NEWS ---
 
@@ -587,27 +686,104 @@ def get_website_content(current_user: models.User = Depends(get_current_user), d
         "contact_phone": "+27 (0) 12 345 6789"
     }
 
+
 @app.post("/api/admin/website-content")
-def update_website_content(content: WebsiteContentUpdate, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+def update_website_content(content: WebsiteContentUpdate,
+                           current_user: models.User = Depends(get_current_user),
+                           db: Session = Depends(get_db)):
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     return {"message": "Website content updated successfully."}
 
+
 @app.post("/api/admin/news")
-def create_news(news: NewsCreate, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+def create_news(news: NewsCreate, current_user: models.User = Depends(get_current_user),
+                db: Session = Depends(get_db)):
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     new_article = models.NewsArticle(
         title=news.title, content=news.content, category=news.category, image_url=news.image_url,
         author=f"{current_user.first_name} {current_user.last_name}"
     )
-    db.add(new_article); db.commit(); db.refresh(new_article)
+    db.add(new_article)
+    db.commit()
+    db.refresh(new_article)
     return {"message": "News article published successfully.", "id": new_article.id}
+
 
 @app.get("/api/news")
 def get_all_news(db: Session = Depends(get_db)):
     articles = db.query(models.NewsArticle).order_by(models.NewsArticle.created_at.desc()).all()
-    return [{"id": a.id, "title": a.title, "content": a.content, "category": a.category, "image_url": a.image_url, "author": a.author, "date": a.created_at.strftime("%d %b %Y")} for a in articles]
+    return [{"id": a.id, "title": a.title, "content": a.content, "category": a.category,
+             "image_url": a.image_url, "author": a.author, "date": a.created_at.strftime("%d %b %Y")} for a in
+            articles]
+
+
+# --- COURSE ROUTES ---
+
+@app.post("/api/admin/courses")
+def create_course(course: CourseCreate, current_user: models.User = Depends(get_current_user),
+                  db: Session = Depends(get_db)):
+    if current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="Access denied. Admin only.")
+    new_course = models.Course(
+        title=course.title, description=course.description, faculty=course.faculty, price=course.price
+    )
+    db.add(new_course)
+    db.commit()
+    db.refresh(new_course)
+    return {"message": "Course created successfully", "course_id": new_course.id}
+
+
+@app.get("/api/courses")
+def get_courses(faculty: str = None, db: Session = Depends(get_db)):
+    query = db.query(models.Course).filter(models.Course.is_active == True)
+    if faculty:
+        query = query.filter(models.Course.faculty == faculty)
+    courses = query.all()
+    return [
+        {"id": c.id, "title": c.title, "description": c.description, "faculty": c.faculty, "price": c.price}
+        for c in courses
+    ]
+
+
+# --- ENROLMENT ROUTES ---
+
+@app.post("/api/enrol/{course_id}")
+def enrol_in_course(course_id: int, current_user: models.User = Depends(get_current_user),
+                    db: Session = Depends(get_db)):
+    if current_user.role not in ["student", "learner"]:
+        raise HTTPException(status_code=403, detail="Only students and learners can enrol.")
+    course = db.query(models.Course).filter(models.Course.id == course_id).first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found.")
+    existing = db.query(models.Enrolment).filter(
+        models.Enrolment.student_id == current_user.id,
+        models.Enrolment.course_id == course_id
+    ).first()
+    if existing:
+        raise HTTPException(status_code=400, detail="You are already enrolled in this course.")
+    new_enrolment = models.Enrolment(student_id=current_user.id, course_id=course_id)
+    db.add(new_enrolment)
+    db.commit()
+    return {"message": f"Successfully enrolled in {course.title}."}
+
+
+@app.get("/api/my-enrolments")
+def get_my_enrolments(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if current_user.role not in ["student", "learner"]:
+        raise HTTPException(status_code=403, detail="Only students and learners can view enrolments.")
+    enrolments = db.query(models.Enrolment).filter(models.Enrolment.student_id == current_user.id).all()
+    return [
+        {
+            "enrolment_id": e.id,
+            "course_title": e.course.title,
+            "faculty": e.course.faculty,
+            "status": e.status,
+            "enrolled_at": e.enrolled_at.strftime("%Y-%m-%d")
+        } for e in enrolments
+    ]
+
 
 # --- CONTACT & CAREERS ---
 
@@ -616,17 +792,21 @@ def submit_contact(contact: ContactCreate, db: Session = Depends(get_db)):
     print(f"New contact message from {contact.name} ({contact.email}): {contact.subject}")
     return {"message": "Message sent successfully. We will respond within 24 hours."}
 
+
 @app.post("/api/careers/apply")
 def submit_job_application(app_data: ApplicationCreate, db: Session = Depends(get_db)):
-    new_app = models.JobApplication(name=app_data.name, email=app_data.email, role=app_data.role, details=app_data.details)
+    new_app = models.JobApplication(name=app_data.name, email=app_data.email, role=app_data.role,
+                                    details=app_data.details)
     db.add(new_app)
     db.commit()
     return {"message": "Application submitted successfully."}
+
 
 @app.post("/api/research/book")
 def book_consultation(contact: ContactCreate, db: Session = Depends(get_db)):
     print(f"Research Booking: {contact.name} ({contact.email}) - {contact.subject}")
     return {"message": "Consultation booked successfully. We will contact you soon."}
+
 
 # --- AI TUTOR ---
 
@@ -637,14 +817,14 @@ async def chat_with_tutor(request: ChatRequest):
         You are EduNova, an expert AI tutor for South African students.
         You are currently helping a {request.grade_level} student.
         Explain concepts clearly, step-by-step.
-        
+
         CRITICAL INSTRUCTION:
         The student has requested the teaching language to be: {request.language}.
-        You must explain the academic concepts in {request.language}. 
+        You must explain the academic concepts in {request.language}.
         If the subject uses technical English terminology, provide the English term in brackets.
         """
         response = client.chat.completions.create(
-            model="openai/gpt-oss-120b", 
+            model="openai/gpt-oss-120b",
             messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": request.message}],
             temperature=0.7, max_tokens=500
         )
@@ -652,6 +832,9 @@ async def chat_with_tutor(request: ChatRequest):
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate AI response.")
+
+
+# --- ADMIN UTILITY ---
 
 @app.post("/api/admin/reset-db")
 def reset_database():

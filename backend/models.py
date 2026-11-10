@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from database import Base
 
+# --- CORE TENANT (The School) ---
 class School(Base):
     __tablename__ = "schools"
     id = Column(Integer, primary_key=True, index=True)
@@ -10,6 +11,7 @@ class School(Base):
     address = Column(String, nullable=True)
     is_active = Column(Boolean, default=True)
 
+# --- USERS ---
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
@@ -23,6 +25,7 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     school = relationship("School")
 
+# --- PARENT-CHILD LINK ---
 class ParentChildLink(Base):
     __tablename__ = "parent_child_links"
     id = Column(Integer, primary_key=True, index=True)
@@ -31,6 +34,7 @@ class ParentChildLink(Base):
     parent = relationship("User", foreign_keys=[parent_id])
     learner = relationship("User", foreign_keys=[learner_id])
 
+# --- COMMUNITY POSTS ---
 class CommunityPost(Base):
     __tablename__ = "community_posts"
     id = Column(Integer, primary_key=True, index=True)
@@ -42,6 +46,7 @@ class CommunityPost(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     author = relationship("User")
 
+# --- LESSON REPORTS ---
 class LessonReport(Base):
     __tablename__ = "lesson_reports"
     id = Column(Integer, primary_key=True, index=True)
@@ -54,6 +59,7 @@ class LessonReport(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     tutor = relationship("User")
 
+# --- JOB APPLICATIONS ---
 class JobApplication(Base):
     __tablename__ = "job_applications"
     id = Column(Integer, primary_key=True, index=True)
@@ -63,6 +69,7 @@ class JobApplication(Base):
     details = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
 
+# --- PAYOUTS ---
 class Payout(Base):
     __tablename__ = "payouts"
     id = Column(Integer, primary_key=True, index=True)
@@ -72,6 +79,7 @@ class Payout(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     tutor = relationship("User")
 
+# --- NEWS ARTICLES ---
 class NewsArticle(Base):
     __tablename__ = "news_articles"
     id = Column(Integer, primary_key=True, index=True)
@@ -81,3 +89,25 @@ class NewsArticle(Base):
     image_url = Column(String)
     author = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+# --- COURSES & ENROLMENTS ---
+class Course(Base):
+    __tablename__ = "courses"
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, index=True)
+    description = Column(String)
+    faculty = Column(String)
+    price = Column(Integer)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+class Enrolment(Base):
+    __tablename__ = "enrolments"
+    id = Column(Integer, primary_key=True, index=True)
+    student_id = Column(Integer, ForeignKey("users.id"))
+    course_id = Column(Integer, ForeignKey("courses.id"))
+    status = Column(String, default="active")
+    enrolled_at = Column(DateTime, default=datetime.utcnow)
+
+    student = relationship("User")
+    course = relationship("Course")
