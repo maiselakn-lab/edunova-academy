@@ -132,21 +132,20 @@ export default function PublicNavbar() {
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-24">
           
-          {/* Logo Area - FIXED FOR VISIBILITY */}
-          <div className="flex-shrink-0 flex items-center py-2">
+          {/* Logo Area - Cleaned up and flex-shrink-0 applied */}
+          <div className="flex-shrink-0 flex items-center">
             <Link href="/">
               <img 
                 src="/logo.png" 
                 alt="Think EduNova Academy Logo" 
-                // Added drop-shadow-sm to create a subtle border against the white
-                // Added transition for a nice hover effect
-                className="h-16 md:h-20 w-auto object-contain drop-shadow-sm hover:scale-105 transition-transform duration-200" 
+                // Using 'mix-blend-multiply' to remove white boxes if the PNG has a white background
+                className="h-16 md:h-20 w-auto object-contain mix-blend-multiply" 
               />
             </Link>
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex space-x-1 items-center h-full">
+          <nav className="hidden lg:flex items-center h-full space-x-1">
             <Link href="/" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors">
               Home
             </Link>
@@ -250,15 +249,14 @@ export default function PublicNavbar() {
             <Link href="/news" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors whitespace-nowrap">
               News
             </Link>
-            
             <Link href="/become-a-tutor" className="px-3 py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-royal transition-colors whitespace-nowrap">
               Careers
             </Link>
           </nav>
 
-          {/* 3. The Gold CTA Block */}
+          {/* 3. The Gold CTA Block - Fixed to touch top and bottom */}
           <div className="hidden lg:flex h-full">
-            <Link href="/register" className="bg-brand-gold hover:bg-yellow-600 text-brand-navy font-bold text-sm px-8 flex items-center justify-center transition-colors">
+            <Link href="/register" className="bg-brand-gold hover:bg-yellow-600 text-brand-navy font-bold text-sm px-10 flex items-center justify-center transition-colors h-full">
               Apply Now
             </Link>
           </div>
@@ -313,7 +311,6 @@ export default function PublicNavbar() {
             <Link href="/research" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Research</Link>
             <Link href="/library" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Library</Link>
             <Link href="/news" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>News</Link>
-            
             <Link href="/become-a-tutor" className="block px-3 py-3 text-base font-semibold text-brand-navy hover:bg-brand-grey rounded-md" onClick={() => setIsOpen(false)}>Careers</Link>
             
             <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-2">
