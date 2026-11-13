@@ -3,7 +3,8 @@
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import PublicNavbar from '@/components/layout/PublicNavbar';
-import { Calendar, ArrowLeft, Quote } from 'lucide-react';
+import { Calendar, ArrowLeft } from 'lucide-react';
+import { Suspense } from 'react';
 
 // We match the IDs from the previous file to load the full content
 const allArticles: Record<string, any> = {
@@ -70,7 +71,7 @@ const allArticles: Record<string, any> = {
   }
 };
 
-export default function ArticlePage() {
+function ArticleContent() {
   const params = useParams();
   const id = params.id as string;
   const article = allArticles[id];
@@ -87,9 +88,7 @@ export default function ArticlePage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <PublicNavbar />
-
+    <>
       {/* Hero Section */}
       <section className="bg-brand-navy py-16 md:py-24 px-6 relative">
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -150,6 +149,17 @@ export default function ArticlePage() {
           </Link>
         </div>
       </article>
+    </>
+  );
+}
+
+export default function ArticlePage() {
+  return (
+    <div className="flex flex-col min-h-screen bg-white">
+      <PublicNavbar />
+      <Suspense fallback={<div className="min-h-[60vh] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-royal"></div></div>}>
+        <ArticleContent />
+      </Suspense>
     </div>
   );
 }
