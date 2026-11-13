@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   LayoutDashboard, Users, BookOpen, Calendar, CreditCard, MessageSquare, 
-  Settings, LogOut, Bell, Menu, ChevronRight, FileText, CheckCircle2, 
-  TrendingUp, Award, ArrowUpRight
+  Settings, LogOut, Bell, Menu, ChevronRight, CheckCircle2, 
+  TrendingUp, ArrowUpRight
 } from 'lucide-react';
 
 export default function ParentDashboard() {
@@ -49,7 +49,7 @@ export default function ParentDashboard() {
   const children = dashboardData?.children || [];
   const activeChild = children[activeChildIndex];
 
-  // Mock data for the chart (you can replace this with activeChild.subjects if you fetch them)
+  // Chart Data
   const subjectPerformance = [
     { subject: "Maths", score: 85 },
     { subject: "Physics", score: 72 },
@@ -138,24 +138,28 @@ export default function ParentDashboard() {
           {activeChild ? (
             <div className="space-y-6">
               
-              {/* Student Overview Banner */}
-              <div className="bg-brand-navy rounded-2xl p-8 text-white flex flex-col md:flex-row justify-between items-center shadow-lg relative overflow-hidden">
+              {/* Student Overview Banner (Fixed Layout) */}
+              <div className="bg-brand-navy rounded-2xl p-8 text-white shadow-lg relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-royal/20 rounded-bl-full -mr-10 -mt-10 pointer-events-none"></div>
-                <div className="relative z-10">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h2 className="text-2xl font-serif font-bold">{activeChild.name} {activeChild.surname}'s Overview</h2>
-                    <span className="bg-brand-gold/20 text-brand-gold text-xs font-bold px-3 py-1 rounded-full border border-brand-gold/30">{activeChild.grade}</span>
+                
+                <div className="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-3 mb-2">
+                      <h2 className="text-2xl font-serif font-bold">{activeChild.name} {activeChild.surname}'s Overview</h2>
+                      <span className="bg-brand-gold/20 text-brand-gold text-xs font-bold px-3 py-1 rounded-full border border-brand-gold/30">{activeChild.grade}</span>
+                    </div>
+                    <p className="text-gray-300">School: {activeChild.school}</p>
                   </div>
-                  <p className="text-gray-300">School: {activeChild.school}</p>
-                </div>
-                <div className="flex gap-4 relative z-10 mt-6 md:mt-0">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center min-w-[120px] border border-white/10">
-                    <p className="text-sm text-gray-300 font-medium mb-1">Average</p>
-                    <p className="text-3xl font-bold text-brand-gold">{activeChild.average}</p>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center min-w-[120px] border border-white/10">
-                    <p className="text-sm text-gray-300 font-medium mb-1">Attendance</p>
-                    <p className="text-3xl font-bold text-brand-teal">{activeChild.attendance}</p>
+                  
+                  <div className="flex gap-4">
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center min-w-[120px] border border-white/10">
+                      <p className="text-sm text-gray-300 font-medium mb-1">Average</p>
+                      <p className="text-3xl font-bold text-brand-gold">{activeChild.average}</p>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center min-w-[120px] border border-white/10">
+                      <p className="text-sm text-gray-300 font-medium mb-1">Attendance</p>
+                      <p className="text-3xl font-bold text-brand-teal">{activeChild.attendance}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -165,7 +169,7 @@ export default function ParentDashboard() {
                 {/* Left Column (Chart & Feedback) */}
                 <div className="lg:col-span-2 space-y-6">
                   
-                  {/* Subject Performance Chart */}
+                  {/* Subject Performance Chart (Fixed Height) */}
                   <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
                     <div className="flex justify-between items-center mb-8">
                       <h3 className="text-lg font-bold text-brand-navy flex items-center gap-2">
@@ -176,22 +180,29 @@ export default function ParentDashboard() {
                       </Link>
                     </div>
                     
-                    {/* Modern Bar Chart */}
-                    <div className="flex items-end justify-between h-56 gap-4 px-2">
+                    {/* The Chart Container has a fixed h-64 height to prevent collapse */}
+                    <div className="flex items-end justify-between h-64 gap-2 md:gap-4 px-2 pt-6 border-b border-gray-100">
                       {subjectPerformance.map((sub, i) => (
-                        <div key={i} className="flex flex-col items-center flex-grow group">
+                        <div key={i} className="flex flex-col items-center flex-grow group h-full justify-end">
                           <div className="w-full relative flex items-end justify-center h-full">
                             {/* Score Tooltip */}
-                            <div className="absolute -top-8 opacity-0 group-hover:opacity-100 transition-opacity bg-brand-navy text-white text-xs font-bold py-1 px-2 rounded shadow-lg pointer-events-none">
+                            <div className="absolute -top-8 opacity-0 group-hover:opacity-100 transition-opacity bg-brand-navy text-white text-xs font-bold py-1 px-2 rounded shadow-lg pointer-events-none z-10">
                               {sub.score}%
                             </div>
                             {/* Bar */}
                             <div 
-                              className="w-full max-w-[48px] bg-gradient-to-t from-brand-royal/80 to-brand-royal rounded-t-md transition-all duration-300 group-hover:brightness-110"
+                              className="w-full max-w-[48px] bg-gradient-to-t from-brand-royal/80 to-brand-royal rounded-t-md transition-all duration-300 group-hover:brightness-110 min-h-[10px]"
                               style={{ height: `${sub.score}%` }}
                             ></div>
                           </div>
-                          <span className="text-xs font-bold text-gray-500 mt-3">{sub.subject}</span>
+                        </div>
+                      ))}
+                    </div>
+                    {/* X-Axis Labels */}
+                    <div className="flex justify-between px-2 mt-3">
+                      {subjectPerformance.map((sub, i) => (
+                        <div key={i} className="flex-grow text-center">
+                           <span className="text-xs font-bold text-gray-500">{sub.subject}</span>
                         </div>
                       ))}
                     </div>
