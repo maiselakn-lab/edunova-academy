@@ -51,7 +51,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/login")
 
-
 # Dependency to get DB session
 def get_db():
     db = SessionLocal()
@@ -60,14 +59,12 @@ def get_db():
     finally:
         db.close()
 
-
 # --- PYDANTIC MODELS ---
 
 class ChatRequest(BaseModel):
     message: str
     language: str = "English"
     grade_level: str = "Grade 10"
-
 
 class UserCreate(BaseModel):
     first_name: str
@@ -77,24 +74,20 @@ class UserCreate(BaseModel):
     role: str
     school_id: int = None
 
-
 class UserLogin(BaseModel):
     email: str
     password: str
     role: str
 
-
 class SchoolCreate(BaseModel):
     name: str
     address: str
-
 
 class PostCreate(BaseModel):
     title: str
     content: str
     category: str
     post_type: str
-
 
 class ReportCreate(BaseModel):
     student_name: str
@@ -103,13 +96,11 @@ class ReportCreate(BaseModel):
     student_performance: str
     homework_assigned: str
 
-
 class WebsiteContentUpdate(BaseModel):
     homepage_hero_title: str
     homepage_hero_subtitle: str
     contact_email: str
     contact_phone: str
-
 
 class ContactCreate(BaseModel):
     name: str
@@ -117,13 +108,11 @@ class ContactCreate(BaseModel):
     subject: str
     message: str
 
-
 class ApplicationCreate(BaseModel):
     name: str
     email: str
     role: str
     details: str
-
 
 class NewsCreate(BaseModel):
     title: str
@@ -131,13 +120,15 @@ class NewsCreate(BaseModel):
     category: str
     image_url: str
 
-
 class CourseCreate(BaseModel):
     title: str
     description: str
     faculty: str
     price: int
 
+# --- NEW: Donation Request Model ---
+class DonationRequest(BaseModel):
+    amount: float
 
 # --- HELPER FUNCTIONS ---
 
@@ -146,7 +137,6 @@ def create_access_token(data: dict):
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-
 
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
@@ -167,13 +157,11 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         raise credentials_exception
     return user
 
-
 # --- API ROUTES ---
 
 @app.get("/")
 def read_root():
     return {"status": "Online", "message": "Welcome to the THINK EduNova API."}
-
 
 # --- SCHOOLS ---
 
@@ -185,11 +173,9 @@ def create_school(school: SchoolCreate, db: Session = Depends(get_db)):
     db.refresh(new_school)
     return new_school
 
-
 @app.get("/api/schools")
 def get_schools(db: Session = Depends(get_db)):
     return db.query(models.School).all()
-
 
 # --- AUTH ---
 
@@ -226,7 +212,6 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
     db.refresh(new_user)
     return {"message": "User created successfully", "user": new_user.email, "link_code": link_code}
 
-
 @app.post("/api/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
@@ -252,7 +237,6 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         }
     }
 
-
 @app.get("/api/users/me")
 def read_users_me(current_user: models.User = Depends(get_current_user)):
     return {
@@ -264,7 +248,6 @@ def read_users_me(current_user: models.User = Depends(get_current_user)):
         "school_id": current_user.school_id,
         "link_code": current_user.link_code
     }
-
 
 # --- DASHBOARD DATA ---
 
@@ -282,7 +265,6 @@ def get_student_dashboard(current_user: models.User = Depends(get_current_user),
             {"name": "Physics Quiz", "date": "1 week ago", "score": "72%"}
         ]
     }
-
 
 @app.get("/api/parent/dashboard")
 def get_parent_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -303,7 +285,6 @@ def get_parent_dashboard(current_user: models.User = Depends(get_current_user), 
         })
     return {"parent_name": f"{current_user.first_name} {current_user.last_name}", "children": children,
             "outstanding_balance": "R450.00"}
-
 
 @app.get("/api/tutor/dashboard")
 def get_tutor_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -336,7 +317,6 @@ def get_tutor_dashboard(current_user: models.User = Depends(get_current_user), d
         ]
     }
 
-
 @app.get("/api/admin/dashboard")
 def get_admin_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "admin":
@@ -347,7 +327,6 @@ def get_admin_dashboard(current_user: models.User = Depends(get_current_user), d
         "total_schools": db.query(models.School).count(),
         "system_status": "Online"
     }
-
 
 @app.get("/api/learner/dashboard")
 def get_learner_dashboard(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -366,7 +345,6 @@ def get_learner_dashboard(current_user: models.User = Depends(get_current_user),
         ],
         "today_class": {"subject": "English Literature", "time": "14:00 - 15:00", "tutor": "Mrs. K. Zulu"}
     }
-
 
 # --- LEARNER SUBJECTS, MARKS & REWARDS ---
 
@@ -389,7 +367,6 @@ def get_learner_subjects(current_user: models.User = Depends(get_current_user), 
          "color": "bg-brand-teal"},
     ]
 
-
 @app.get("/api/learner/marks")
 def get_learner_marks(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "learner":
@@ -407,7 +384,6 @@ def get_learner_marks(current_user: models.User = Depends(get_current_user), db:
          "color": "text-brand-royal"},
     ]
 
-
 @app.get("/api/learner/rewards")
 def get_learner_rewards(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "learner":
@@ -422,7 +398,6 @@ def get_learner_rewards(current_user: models.User = Depends(get_current_user), d
             {"name": "Helping Hand", "description": "Answered 5 questions in the community forum", "icon": "heart"}
         ]
     }
-
 
 # --- PARENT-CHILD LINKING ---
 
@@ -444,7 +419,6 @@ def link_child(link_code: str, current_user: models.User = Depends(get_current_u
     db.commit()
     return {"message": f"Successfully linked to {learner.first_name} {learner.last_name}."}
 
-
 @app.get("/api/parent/children")
 def get_linked_children(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "parent":
@@ -454,7 +428,6 @@ def get_linked_children(current_user: models.User = Depends(get_current_user), d
         {"id": link.learner.id, "name": link.learner.first_name, "surname": link.learner.last_name,
          "email": link.learner.email, "role": "learner"} for link in links]
     return {"children": children}
-
 
 @app.get("/api/parent/child/{child_id}")
 def get_child_profile(child_id: int, current_user: models.User = Depends(get_current_user),
@@ -469,7 +442,6 @@ def get_child_profile(child_id: int, current_user: models.User = Depends(get_cur
     return {"id": learner.id, "name": f"{learner.first_name} {learner.last_name}", "email": learner.email,
             "role": learner.role, "average": "82%", "attendance": "98%",
             "recent_feedback": "Great improvement in Mathematics this term."}
-
 
 @app.get("/api/parent/child/{child_id}/progress")
 def get_child_progress(child_id: int, current_user: models.User = Depends(get_current_user),
@@ -498,7 +470,6 @@ def get_child_progress(child_id: int, current_user: models.User = Depends(get_cu
         "recent_feedback": "Great improvement in Mathematics this term. Keep up the consistent effort."
     }
 
-
 # --- TUTOR STUDENT DIRECTORY ---
 
 @app.get("/api/tutor/students")
@@ -514,7 +485,6 @@ def get_tutor_students(current_user: models.User = Depends(get_current_user), db
          "email": "thabo@test.com"}
     ]
 
-
 # --- ADMIN USER MANAGEMENT ---
 
 @app.get("/api/admin/users")
@@ -524,7 +494,6 @@ def get_all_users(current_user: models.User = Depends(get_current_user), db: Ses
     users = db.query(models.User).all()
     return [{"id": u.id, "name": f"{u.first_name} {u.last_name}", "email": u.email, "role": u.role,
              "school_id": u.school_id, "is_active": u.is_active} for u in users]
-
 
 # --- COMMUNITY FORUM ---
 
@@ -538,7 +507,6 @@ def create_post(post: PostCreate, current_user: models.User = Depends(get_curren
     db.refresh(new_post)
     return {"message": "Post created successfully", "post_id": new_post.id}
 
-
 @app.get("/api/community/posts/{post_type}")
 def get_posts(post_type: str, db: Session = Depends(get_db)):
     posts = db.query(models.CommunityPost).filter(models.CommunityPost.post_type == post_type).order_by(
@@ -548,7 +516,6 @@ def get_posts(post_type: str, db: Session = Depends(get_db)):
          "author_name": f"{p.author.first_name} {p.author.last_name}", "author_role": p.author.role,
          "created_at": p.created_at.strftime("%Y-%m-%d %H:%M")} for p in posts
     ]
-
 
 # --- LESSON REPORTING ---
 
@@ -567,7 +534,6 @@ def submit_report(report: ReportCreate, current_user: models.User = Depends(get_
     db.refresh(new_report)
     return {"message": "Report submitted successfully", "report_id": new_report.id}
 
-
 @app.get("/api/tutor/reports")
 def get_my_reports(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "tutor":
@@ -577,7 +543,6 @@ def get_my_reports(current_user: models.User = Depends(get_current_user), db: Se
     return [{"id": r.id, "student_name": r.student_name, "subject": r.subject, "topic": r.topic_covered,
              "performance": r.student_performance, "homework": r.homework_assigned,
              "date": r.created_at.strftime("%Y-%m-%d")} for r in reports]
-
 
 # --- ADMIN FINANCE & PAYOUTS ---
 
@@ -605,7 +570,6 @@ def get_admin_finance(current_user: models.User = Depends(get_current_user), db:
         ]
     }
 
-
 @app.get("/api/admin/payouts")
 def get_all_payouts(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "admin":
@@ -613,7 +577,6 @@ def get_all_payouts(current_user: models.User = Depends(get_current_user), db: S
     payouts = db.query(models.Payout).order_by(models.Payout.created_at.desc()).all()
     return [{"id": p.id, "tutor": f"{p.tutor.first_name} {p.tutor.last_name}", "amount": f"R {p.amount:,.2f}",
              "status": p.status, "date": p.created_at.strftime("%Y-%m-%d")} for p in payouts]
-
 
 @app.post("/api/admin/payouts/process")
 def process_payout(tutor_id: int, amount: int, current_user: models.User = Depends(get_current_user),
@@ -624,7 +587,6 @@ def process_payout(tutor_id: int, amount: int, current_user: models.User = Depen
     db.add(new_payout)
     db.commit()
     return {"message": f"Successfully processed payout of R {amount} to tutor."}
-
 
 # --- ADMIN LIVE MONITOR ---
 
@@ -638,7 +600,6 @@ def get_live_sessions(current_user: models.User = Depends(get_current_user), db:
         {"id": 2, "tutor_name": "Mrs. K. Zulu", "student_name": "Lerato Ndlovu",
          "subject": "English Literature", "started_at": "14:15", "duration": "10 mins", "status": "active"}
     ]
-
 
 # --- ADMIN COMMUNICATION AUDIT & AUDIT LOGS ---
 
@@ -656,7 +617,6 @@ def get_flagged_messages(current_user: models.User = Depends(get_current_user), 
          "reason": "Unapproved deadline extension.", "severity": "medium", "timestamp": "2026-03-14 15:45"}
     ]
 
-
 @app.get("/api/admin/audit-logs")
 def get_audit_logs(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role != "admin":
@@ -672,7 +632,6 @@ def get_audit_logs(current_user: models.User = Depends(get_current_user), db: Se
          "actor": "admin@test.com", "ip": "192.168.1.5", "timestamp": "2026-03-15 11:30:00"},
     ]
 
-
 # --- ADMIN WEBSITE CONTENT & NEWS ---
 
 @app.get("/api/admin/website-content")
@@ -686,7 +645,6 @@ def get_website_content(current_user: models.User = Depends(get_current_user), d
         "contact_phone": "+27 (0) 12 345 6789"
     }
 
-
 @app.post("/api/admin/website-content")
 def update_website_content(content: WebsiteContentUpdate,
                            current_user: models.User = Depends(get_current_user),
@@ -694,7 +652,6 @@ def update_website_content(content: WebsiteContentUpdate,
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Access denied. Admin access only.")
     return {"message": "Website content updated successfully."}
-
 
 @app.post("/api/admin/news")
 def create_news(news: NewsCreate, current_user: models.User = Depends(get_current_user),
@@ -710,14 +667,12 @@ def create_news(news: NewsCreate, current_user: models.User = Depends(get_curren
     db.refresh(new_article)
     return {"message": "News article published successfully.", "id": new_article.id}
 
-
 @app.get("/api/news")
 def get_all_news(db: Session = Depends(get_db)):
     articles = db.query(models.NewsArticle).order_by(models.NewsArticle.created_at.desc()).all()
     return [{"id": a.id, "title": a.title, "content": a.content, "category": a.category,
              "image_url": a.image_url, "author": a.author, "date": a.created_at.strftime("%d %b %Y")} for a in
             articles]
-
 
 # --- COURSE ROUTES ---
 
@@ -734,7 +689,6 @@ def create_course(course: CourseCreate, current_user: models.User = Depends(get_
     db.refresh(new_course)
     return {"message": "Course created successfully", "course_id": new_course.id}
 
-
 @app.get("/api/courses")
 def get_courses(faculty: str = None, db: Session = Depends(get_db)):
     query = db.query(models.Course).filter(models.Course.is_active == True)
@@ -745,7 +699,6 @@ def get_courses(faculty: str = None, db: Session = Depends(get_db)):
         {"id": c.id, "title": c.title, "description": c.description, "faculty": c.faculty, "price": c.price}
         for c in courses
     ]
-
 
 # --- ENROLMENT ROUTES ---
 
@@ -768,7 +721,6 @@ def enrol_in_course(course_id: int, current_user: models.User = Depends(get_curr
     db.commit()
     return {"message": f"Successfully enrolled in {course.title}."}
 
-
 @app.get("/api/my-enrolments")
 def get_my_enrolments(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role not in ["student", "learner"]:
@@ -784,14 +736,12 @@ def get_my_enrolments(current_user: models.User = Depends(get_current_user), db:
         } for e in enrolments
     ]
 
-
 # --- CONTACT & CAREERS ---
 
 @app.post("/api/contact")
 def submit_contact(contact: ContactCreate, db: Session = Depends(get_db)):
     print(f"New contact message from {contact.name} ({contact.email}): {contact.subject}")
     return {"message": "Message sent successfully. We will respond within 24 hours."}
-
 
 @app.post("/api/careers/apply")
 def submit_job_application(app_data: ApplicationCreate, db: Session = Depends(get_db)):
@@ -801,12 +751,26 @@ def submit_job_application(app_data: ApplicationCreate, db: Session = Depends(ge
     db.commit()
     return {"message": "Application submitted successfully."}
 
-
 @app.post("/api/research/book")
 def book_consultation(contact: ContactCreate, db: Session = Depends(get_db)):
     print(f"Research Booking: {contact.name} ({contact.email}) - {contact.subject}")
     return {"message": "Consultation booked successfully. We will contact you soon."}
 
+# --- DONATIONS (NEW) ---
+
+@app.post("/api/donate")
+def create_donation(donation: DonationRequest):
+    print(f"Received donation intention for R {donation.amount}")
+    
+    # MOCK PAYMENT GATEWAY REDIRECT
+    # In production, replace this with PayFast, Yoco, or Ozow API integration.
+    mock_gateway_url = f"https://edunova-academy-rho.vercel.app/donate/success?amount={donation.amount}"
+    
+    return {
+        "status": "success", 
+        "payment_url": mock_gateway_url,
+        "message": "Redirecting to payment gateway..."
+    }
 
 # --- AI TUTOR ---
 
@@ -832,7 +796,6 @@ async def chat_with_tutor(request: ChatRequest):
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate AI response.")
-
 
 # --- ADMIN UTILITY ---
 
