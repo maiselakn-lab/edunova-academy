@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { 
   LayoutDashboard, Users, BookOpen, Calendar, CreditCard, MessageSquare, 
   Settings, LogOut, Bell, Menu, ChevronRight, CheckCircle2, 
-  TrendingUp, ArrowUpRight
+  TrendingUp, ArrowUpRight, HelpCircle
 } from 'lucide-react';
 
 export default function ParentDashboard() {
@@ -44,12 +44,11 @@ export default function ParentDashboard() {
 
   const handleLogout = () => { localStorage.clear(); router.push('/login/parent'); };
 
-  if (isLoading || !user) return <div className="flex h-screen items-center justify-center bg-gray-50"><p className="text-brand-navy font-bold">Loading Dashboard...</p></div>;
+  if (isLoading || !user) return <div className="flex h-screen items-center justify-center bg-[#F8FAFC]"><p className="text-brand-navy font-bold">Loading Dashboard...</p></div>;
 
   const children = dashboardData?.children || [];
   const activeChild = children[activeChildIndex];
 
-  // Chart Data
   const subjectPerformance = [
     { subject: "Maths", score: 85 },
     { subject: "Physics", score: 72 },
@@ -62,40 +61,82 @@ export default function ParentDashboard() {
   return (
     <div className="flex h-screen bg-[#F8FAFC] overflow-hidden font-sans">
       
-      {/* Sidebar */}
+      {/* SIDEBAR */}
       <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-brand-navy text-white flex flex-col transition-all duration-300 shrink-0 shadow-xl z-20`}>
-        <div className="h-20 flex items-center justify-center border-b border-white/10 px-4">
-          <Link href="/"><img src="/logo.png" alt="EduNova" className={`${sidebarOpen ? 'h-12' : 'h-8'} w-auto object-contain bg-white rounded p-1 transition-all`} /></Link>
+        
+        {/* Logo Area - Fixed visibility and sizing */}
+        <div className="h-24 flex items-center justify-center border-b border-white/10 px-4">
+          <Link href="/">
+            <img 
+              src="/logo.png" 
+              alt="EduNova" 
+              className={`${sidebarOpen ? 'h-12' : 'h-8'} w-auto object-contain bg-white rounded-lg p-1.5 transition-all`} 
+            />
+          </Link>
         </div>
 
-        <nav className="flex-grow py-6 space-y-2 px-3 overflow-y-auto">
-          <Link href="/portal/parent" className="flex items-center gap-4 px-4 py-3 bg-brand-royal/20 text-brand-royal border-l-4 border-brand-royal font-medium rounded-r-lg"><LayoutDashboard size={20} />{sidebarOpen && <span>Dashboard</span>}</Link>
-          <Link href="/portal/parent/children" className="flex items-center gap-4 px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 transition-colors"><Users size={20} />{sidebarOpen && <span>My Children</span>}</Link>
-          <Link href="/portal/parent/progress" className="flex items-center gap-4 px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 transition-colors"><BookOpen size={20} />{sidebarOpen && <span>Academic Progress</span>}</Link>
-          <Link href="/portal/parent/bookings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 transition-colors"><Calendar size={20} />{sidebarOpen && <span>Lesson Bookings</span>}</Link>
-          <Link href="/portal/parent/payments" className="flex items-center gap-4 px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 transition-colors"><CreditCard size={20} />{sidebarOpen && <span>Payments & Invoices</span>}</Link>
-          <Link href="/portal/parent/messages" className="flex items-center gap-4 px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 transition-colors"><MessageSquare size={20} />{sidebarOpen && <span>Messages</span>}</Link>
+        {/* Navigation Links */}
+        <nav className="flex-grow py-6 space-y-1.5 px-3 overflow-y-auto">
+          <Link href="/portal/parent" className="flex items-center gap-4 px-4 py-3 bg-brand-royal text-white font-medium rounded-lg shadow-md transition-colors">
+            <LayoutDashboard size={20} />
+            {sidebarOpen && <span>Dashboard</span>}
+          </Link>
+          <Link href="/portal/parent/children" className="flex items-center gap-4 px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 hover:text-white transition-colors">
+            <Users size={20} />
+            {sidebarOpen && <span>My Children</span>}
+          </Link>
+          <Link href="/portal/parent/progress" className="flex items-center gap-4 px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 hover:text-white transition-colors">
+            <BookOpen size={20} />
+            {sidebarOpen && <span>Academic Progress</span>}
+          </Link>
+          <Link href="/portal/parent/bookings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 hover:text-white transition-colors">
+            <Calendar size={20} />
+            {sidebarOpen && <span>Lesson Bookings</span>}
+          </Link>
+          <Link href="/portal/parent/payments" className="flex items-center gap-4 px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 hover:text-white transition-colors">
+            <CreditCard size={20} />
+            {sidebarOpen && <span>Payments & Invoices</span>}
+          </Link>
+          <Link href="/portal/parent/messages" className="flex items-center gap-4 px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 hover:text-white transition-colors">
+            <MessageSquare size={20} />
+            {sidebarOpen && <span>Messages</span>}
+          </Link>
         </nav>
 
-        <div className="p-4 border-t border-white/10 space-y-2">
-          <Link href="/portal/parent/settings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 transition-colors"><Settings size={20} />{sidebarOpen && <span>Settings</span>}</Link>
-          <button onClick={handleLogout} className="w-full flex items-center gap-4 px-4 py-3 hover:bg-red-500/10 text-red-400 rounded-lg transition-colors"><LogOut size={20} />{sidebarOpen && <span>Logout</span>}</button>
+        {/* Bottom Profile Area */}
+        <div className="p-4 border-t border-white/10 space-y-1">
+          <Link href="/portal/parent/settings" className="flex items-center gap-4 px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 hover:text-white transition-colors">
+            <Settings size={20} />
+            {sidebarOpen && <span>Settings</span>}
+          </Link>
+          <button onClick={handleLogout} className="w-full flex items-center gap-4 px-4 py-3 hover:bg-red-500/10 text-red-400 rounded-lg transition-colors">
+            <LogOut size={20} />
+            {sidebarOpen && <span>Logout</span>}
+          </button>
         </div>
       </aside>
 
-      {/* Main Content */}
+      {/* MAIN CONTENT */}
       <main className="flex-grow flex flex-col h-screen overflow-hidden">
         
         {/* Top Header */}
         <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0 shadow-sm z-10">
           <div className="flex items-center gap-4">
-            <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-gray-500 hover:text-brand-navy"><Menu size={24} /></button>
+            <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-gray-500 hover:text-brand-navy transition-colors">
+              <Menu size={24} />
+            </button>
             <h2 className="text-xl font-bold text-brand-navy hidden md:block">Parent Portal</h2>
           </div>
+          
           <div className="flex items-center gap-6">
-            <button className="relative text-gray-500 hover:text-brand-navy"><Bell size={22} /><span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span></button>
+            <button className="relative text-gray-500 hover:text-brand-navy transition-colors">
+              <Bell size={22} />
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
+            </button>
             <div className="flex items-center gap-3 border-l border-gray-200 pl-6">
-              <div className="w-10 h-10 bg-brand-navy text-white rounded-full flex items-center justify-center font-bold">{user.first_name.charAt(0)}</div>
+              <div className="w-10 h-10 bg-brand-navy text-white rounded-full flex items-center justify-center font-bold">
+                {user.first_name.charAt(0)}
+              </div>
               <div className="hidden md:block">
                 <p className="text-sm font-bold text-brand-navy leading-tight">{user.first_name} {user.last_name}</p>
                 <p className="text-xs text-gray-500 capitalize">Parent Account</p>
@@ -104,26 +145,26 @@ export default function ParentDashboard() {
           </div>
         </header>
 
-        {/* Dashboard Content */}
+        {/* Dashboard Scrollable Area */}
         <div className="flex-grow overflow-y-auto p-8">
           
+          {/* Page Title & Child Switcher */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
-              <h1 className="text-3xl font-serif font-bold text-brand-navy">Dashboard</h1>
-              <p className="text-gray-500 mt-1">Monitoring the academic progress of your children.</p>
+              <h1 className="text-3xl font-serif font-bold text-brand-navy">Dashboard Overview</h1>
+              <p className="text-gray-500 mt-1">Monitor academic performance, attendance, and billing.</p>
             </div>
             
-            {/* Child Switcher Tabs */}
-            <div className="flex items-center bg-white border border-gray-200 rounded-lg p-1 shadow-sm">
+            <div className="flex items-center bg-white border border-gray-200 rounded-xl p-1.5 shadow-sm">
               <span className="text-xs font-bold text-gray-400 px-3 uppercase tracking-wider">Viewing:</span>
               {children.map((child: any, index: number) => (
                 <button
                   key={child.id}
                   onClick={() => setActiveChildIndex(index)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-bold transition-all ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${
                     activeChildIndex === index 
                       ? 'bg-brand-royal text-white shadow-md' 
-                      : 'text-gray-600 hover:bg-gray-50'
+                      : 'text-gray-600 hover:bg-gray-100'
                   }`}
                 >
                   <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${activeChildIndex === index ? 'bg-white/20' : 'bg-gray-200'}`}>
@@ -138,15 +179,20 @@ export default function ParentDashboard() {
           {activeChild ? (
             <div className="space-y-6">
               
-              {/* Student Overview Banner (Fixed Layout) */}
+              {/* Student Overview Banner - FIXED TEXT COLOR */}
               <div className="bg-brand-navy rounded-2xl p-8 text-white shadow-lg relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-royal/20 rounded-bl-full -mr-10 -mt-10 pointer-events-none"></div>
                 
                 <div className="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                   <div>
                     <div className="flex flex-wrap items-center gap-3 mb-2">
-                      <h2 className="text-2xl font-serif font-bold">{activeChild.name} {activeChild.surname}'s Overview</h2>
-                      <span className="bg-brand-gold/20 text-brand-gold text-xs font-bold px-3 py-1 rounded-full border border-brand-gold/30">{activeChild.grade}</span>
+                      {/* The fix: Added !text-white to force the text to be white */}
+                      <h2 className="text-2xl font-serif font-bold !text-white">
+                        {activeChild.name} {activeChild.surname}'s Overview
+                      </h2>
+                      <span className="bg-brand-gold/20 text-brand-gold text-xs font-bold px-3 py-1 rounded-full border border-brand-gold/30">
+                        {activeChild.grade}
+                      </span>
                     </div>
                     <p className="text-gray-300">School: {activeChild.school}</p>
                   </div>
@@ -169,23 +215,23 @@ export default function ParentDashboard() {
                 {/* Left Column (Chart & Feedback) */}
                 <div className="lg:col-span-2 space-y-6">
                   
-                  {/* Subject Performance Chart (Fixed Height) */}
+                  {/* Subject Performance Chart */}
                   <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
                     <div className="flex justify-between items-center mb-8">
                       <h3 className="text-lg font-bold text-brand-navy flex items-center gap-2">
                         <TrendingUp size={20} className="text-brand-royal" /> Subject Performance
                       </h3>
                       <Link href={`/portal/parent/progress`} className="text-sm text-brand-royal font-bold hover:underline flex items-center gap-1">
-                        View Detailed Report <ArrowUpRight size={16} />
+                        Detailed Report <ArrowUpRight size={16} />
                       </Link>
                     </div>
                     
-                    {/* The Chart Container has a fixed h-64 height to prevent collapse */}
-                    <div className="flex items-end justify-between h-64 gap-2 md:gap-4 px-2 pt-6 border-b border-gray-100">
+                    {/* Chart Area */}
+                    <div className="flex items-end justify-between h-56 gap-2 md:gap-4 px-2 pt-6 border-b border-gray-100">
                       {subjectPerformance.map((sub, i) => (
                         <div key={i} className="flex flex-col items-center flex-grow group h-full justify-end">
                           <div className="w-full relative flex items-end justify-center h-full">
-                            {/* Score Tooltip */}
+                            {/* Tooltip */}
                             <div className="absolute -top-8 opacity-0 group-hover:opacity-100 transition-opacity bg-brand-navy text-white text-xs font-bold py-1 px-2 rounded shadow-lg pointer-events-none z-10">
                               {sub.score}%
                             </div>
@@ -198,7 +244,6 @@ export default function ParentDashboard() {
                         </div>
                       ))}
                     </div>
-                    {/* X-Axis Labels */}
                     <div className="flex justify-between px-2 mt-3">
                       {subjectPerformance.map((sub, i) => (
                         <div key={i} className="flex-grow text-center">
@@ -270,6 +315,14 @@ export default function ParentDashboard() {
                       <span className="font-bold">Manage Children</span>
                       <ChevronRight size={18} className="text-brand-gold group-hover:translate-x-1 transition-transform" />
                     </Link>
+                  </div>
+
+                  {/* Help Box */}
+                  <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5 text-center">
+                    <HelpCircle className="text-blue-500 mx-auto mb-2" size={24} />
+                    <h4 className="font-bold text-brand-navy text-sm mb-1">Need Help?</h4>
+                    <p className="text-xs text-gray-500 mb-3">Contact our parent support desk for any billing or portal queries.</p>
+                    <Link href="/contact" className="text-xs font-bold text-blue-600 hover:underline">Contact Support</Link>
                   </div>
 
                 </div>
